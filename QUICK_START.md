@@ -168,7 +168,7 @@ Read identity/ROADMAP.md
 
 **Command**:
 ```
-Read PHASE_0_STATUS.md
+Read examples/documentation/IMPLEMENTATION_STATUS.md
 ```
 or
 ```
@@ -176,6 +176,8 @@ Read identity/ROADMAP.md
 ```
 
 **Shows**: Current phase progress, validation status, next steps
+
+**Note**: See `examples/` folder for PM OS inception artifacts demonstrating output quality
 
 ---
 
@@ -487,11 +489,11 @@ Use the versioning convention in filenames:
 3. **Review outputs** against templates and identity files
 4. **Customize identity layer** with your organization's actual context
 
-### Short-Term (Phase 0 Completion)
-5. **Run all 5 validation tests** (see `PHASE_0_STATUS.md`)
+### Short-Term (Explore PM OS Capabilities)
+5. **Review inception examples** in `examples/artifacts/` to see quality benchmarks
 6. **Generate a test agent** to understand self-building capability
 7. **Read full documentation** (`README.md`) for deep dive
-8. **Plan Phase 1** using Product Architect
+8. **Check implementation status** in `examples/documentation/IMPLEMENTATION_STATUS.md`
 
 ### Medium-Term (Phase 1 Prep)
 9. **Identify 3 features** you want to use end-to-end workflow for

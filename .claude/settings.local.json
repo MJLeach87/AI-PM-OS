@@ -15,7 +15,14 @@
       "Bash(taskkill:*)",
       "Bash(powershell -Command \"Stop-Process -Id 1452 -Force\")",
       "Bash(test:*)",
-      "Bash(npm run test:google-drive:*)"
+      "Bash(npm run test:google-drive:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(timeout 5 tail:*)",
+      "Bash(git add:*)",
+      "Bash(git mv:*)"
     ]
   }
 }

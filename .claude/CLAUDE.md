@@ -87,7 +87,7 @@ All artifacts follow standardized templates stored in `templates/`:
 
 ### Execution Layer (Version-Controlled Outputs)
 
-Artifacts are stored in `execution/` with version control:
+**User Workspace**: Artifacts are stored in `execution/` with version control:
 
 - `execution/discovery/`: Opportunity Solution Trees, user research, IA maps
 - `execution/prds/`: Product requirements documents
@@ -97,6 +97,10 @@ Artifacts are stored in `execution/` with version control:
 - `execution/automation/`: (Phase 5) Deployment scripts, reporting cron jobs
 
 **Naming Convention**: `YYYY-MM-DD_[artifact-type]_[brief-title].md`
+
+**Examples**: PM OS inception materials (showing the system building itself) are in `examples/`:
+- `examples/artifacts/`: PM OS discovery, PRDs, specs, prototypes from Phase 0-1
+- `examples/documentation/`: Validation reports, phase history, changelogs, research
 
 ### MCP Integration Suite
 
@@ -244,12 +248,28 @@ PM OS/
 │       └── _orchestrator.mdc          # Master router (Cursor)
 ├── .claude/
 │   ├── CLAUDE.md                      # This file (project context)
-│   └── agents/                        # Future specialist agents
+│   └── agents/                        # Specialist agents (Claude Code)
+│       ├── orchestrator.md            # Master router
+│       ├── product_arch.md            # Product Architect
+│       ├── engineering_partner.md     # Engineering Partner v1.2
+│       └── ux_strategist.md           # UX Strategist
 ├── identity/
 │   ├── STRATEGY.md                    # Vision, mission, North Star
 │   ├── STANDARDS.md                   # Brand voice, tech stack, security
 │   └── ROADMAP.md                     # PM OS implementation timeline
-├── execution/
+├── examples/                          # PM OS inception materials (meta-recursive)
+│   ├── README.md                      # Explains artifacts vs documentation
+│   ├── artifacts/                     # PM OS outputs during Phase 0-1
+│   │   ├── discovery/                 # OSTs, implementation plans
+│   │   ├── prds/                      # Product requirements docs
+│   │   ├── technical_specs/           # Feasibility assessments
+│   │   └── prototypes/                # React/Tailwind components
+│   └── documentation/                 # PM OS process documentation
+│       ├── phase-history/             # Phase completion records
+│       ├── validation-reports/        # Comprehensive test results
+│       ├── changelogs/                # Agent evolution tracking
+│       └── research/                  # Background research, status
+├── execution/                         # Your workspace (currently empty)
 │   ├── discovery/                     # OSTs, research notes
 │   ├── prds/                          # Product requirements docs
 │   ├── technical_specs/               # API specs, BPMN, Gherkin
@@ -264,9 +284,11 @@ PM OS/
 │   ├── config.json                    # MCP server configurations
 │   ├── credentials/                   # Gitignored secrets
 │   └── setup_guides/                  # Service-specific setup docs
-├── docs/                              # User-facing documentation
 ├── .gitignore                         # Excludes .env, credentials
-└── .env.example                       # Credential template
+├── .env.example                       # Credential template
+├── README.md                          # Product overview
+├── QUICK_START.md                     # Fast-start guide
+└── VALIDATION_CHECKLIST.md            # Phase validation tests
 ```
 
 ---
