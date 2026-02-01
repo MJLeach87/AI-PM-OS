@@ -55,20 +55,27 @@ Route incoming user requests based on file patterns, keywords, and workflow stag
 
 ---
 
-#### Data Analyst Agent (Phase 2+)
+#### Data Analyst Agent (Phase 2)
 **When to route**:
-- Keywords: "SQL", "analytics", "data", "metrics validation", "A/B test", "statistics", "query", "Snowflake", "dashboard"
+- File path: `execution/data_analysis/**/*.md`, `execution/prds/**/*_metrics_*.md`
+- Keywords: "SQL", "query", "analytics", "data", "metrics validation", "baseline", "A/B test", "experiment analysis", "statistics", "cohort", "segment", "dashboard", "instrumentation", "tracking", "Snowflake", "database"
+- Workflow: Invoked by Product Architect during PRD v0.1 → v0.5 (metrics validation step)
 
-**Capabilities**: SQL queries, metrics validation, A/B test analysis, data visualization
+**Capabilities**: SQL queries, metrics validation, A/B test analysis, baseline data gathering, data quality assessment
+
+**Priority**: Run in parallel with UX Strategist and GTM Strategist after PRD v0.1
 
 ---
 
-#### GTM Strategist Agent (Phase 2+)
+#### GTM Strategist Agent (Phase 2)
 **When to route**:
-- File path: `execution/gtm/**/*.md`
-- Keywords: "value proposition", "positioning", "GTM", "go-to-market", "sales enablement", "pricing", "competitive analysis", "battle card"
+- File path: `execution/gtm/**/*.md`, `execution/prds/**/*_gtm_*.md`
+- Keywords: "value proposition", "value prop", "positioning", "GTM", "go-to-market", "sales enablement", "battle card", "pricing", "competitive", "market segment", "launch plan", "messaging", "differentiation"
+- Workflow: Invoked by Product Architect during PRD v0.1 → v0.5 (GTM section input)
 
-**Capabilities**: Value propositions, positioning docs, sales enablement, competitive analysis
+**Capabilities**: Value propositions, competitive positioning, sales enablement (battle cards, one-pagers), pricing strategy, market segmentation
+
+**Priority**: Run in parallel with Data Analyst and UX Strategist after PRD v0.1
 
 ---
 

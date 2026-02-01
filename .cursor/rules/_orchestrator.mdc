@@ -38,10 +38,10 @@ IF file_path matches "execution/technical_specs/**" OR message contains ["API", 
 IF file_path matches "execution/prototypes/**" OR file_path matches "execution/discovery/**/*IA*.md" OR file_path matches "execution/discovery/**/*UserFlow*.md" OR message contains ["wireframe", "UI", "UX", "information architecture", "prototype", "user flow", "accessibility", "design interface", "screen design", "page design", "form", "modal", "navigation design", "dashboard design"]
   → Route to: UX Strategist Agent
 
-IF message contains ["SQL", "analytics", "data", "metrics", "A/B test", "statistics"]
+IF file_path matches "execution/data_analysis/**" OR message contains ["SQL", "query", "analytics", "data", "metrics validation", "baseline", "A/B test", "experiment analysis", "statistics", "cohort", "segment", "dashboard", "instrumentation", "tracking", "Snowflake", "database"]
   → Route to: Data Analyst Agent
 
-IF file_path matches "execution/gtm/**" OR message contains ["value prop", "positioning", "GTM", "sales enablement", "pricing"]
+IF file_path matches "execution/gtm/**" OR message contains ["value prop", "value proposition", "positioning", "GTM", "go-to-market", "sales enablement", "battle card", "pricing", "competitive", "market segment", "launch plan", "messaging", "differentiation"]
   → Route to: GTM Strategist Agent
 
 IF message contains ["evaluate agents", "self-improvement", "quality audit"]
