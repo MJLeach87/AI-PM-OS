@@ -113,9 +113,10 @@ All artifacts follow standardized templates stored in `templates/`:
 PM OS integrates external tools via Model Context Protocol:
 
 **Phase 1**: Google Drive (legacy document retrieval)
-**Phase 2**: Jira/Linear (bi-directional dev workflow sync)
-**Phase 3**: Slack (historical context + notifications), Notion (corporate wiki sync)
+**Phase 2**: Jira + Confluence (Atlassian ecosystem - dev workflow + documentation)
+**Phase 3**: Slack (historical context + notifications)
 **Phase 4**: Snowflake (data warehouse queries)
+**Future**: Linear, Notion (under evaluation based on team stack preferences)
 
 **Configuration**: `mcp/config.json` with credentials in `.env` (gitignored)
 
@@ -343,8 +344,8 @@ Validate against identity/STANDARDS.md quality gates:
 |-------|----------|-------|------------------|
 | **0** | Weeks 1-2 | Bootstrap | Orchestrator, Product Architect, Templates, Identity Layer |
 | **1** | Weeks 3-5 | Core Agents | Engineering Partner, UX Strategist, Google Drive MCP |
-| **2** | Weeks 6-8 | Execution Layer | Data Analyst, GTM Strategist, Jira/Linear MCP |
-| **3** | Weeks 9-11 | Self-Improvement | System Evaluator, Slack/Notion MCP, improvement loop |
+| **2** | Weeks 6-8 | Execution Layer | Data Analyst, GTM Strategist, Jira/Confluence MCP |
+| **3** | Weeks 9-11 | Self-Improvement | System Evaluator, Slack MCP, improvement loop |
 | **4** | Weeks 12-14 | Data Intelligence | Snowflake MCP, data dictionary |
 | **5** | Weeks 15-17 | IDE Optimization | Parallel processing, domain specialists, automation |
 | **6** | Weeks 18-24 | Enterprise | Multi-user, security hardening, web prototype |

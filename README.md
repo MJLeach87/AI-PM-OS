@@ -162,12 +162,14 @@ PM OS integrates external tools via Model Context Protocol:
 | Service | Phase | Purpose |
 |---------|-------|---------|
 | **Google Drive** | 1 | Legacy document retrieval |
-| **Jira/Linear** | 2 | Bi-directional dev workflow sync |
+| **Jira** | 2 | Bi-directional dev workflow sync (issues, epics, stories) |
+| **Confluence** | 2 | Documentation publishing and wiki search |
 | **Slack** | 3 | Historical context + notifications |
-| **Notion** | 3 | Corporate wiki sync |
 | **Snowflake** | 4 | Data warehouse queries |
 
-**Current Status**: Configuration framework ready (`mcp/config.json`), integrations will be enabled progressively.
+**Future Integrations** (under evaluation): Linear, Notion
+
+**Current Status**: Configuration framework ready (`mcp/config.json`), integrations will be enabled progressively. Phase 2 focuses on Atlassian ecosystem (Jira + Confluence) as core product development lifecycle tools.
 
 ---
 
