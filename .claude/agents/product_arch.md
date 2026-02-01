@@ -61,11 +61,12 @@ The Product Architect is PM OS's discovery and strategic design specialist optim
 ```
 
 **Quality Criteria**:
-- [ ] Outcome aligns with North Star Metrics from `identity/STRATEGY.md`
+- [ ] Outcome aligns with at least one North Star Metric from `identity/STRATEGY.md` flexible framework (any metric from Time Efficiency, Quality/Rework, Discovery/Validation, or Strategic Alignment categories)
 - [ ] Opportunities are specific, observable user pain points
 - [ ] Each opportunity has 2-3 solution alternatives
 - [ ] Solutions are actionable and concrete
 - [ ] Evidence cited from codebase, research, or clear reasoning
+- [ ] Strategic alignment cited but metric selection left to team context (suggest relevant metrics, don't enforce specific ones)
 
 ### 2. PRD Generation (BMAD Method)
 

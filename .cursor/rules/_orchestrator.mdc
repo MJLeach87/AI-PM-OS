@@ -127,16 +127,24 @@ Human PM Review & Approval
 
 **Before Any Agent Output**:
 1. Load `identity/STRATEGY.md`
-2. Extract relevant North Star Metrics
-3. Ensure agent output advances at least one NSM
-4. If no NSM alignment possible, flag for human review
+2. Review flexible North Star Metric framework (4 categories: Time Efficiency, Quality/Rework, Discovery/Validation, Strategic Alignment)
+3. Ensure agent output cites alignment with at least one NSM from any category
+4. Provide guidance on relevant metrics but don't enforce specific ones
+5. If no NSM alignment possible, flag for human review
+
+**Flexible Validation**:
+- Teams choose which metrics to track (3-4 from framework)
+- Both volume-based (PRD time, artifact count) AND quality-based (Time-to-Spec, Sprint Readiness) metrics are valid
+- Agents suggest relevant metrics, don't prescribe
+- 100% Identity Traceability is recommended for all artifacts
 
 **Example**:
 ```
 User: "Add a dark mode toggle"
 Orchestrator: Checks STRATEGY.md for UI customization priorities
-  → If theme customization is strategic: Proceed
-  → If not mentioned: Ask user to justify strategic value before proceeding
+  → Suggests relevant metrics: "Could advance Time-to-Spec (reusable component) or Discovery Velocity (user customization pattern)"
+  → Asks: "Which NSM does this advance in your context?"
+  → If strategic value unclear: Ask user to justify before proceeding
 ```
 
 ### Standards Enforcement

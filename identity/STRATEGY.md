@@ -1,22 +1,60 @@
 # PM OS Strategy
 
 ## Vision
-Augment Product Managers into AI-powered product leaders who deliver higher-quality outcomes in a fraction of the time.
+To transform Product Managers from document-authors into high-leverage Strategic Architects. The PM OS uses AI to bridge the gap between customer empathy, technical feasibility, and business impact—amplifying strategic judgment over administrative output.
 
 ## Mission
 Institutionalize product strategy, discovery, and execution as executable code that improves itself over time.
 
 ## North Star Metrics
 
-### Primary Success Metrics
-- **50% reduction in PRD drafting time** (from 8 hours to 2 hours)
-- **40% reduction in engineering rework** (from 40% to 10% of PRDs requiring major edits)
-- **4x increase in discovery artifacts** (from 2 to 8 per week)
+**Philosophy**: Balance "Volume of Output" with "Quality of Outcome" and "Strategic Velocity" - teams choose metrics that fit their context.
 
-### Secondary Success Metrics
-- **Onboarding acceleration**: From 2 weeks to 2 hours for new PMs
-- **Stakeholder satisfaction**: From 3.2/5 to 4.5/5 on post-artifact surveys
-- **Technical feasibility**: From 60% to 90% of features built as originally specified
+### Metric Framework (Choose 3-4 Metrics)
+
+Organizations can select metrics from these categories based on their maturity and priorities:
+
+#### A. Time Efficiency Metrics
+- **50% Reduction in PRD Drafting Time** (8h → 4h) - *Volume-based baseline*
+- **80% Reduction in "Time-to-Spec"** (< 4h from hypothesis to dev-ready spec) - *Velocity-focused*
+
+#### B. Quality & Rework Metrics
+- **40% Reduction in Engineering Rework** (40% → 10% of PRDs requiring major edits) - *Original metric*
+- **"Zero-Clarification" Sprint Readiness** (> 95% of PRDs pass sprint planning without technical edits) - *Quality-focused*
+
+#### C. Discovery & Validation Metrics
+- **4x Increase in Discovery Artifacts** (2 → 8 per week) - *Output volume*
+- **2x "Hypothesis-to-Halt" Velocity** (1-week cycles to prove ideas unviable) - *Validation speed*
+
+#### D. Strategic Alignment Metrics
+- **100% Identity Traceability** (Every artifact explicitly cites vision/mission connection) - *Mandatory*
+- **Strategic Alignment Score** (% of artifacts advancing at least one NSM) - *Compliance tracking*
+
+### Recommended Metric Sets
+
+**For Early-Stage Teams** (Focus on establishing baseline):
+- 50% Reduction in PRD Drafting Time
+- 40% Reduction in Engineering Rework
+- 4x Increase in Discovery Artifacts
+- 100% Identity Traceability
+
+**For Mature Teams** (Focus on velocity + quality):
+- 80% Reduction in Time-to-Spec
+- "Zero-Clarification" Sprint Readiness (> 95%)
+- 2x Hypothesis-to-Halt Velocity
+- 100% Identity Traceability
+
+**Blended Approach** (Mix of volume + quality):
+- 50-80% Reduction in Time-to-Spec (< 4h)
+- Choose: Rework % OR Sprint Readiness
+- 2-4x Discovery Output Velocity
+- 100% Identity Traceability
+
+### Phase 0-1 Baseline (Historical Reference)
+Phase 0-1 used volume-based metrics as foundation:
+- 50% reduction in PRD drafting time (8h → 2h)
+- 40% reduction in engineering rework (40% → 10%)
+- 4x increase in discovery artifacts (2 → 8/week)
 
 ## Strategic Principles
 

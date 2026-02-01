@@ -213,9 +213,10 @@ Orchestrator:
 ### Before Approving Any Agent Output
 
 **Identity Alignment**:
-- [ ] Advances at least one North Star Metric (identity/STRATEGY.md:14)
+- [ ] Cites alignment with at least one North Star Metric from flexible framework (identity/STRATEGY.md - any metric from Time Efficiency, Quality/Rework, Discovery/Validation, or Strategic Alignment categories)
 - [ ] Aligns with company vision (identity/STRATEGY.md:4)
-- [ ] Follows strategic principles (identity/STRATEGY.md:23-35)
+- [ ] Follows strategic principles (identity/STRATEGY.md - look for Strategic Principles section)
+- [ ] Note: Teams choose which metrics to track; agents suggest relevant options, don't enforce specific metrics
 
 **Standards Compliance**:
 - [ ] Professional, technical, concise writing (identity/STANDARDS.md:6-10)

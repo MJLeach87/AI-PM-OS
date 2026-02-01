@@ -61,10 +61,11 @@ graph TD
 ```
 
 **Quality Criteria**:
-- [ ] Outcome aligns with North Star Metrics from `identity/STRATEGY.md`
+- [ ] Outcome aligns with at least one North Star Metric from `identity/STRATEGY.md` flexible framework (any metric from Time Efficiency, Quality/Rework, Discovery/Validation, or Strategic Alignment categories)
 - [ ] Opportunities are specific, observable user pain points
 - [ ] Each opportunity has 2-3 solution alternatives
 - [ ] Solutions are actionable and concrete
+- [ ] Strategic alignment cited but metric selection left to team context (suggest options, don't enforce)
 
 ### 2. PRD Generation (BMAD Method)
 

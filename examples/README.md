@@ -11,6 +11,20 @@ This directory contains **PM OS building itself** - the artifacts and documentat
 
 ---
 
+## Historical Context: Metrics Evolution
+
+**Important**: Artifacts in `examples/artifacts/` were created during Phase 0-1 using the original North Star Metrics (volume-based: PRD time reduction, rework reduction, artifact count).
+
+Starting Phase 2, PM OS transitioned to a flexible metric framework emphasizing:
+- **Strategic Velocity** (Time-to-Spec)
+- **Technical Quality** (Zero-Clarification Sprint Readiness)
+- **Discovery Logic** (Hypothesis-to-Halt)
+- **Organizational Cohesion** (Identity Traceability)
+
+These examples remain valuable as baseline demonstrations, showing PM OS capabilities under the original framework. See `identity/STRATEGY.md` for the current flexible metric framework where organizations choose 3-4 metrics based on their maturity and context.
+
+---
+
 ## Directory Structure
 
 ### `artifacts/` - PM OS Output Examples

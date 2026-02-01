@@ -92,7 +92,7 @@ graph TD
 
 - [ ] **File exists** at `execution/discovery/YYYY-MM-DD_OST_*.md`
 - [ ] **Mermaid diagram present** and syntactically valid (renders in Markdown preview)
-- [ ] **Outcome aligns** with North Star Metrics from `identity/STRATEGY.md`
+- [ ] **Outcome aligns** with at least one North Star Metric from `identity/STRATEGY.md` (any metric from Time Efficiency, Quality/Rework, Discovery/Validation, or Strategic Alignment categories)
 - [ ] **Opportunities are user-centric** (describe pain points, not solutions)
 - [ ] **Each opportunity has 2-3 solutions** listed
 - [ ] **Evidence cited** for each opportunity (data, research, or reasoning)
@@ -148,7 +148,7 @@ Product Architect: Create a PRD for adding a simple search filter to the PM OS a
 - [ ] **Technical stack matches standards**: Uses React, TypeScript, Node.js, Tailwind from `identity/STANDARDS.md`
 - [ ] **Professional writing**: Active voice, concise, technical (per `identity/STANDARDS.md`)
 - [ ] **Evidence cited**: References data, user research, or clear reasoning for key decisions
-- [ ] **Strategic alignment**: Explicitly mentions North Star Metrics or vision
+- [ ] **Strategic alignment**: Explicitly states how feature advances at least one North Star Metric (see identity/STRATEGY.md for metric options - teams choose which metrics to track)
 
 ### Success Criteria
 ✅ **PASS** if 8/9 validation criteria met (can skip 1 minor criterion)

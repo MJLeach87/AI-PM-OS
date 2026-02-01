@@ -13,15 +13,21 @@
 PM OS is a self-improving product management system that uses hybrid Cursor + Claude Code environments, full MCP integration suite, and multi-agent architecture to augment product managers into AI-powered product leaders.
 
 ### Vision
-Augment Product Managers into AI-powered product leaders who deliver higher-quality outcomes in a fraction of the time.
+To transform Product Managers from document-authors into high-leverage Strategic Architects. The PM OS uses AI to bridge the gap between customer empathy, technical feasibility, and business impact—amplifying strategic judgment over administrative output.
 
 ### Mission
 Institutionalize product strategy, discovery, and execution as executable code that improves itself over time.
 
-### North Star Metrics
-- **50% reduction in PRD drafting time** (from 8 hours to 2 hours)
-- **40% reduction in engineering rework** (from 40% to 10% of PRDs requiring major edits)
-- **4x increase in discovery artifacts** (from 2 to 8 per week)
+### North Star Metrics (Flexible Framework)
+
+Organizations choose 3-4 metrics that fit their context. Options include:
+
+**Time Efficiency**: 50% PRD time reduction (8h → 4h) OR 80% Time-to-Spec reduction (< 4h)
+**Quality & Rework**: 40% rework reduction (40% → 10%) OR > 95% Sprint Readiness (zero clarifications)
+**Discovery & Validation**: 4x discovery artifacts (2 → 8/week) OR 2x Hypothesis-to-Halt velocity
+**Strategic Alignment**: 100% Identity Traceability (all artifacts cite vision/mission/roadmap)
+
+See `identity/STRATEGY.md` for detailed metric definitions and recommended sets for different team maturity levels.
 
 ---
 
