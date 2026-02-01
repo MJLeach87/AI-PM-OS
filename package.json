@@ -1,0 +1,26 @@
+{
+  "name": "pm-os",
+  "version": "1.0.0",
+  "description": "Product Management Operating System - AI-powered product management automation",
+  "main": "index.js",
+  "scripts": {
+    "auth:google-drive": "node scripts/google_drive_auth.js",
+    "test:google-drive": "node scripts/test_google_drive.js",
+    "search": "node scripts/search.js"
+  },
+  "keywords": [
+    "product-management",
+    "ai",
+    "automation",
+    "mcp"
+  ],
+  "author": "PM OS Team",
+  "license": "MIT",
+  "dependencies": {
+    "googleapis": "^128.0.0",
+    "open": "^8.4.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

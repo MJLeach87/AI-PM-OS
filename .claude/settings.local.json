@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:cursor.com)",
+      "WebFetch(domain:docs.bmad-method.org)",
+      "WebFetch(domain:ccforpms.com)",
+      "WebFetch(domain:www.cursorforpms.com)",
+      "Bash(npx --version:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(npm install)",
+      "Bash(npm run auth:google-drive:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell -Command \"Stop-Process -Id 1452 -Force\")",
+      "Bash(test:*)",
+      "Bash(npm run test:google-drive:*)"
+    ]
+  }
+}
