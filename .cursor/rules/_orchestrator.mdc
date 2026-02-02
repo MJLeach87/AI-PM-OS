@@ -44,7 +44,7 @@ IF file_path matches "execution/data_analysis/**" OR message contains ["SQL", "q
 IF file_path matches "execution/gtm/**" OR message contains ["value prop", "value proposition", "positioning", "GTM", "go-to-market", "sales enablement", "battle card", "pricing", "competitive", "market segment", "launch plan", "messaging", "differentiation"]
   → Route to: GTM Strategist Agent
 
-IF message contains ["evaluate agents", "self-improvement", "quality audit"]
+IF file_path matches "execution/improvement_proposals/**" OR message contains ["evaluate agents", "quality audit", "self-improvement", "agent performance", "improvement proposal", "analyze outputs", "track metrics", "regression detection", "performance dashboard", "pattern analysis"]
   → Route to: System Evaluator Agent
 
 IF ambiguous OR first interaction:

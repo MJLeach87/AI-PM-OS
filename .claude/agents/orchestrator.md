@@ -79,11 +79,15 @@ Route incoming user requests based on file patterns, keywords, and workflow stag
 
 ---
 
-#### System Evaluator Agent (Phase 3+)
+#### System Evaluator Agent (Phase 3)
 **When to route**:
-- Keywords: "evaluate agents", "self-improvement", "quality audit", "agent performance", "improvement proposal"
+- File path: `execution/improvement_proposals/**/*.md`
+- Keywords: "evaluate agents", "quality audit", "self-improvement", "agent performance", "improvement proposal", "analyze outputs", "track metrics", "regression detection", "performance dashboard", "pattern analysis"
+- Workflow: Weekly automated trigger (Sunday 6pm), post-agent update validation, on-demand audits
 
-**Capabilities**: Meta-agent for quality audits, self-improvement proposals
+**Capabilities**: Quality auditing, pattern detection, improvement proposal generation, agent performance metrics tracking, self-improvement workflow orchestration
+
+**Priority**: Meta-agent - analyzes other agents' outputs, runs independently after artifact generation
 
 ---
 
