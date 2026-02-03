@@ -91,6 +91,24 @@ Route incoming user requests based on file patterns, keywords, and workflow stag
 
 ---
 
+#### Documentation Maintainer Agent (Phase 3)
+**When to route**:
+- File path: `README.md`, `QUICK_START.md`, `.claude/CLAUDE.md`, `examples/identity/ROADMAP.md`, `examples/documentation/phase-history/**/*.md`, `examples/documentation/phase-evolution/**/*.md`
+- Keywords: "Documentation Maintainer", "sync docs", "archive phase", "update ROADMAP", "mark phase complete", "split phase", "merge phase", "reorder phase", "phase evolution", "update documentation", "doc sync"
+- Workflow: Phase completion events, agent addition/update events, feature/capability changes, weekly audits (Sunday 6pm), manual dynamic phasing proposals
+
+**Capabilities**: Product documentation sync, phase completion archival, dynamic phasing & roadmap evolution, weekly documentation audits, full lifecycle tracking
+
+**Priority**: Meta-agent - maintains PM OS's core product documentation, runs with full auto-commit autonomy
+
+**Example Invocations**:
+- "Documentation Maintainer: Archive Phase 3 completion"
+- "Documentation Maintainer: Sync docs after System Evaluator added"
+- "Documentation Maintainer: Propose Phase 4 split into 4a and 4b"
+- "Documentation Maintainer: Update docs for quality dashboard feature"
+
+---
+
 ### Default Routing
 
 **If ambiguous or first interaction**:
@@ -390,6 +408,7 @@ Turn 3: User asks "what's the security risk?"
 | Data Analyst | 2 | 🔜 Planned | SQL, Metrics, A/B Tests | "SQL", "analytics", "metrics" |
 | GTM Strategist | 2 | 🔜 Planned | Value Props, Positioning | "GTM", "positioning", "value prop" |
 | System Evaluator | 3 | 🔜 Planned | Quality Audits, Improvements | "evaluate", "self-improvement" |
+| Documentation Maintainer | 3 | ✅ Active | Doc Updates, Phase Archives, Evolution Records | "sync docs", "archive phase", "phase evolution" |
 
 ---
 
@@ -500,6 +519,10 @@ Contains "GTM", "positioning", "value prop"?
 
 Contains "evaluate", "self-improvement", "quality audit"?
    → YES: System Evaluator (Phase 3+)
+   → NO: Continue ↓
+
+Contains "sync docs", "archive phase", "phase evolution", "Documentation Maintainer"?
+   → YES: Documentation Maintainer (Phase 3+)
    → NO: DEFAULT → Product Architect
 ```
 
