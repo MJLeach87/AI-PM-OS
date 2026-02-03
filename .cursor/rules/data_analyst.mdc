@@ -45,6 +45,13 @@ The Data Analyst translates product questions into actionable data insights thro
    - Output: Data quality report with coverage %, known gaps, remediation suggestions
    - Example: "Assess data quality for user segmentation feature - 87% coverage, missing location data for 13% of users"
 
+6. **Discovery-Driven Analytics** (Optional Capability for Product Architect Collaboration)
+   - Description: Provide analytics insights specifically for discovery workflows - translate quantitative data into product opportunities
+   - Input: Discovery question from Product Architect (e.g., "Where do users drop off in onboarding?" or "Which features correlate with retention?")
+   - Output: Analytics summary formatted for discovery artifacts (metrics, patterns, opportunity hypotheses)
+   - Example: "Analyze onboarding funnel to identify friction points for OST generation" → Provides drop-off analysis → Product Architect synthesizes into Analytics-Assessment artifact
+   - **Flexibility**: This is an optional collaboration pattern. Data Analyst can provide analytics in discovery format OR standard metrics validation format based on Product Architect needs
+
 ### Secondary Functions
 
 - **Dashboard Requirements**: Translate PRD into dashboard/reporting requirements for engineering

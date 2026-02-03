@@ -26,8 +26,9 @@ You should see this directory structure:
 PM OS/
 ├── .cursor/rules/          # Cursor agent logic
 ├── .claude/                # Claude Code agent logic
-├── identity/               # Your org's context
-├── execution/              # Your outputs go here
+├── identity/               # YOUR org's context (customize templates!)
+├── examples/identity/      # PM OS's own context (reference examples)
+├── execution/              # YOUR outputs go here
 ├── templates/              # Standard formats
 └── README.md               # Full documentation
 ```
@@ -138,41 +139,37 @@ Product Architect: Create a new agent for [domain]
 
 ### 4. Get Strategic Context
 
-**What**: Understand your organization's vision, standards, or roadmap
+**What**: Understand YOUR organization's vision, standards, or roadmap
 
 **When**: Checking alignment, understanding priorities, planning work
 
-**Command**:
+**Commands**:
 ```
-Read identity/STRATEGY.md
-```
-or
-```
-Read identity/STANDARDS.md
-```
-or
-```
-Read identity/ROADMAP.md
+Read identity/STRATEGY.md          # YOUR company's strategy (after customization)
+Read identity/STANDARDS.md         # YOUR tech stack and standards (after customization)
+Read identity/ROADMAP.md           # YOUR product roadmap (after customization)
+Read examples/identity/STRATEGY.md # PM OS's own strategy (reference example)
 ```
 
 **In Claude Code**: Use Read tool directly
 **In Cursor**: View files or ask "What is our North Star Metric?"
 
+**Important**: `identity/` contains YOUR customized files (active), `examples/identity/` contains PM OS's reference examples (read-only)
+
 ---
 
 ### 5. Check Phase Status
 
-**What**: Understand what's implemented and what's coming
+**What**: Understand what's implemented in PM OS and what's coming
 
 **When**: Wondering what PM OS can do, planning next capabilities
 
-**Command**:
+**Commands**:
 ```
-Read examples/documentation/IMPLEMENTATION_STATUS.md
-```
-or
-```
-Read identity/ROADMAP.md
+Read examples/documentation/IMPLEMENTATION_STATUS.md  # Current PM OS phase progress
+Read examples/identity/ROADMAP.md                    # PM OS's 7-phase implementation plan
+Read identity/README.md                              # Guide to customizing YOUR identity layer
+Read execution/README.md                             # Guide to YOUR artifact workspace
 ```
 
 **Shows**: Current phase progress, validation status, next steps
@@ -342,15 +339,20 @@ Don't jump straight to PRDs. Generate an OST first to explore the problem space.
 
 ---
 
-### 2. Customize the Identity Layer
-The `identity/` folder contains your organizational context. Update it!
+### 2. Customize the Identity Layer (CRITICAL!)
+The `identity/` folder contains templates for YOUR organizational context. **You must customize these before using PM OS for real work!**
 
-**Edit These**:
-- `identity/STRATEGY.md`: Your actual company vision, North Star Metrics
-- `identity/STANDARDS.md`: Your brand voice, approved tech stack
-- `identity/MARKET.md`: Your competitive positioning (create this file)
+**🚨 ACTION REQUIRED**:
+1. **Read the customization guide**: `identity/README.md`
+2. **Replace templates with YOUR actual information**:
+   - `identity/STRATEGY.md`: YOUR company vision, mission, North Star Metrics (not PM OS defaults!)
+   - `identity/STANDARDS.md`: YOUR brand voice, approved tech stack (not PM OS defaults!)
+   - `identity/ROADMAP.md`: YOUR product roadmap (not PM OS's Phase 0-7 timeline!)
+3. **See reference examples**: `examples/identity/` contains PM OS's own organizational context (for structural inspiration only)
 
-**Why**: Agents use these files to ensure outputs align with YOUR organization's needs
+**Why this matters**: Agents automatically load YOUR `identity/` files to ensure outputs align with YOUR organization. If you skip customization, agents will use PM OS defaults instead of your actual context.
+
+**Time required**: 30-60 minutes for initial customization
 
 ---
 
@@ -440,14 +442,17 @@ Use the versioning convention in filenames:
 ---
 
 ### 4. "Strategic misalignment"
-**Symptom**: Agent outputs don't match your organization's priorities
+**Symptom**: Agent outputs don't match your organization's priorities or cite PM OS's vision instead of yours
 
 **Fix**:
-- Update `identity/STRATEGY.md` with YOUR vision/metrics
-- Update `identity/STANDARDS.md` with YOUR tech stack/brand voice
-- Re-run agent after updating identity files
+- **Read customization guide**: `identity/README.md`
+- **Replace templates**: Update `identity/STRATEGY.md` with YOUR actual vision/metrics (not PM OS defaults)
+- **Replace templates**: Update `identity/STANDARDS.md` with YOUR actual tech stack/brand voice
+- **Replace templates**: Update `identity/ROADMAP.md` with YOUR actual product roadmap
+- Re-run agent after customizing identity files
+- **Verify**: Agent outputs should now cite YOUR vision from `identity/STRATEGY.md`
 
-**Remember**: PM OS is designed to be customized to YOUR organization
+**Common mistake**: Confusing `examples/identity/` (PM OS's reference files, read-only) with `identity/` (YOUR templates to customize)
 
 ---
 
@@ -560,9 +565,11 @@ Use the versioning convention in filenames:
 | **Discovery** | `Product Architect: Generate OST for [topic]` | `execution/discovery/` |
 | **PRD Draft** | `Product Architect: Create PRD for [feature]` | `execution/prds/` |
 | **New Agent** | `Product Architect: Create agent for [domain]` | `.cursor/rules/` + `.claude/agents/` |
-| **Check Strategy** | `Read identity/STRATEGY.md` | Display in IDE |
-| **Check Standards** | `Read identity/STANDARDS.md` | Display in IDE |
-| **Check Phase** | `Read PHASE_0_STATUS.md` | Display in IDE |
+| **Check Strategy** | `Read identity/STRATEGY.md` | Display YOUR strategy |
+| **Check Standards** | `Read identity/STANDARDS.md` | Display YOUR standards |
+| **Check PM OS Phase** | `Read examples/identity/ROADMAP.md` | Display PM OS status |
+| **Customize Guide** | `Read identity/README.md` | Customization instructions |
+| **Workspace Guide** | `Read execution/README.md` | Artifact pipeline guide |
 
 ### File Locations Quick Map
 
@@ -574,7 +581,8 @@ Use the versioning convention in filenames:
 | **Prototypes** | `execution/prototypes/` |
 | **GTM Materials** | `execution/gtm/` |
 | **Templates** | `templates/` |
-| **Org Context** | `identity/` |
+| **YOUR Org Context** | `identity/` (customize these!) |
+| **PM OS Org Context (reference)** | `examples/identity/` (read-only) |
 | **Agent Logic** | `.cursor/rules/` + `.claude/agents/` |
 
 ---

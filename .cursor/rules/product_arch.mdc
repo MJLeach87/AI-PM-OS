@@ -138,6 +138,9 @@ When generating agent specs, also propose updates to **Orchestrator routing logi
 **Capabilities**:
 - **Customer interview review and synthesis**
 - **Feedback review** (surveys, support tickets, NPS comments)
+- **Product analytics assessment** (Phase 2+ with Data Analyst collaboration)
+- **Trend analysis** (market, competitive, user behavior, technology trends)
+- **Discovery catalog** (optional cross-referenced research inventory)
 - User research synthesis
 - Information architecture mapping
 - Hypothesis formulation and tracking
@@ -194,6 +197,68 @@ When generating agent specs, also propose updates to **Orchestrator routing logi
 - [ ] Sample size and source(s) documented
 - [ ] Synthesis feeds into OST Evidence section or PRD Business Case
 - [ ] Conflicting feedback acknowledged when present
+
+---
+
+#### 4c. Product Analytics Assessment (Phase 2+ - Requires Data Analyst Collaboration)
+
+**Purpose**: Translate product analytics into discovery opportunities using quantitative data patterns.
+
+**Input**: Analytics data (user-provided CSV exports, dashboard screenshots, or Data Analyst queries via Snowflake MCP in Phase 4+)
+
+**Process**:
+1. Collaborate with Data Analyst for metrics/cohort/funnel analysis
+2. Identify quantitative patterns (drop-offs, usage trends, behavioral segments)
+3. Synthesize findings into discovery opportunities
+4. Translate data patterns into OST-ready opportunity hypotheses
+5. Optionally reference `templates/analytics_assessment_template.md` for structure (adapt as needed)
+
+**Output**: `execution/discovery/YYYY-MM-DD_Analytics-Assessment_[topic].md` (optional structure)
+
+**Flexibility**: Analytics assessments can range from quick data summaries to comprehensive cohort analyses depending on discovery depth needed. Template provides suggested structure but can be adapted or skipped.
+
+**Example**: User provides onboarding funnel data → Data Analyst calculates drop-off rates → Product Architect synthesizes into analytics assessment → OST generated focusing on friction points identified quantitatively
+
+---
+
+#### 4d. Trend Analysis
+
+**Purpose**: Research and assess market, competitive, user behavior, or technology trends for strategic discovery.
+
+**Input**: User request for trend research, market reports, competitive intelligence, or technology shifts
+
+**Process**:
+1. Use WebSearch for trend research OR synthesize user-provided trend reports
+2. Assess strategic implications (impact on product direction, opportunities, risks)
+3. Document findings with evidence (industry data, competitive examples, adoption signals)
+4. Optionally reference `templates/trend_analysis_template.md` for structure (adapt as needed)
+5. Generate OST if trend presents actionable strategic opportunity
+
+**Output**: `execution/discovery/YYYY-MM-DD_Trend-Analysis_[topic].md` (optional structure)
+
+**Flexibility**: Trend analysis depth varies by strategic importance. Brief summaries for monitoring-level trends, deep dives for critical strategic shifts. Template suggests comprehensive structure but can be simplified.
+
+**Example**: User asks "Analyze AI PM tools market trend" → Product Architect researches via WebSearch → Documents competitive landscape + strategic implications → May inform roadmap prioritization
+
+---
+
+#### 4e. Discovery Catalog (Optional Cross-Referencing)
+
+**Purpose**: Optionally maintain a discovery knowledge index for cross-referencing research when catalog value exceeds maintenance cost.
+
+**When to Use**: Multi-source discovery work (interviews + feedback + analytics + trends), complex discovery spanning months, team collaboration needs
+
+**When to Skip**: Simple discovery (< 10 artifacts), linear workflows, solo PM projects, file naming/search sufficient
+
+**Process**:
+1. Optionally maintain `execution/discovery/DISCOVERY_INDEX.md` after artifact generation
+2. Cross-link related artifacts (interviews → feedback → analytics → OSTs → PRDs)
+3. Track research gaps and future discovery priorities
+4. Can be updated manually, auto-updated periodically, or skipped entirely
+
+**Output**: `execution/discovery/DISCOVERY_INDEX.md` (uses `templates/discovery_index_template.md` structure)
+
+**Flexibility**: Index maintenance is entirely optional. Use when cross-referencing adds value; skip when file system organization suffices.
 
 ---
 

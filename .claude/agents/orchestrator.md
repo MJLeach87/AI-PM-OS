@@ -29,10 +29,10 @@ Route incoming user requests based on file patterns, keywords, and workflow stag
 #### Product Architect Agent
 **When to route**:
 - File path: `execution/discovery/**/*.md`
-- Keywords: "OST", "opportunity solution tree", "user research", "PRD", "product requirements", "discovery", "problem space", "customer interview", "feedback", "survey"
+- Keywords: "OST", "opportunity solution tree", "user research", "PRD", "product requirements", "discovery", "problem space", "customer interview", "feedback", "survey", "product analytics assessment", "analytics assessment", "trend analysis", "market trend", "competitive trend", "technology trend", "user behavior trend"
 - Default: First interaction or ambiguous request
 
-**Capabilities**: Discovery (OSTs), PRD generation, agent spec creation, research synthesis
+**Capabilities**: Discovery (OSTs), PRD generation, agent spec creation, research synthesis, product analytics assessment (with Data Analyst), trend analysis, discovery catalog
 
 ---
 

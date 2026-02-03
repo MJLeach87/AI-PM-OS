@@ -1,90 +1,118 @@
-# PM OS Strategy
+# 🔧 CUSTOMIZE THIS: Your Company's Strategy
+
+**IMPORTANT**: This is a template. Replace all PM OS default content below with YOUR company's actual vision, mission, and North Star Metrics.
+
+**Reference**: See `examples/identity/STRATEGY.md` for PM OS's own strategy as an example of what this file should contain.
+
+**Purpose**: This file contains YOUR organizational strategy that PM OS agents will use to ensure all product decisions align with your company's vision and goals.
+
+---
 
 ## Vision
-To transform Product Managers from document-authors into high-leverage Strategic Architects. The PM OS uses AI to bridge the gap between customer empathy, technical feasibility, and business impact—amplifying strategic judgment over administrative output.
+
+**[Replace with YOUR company's vision statement]**
+
+Example: "To transform [your industry] by [your unique value proposition]"
+
+---
 
 ## Mission
-Institutionalize product strategy, discovery, and execution as executable code that improves itself over time.
+
+**[Replace with YOUR product team's mission]**
+
+Example: "Deliver [specific outcomes] that enable [target users] to [achieve specific goals]"
+
+---
 
 ## North Star Metrics
 
-**Philosophy**: Balance "Volume of Output" with "Quality of Outcome" and "Strategic Velocity" - teams choose metrics that fit their context.
+**Philosophy**: Choose 3-4 metrics from the framework below that fit YOUR organization's context and maturity level.
 
 ### Metric Framework (Choose 3-4 Metrics)
 
-Organizations can select metrics from these categories based on their maturity and priorities:
+Organizations can select metrics from these categories based on their priorities:
 
 #### A. Time Efficiency Metrics
-- **50% Reduction in PRD Drafting Time** (8h → 4h) - *Volume-based baseline*
-- **80% Reduction in "Time-to-Spec"** (< 4h from hypothesis to dev-ready spec) - *Velocity-focused*
+- **50% Reduction in PRD Drafting Time** (8h → 4h) - Volume-based baseline
+- **80% Reduction in "Time-to-Spec"** (< 4h from hypothesis to dev-ready spec) - Velocity-focused
 
 #### B. Quality & Rework Metrics
-- **40% Reduction in Engineering Rework** (40% → 10% of PRDs requiring major edits) - *Original metric*
-- **"Zero-Clarification" Sprint Readiness** (> 95% of PRDs pass sprint planning without technical edits) - *Quality-focused*
+- **40% Reduction in Engineering Rework** (40% → 10% of PRDs requiring major edits)
+- **"Zero-Clarification" Sprint Readiness** (> 95% of PRDs pass sprint planning without technical edits)
 
 #### C. Discovery & Validation Metrics
-- **4x Increase in Discovery Artifacts** (2 → 8 per week) - *Output volume*
-- **2x "Hypothesis-to-Halt" Velocity** (1-week cycles to prove ideas unviable) - *Validation speed*
+- **4x Increase in Discovery Artifacts** (2 → 8 per week) - Output volume
+- **2x "Hypothesis-to-Halt" Velocity** (1-week cycles to prove ideas unviable)
 
 #### D. Strategic Alignment Metrics
-- **100% Identity Traceability** (Every artifact explicitly cites vision/mission connection) - *Mandatory*
-- **Strategic Alignment Score** (% of artifacts advancing at least one NSM) - *Compliance tracking*
+- **100% Identity Traceability** (Every artifact explicitly cites vision/mission connection) - Recommended for all teams
+- **Strategic Alignment Score** (% of artifacts advancing at least one NSM)
 
-### Recommended Metric Sets
+### Your Selected Metrics
 
-**For Early-Stage Teams** (Focus on establishing baseline):
-- 50% Reduction in PRD Drafting Time
-- 40% Reduction in Engineering Rework
-- 4x Increase in Discovery Artifacts
-- 100% Identity Traceability
+**[List YOUR 3-4 chosen metrics here with specific targets for YOUR organization]**
 
-**For Mature Teams** (Focus on velocity + quality):
-- 80% Reduction in Time-to-Spec
-- "Zero-Clarification" Sprint Readiness (> 95%)
-- 2x Hypothesis-to-Halt Velocity
-- 100% Identity Traceability
+Example:
+1. 80% Reduction in Time-to-Spec (< 4h)
+2. Zero-Clarification Sprint Readiness (> 95%)
+3. 2x Hypothesis-to-Halt Velocity
+4. 100% Identity Traceability
 
-**Blended Approach** (Mix of volume + quality):
-- 50-80% Reduction in Time-to-Spec (< 4h)
-- Choose: Rework % OR Sprint Readiness
-- 2-4x Discovery Output Velocity
-- 100% Identity Traceability
-
-### Phase 0-1 Baseline (Historical Reference)
-Phase 0-1 used volume-based metrics as foundation:
-- 50% reduction in PRD drafting time (8h → 2h)
-- 40% reduction in engineering rework (40% → 10%)
-- 4x increase in discovery artifacts (2 → 8/week)
+---
 
 ## Strategic Principles
 
-### 1. Self-Improvement First
-The PM OS must be capable of building and improving itself. By Phase 3, the system generates 70% of its own improvements.
+**[Define YOUR organization's strategic principles]**
 
-### 2. Context as Code
-Organizational intelligence (vision, standards, market positioning) is version-controlled and automatically injected into agent context.
+Examples:
+1. **Customer-First**: All decisions prioritize user value over internal convenience
+2. **Data-Driven**: Product hypotheses validated with quantitative and qualitative evidence
+3. **Iterative Development**: Ship MVPs quickly, iterate based on feedback
+4. **Cross-Functional Collaboration**: Product, Engineering, Design work together from day 1
 
-### 3. Hybrid Intelligence
-Combine AI automation with human strategic oversight. Agents generate, humans approve and refine.
+---
 
-### 4. Progressive Disclosure
-Start minimal (Phase 0 bootstrap) → self-building (Phases 1-2) → self-improving (Phase 3) → enterprise-ready (Phases 4-6).
+## Current Phase / Focus
 
-### 5. Multi-Environment Design
-Optimize for both Cursor IDE (real-time collaboration) and Claude Code (deep analysis) environments.
+**[Describe YOUR product team's current strategic focus]**
 
-## Current Phase
-**Phase 0: Bootstrap Foundation** (Weeks 1-2)
+Example: "Q1 2026: Focus on enterprise customer acquisition through security and compliance features"
+
+---
 
 ## Success Definition
-PM OS is successful when:
-- Product managers spend 80% of time on strategy, 20% on documentation (reversed from current state)
+
+**[Define what success looks like for YOUR product/organization]**
+
+Example:
+- Product managers spend 80% of time on strategy, 20% on documentation
 - Engineering teams receive complete, feasible specifications consistently
 - Product decisions are traceable, data-informed, and aligned with company vision
 - New product capabilities ship with 90% fewer specification-related delays
 
+---
+
 ## Long-Term Vision Timeline
-- **Month 6**: Full team onboarded, web prototype operational
-- **Month 12**: Web application replaces IDE for 80% of use cases
-- **Month 18**: PM OS as potential revenue-generating SaaS (if commercializing)
-- **Self-Build Maturity**: 90% of new features PM OS-generated by end of implementation
+
+**[Optional: YOUR product roadmap timeline]**
+
+Example:
+- **Q2 2026**: Launch feature X to capture market segment Y
+- **Q3 2026**: Achieve Z% market share in target vertical
+- **Q4 2026**: Expand to international markets
+
+---
+
+**Customization Instructions**:
+1. Replace all bracketed `[placeholders]` with your actual company information
+2. Delete sections that don't apply to your organization
+3. Add custom sections relevant to your strategic context
+4. Update this file whenever your company's strategy changes (typically quarterly)
+
+**How Agents Use This File**:
+- All PM OS agents automatically load this file to ensure outputs align with YOUR strategy
+- PRDs will cite your vision/mission to demonstrate strategic alignment
+- Discovery artifacts will reference your North Star Metrics
+- Technical decisions will consider your strategic principles
+
+**Need Help?** See `identity/README.md` for detailed customization guidance.

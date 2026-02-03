@@ -1,274 +1,147 @@
-# PM OS Roadmap
+# 🔧 CUSTOMIZE THIS: Your Product Roadmap
 
-## Meta-Recursive Note
-This roadmap describes how PM OS will build itself. It is maintained by the Product Architect agent and updated as phases complete.
+**IMPORTANT**: This is for YOUR product's roadmap, not PM OS's implementation phases.
 
-## Implementation Timeline
+**Reference**: See `examples/identity/ROADMAP.md` for PM OS's own roadmap (Phase 0-7 timeline) as a structural example only. That file describes how PM OS builds itself; THIS file should describe YOUR product's roadmap.
 
-### Phase 0: Bootstrap Foundation ✅ COMPLETE
-**Duration**: Weeks 1-2
-**Status**: Complete
-**Completion**: 100%
-
-**Objective**: Create minimal viable structure enabling self-improvement
-
-**Critical Deliverables**:
-- [x] Directory structure created
-- [x] Identity Layer (STRATEGY.md, STANDARDS.md, ROADMAP.md)
-- [x] Orchestrator agent (.cursor and .claude versions)
-- [x] Product Architect agent (.cursor and .claude versions)
-- [x] Agent specification template
-- [x] PRD template (BMAD-compliant)
-- [x] MCP integration plan template
-- [x] Git configuration (.gitignore, .env.example)
-
-**Success Criteria**:
-- [ ] Orchestrator routes tasks to Product Architect
-- [ ] Product Architect generates valid Opportunity Solution Trees
-- [ ] Product Architect generates agent specifications using template
-- [ ] Identity Layer loaded into agent context automatically
-- [ ] PM OS articulates its own Phase 1 plan
-
-**First Test**: Ask Product Architect to "Generate OST for improving PM OS discovery workflows"
+**Purpose**: This file contains YOUR product roadmap that PM OS agents will reference to ensure new features align with your product strategy and timeline.
 
 ---
 
-### Phase 1: Core Agent Team + Google Drive MCP ✅ COMPLETE
-**Duration**: Weeks 3-5
-**Status**: Complete
-**Completion**: 100%
+## Your Product Roadmap
 
-**Objective**: Establish specialized agent team and unlock legacy documents
-
-**Agent Implementation Sequence**:
-1. **Engineering Partner v1.1** (Week 3) - ✅ Complete (with legacy code analysis)
-2. **UX Strategist v1.0** (Week 4) - ✅ Complete
-3. **Google Drive MCP** (Week 5) - ✅ Complete (OAuth setup, 514ms latency)
-
-**Success Criteria**:
-- [x] 3 specialized agents operational in both Cursor and Claude Code
-- [x] Google Drive MCP retrieves documents in < 3 seconds (achieved 514ms)
-- [x] End-to-end workflow: Discovery → Feasibility → Prototype (validated 2026-02-01)
-- [x] First complete artifact set generated (Artifact Search Filter - 6 deliverables)
-
-**Workflow Test**: Generate feature proposal end-to-end (OST → PRD → Tech Spec → Prototype)
+**[Replace with YOUR product's actual roadmap]**
 
 ---
 
-### Phase 2: Execution Layer (Agent Team) ✅ COMPLETE
-**Duration**: Weeks 6-8
-**Status**: Complete
-**Completion**: 100%
+## Roadmap Structure Template
 
-**Objective**: Complete 5-agent team for full feature development pipeline
+You can organize your roadmap however works best for your team. Common approaches:
 
-**Key Deliverables**:
-- ✅ **Data Analyst agent** (Week 6) - SQL queries, metrics validation, A/B testing
-- ✅ **GTM Strategist agent** (Week 6-7) - Value props, positioning, sales enablement
-- ✅ **Orchestrator routing updates** - Enhanced routing for new agents
-- ✅ **End-to-end workflow validated** - OST generation with strategic alignment
-- ✅ **All 5 core agents operational** - Product Architect, Engineering Partner, UX Strategist, Data Analyst, GTM Strategist
+### Option 1: Time-Based Roadmap
+
+#### Q1 2026: [Theme/Focus]
+**Objective**: [What you're trying to achieve this quarter]
+
+**Key Initiatives**:
+- **[Initiative 1]**: [Brief description]
+- **[Initiative 2]**: [Brief description]
+- **[Initiative 3]**: [Brief description]
 
 **Success Criteria**:
-- ✅ All 5 core agents operational (Product Architect, Engineering Partner, UX Strategist, Data Analyst, GTM Strategist)
-- ✅ Complete artifact pipeline capability: Discovery → PRD → Tech Spec → Prototype → Metrics → GTM
-- ✅ Orchestrator routes to all agents based on keywords and file patterns
-- ✅ Parallel processing documented (4 agents can run simultaneously after PRD v0.1)
-- ✅ Quality standards and validation gates defined for all agents
+- [ ] [Measurable outcome 1]
+- [ ] [Measurable outcome 2]
 
-**Completion**: 2026-02-01
+#### Q2 2026: [Theme/Focus]
+**Objective**: [What you're trying to achieve this quarter]
+
+**Key Initiatives**:
+- **[Initiative 1]**: [Brief description]
+- **[Initiative 2]**: [Brief description]
+
+**Success Criteria**:
+- [ ] [Measurable outcome 1]
+- [ ] [Measurable outcome 2]
 
 ---
 
-### Phase 3: Self-Improvement Loop
-**Duration**: Weeks 9-11
-**Status**: In Progress
-**Completion**: 85%
+### Option 2: Theme-Based Roadmap
 
-**Objective**: Implement autonomous quality auditing and self-improvement capabilities
+#### Theme 1: [e.g., "Enterprise Readiness"]
+**Timeline**: Q1-Q2 2026
+**Business Impact**: [Why this theme matters]
 
-**Key Deliverables**:
-- ✅ **System Evaluator agent** (Week 9-10) - Meta-agent for quality audits
-- ✅ **Self-improvement workflow** (Week 10-11) - Proposal generation automation
-- ✅ **Improvement proposal templates** - Standardized format (audit, proposal, dashboard)
-- [ ] **Quality metrics dashboard** (Week 11) - First validation cycle execution
+**Features**:
+- [Feature A] - Q1
+- [Feature B] - Q1
+- [Feature C] - Q2
 
-**Self-Improvement Loop**:
-1. Agents generate outputs (OSTs, PRDs, specs, prototypes, GTM materials)
-2. System Evaluator analyzes outputs weekly (quality, consistency, strategic alignment)
-3. Improvement proposals created as PRs (agent logic updates, template enhancements, new capabilities)
-4. Human PM reviews and approves proposals
-5. Approved changes merged → agents updated → loop continues
+#### Theme 2: [e.g., "User Experience Improvements"]
+**Timeline**: Q2-Q3 2026
+**Business Impact**: [Why this theme matters]
 
-**Success Criteria**:
-- ✅ System Evaluator agent operational (analyzes agent outputs for quality)
-- ✅ Improvement proposals follow standardized format (problem, solution, impact)
-- ✅ Self-improvement workflow documented (7-phase cycle: audit → pattern detection → proposals → PR → review → implement → dashboard)
-- [ ] First self-improvement cycle completed (proposal → approval → update)
-- [ ] System Evaluator identifies at least 3 improvement opportunities per week
-- [ ] At least 70% of improvements are agent-generated (vs. human-initiated)
-- [ ] Agent performance metrics tracked over time (acceptance rate, rework reduction)
+**Features**:
+- [Feature D] - Q2
+- [Feature E] - Q3
+- [Feature F] - Q3
 
 ---
 
-### Phase 4: MCP Integration Suite (Consolidated)
-**Duration**: Weeks 12-16
-**Status**: Planned
-**Completion**: 0%
+### Option 3: Now/Next/Later Roadmap
 
-**Objective**: Integrate all external tools via Model Context Protocol for seamless data access
+#### Now (Current Quarter)
+**Focus**: [Current strategic priority]
 
-**Key Deliverables**:
-- **Google Drive MCP** (Week 12) - Already functional, document and optimize
-- **Jira MCP** (Week 13) - Bi-directional issue sync, story creation
-- **Confluence MCP** (Week 13) - Documentation publishing, wiki search
-- **Slack MCP** (Week 14-15) - Historical context, notifications, daily digests
-- **Snowflake MCP** (Week 15-16) - Data warehouse queries (read-only)
+**In Progress**:
+- [Feature/Initiative 1]
+- [Feature/Initiative 2]
+- [Feature/Initiative 3]
 
-**Rationale**: Consolidate all MCP integration work into single focused phase rather than spreading across multiple phases. This enables:
-- Unified OAuth/credential management
-- Consistent error handling and retry logic
-- Shared MCP infrastructure improvements
-- Batch testing of integrations
+#### Next (Next Quarter)
+**Focus**: [Upcoming strategic priority]
 
-**Success Criteria**:
-- [ ] All 5 MCP integrations operational (Google Drive, Jira, Confluence, Slack, Snowflake)
-- [ ] OAuth 2.0 setup complete for each service
-- [ ] Jira MCP creates/reads issues programmatically
-- [ ] Confluence MCP publishes PRDs and retrieves documentation
-- [ ] Slack MCP posts notifications and retrieves historical context
-- [ ] Snowflake MCP executes queries in < 30 seconds
-- [ ] MCP credential management secure (credentials/ directory gitignored)
-- [ ] All integrations have setup guides in mcp/setup_guides/
+**Planned**:
+- [Feature/Initiative 4]
+- [Feature/Initiative 5]
+- [Feature/Initiative 6]
 
----
+#### Later (Future Horizon)
+**Focus**: [Long-term strategic direction]
 
-### Phase 5: Data Intelligence Layer
-**Duration**: Weeks 17-19
-**Status**: Planned
-**Completion**: 0%
-
-**Objective**: Enhance data-driven product development with structured data intelligence
-
-**Key Deliverables**:
-- **DATA_DICTIONARY.md** (Week 17) - Schema definitions, table relationships, metric formulas
-- **Data Analyst enhancements** (Week 18) - Snowflake-optimized queries, performance monitoring
-- **Metric tracking automation** (Week 19) - Auto-generate baseline queries for new PRDs
-- **Data quality monitoring** - Automated data completeness and accuracy checks
-
-**Success Criteria**:
-- [ ] DATA_DICTIONARY.md maintained as single source of truth
-- [ ] Data Analyst produces actionable insights from Snowflake
-- [ ] First data-validated feature proposal completed (end-to-end with real data)
-- [ ] Automated baseline metric queries for all new PRDs
-- [ ] Data quality scores tracked over time
-
----
-
-### Phase 6: Hybrid IDE Optimization
-**Duration**: Weeks 20-22
-**Status**: Planned
-**Completion**: 0%
-
-**Objective**: Optimize for Cursor and Claude Code specific capabilities
-
-**Cursor-Specific Features**:
-- Plan Mode integration for Discovery workflows
-- Integrated browser prototyping with live React previews
-
-**Claude Code-Specific Features**:
-- Parallel agent processing (spawn 3+ agents simultaneously)
-- Custom domain specialist sub-agents
-- Terminal automation for deployment/reporting
-
-**Success Criteria**:
-- [ ] Cursor Plan Mode generates valid implementation plans
-- [ ] Claude Code parallel processing reduces review time by 60%
-- [ ] First domain specialist operational
-- [ ] 5+ automated workflows running
-
----
-
-### Phase 7: Enterprise Readiness
-**Duration**: Weeks 23-28
-**Status**: Planned
-**Completion**: 0%
-
-**Objective**: Prepare for multi-user collaboration and production deployment
-
-**Key Deliverables**:
-- Multi-user Git workflow with CODEOWNERS (Weeks 23-24)
-- Security hardening and SOC 2 readiness (Week 25)
-- Onboarding documentation and training (Week 26)
-- Web application prototype (Optional - Weeks 27-28)
-
-**Success Criteria**:
-- [ ] 5+ PMs using PM OS concurrently
-- [ ] Zero security incidents
-- [ ] Onboarding time < 2 hours
-- [ ] Web prototype demonstrates PRD generation feature parity
-
----
-
-### Future Phase Considerations
-
-**MCP Integrations Under Evaluation**:
-- **Linear**: Alternative to Jira for teams using Linear (deferred from Phase 2)
-- **Notion**: Corporate wiki integration (deferred from Phase 3)
-
-**Rationale for Deferral**:
-- Jira + Confluence cover core Atlassian ecosystem (most common enterprise stack)
-- Linear integration can be added if team uses Linear instead of Jira
-- Notion integration deferred in favor of Confluence (Atlassian alignment)
-- Future phases can add these based on user demand and team stack preferences
+**Ideas Under Consideration**:
+- [Initiative 7]
+- [Initiative 8]
+- [Initiative 9]
 
 ---
 
 ## Dependency Chain
 
+**[Optional: Map dependencies between major initiatives]**
+
+Example:
 ```
-Phase 0 (Bootstrap)
+Enterprise Security Features (Q1)
     ↓
-Phase 1 (Core Agents + Google Drive MCP)
+SOC 2 Certification (Q2)
     ↓
-Phase 2 (Execution Layer - 5 Agent Team) ✅ COMPLETE
-    ↓
-Phase 3 (Self-Improvement Loop) ← Critical for long-term success 🔄 CURRENT
-    ↓
-Phase 4 (MCP Integration Suite) ← All external tools consolidated
-    ↓
-Phase 5 (Data Intelligence Layer)
-    ↓
-Phase 6 (IDE Optimization)
-    ↓
-Phase 7 (Enterprise Readiness)
-    ↓
-Future (Linear, Notion - as needed)
+Enterprise Sales Push (Q3)
 ```
-
-## Self-Build Maturity Targets
-
-| Phase | Agent-Generated Work | Human Work |
-|-------|---------------------|------------|
-| 0-1   | 20%                 | 80%        |
-| 2     | 40%                 | 60%        |
-| 3     | 70%                 | 30%        |
-| 4-6   | 85%                 | 15%        |
-
-## Risk Mitigation Tracking
-
-### Active Risks (Phase 0)
-- **MCP credential leakage**: Mitigated with .gitignore + pre-commit hooks
-- **Agent prompt drift**: Will be mitigated in Phase 3 with System Evaluator
-- **Context overflow**: Using identity/ sharding strategy
-
-### Future Risks to Monitor
-- Cross-IDE compatibility breaks (Phase 5)
-- Multi-user merge conflicts (Phase 6)
-- Identity Layer staleness (ongoing)
 
 ---
 
-**Roadmap Owner**: Product Architect Agent
-**Last Updated**: 2026-01-31
-**Next Update**: End of Phase 0 (Week 2)
+## Risk Mitigation Tracking
+
+**[Optional: Track key risks to roadmap execution]**
+
+### Active Risks
+- **[Risk 1]**: [Description] - Mitigation: [Strategy]
+- **[Risk 2]**: [Description] - Mitigation: [Strategy]
+
+### Future Risks to Monitor
+- [Risk 3]
+- [Risk 4]
+
+---
+
+**Customization Instructions**:
+1. Choose a roadmap structure that fits your team's planning approach
+2. Replace all `[placeholders]` with your actual product initiatives
+3. Keep this file updated as your roadmap evolves (typically monthly or quarterly)
+4. Link to Jira/Linear epics if your team uses those tools
+
+**How Agents Use This File**:
+- Product Architect checks new feature proposals against your roadmap for alignment
+- Engineering Partner references planned initiatives when assessing technical feasibility
+- GTM Strategist aligns positioning with upcoming features
+- All agents ensure new work supports your strategic timeline
+
+**Flexibility**: PM OS doesn't enforce a specific roadmap format. Use whatever structure works for your team.
+
+**Need Help?** See `identity/README.md` for detailed customization guidance.
+
+---
+
+**Roadmap Owner**: [Your Name/Role]
+**Last Updated**: [Date]
+**Next Update**: [When you plan to review/update]

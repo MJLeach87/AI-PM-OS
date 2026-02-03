@@ -79,13 +79,19 @@ PM OS/
 │   └── agents/                     # Claude Code agent logic
 │       └── product_arch.md         # Product Architect agent
 │
-├── identity/                       # Organizational intelligence (loaded into all agents)
-│   ├── STRATEGY.md                 # Vision, mission, North Star metrics
-│   ├── STANDARDS.md                # Brand voice, tech stack, security requirements
-│   └── ROADMAP.md                  # PM OS implementation timeline (meta-recursive)
+├── identity/                       # YOUR organizational intelligence (customize these templates!)
+│   ├── README.md                   # Guide to customizing YOUR identity layer
+│   ├── STRATEGY.md                 # YOUR vision, mission, North Star metrics (template)
+│   ├── STANDARDS.md                # YOUR brand voice, tech stack, security (template)
+│   └── ROADMAP.md                  # YOUR product roadmap (template)
 │
 ├── examples/                       # PM OS inception materials (meta-recursive)
 │   ├── README.md                   # Explains artifacts vs documentation
+│   ├── identity/                   # PM OS's own organizational context (reference examples)
+│   │   ├── README.md               # Explains PM OS's meta-recursive identity layer
+│   │   ├── STRATEGY.md             # PM OS's vision, mission, NSM (reference only)
+│   │   ├── STANDARDS.md            # PM OS's brand voice, tech stack (reference only)
+│   │   └── ROADMAP.md              # PM OS's Phase 0-7 timeline (reference only)
 │   ├── artifacts/                  # PM OS outputs during Phase 0-1
 │   │   ├── discovery/              # OSTs, implementation plans
 │   │   ├── prds/                   # Product requirements docs
@@ -97,12 +103,14 @@ PM OS/
 │       ├── changelogs/             # Agent evolution tracking
 │       └── research/               # Background research, status tracking
 │
-├── execution/                      # Your outputs (currently empty, ready for use)
+├── execution/                      # YOUR workspace (currently empty, ready for use)
+│   ├── README.md                   # Guide to artifact pipeline and quality standards
 │   ├── discovery/                  # OSTs, user research, IA maps
 │   ├── prds/                       # Product requirements documents
 │   ├── technical_specs/            # API specs, BPMN models, Gherkin scenarios
 │   ├── prototypes/                 # React/Tailwind components
 │   ├── gtm/                        # Marketing materials
+│   ├── improvement_proposals/      # PM OS self-improvement proposals
 │   └── automation/                 # Scripts (Phase 5+)
 │
 ├── templates/                      # Standardized formats
@@ -128,13 +136,18 @@ PM OS/
 
 ### Identity Layer (Organizational Context)
 
-The Identity Layer stores all organizational intelligence that agents use for decision-making:
+The Identity Layer stores YOUR organizational intelligence that agents use for decision-making:
 
-- **`identity/STRATEGY.md`**: Company vision, mission, North Star metrics, strategic principles
-- **`identity/STANDARDS.md`**: Brand voice, tech stack, security requirements, quality gates
-- **`identity/ROADMAP.md`**: PM OS implementation timeline (the system builds itself!)
+- **`identity/STRATEGY.md`**: YOUR company vision, mission, North Star metrics (customize this template!)
+- **`identity/STANDARDS.md`**: YOUR brand voice, tech stack, security requirements (customize this template!)
+- **`identity/ROADMAP.md`**: YOUR product roadmap (customize this template!)
+- **`identity/README.md`**: Customization guide with step-by-step instructions
 
-**Key Principle**: All agents automatically load relevant identity context before generating outputs. This ensures consistency and strategic alignment.
+**Reference Examples**: PM OS's own organizational context is in `examples/identity/` (PM OS building itself - reference only, don't edit)
+
+**Key Principle**: All agents automatically load YOUR identity files before generating outputs. Customize the templates in `identity/` with YOUR organization's actual context.
+
+**Getting Started**: See `identity/README.md` for detailed customization instructions.
 
 ### Multi-Agent Architecture
 
@@ -203,7 +216,7 @@ PM OS integrates external tools via Model Context Protocol:
 **Example**: "Add a new agent for handling payments domain"
 
 **What Happens**:
-1. Product Architect checks `identity/ROADMAP.md` to verify in-scope
+1. Product Architect checks `examples/identity/ROADMAP.md` to verify PM OS phase supports new agents
 2. Uses `templates/agent_spec_template.md` as foundation
 3. Generates both Cursor (`.mdc`) and Claude Code (`.md`) versions
 4. Proposes Orchestrator routing update
@@ -213,7 +226,8 @@ PM OS integrates external tools via Model Context Protocol:
 
 **For detailed roadmap and implementation status**, see:
 - `examples/documentation/IMPLEMENTATION_STATUS.md` - Current phase progress and timeline
-- `identity/ROADMAP.md` - Comprehensive 6-phase roadmap
+- `examples/identity/ROADMAP.md` - PM OS's comprehensive 7-phase implementation roadmap
+- `identity/ROADMAP.md` - YOUR product roadmap (template to customize)
 
 ---
 
@@ -391,9 +405,12 @@ MCP integrations are configured but disabled by default. To enable when ready:
 ## Documentation
 
 ### Core Documentation
-- **`identity/STRATEGY.md`**: Vision, mission, North Star metrics
-- **`identity/STANDARDS.md`**: Brand voice, tech stack, security
-- **`identity/ROADMAP.md`**: Implementation timeline and phase details
+- **`identity/README.md`**: Customization guide for YOUR organizational context
+- **`identity/STRATEGY.md`**: YOUR vision, mission, North Star metrics (template)
+- **`identity/STANDARDS.md`**: YOUR brand voice, tech stack, security (template)
+- **`identity/ROADMAP.md`**: YOUR product roadmap (template)
+- **`execution/README.md`**: Artifact pipeline guide and quality standards
+- **`examples/identity/`**: PM OS's own organizational context (reference examples)
 - **`templates/`**: All artifact templates
 
 ### Agent Documentation
@@ -452,12 +469,15 @@ No problem! PM OS is designed for progressive enhancement:
 
 ### How do I customize PM OS for my organization?
 
-1. **Edit Identity Layer**:
-   - `identity/STRATEGY.md`: Update with your vision, mission, metrics
-   - `identity/STANDARDS.md`: Update with your brand voice, tech stack
-   - `identity/MARKET.md`: Add your competitive positioning
+1. **Customize Identity Layer** (CRITICAL - do this first!):
+   - See `identity/README.md` for step-by-step guide
+   - Replace templates in `identity/` with YOUR company's actual context:
+     - `identity/STRATEGY.md`: YOUR vision, mission, metrics
+     - `identity/STANDARDS.md`: YOUR brand voice, tech stack
+     - `identity/ROADMAP.md`: YOUR product roadmap
+   - Reference `examples/identity/` for structural examples (PM OS's own files)
 
-2. **Customize Templates**:
+2. **Customize Templates** (Optional):
    - Modify `templates/prd_template.md` for your PRD format
    - Add custom templates for your specific artifacts
 

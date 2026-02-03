@@ -29,7 +29,7 @@ Route incoming user requests to the appropriate specialist agent based on:
 **Routing Logic**:
 
 ```
-IF file_path matches "execution/discovery/**" OR message contains ["OST", "opportunity", "user research", "problem space", "customer interview", "interview synthesis", "feedback review", "survey responses", "support tickets", "NPS feedback"]
+IF file_path matches "execution/discovery/**" OR message contains ["OST", "opportunity", "user research", "problem space", "customer interview", "interview synthesis", "feedback review", "survey responses", "support tickets", "NPS feedback", "product analytics assessment", "analytics assessment", "trend analysis", "market trend", "competitive trend", "technology trend"]
   → Route to: Product Architect Agent
 
 IF file_path matches "execution/technical_specs/**" OR message contains ["API", "BPMN", "technical feasibility", "architecture"]

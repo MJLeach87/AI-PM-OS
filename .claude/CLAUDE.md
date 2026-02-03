@@ -58,15 +58,23 @@ See `identity/STRATEGY.md` for detailed metric definitions and recommended sets 
 ## Key Architecture Components
 
 ### Identity Layer (Organizational Context)
-The Identity Layer stores all organizational intelligence that agents use for decision-making:
+The Identity Layer stores YOUR organizational intelligence that agents use for decision-making:
 
-- **`identity/STRATEGY.md`**: Company vision, mission, North Star metrics, strategic principles
-- **`identity/STANDARDS.md`**: Brand voice, tech stack, security requirements, quality gates
-- **`identity/ROADMAP.md`**: PM OS implementation timeline (meta-recursive roadmap)
-- **`identity/MARKET.md`**: (Future) Competitive positioning
-- **`identity/DATA_DICTIONARY.md`**: (Future Phase 4) Data warehouse schema definitions
+**YOUR Organizational Context** (in `identity/` - customize these templates!):
+- **`identity/STRATEGY.md`**: YOUR company vision, mission, North Star metrics (template - replace with YOUR actual strategy!)
+- **`identity/STANDARDS.md`**: YOUR brand voice, tech stack, security requirements (template - replace with YOUR actual standards!)
+- **`identity/ROADMAP.md`**: YOUR product roadmap (template - replace with YOUR actual roadmap!)
+- **`identity/README.md`**: Customization guide with step-by-step instructions
 
-**Usage**: All agents automatically load relevant identity context before generating outputs.
+**PM OS's Own Context** (in `examples/identity/` - reference examples, read-only):
+- **`examples/identity/STRATEGY.md`**: PM OS's vision, mission, NSM (reference example)
+- **`examples/identity/STANDARDS.md`**: PM OS's brand voice, tech stack (reference example)
+- **`examples/identity/ROADMAP.md`**: PM OS's Phase 0-7 implementation timeline (reference example)
+- **`examples/identity/README.md`**: Explains PM OS's meta-recursive organizational context
+
+**CRITICAL**: Agents load files from `identity/` (YOUR context), NOT from `examples/identity/` (PM OS's reference examples). Users must customize `identity/` templates with THEIR actual organizational information.
+
+**Usage**: All agents automatically load relevant identity context from `identity/` before generating outputs.
 
 ### Agent Architecture
 
@@ -141,8 +149,10 @@ When you receive a user request in Claude Code:
    - Quality audit → System Evaluator
 
 2. **Load Identity Context**:
-   - Always: `identity/STRATEGY.md`, `identity/STANDARDS.md`
-   - Conditionally: `identity/ROADMAP.md` (for PM OS meta-tasks), `identity/DATA_DICTIONARY.md` (for data tasks)
+   - Always: `identity/STRATEGY.md` (USER's strategy), `identity/STANDARDS.md` (USER's standards)
+   - For PM OS meta-tasks: `examples/identity/ROADMAP.md` (PM OS's implementation timeline)
+   - For user's product work: `identity/ROADMAP.md` (USER's product roadmap)
+   - Conditionally: `identity/DATA_DICTIONARY.md` (Future Phase 5)
 
 3. **Apply Quality Standards**:
    - Check output follows `identity/STANDARDS.md` brand voice
@@ -242,7 +252,7 @@ Human PM Review & Approval
 **Example**: "Add a new agent for handling payments domain"
 
 **Process**:
-1. Check `identity/ROADMAP.md` to ensure current phase supports new agents
+1. Check `examples/identity/ROADMAP.md` to ensure PM OS's current phase supports new agents
 2. Use `templates/agent_spec_template.md` as foundation
 3. Generate both Cursor (`.mdc`) and Claude Code (`.md`) versions
 4. Update Orchestrator routing logic to recognize payments-related keywords
@@ -264,12 +274,18 @@ PM OS/
 │       ├── product_arch.md            # Product Architect
 │       ├── engineering_partner.md     # Engineering Partner v1.2
 │       └── ux_strategist.md           # UX Strategist
-├── identity/
-│   ├── STRATEGY.md                    # Vision, mission, North Star
-│   ├── STANDARDS.md                   # Brand voice, tech stack, security
-│   └── ROADMAP.md                     # PM OS implementation timeline
+├── identity/                          # YOUR organizational context (customize templates!)
+│   ├── README.md                      # Customization guide
+│   ├── STRATEGY.md                    # YOUR vision, mission, NSM (template)
+│   ├── STANDARDS.md                   # YOUR brand voice, tech stack (template)
+│   └── ROADMAP.md                     # YOUR product roadmap (template)
 ├── examples/                          # PM OS inception materials (meta-recursive)
 │   ├── README.md                      # Explains artifacts vs documentation
+│   ├── identity/                      # PM OS's own organizational context (reference)
+│   │   ├── README.md                  # Explains PM OS's meta-recursive identity
+│   │   ├── STRATEGY.md                # PM OS's vision (reference example)
+│   │   ├── STANDARDS.md               # PM OS's tech stack (reference example)
+│   │   └── ROADMAP.md                 # PM OS's Phase 0-7 timeline (reference)
 │   ├── artifacts/                     # PM OS outputs during Phase 0-1
 │   │   ├── discovery/                 # OSTs, implementation plans
 │   │   ├── prds/                      # Product requirements docs
@@ -280,12 +296,14 @@ PM OS/
 │       ├── validation-reports/        # Comprehensive test results
 │       ├── changelogs/                # Agent evolution tracking
 │       └── research/                  # Background research, status
-├── execution/                         # Your workspace (currently empty)
+├── execution/                         # YOUR workspace (currently empty)
+│   ├── README.md                      # Artifact pipeline guide
 │   ├── discovery/                     # OSTs, research notes
 │   ├── prds/                          # Product requirements docs
 │   ├── technical_specs/               # API specs, BPMN, Gherkin
 │   ├── prototypes/                    # React components
 │   ├── gtm/                           # Marketing materials
+│   ├── improvement_proposals/         # PM OS self-improvement proposals
 │   └── automation/                    # Scripts (Phase 5+)
 ├── templates/
 │   ├── agent_spec_template.md         # Agent definition format
@@ -310,7 +328,12 @@ PM OS/
 
 Before any substantive task:
 ```
-Read identity/STRATEGY.md and identity/STANDARDS.md to understand organizational context
+Read identity/STRATEGY.md and identity/STANDARDS.md to understand USER's organizational context
+```
+
+For PM OS meta-tasks (improving PM OS itself):
+```
+Read examples/identity/ROADMAP.md to check PM OS's current phase status
 ```
 
 ### Generating Artifacts
@@ -323,10 +346,16 @@ Save to execution/prds/2026-01-31_PRD_[feature-name].md
 
 ### Checking Current Phase
 
-To understand what's in scope:
+To understand what's in scope for PM OS development:
 ```
-Read identity/ROADMAP.md to check current phase status
-Verify this task aligns with Phase [N] objectives
+Read examples/identity/ROADMAP.md to check PM OS's current phase status
+Verify this task aligns with Phase [N] objectives for PM OS implementation
+```
+
+To understand user's product roadmap:
+```
+Read identity/ROADMAP.md to check USER's product roadmap
+Verify feature aligns with USER's strategic timeline
 ```
 
 ### Validating Outputs
@@ -373,7 +402,8 @@ Use Claude Code for:
 
 ### 3. Self-Awareness
 - PM OS is building itself (meta-recursive)
-- When working on PM OS improvements, consult `identity/ROADMAP.md`
+- When working on PM OS improvements, consult `examples/identity/ROADMAP.md` (PM OS's implementation phases)
+- When working on user's product features, consult `identity/ROADMAP.md` (user's product roadmap)
 - Propose enhancements aligned with current phase
 
 ### 4. Quality Over Speed
@@ -408,16 +438,23 @@ Use Claude Code for:
 ## Getting Help
 
 **Documentation**:
-- Identity Layer: `identity/*.md`
-- Templates: `templates/*.md`
-- MCP Setup Guides: `mcp/setup_guides/*.md` (future)
-- Troubleshooting: `docs/TROUBLESHOOTING.md` (future)
+- **Customization Guides**: `identity/README.md`, `execution/README.md`, `examples/identity/README.md`
+- **YOUR Organizational Context**: `identity/*.md` (customize these templates!)
+- **PM OS's Own Context** (reference): `examples/identity/*.md`
+- **Templates**: `templates/*.md`
+- **MCP Setup Guides**: `mcp/setup_guides/*.md` (future)
+- **Troubleshooting**: `docs/TROUBLESHOOTING.md` (future)
 
-**For PM OS Issues**:
-1. Check `identity/ROADMAP.md` for current phase scope
-2. Consult `identity/STANDARDS.md` for quality guidelines
+**For PM OS Implementation Questions**:
+1. Check `examples/identity/ROADMAP.md` for PM OS's current phase scope
+2. Consult `identity/STANDARDS.md` for USER's quality guidelines
 3. Review relevant template in `templates/`
 4. Flag complex decisions for human PM review
+
+**For User's Product Work**:
+1. Load `identity/STRATEGY.md` (USER's vision) and `identity/STANDARDS.md` (USER's standards)
+2. Reference `identity/ROADMAP.md` (USER's product roadmap) for alignment
+3. Save outputs to `execution/` subdirectories
 
 ---
 

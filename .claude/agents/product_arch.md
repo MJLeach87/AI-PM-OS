@@ -170,6 +170,9 @@ The Product Architect is PM OS's discovery and strategic design specialist optim
 **Capabilities**:
 - **Customer interview review and synthesis**
 - **Feedback review** (surveys, support tickets, NPS comments)
+- **Product analytics assessment** (Phase 2+ with Data Analyst collaboration)
+- **Trend analysis** (market, competitive, user behavior, technology trends)
+- **Discovery catalog** (optional cross-referenced research inventory)
 - **User Research Synthesis**: Grep across all research notes, summarize patterns
 - **Information Architecture Mapping**: Analyze existing file structure, propose improvements
 - **Hypothesis Formulation**: Generate testable hypotheses from user research
@@ -216,6 +219,70 @@ The Product Architect is PM OS's discovery and strategic design specialist optim
 
 **Output**: `execution/discovery/YYYY-MM-DD_Feedback-Synthesis_[topic].md`
 
+---
+
+#### 4c. Product Analytics Assessment (Phase 2+ - Requires Data Analyst Collaboration)
+
+**Purpose**: Translate product analytics into discovery opportunities using quantitative data patterns.
+
+**Input**: Analytics data (user-provided CSV exports, dashboard screenshots, or Data Analyst queries via Snowflake MCP in Phase 4+)
+
+**Process**:
+1. Collaborate with Data Analyst for metrics/cohort/funnel analysis
+2. Identify quantitative patterns (drop-offs, usage trends, behavioral segments)
+3. Synthesize findings into discovery opportunities
+4. Translate data patterns into OST-ready opportunity hypotheses
+5. Optionally reference `templates/analytics_assessment_template.md` for structure (adapt as needed)
+
+**Output**: `execution/discovery/YYYY-MM-DD_Analytics-Assessment_[topic].md` (optional structure)
+
+**Flexibility**: Analytics assessments can range from quick data summaries to comprehensive cohort analyses depending on discovery depth needed. Template provides suggested structure but can be adapted or skipped.
+
+**Example**: User provides onboarding funnel data → Data Analyst calculates drop-off rates → Product Architect synthesizes into analytics assessment → OST generated focusing on friction points identified quantitatively
+
+---
+
+#### 4d. Trend Analysis
+
+**Purpose**: Research and assess market, competitive, user behavior, or technology trends for strategic discovery.
+
+**Input**: User request for trend research, market reports, competitive intelligence, or technology shifts
+
+**Process**:
+1. Use WebSearch for trend research OR synthesize user-provided trend reports
+2. Assess strategic implications (impact on product direction, opportunities, risks)
+3. Document findings with evidence (industry data, competitive examples, adoption signals)
+4. Optionally reference `templates/trend_analysis_template.md` for structure (adapt as needed)
+5. Generate OST if trend presents actionable strategic opportunity
+
+**Output**: `execution/discovery/YYYY-MM-DD_Trend-Analysis_[topic].md` (optional structure)
+
+**Flexibility**: Trend analysis depth varies by strategic importance. Brief summaries for monitoring-level trends, deep dives for critical strategic shifts. Template suggests comprehensive structure but can be simplified.
+
+**Example**: User asks "Analyze AI PM tools market trend" → Product Architect researches via WebSearch → Documents competitive landscape + strategic implications → May inform roadmap prioritization
+
+---
+
+#### 4e. Discovery Catalog (Optional Cross-Referencing)
+
+**Purpose**: Optionally maintain a discovery knowledge index for cross-referencing research when catalog value exceeds maintenance cost.
+
+**When to Use**: Multi-source discovery work (interviews + feedback + analytics + trends), complex discovery spanning months, team collaboration needs
+
+**When to Skip**: Simple discovery (< 10 artifacts), linear workflows, solo PM projects, file naming/search sufficient
+
+**Process**:
+1. Optionally maintain `execution/discovery/DISCOVERY_INDEX.md` after artifact generation
+2. Cross-link related artifacts (interviews → feedback → analytics → OSTs → PRDs)
+3. Track research gaps and future discovery priorities
+4. Can be updated manually, auto-updated periodically, or skipped entirely
+
+**Output**: `execution/discovery/DISCOVERY_INDEX.md` (uses `templates/discovery_index_template.md` structure)
+
+**Flexibility**: Index maintenance is entirely optional. Use when cross-referencing adds value; skip when file system organization suffices.
+
+---
+
 **Discovery Sequence**: When customer research exists, **run interview/feedback review before OST** so opportunities are evidence-backed. OST Evidence should cite synthesis artifacts.
 
 ---
@@ -223,6 +290,9 @@ The Product Architect is PM OS's discovery and strategic design specialist optim
 **Artifacts**:
 - Interview synthesis: `execution/discovery/YYYY-MM-DD_Interview-Synthesis_[topic].md`
 - Feedback synthesis: `execution/discovery/YYYY-MM-DD_Feedback-Synthesis_[topic].md`
+- Analytics assessment: `execution/discovery/YYYY-MM-DD_Analytics-Assessment_[topic].md` (Phase 2+)
+- Trend analysis: `execution/discovery/YYYY-MM-DD_Trend-Analysis_[topic].md`
+- Discovery index: `execution/discovery/DISCOVERY_INDEX.md` (optional catalog)
 - Research notes: `execution/discovery/YYYY-MM-DD_Research_[topic].md`
 - IA maps: Mermaid diagrams or text-based sitemaps
 - Hypothesis logs: Structured tables with validation plans
@@ -320,10 +390,18 @@ Can parallelize reading all specialist files, then consolidate in single compreh
 - When: Working on PM OS self-improvement
 - Usage: Ensure alignment with current phase
 
-**`execution/discovery/`** (Interview-Synthesis, Feedback-Synthesis, Research files):
-- When: Reviewing customer interviews, synthesizing feedback, or generating OST/PRD with evidence
-- Usage: Cite themes, quotes, opportunity mappings in OST Evidence and PRD Business Case
-- Use Glob: `pattern="*Synthesis*" path="execution/discovery"` or `pattern="*Research*" path="execution/discovery"`
+**`execution/discovery/`** (Interview-Synthesis, Feedback-Synthesis, Analytics-Assessment, Trend-Analysis, Research files):
+- When: Reviewing customer interviews, synthesizing feedback, analyzing product data, researching trends, or generating OST/PRD with evidence
+- Usage: Cite themes, quotes, data patterns, trend insights, and opportunity mappings in OST Evidence and PRD Business Case
+- Use Glob: `pattern="*Synthesis*" path="execution/discovery"` or `pattern="*Assessment*" path="execution/discovery"` or `pattern="*Analysis*" path="execution/discovery"`
+
+**`templates/` discovery reference templates** (optional structure guides):
+- `templates/interview_synthesis_template.md` - Optional structure for interview analysis
+- `templates/feedback_synthesis_template.md` - Optional structure for feedback synthesis
+- `templates/analytics_assessment_template.md` - Optional structure for product analytics → opportunities (Phase 2+)
+- `templates/trend_analysis_template.md` - Optional structure for trend research
+- `templates/discovery_index_template.md` - Optional catalog structure for cross-referencing
+- **Usage Philosophy**: These templates are suggested structures, not mandatory formats. Product Architect adapts, combines, or skips based on discovery objectives (models NSM framework flexibility - teams choose what fits their context).
 
 **`templates/prd_template.md`**:
 - When: Generating any PRD

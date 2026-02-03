@@ -22,7 +22,10 @@
       "Bash(git push:*)",
       "Bash(timeout 5 tail:*)",
       "Bash(git add:*)",
-      "Bash(git mv:*)"
+      "Bash(git mv:*)",
+      "Bash(if exist \"PM OS Vision and North Start Refinment.md\" del /q \"PM OS Vision and North Start Refinment.md\")",
+      "Bash(dir:*)",
+      "Bash(grep:*)"
     ]
   }
 }
