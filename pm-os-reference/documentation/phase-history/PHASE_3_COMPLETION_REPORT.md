@@ -59,7 +59,7 @@ Phase 3 (Self-Improvement Loop) has been successfully completed, delivering 7/7 
 
 ### 3. ✅ Self-Improvement Workflow Implementation
 **Completed**: 2026-02-01
-**Documentation**: `examples/documentation/self-improvement-workflow.md` (implied)
+**Documentation**: `pm-os-reference/documentation/self-improvement-workflow.md` (implied)
 
 **Workflow Phases**:
 1. **Audit**: System Evaluator analyzes agent outputs weekly
@@ -116,7 +116,7 @@ Phase 3 (Self-Improvement Loop) has been successfully completed, delivering 7/7 
 
 ### 6. ✅ Quality Metrics Dashboard
 **Completed**: 2026-02-02
-**File**: `examples/documentation/QUALITY_METRICS_DASHBOARD.md`
+**File**: `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md`
 
 **Dashboard Sections** (11 total):
 1. **Executive Summary** - System status, key metrics, phases completed
@@ -182,20 +182,20 @@ Phase 3 (Self-Improvement Loop) has been successfully completed, delivering 7/7 
 4. `.claude/agents/documentation_maintainer.md` - Claude Code version (~2,000 lines)
 
 ### Documentation Files (4 files)
-1. `examples/documentation/QUALITY_METRICS_DASHBOARD.md` - Comprehensive 11-section dashboard (~400 lines)
-2. `examples/documentation/VELOCITY_TRACKING.md` - Detailed time logs and velocity analysis (~400 lines)
-3. `examples/documentation/ROADMAP-001_IMPLEMENTATION_SUMMARY.md` - Evolution implementation report (~500 lines)
-4. `examples/documentation/phase-history/PHASE_3_COMPLETION_REPORT.md` - This document (~300 lines)
+1. `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md` - Comprehensive 11-section dashboard (~400 lines)
+2. `pm-os-reference/documentation/VELOCITY_TRACKING.md` - Detailed time logs and velocity analysis (~400 lines)
+3. `pm-os-reference/documentation/ROADMAP-001_IMPLEMENTATION_SUMMARY.md` - Evolution implementation report (~500 lines)
+4. `pm-os-reference/documentation/phase-history/PHASE_3_COMPLETION_REPORT.md` - This document (~300 lines)
 
 ### Updated Files (8 files)
-1. `examples/identity/ROADMAP.md` - Reality-based tracking + Phase Evolution History
+1. `pm-os-reference/identity/ROADMAP.md` - Reality-based tracking + Phase Evolution History
 2. `README.md` - Current phase status + recently completed phases
 3. `.claude/CLAUDE.md` - Phase roadmap table + current phase update
 4. `QUICK_START.md` - Agent status callouts updated
-5. `examples/documentation/IMPLEMENTATION_STATUS.md` - Phase 3 completion status
+5. `pm-os-reference/documentation/IMPLEMENTATION_STATUS.md` - Phase 3 completion status
 6. `VALIDATION_CHECKLIST.md` - Phase 1 validation actual status
 7. `mcp/setup_guides/GOOGLE_DRIVE_SETUP.md` - Sub-phase terminology fixes
-8. `examples/documentation/VELOCITY_TRACKING.md` - Phase 3 completion data added
+8. `pm-os-reference/documentation/VELOCITY_TRACKING.md` - Phase 3 completion data added
 
 **Total Artifacts**: 16 files (4 new agents, 4 new docs, 8 updated docs)
 **Total Lines**: ~6,000 lines of code/documentation

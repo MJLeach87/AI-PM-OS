@@ -54,7 +54,7 @@ The Identity Layer is **YOUR organizational intelligence as executable code**. I
 - [ ] Define YOUR strategic principles (not PM OS's defaults)
 - [ ] Delete example content and placeholders
 
-**Reference**: See `examples/identity/STRATEGY.md` for PM OS's own strategy as structural example.
+**Reference**: See `pm-os-reference/identity/STRATEGY.md` for PM OS's own strategy as structural example.
 
 ---
 
@@ -78,7 +78,7 @@ The Identity Layer is **YOUR organizational intelligence as executable code**. I
 - [ ] Update dependencies and risks relevant to YOUR product
 - [ ] Delete PM OS roadmap references
 
-**Reference**: See `examples/identity/ROADMAP.md` for PM OS's roadmap structure (but replace with YOUR product's roadmap).
+**Reference**: See `pm-os-reference/identity/ROADMAP.md` for PM OS's roadmap structure (but replace with YOUR product's roadmap).
 
 ---
 
@@ -105,7 +105,7 @@ The Identity Layer is **YOUR organizational intelligence as executable code**. I
 - [ ] Set YOUR workflow conventions (git workflow, file naming, PR templates)
 - [ ] Delete PM OS standards that don't apply
 
-**Reference**: See `examples/identity/STANDARDS.md` for comprehensive example of organizational standards.
+**Reference**: See `pm-os-reference/identity/STANDARDS.md` for comprehensive example of organizational standards.
 
 ---
 
@@ -147,8 +147,8 @@ The Identity Layer is **YOUR organizational intelligence as executable code**. I
 - `[Replace with YOUR tech stack]` → Your actual technologies (e.g., Vue instead of React)
 - `[Replace with YOUR product roadmap]` → Your actual Q1/Q2/Q3 initiatives
 
-**4. Use examples/identity/ files as structural reference**:
-- See `examples/identity/STRATEGY.md` for how PM OS structures its strategy
+**4. Use pm-os-reference/identity/ files as structural reference**:
+- See `pm-os-reference/identity/STRATEGY.md` for how PM OS structures its strategy
 - Use similar section headings but replace content with YOUR company's info
 - Don't copy PM OS's vision/mission - create your own!
 
@@ -220,7 +220,7 @@ git diff HEAD~6 identity/STRATEGY.md
 
 ### Understanding PM OS's File Organization
 
-**examples/identity/** (PM OS's own organizational context):
+**pm-os-reference/identity/** (PM OS's own organizational context):
 - Contains PM OS's **actual** STRATEGY.md, ROADMAP.md, STANDARDS.md
 - Files describe PM OS building itself (meta-recursive)
 - **Reference examples** - read-only, don't edit
@@ -237,10 +237,10 @@ git diff HEAD~6 identity/STRATEGY.md
 - OSTs, PRDs, technical specs, prototypes, GTM materials
 - See `execution/README.md` for artifact pipeline guide
 
-**examples/artifacts/** (PM OS's workspace):
+**pm-os-reference/artifacts/** (PM OS's workspace):
 - Where PM OS saved artifacts it generated for building itself
 - Examples of output quality (OSTs, PRDs, specs, prototypes from PM OS inception)
-- See `examples/README.md` for details
+- See `pm-os-reference/README.md` for details
 
 ### Quick Decision Tree
 
@@ -250,8 +250,8 @@ git diff HEAD~6 identity/STRATEGY.md
 - YOUR tech stack/standards → `identity/STANDARDS.md`
 - OST you're creating for YOUR product → `execution/discovery/`
 - PRD for YOUR product feature → `execution/prds/`
-- PM OS's own vision (reference only) → `examples/identity/STRATEGY.md`
-- PM OS's implementation phases (reference only) → `examples/identity/ROADMAP.md`
+- PM OS's own vision (reference only) → `pm-os-reference/identity/STRATEGY.md`
+- PM OS's implementation phases (reference only) → `pm-os-reference/identity/ROADMAP.md`
 
 ---
 
@@ -259,19 +259,19 @@ git diff HEAD~6 identity/STRATEGY.md
 
 ### See PM OS's Own Identity Layer
 
-Want to see a complete, real-world Identity Layer? Check out `examples/identity/`:
+Want to see a complete, real-world Identity Layer? Check out `pm-os-reference/identity/`:
 
-**examples/identity/STRATEGY.md**:
+**pm-os-reference/identity/STRATEGY.md**:
 - PM OS's vision: "Transform PMs from document-authors into Strategic Architects"
 - PM OS's mission: "Institutionalize product strategy as executable code"
 - PM OS's NSM: Flexible framework with time efficiency, quality, discovery, alignment metrics
 
-**examples/identity/ROADMAP.md**:
+**pm-os-reference/identity/ROADMAP.md**:
 - PM OS's 7-phase implementation timeline (Phase 0-7)
 - Shows how PM OS builds itself over 28 weeks
 - Demonstrates phase-based roadmap structure
 
-**examples/identity/STANDARDS.md**:
+**pm-os-reference/identity/STANDARDS.md**:
 - PM OS's tech stack: React, TypeScript, Node.js, Snowflake
 - PM OS's brand voice: Professional, technical, concise, evidence-based
 - PM OS's quality gates: Strategic alignment, evidence-based decisions, security requirements
@@ -292,15 +292,15 @@ Want to see a complete, real-world Identity Layer? Check out `examples/identity/
 
 ---
 
-### "Should I edit examples/identity/ or identity/?"
+### "Should I edit pm-os-reference/identity/ or identity/?"
 
-**Problem**: Confusion between PM OS's files (examples/identity/) and your customization files (identity/).
+**Problem**: Confusion between PM OS's files (pm-os-reference/identity/) and your customization files (identity/).
 
 **Solution**:
-- **NEVER edit examples/identity/** - these are PM OS's own files (reference only)
+- **NEVER edit pm-os-reference/identity/** - these are PM OS's own files (reference only)
 - **ALWAYS edit identity/** - these are templates for YOUR company (customize these)
 
-**Rule of thumb**: If file has "🔧 CUSTOMIZE THIS" header → edit it (identity/). If it doesn't → reference only (examples/identity/).
+**Rule of thumb**: If file has "🔧 CUSTOMIZE THIS" header → edit it (identity/). If it doesn't → reference only (pm-os-reference/identity/).
 
 ---
 
@@ -349,7 +349,7 @@ Want to see a complete, real-world Identity Layer? Check out `examples/identity/
 ## Links to Related Documentation
 
 **Customization Process**:
-- [examples/identity/README.md](../examples/identity/README.md) - Explains PM OS's own organizational context (reference examples)
+- [pm-os-reference/identity/README.md](../pm-os-reference/identity/README.md) - Explains PM OS's own organizational context (reference examples)
 - [QUICK_START.md](../QUICK_START.md) - Fast-start guide with Identity Layer customization emphasis
 - [.claude/CLAUDE.md](../.claude/CLAUDE.md) - Project context explaining Identity Layer architecture
 
@@ -360,7 +360,7 @@ Want to see a complete, real-world Identity Layer? Check out `examples/identity/
 
 **Workspace Guides**:
 - [execution/README.md](../execution/README.md) - Product workspace artifact pipeline guide
-- [examples/README.md](../examples/README.md) - PM OS inception materials overview
+- [pm-os-reference/README.md](../pm-os-reference/README.md) - PM OS inception materials overview
 
 **Templates**:
 - [templates/](../templates/) - Agent spec, PRD, and MCP integration templates
@@ -371,7 +371,7 @@ Want to see a complete, real-world Identity Layer? Check out `examples/identity/
 
 **Key Takeaways**:
 1. **Customize templates in identity/** with YOUR company's actual information
-2. **Use examples/identity/** as structural reference only (PM OS's own files, don't edit)
+2. **Use pm-os-reference/identity/** as structural reference only (PM OS's own files, don't edit)
 3. **Agents automatically load identity/** files - no need to repeat context in every request
 4. **Update quarterly** or when organizational strategy/standards change
 5. **Test customization** by generating a PRD and checking it cites YOUR vision
@@ -389,4 +389,4 @@ Want to see a complete, real-world Identity Layer? Check out `examples/identity/
 **Directory Purpose**: Store YOUR organizational intelligence (strategy, standards, roadmap) as version-controlled code
 **Maintained By**: You (Product Manager) + Head of Product (for STRATEGY.md major changes)
 **Update Frequency**: Quarterly or when organizational context changes
-**Related Files**: See `examples/identity/README.md` for PM OS's own organizational context (reference examples)
+**Related Files**: See `pm-os-reference/identity/README.md` for PM OS's own organizational context (reference examples)

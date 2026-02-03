@@ -100,11 +100,11 @@
 ## Documentation Updates
 
 **Files Updated**:
-- `examples/identity/ROADMAP.md`: Added Phase [X]a/[X]b, updated Phase Evolution History section
+- `pm-os-reference/identity/ROADMAP.md`: Added Phase [X]a/[X]b, updated Phase Evolution History section
 - `README.md`: Updated phase roadmap table
 - `QUICK_START.md`: Updated "What's Coming" section
 - `.claude/CLAUDE.md`: Updated phase roadmap summary
-- `examples/documentation/IMPLEMENTATION_STATUS.md`: Added Phase [X]a and [X]b as separate tracking sections
+- `pm-os-reference/documentation/IMPLEMENTATION_STATUS.md`: Added Phase [X]a and [X]b as separate tracking sections
 
 **Commit**: [Commit hash and message]
 

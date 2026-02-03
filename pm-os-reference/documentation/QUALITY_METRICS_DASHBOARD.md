@@ -213,7 +213,7 @@ All agents automatically load context from `identity/` before generating outputs
 
 | Documentation File | Last Sync | Status | Drift Detection |
 |-------------------|-----------|--------|-----------------|
-| `examples/identity/ROADMAP.md` | 2026-02-02 | ✅ Current | No drift |
+| `pm-os-reference/identity/ROADMAP.md` | 2026-02-02 | ✅ Current | No drift |
 | `README.md` | 2026-02-02 | ✅ Current | No drift |
 | `.claude/CLAUDE.md` | 2026-02-02 | ✅ Current | No drift |
 | `QUICK_START.md` | 2026-02-02 | ✅ Current | No drift |
@@ -375,9 +375,9 @@ Phase 3: ████████████████████ 100% (7/7 
 
 | Metric Category | Data Source | Update Method |
 |-----------------|-------------|---------------|
-| Phase Progress | `examples/identity/ROADMAP.md` | Manual (Documentation Maintainer) |
-| Agent Performance | `examples/artifacts/` artifact count | Manual (System Evaluator) |
-| Velocity | `examples/documentation/VELOCITY_TRACKING.md` | Manual (after phase completion) |
+| Phase Progress | `pm-os-reference/identity/ROADMAP.md` | Manual (Documentation Maintainer) |
+| Agent Performance | `pm-os-reference/artifacts/` artifact count | Manual (System Evaluator) |
+| Velocity | `pm-os-reference/documentation/VELOCITY_TRACKING.md` | Manual (after phase completion) |
 | Quality Gates | Validation test results | Manual (after validation) |
 | Strategic Alignment | Identity layer citations in artifacts | Manual (System Evaluator audit) |
 

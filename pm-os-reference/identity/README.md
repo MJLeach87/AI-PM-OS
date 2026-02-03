@@ -59,7 +59,7 @@ This directory contains **PM OS's own organizational intelligence** - the actual
 
 ### Clear Distinction
 
-**examples/identity/** (this directory):
+**pm-os-reference/identity/** (this directory):
 - Contains PM OS's **own** organizational context
 - Files are **reference examples** - read-only, don't edit
 - Shows PM OS building itself (meta-recursive)
@@ -72,10 +72,10 @@ This directory contains **PM OS's own organizational intelligence** - the actual
 ### Analogy
 
 Think of it like:
-- **examples/identity/**: PM OS's own resume/company handbook (reference only)
+- **pm-os-reference/identity/**: PM OS's own resume/company handbook (reference only)
 - **identity/**: YOUR resume/company handbook (customize with your info)
 
-Just like you wouldn't edit someone else's resume, you shouldn't edit `examples/identity/` files. Instead, use them as structural inspiration for customizing YOUR `identity/` files.
+Just like you wouldn't edit someone else's resume, you shouldn't edit `pm-os-reference/identity/` files. Instead, use them as structural inspiration for customizing YOUR `identity/` files.
 
 ---
 
@@ -106,7 +106,7 @@ PM OS practices what it preaches:
    - `identity/STRATEGY.md` - Replace with YOUR company's vision/mission
    - `identity/ROADMAP.md` - Replace with YOUR product's roadmap
    - `identity/STANDARDS.md` - Replace with YOUR tech stack/standards
-3. **Use examples/identity/ files as reference** for structure and content examples
+3. **Use pm-os-reference/identity/ files as reference** for structure and content examples
 4. **Follow customization instructions** in each template file
 5. **Read identity/README.md** for detailed customization guidance
 
@@ -124,26 +124,26 @@ PM OS practices what it preaches:
 - [ROADMAP.md](ROADMAP.md) - PM OS implementation timeline (this directory)
 
 **PM OS Inception Materials**:
-- [examples/README.md](../README.md) - Overview of PM OS building itself
-- [examples/artifacts/](../artifacts/) - PM OS's own outputs (OSTs, PRDs, specs, prototypes)
-- [examples/documentation/](../documentation/) - PM OS's process documentation
+- [pm-os-reference/README.md](../README.md) - Overview of PM OS building itself
+- [pm-os-reference/artifacts/](../artifacts/) - PM OS's own outputs (OSTs, PRDs, specs, prototypes)
+- [pm-os-reference/documentation/](../documentation/) - PM OS's process documentation
 
 ---
 
 ## Troubleshooting
 
 **Q: Should I edit STRATEGY.md in this directory or in `identity/`?**
-A: **Never edit files in examples/identity/**. Edit `identity/STRATEGY.md` (the template with "🔧 CUSTOMIZE THIS" header).
+A: **Never edit files in pm-os-reference/identity/**. Edit `identity/STRATEGY.md` (the template with "🔧 CUSTOMIZE THIS" header).
 
-**Q: Why do examples/identity/ and identity/ have the same filenames?**
-A: To show the parallel structure. PM OS has its own organizational context (examples/identity/), and YOU have yours (identity/). Same file structure, different content.
+**Q: Why do pm-os-reference/identity/ and identity/ have the same filenames?**
+A: To show the parallel structure. PM OS has its own organizational context (pm-os-reference/identity/), and YOU have yours (identity/). Same file structure, different content.
 
-**Q: Can I delete examples/identity/ if I don't need the reference?**
+**Q: Can I delete pm-os-reference/identity/ if I don't need the reference?**
 A: You can, but we recommend keeping it as a reference example of a complete Identity Layer. It's also useful for understanding PM OS's development roadmap.
 
 **Q: How do I know if I'm looking at PM OS's files or my customization templates?**
 A:
-- **examples/identity/**: PM OS's own files (no "🔧 CUSTOMIZE THIS" header, read-only reference)
+- **pm-os-reference/identity/**: PM OS's own files (no "🔧 CUSTOMIZE THIS" header, read-only reference)
 - **identity/**: YOUR templates (prominent "🔧 CUSTOMIZE THIS" header, you should edit these)
 
 ---
@@ -151,4 +151,4 @@ A:
 **Directory Purpose**: Store PM OS's own organizational context as reference examples
 **Maintained By**: PM OS Core Team (as PM OS builds itself)
 **Last Updated**: 2026-02-02 (during organizational clarity restructuring)
-**Related Files**: See `identity/README.md` for customization guide, `examples/README.md` for inception materials overview
+**Related Files**: See `identity/README.md` for customization guide, `pm-os-reference/README.md` for inception materials overview

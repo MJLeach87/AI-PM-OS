@@ -7,7 +7,7 @@
 - Prototypes, GTM materials for YOUR products
 - Improvement proposals for YOUR PM OS instance
 
-**NOT PM OS inception materials** - Those are in `examples/artifacts/` (PM OS building itself = meta-recursive work). This workspace is for YOUR actual product development work.
+**NOT PM OS inception materials** - Those are in `pm-os-reference/artifacts/` (PM OS building itself = meta-recursive work). This workspace is for YOUR actual product development work.
 
 ---
 
@@ -339,7 +339,7 @@ For iterative artifacts (PRDs, prototypes):
 
 ## What Belongs Where
 
-### Distinguishing execution/ from identity/ and examples/
+### Distinguishing execution/ from identity/ and pm-os-reference/
 
 **execution/** (YOUR workspace) ← **YOU ARE HERE**:
 - Artifacts PM OS generates for YOUR product work
@@ -352,15 +352,15 @@ For iterative artifacts (PRDs, prototypes):
 - Agents load these files to guide their work
 - See `identity/README.md` for customization guide
 
-**examples/identity/** (PM OS's organizational context):
+**pm-os-reference/identity/** (PM OS's organizational context):
 - PM OS's own strategy, roadmap, standards (meta-recursive)
 - Reference examples showing complete Identity Layer
 - Read-only, don't edit
 
-**examples/artifacts/** (PM OS's workspace):
+**pm-os-reference/artifacts/** (PM OS's workspace):
 - Artifacts PM OS generated when building itself
 - Examples of output quality (OSTs, PRDs, specs, prototypes)
-- See `examples/README.md` for details
+- See `pm-os-reference/README.md` for details
 
 ### Quick Decision Tree
 
@@ -368,8 +368,8 @@ For iterative artifacts (PRDs, prototypes):
 - OST for YOUR feature → `execution/discovery/`
 - PRD for YOUR feature → `execution/prds/`
 - YOUR company's vision → `identity/STRATEGY.md`
-- PM OS's vision (reference) → `examples/identity/STRATEGY.md`
-- PM OS inception OST (reference) → `examples/artifacts/discovery/`
+- PM OS's vision (reference) → `pm-os-reference/identity/STRATEGY.md`
+- PM OS inception OST (reference) → `pm-os-reference/artifacts/discovery/`
 - Agent improvement proposal → `execution/improvement_proposals/`
 
 ---
@@ -453,7 +453,7 @@ git log --since="2026-01-01" execution/prds/
 **Organizational Context**:
 - [identity/](../identity/) - YOUR company's strategy, standards, roadmap (customize these templates)
 - [identity/README.md](../identity/README.md) - Detailed customization guide for Identity Layer
-- [examples/identity/](../examples/identity/) - PM OS's own organizational context (reference examples)
+- [pm-os-reference/identity/](../pm-os-reference/identity/) - PM OS's own organizational context (reference examples)
 
 **PM OS Framework**:
 - [Main README](../README.md) - Product overview and quick start
@@ -466,8 +466,8 @@ git log --since="2026-01-01" execution/prds/
 - [templates/mcp_integration_plan.md](../templates/mcp_integration_plan.md) - MCP setup guide
 
 **Examples**:
-- [examples/README.md](../examples/README.md) - PM OS inception materials overview
-- [examples/artifacts/](../examples/artifacts/) - PM OS's own outputs (quality reference)
+- [pm-os-reference/README.md](../pm-os-reference/README.md) - PM OS inception materials overview
+- [pm-os-reference/artifacts/](../pm-os-reference/artifacts/) - PM OS's own outputs (quality reference)
 
 ---
 
@@ -493,4 +493,4 @@ git log --since="2026-01-01" execution/prds/
 **Directory Purpose**: Version-controlled workspace for product development artifacts
 **Maintained By**: You (Product Manager) + PM OS Agents (generate outputs)
 **Update Frequency**: Continuously as features developed
-**Related Files**: See `identity/README.md` for organizational context, `examples/README.md` for output quality examples
+**Related Files**: See `identity/README.md` for organizational context, `pm-os-reference/README.md` for output quality examples

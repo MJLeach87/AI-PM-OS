@@ -385,7 +385,7 @@ Quality Standards:
 ### Phase 1 (Week 5)
 - [ ] Test new security capability with real feature (validate template)
 - [ ] Refine security assessment template based on initial usage
-- [ ] Add example security assessments to docs/examples/
+- [ ] Add example security assessments to docs/pm-os-reference/
 
 ### Phase 2 (Weeks 6-8)
 - [ ] Integrate security assessment into end-to-end workflow

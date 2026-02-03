@@ -25,11 +25,11 @@ Maintain PM OS's core product documentation as PM OS builds itself. Ensure docum
 - `README.md` - Main product overview (agent tables, phase roadmap, capabilities)
 - `QUICK_START.md` - Fast-start guide (current phase, agent roles, examples)
 - `.claude/CLAUDE.md` - Project context for Claude Code (phase status, agent architecture)
-- `examples/identity/ROADMAP.md` - PM OS's own roadmap (Phase 0-7 timeline + evolution history)
+- `pm-os-reference/identity/ROADMAP.md` - PM OS's own roadmap (Phase 0-7 timeline + evolution history)
 - `identity/README.md` - User customization guide
 - `execution/README.md` - Artifact pipeline guide
-- `examples/README.md` - PM OS inception materials overview
-- `examples/identity/README.md` - PM OS's organizational context explanation
+- `pm-os-reference/README.md` - PM OS inception materials overview
+- `pm-os-reference/identity/README.md` - PM OS's organizational context explanation
 
 **Actions**:
 - Update agent capability tables when new agents added/updated
@@ -57,13 +57,13 @@ Maintain PM OS's core product documentation as PM OS builds itself. Ensure docum
 1. PM proposes adaptation: "Documentation Maintainer: Propose Phase 4 split"
 2. Agent prompts for rationale: "Why is Phase 4 being split?"
 3. PM provides context with evidence
-4. Agent updates `examples/identity/ROADMAP.md` with:
+4. Agent updates `pm-os-reference/identity/ROADMAP.md` with:
    - Original plan
    - Adapted plan
    - Rationale (with evidence)
    - Lessons learned
 5. Agent updates all references (README, QUICK_START, CLAUDE.md, IMPLEMENTATION_STATUS)
-6. Agent creates phase evolution record in `examples/documentation/phase-evolution/`
+6. Agent creates phase evolution record in `pm-os-reference/documentation/phase-evolution/`
 7. Auto-commits with descriptive message
 
 **Output Format** (added to ROADMAP.md):
@@ -87,8 +87,8 @@ Maintain PM OS's core product documentation as PM OS builds itself. Ensure docum
 **What**: Archive phase completions with lessons learned
 
 **Actions**:
-- Create `PHASE_X_COMPLETE.md` in `examples/documentation/phase-history/`
-- Update `examples/identity/ROADMAP.md` completion markers (✅ COMPLETE)
+- Create `PHASE_X_COMPLETE.md` in `pm-os-reference/documentation/phase-history/`
+- Update `pm-os-reference/identity/ROADMAP.md` completion markers (✅ COMPLETE)
 - Sync phase headers in all 4 files (README, QUICK_START, CLAUDE.md, IMPLEMENTATION_STATUS)
 - Validate phase deliverables documented
 - Document "PM OS building PM OS" meta-narrative
@@ -127,7 +127,7 @@ Maintain PM OS's core product documentation as PM OS builds itself. Ensure docum
 **What**: Comprehensive health checks every Sunday 6pm
 
 **Scan Scope**:
-- 7 README files (main, QUICK_START, CLAUDE.md, identity/, execution/, examples/, examples/identity/)
+- 7 README files (main, QUICK_START, CLAUDE.md, identity/, execution/, pm-os-reference/, pm-os-reference/identity/)
 - 48 cross-references between files
 - Agent capability tables (3 files)
 - Phase status headers (4 files)
@@ -154,11 +154,11 @@ Documentation Maintainer: Archive Phase 3 completion
 ```
 
 **Automatic Trigger** (future):
-- When `examples/documentation/IMPLEMENTATION_STATUS.md` updated to 100% complete
+- When `pm-os-reference/documentation/IMPLEMENTATION_STATUS.md` updated to 100% complete
 
 **Actions**:
 1. Create `PHASE_X_COMPLETE.md` with lessons learned
-2. Update `examples/identity/ROADMAP.md` line [X]: "Phase X ✅ COMPLETE"
+2. Update `pm-os-reference/identity/ROADMAP.md` line [X]: "Phase X ✅ COMPLETE"
 3. Update phase headers in README.md, QUICK_START.md, .claude/CLAUDE.md, IMPLEMENTATION_STATUS.md
 4. Validate phase deliverables all documented
 5. Auto-commit: "[Doc Sync] Mark Phase X complete, update to Phase X+1"
@@ -208,8 +208,8 @@ Documentation Maintainer: Propose Phase 4 split into 4a (Atlassian Integration: 
 **Actions**:
 1. Prompt PM: "Why is Phase 4 being split? Please provide evidence-based rationale."
 2. PM provides context and evidence
-3. Update `examples/identity/ROADMAP.md` with Phase Evolution History section
-4. Create phase evolution record: `examples/documentation/phase-evolution/PHASE_4_SPLIT_YYYY-MM-DD.md`
+3. Update `pm-os-reference/identity/ROADMAP.md` with Phase Evolution History section
+4. Create phase evolution record: `pm-os-reference/documentation/phase-evolution/PHASE_4_SPLIT_YYYY-MM-DD.md`
 5. Update all references (README.md, QUICK_START.md, .claude/CLAUDE.md, IMPLEMENTATION_STATUS.md)
 6. Update downstream phase timelines
 7. Auto-commit: "[Phase Evolution] Split Phase 4 into 4a (Atlassian) and 4b (Communication/Data) based on MCP complexity learnings"
@@ -235,8 +235,8 @@ Documentation Maintainer: Propose Phase 4 split into 4a (Atlassian Integration: 
 
 **Files Written**:
 - `README.md`, `QUICK_START.md`, `.claude/CLAUDE.md` - Product documentation updates
-- `examples/identity/ROADMAP.md` - Phase completion markers, evolution history
-- `identity/README.md`, `execution/README.md`, `examples/README.md`, `examples/identity/README.md` - README updates
+- `pm-os-reference/identity/ROADMAP.md` - Phase completion markers, evolution history
+- `identity/README.md`, `execution/README.md`, `pm-os-reference/README.md`, `pm-os-reference/identity/README.md` - README updates
 
 **Commit Message Format**:
 ```
@@ -257,11 +257,11 @@ Updated phase headers in README, QUICK_START, CLAUDE.md
 Archived phase completion record with lessons learned
 
 Files:
-- examples/identity/ROADMAP.md
+- pm-os-reference/identity/ROADMAP.md
 - README.md
 - QUICK_START.md
 - .claude/CLAUDE.md
-- examples/documentation/phase-history/PHASE_3_COMPLETE.md
+- pm-os-reference/documentation/phase-history/PHASE_3_COMPLETE.md
 
 Auto-committed by Documentation Maintainer
 ```
@@ -269,10 +269,10 @@ Auto-committed by Documentation Maintainer
 ### Archive Files (Created + Committed)
 
 **Phase Completion Archives**:
-- `examples/documentation/phase-history/PHASE_X_COMPLETE.md`
+- `pm-os-reference/documentation/phase-history/PHASE_X_COMPLETE.md`
 
 **Phase Evolution Records**:
-- `examples/documentation/phase-evolution/PHASE_X_[EVOLUTION_TYPE]_YYYY-MM-DD.md`
+- `pm-os-reference/documentation/phase-evolution/PHASE_X_[EVOLUTION_TYPE]_YYYY-MM-DD.md`
 
 ### Reports (Generated, Not Committed)
 
@@ -371,16 +371,16 @@ Documentation Maintainer: Archive Phase 3 completion
 ```
 
 **Agent Actions**:
-1. Create `examples/documentation/phase-history/PHASE_3_COMPLETE.md` with:
+1. Create `pm-os-reference/documentation/phase-history/PHASE_3_COMPLETE.md` with:
    - Deliverables: System Evaluator agent, quality metrics dashboard, improvement proposal workflow
    - Lessons learned: Meta-evaluation reveals blind spots faster than manual audits
    - Metrics: 100% agent coverage, 12 improvement proposals generated
-2. Update `examples/identity/ROADMAP.md` line 86: "**Phase 3** ✅ COMPLETE (Self-Improvement Loop)"
+2. Update `pm-os-reference/identity/ROADMAP.md` line 86: "**Phase 3** ✅ COMPLETE (Self-Improvement Loop)"
 3. Update phase headers:
    - `README.md` line 12: "**Current Phase**: Phase 4 (MCP Integration Suite)"
    - `QUICK_START.md` line 8: "**Phase 4**: MCP Integration Suite"
    - `.claude/CLAUDE.md` line 6: "**Status**: Phase 4 - MCP Integration Suite"
-   - `examples/documentation/IMPLEMENTATION_STATUS.md`: Add Phase 4 section
+   - `pm-os-reference/documentation/IMPLEMENTATION_STATUS.md`: Add Phase 4 section
 4. Validate System Evaluator in agent tables (README, CLAUDE.md, QUICK_START)
 5. Auto-commit:
    ```
@@ -391,12 +391,12 @@ Documentation Maintainer: Archive Phase 3 completion
    Archived phase completion record with lessons learned
 
    Files:
-   - examples/identity/ROADMAP.md
+   - pm-os-reference/identity/ROADMAP.md
    - README.md
    - QUICK_START.md
    - .claude/CLAUDE.md
-   - examples/documentation/IMPLEMENTATION_STATUS.md
-   - examples/documentation/phase-history/PHASE_3_COMPLETE.md
+   - pm-os-reference/documentation/IMPLEMENTATION_STATUS.md
+   - pm-os-reference/documentation/phase-history/PHASE_3_COMPLETE.md
 
    Auto-committed by Documentation Maintainer
    ```
@@ -421,7 +421,7 @@ Google Drive MCP (Phase 1) took 2 weeks (2026-01-20 to 2026-02-01), not 1 week i
 ```
 
 **Agent Actions**:
-1. Update `examples/identity/ROADMAP.md` Phase 4 section with:
+1. Update `pm-os-reference/identity/ROADMAP.md` Phase 4 section with:
    ```markdown
    ### Phase 4 Evolution
 
@@ -453,13 +453,13 @@ Google Drive MCP (Phase 1) took 2 weeks (2026-01-20 to 2026-02-01), not 1 week i
    - Total timeline impact: None (Phase 4 still 4 weeks total, just split into 2x 2-week sub-phases)
    ```
 
-2. Create `examples/documentation/phase-evolution/PHASE_4_SPLIT_2026-02-16.md` using template
+2. Create `pm-os-reference/documentation/phase-evolution/PHASE_4_SPLIT_2026-02-16.md` using template
 
 3. Update all references:
    - `README.md` phase roadmap table: Add rows for Phase 4a, 4b
    - `QUICK_START.md` "What's Coming" section: List 4a, 4b separately
    - `.claude/CLAUDE.md` phase roadmap summary: Update to show 4a, 4b
-   - `examples/documentation/IMPLEMENTATION_STATUS.md`: Add Phase 4a and 4b sections
+   - `pm-os-reference/documentation/IMPLEMENTATION_STATUS.md`: Add Phase 4a and 4b sections
 
 4. Auto-commit:
    ```
@@ -469,14 +469,14 @@ Google Drive MCP (Phase 1) took 2 weeks (2026-01-20 to 2026-02-01), not 1 week i
    OAuth 2.0 setup requires 2 weeks per MCP (not 1 week estimate).
 
    Updated:
-   - examples/identity/ROADMAP.md (Phase Evolution History)
+   - pm-os-reference/identity/ROADMAP.md (Phase Evolution History)
    - README.md (phase roadmap table)
    - QUICK_START.md (What's Coming section)
    - .claude/CLAUDE.md (phase summary)
-   - examples/documentation/IMPLEMENTATION_STATUS.md (4a/4b tracking)
+   - pm-os-reference/documentation/IMPLEMENTATION_STATUS.md (4a/4b tracking)
 
    Created:
-   - examples/documentation/phase-evolution/PHASE_4_SPLIT_2026-02-16.md
+   - pm-os-reference/documentation/phase-evolution/PHASE_4_SPLIT_2026-02-16.md
 
    Auto-committed by Documentation Maintainer
    ```

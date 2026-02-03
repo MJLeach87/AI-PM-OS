@@ -2,7 +2,7 @@
 
 **IMPORTANT**: This is for YOUR product's roadmap, not PM OS's implementation phases.
 
-**Reference**: See `examples/identity/ROADMAP.md` for PM OS's own roadmap (Phase 0-7 timeline) as a structural example only. That file describes how PM OS builds itself; THIS file should describe YOUR product's roadmap.
+**Reference**: See `pm-os-reference/identity/ROADMAP.md` for PM OS's own roadmap (Phase 0-7 timeline) as a structural example only. That file describes how PM OS builds itself; THIS file should describe YOUR product's roadmap.
 
 **Purpose**: This file contains YOUR product roadmap that PM OS agents will reference to ensure new features align with your product strategy and timeline.
 

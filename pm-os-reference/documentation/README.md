@@ -4,7 +4,7 @@ This directory contains PM OS's **process documentation and validation materials
 
 ## Purpose
 
-While `examples/artifacts/` shows **what PM OS produces** (OSTs, PRDs, specs, prototypes), this directory shows **how PM OS works** (processes, validation, evolution tracking).
+While `pm-os-reference/artifacts/` shows **what PM OS produces** (OSTs, PRDs, specs, prototypes), this directory shows **how PM OS works** (processes, validation, evolution tracking).
 
 **Audience**: PM OS developers, contributors, and advanced users wanting to understand PM OS internals.
 
@@ -88,9 +88,9 @@ While `examples/artifacts/` shows **what PM OS produces** (OSTs, PRDs, specs, pr
 - Status tracking (e.g., `IMPLEMENTATION_STATUS.md`)
 
 **Does NOT belong here**:
-- Actual product artifacts (those go in `examples/artifacts/`)
+- Actual product artifacts (those go in `pm-os-reference/artifacts/`)
 - User product work (that goes in `execution/`)
-- Organizational context (that goes in `examples/identity/` or `identity/`)
+- Organizational context (that goes in `pm-os-reference/identity/` or `identity/`)
 
 ### Validation Reports (`validation-reports/`)
 
@@ -126,25 +126,25 @@ While `examples/artifacts/` shows **what PM OS produces** (OSTs, PRDs, specs, pr
 
 ## Relationship to Other Directories
 
-### examples/documentation/ vs. examples/artifacts/
+### pm-os-reference/documentation/ vs. pm-os-reference/artifacts/
 
-**examples/documentation/** (YOU ARE HERE):
+**pm-os-reference/documentation/** (YOU ARE HERE):
 - **How PM OS works**: Processes, validation, evolution
 - **Meta-process**: Documents about the system itself
 - **Examples**: SELF_IMPROVEMENT_WORKFLOW.md, quality audits, phase completion reports
 
-**examples/artifacts/**:
+**pm-os-reference/artifacts/**:
 - **What PM OS produces**: OSTs, PRDs, specs, prototypes
 - **Product outputs**: Actual deliverables from agents
 - **Examples**: OST for real-time collaboration, PRD for agent spec
 
 **Rule of thumb**:
-- If it's an artifact PM OS would generate for a user → `examples/artifacts/`
-- If it's documentation about PM OS's process → `examples/documentation/`
+- If it's an artifact PM OS would generate for a user → `pm-os-reference/artifacts/`
+- If it's documentation about PM OS's process → `pm-os-reference/documentation/`
 
-### examples/documentation/ vs. execution/improvement_proposals/
+### pm-os-reference/documentation/ vs. execution/improvement_proposals/
 
-**examples/documentation/validation-reports/**:
+**pm-os-reference/documentation/validation-reports/**:
 - PM OS's **own quality audits** (Phase 0-3 inception work)
 - Completed validation reports from PM OS building itself
 - Historical/archival (Phase 0-3 complete)
@@ -155,7 +155,7 @@ While `examples/artifacts/` shows **what PM OS produces** (OSTs, PRDs, specs, pr
 - Active proposals for PM OS enhancements
 
 **Rule of thumb**:
-- Completed Phase 0-3 audits → `examples/documentation/validation-reports/`
+- Completed Phase 0-3 audits → `pm-os-reference/documentation/validation-reports/`
 - Ongoing improvement proposals → `execution/improvement_proposals/`
 
 ---
@@ -233,4 +233,4 @@ While `examples/artifacts/` shows **what PM OS produces** (OSTs, PRDs, specs, pr
 **Directory Purpose**: PM OS process documentation and validation materials
 **Maintained By**: PM OS System Evaluator + Documentation Maintainer + Human PM
 **Update Frequency**: Quarterly (dashboards), per phase (completion reports), per release (changelogs)
-**Related Directories**: See `examples/artifacts/README.md` for product outputs, `execution/README.md` for user workspace
+**Related Directories**: See `pm-os-reference/artifacts/README.md` for product outputs, `execution/README.md` for user workspace

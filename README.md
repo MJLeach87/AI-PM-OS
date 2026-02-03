@@ -95,7 +95,7 @@ PM OS/
 │   ├── STANDARDS.md                # YOUR brand voice, tech stack, security (template)
 │   └── ROADMAP.md                  # YOUR product roadmap (template)
 │
-├── examples/                       # PM OS inception materials (meta-recursive)
+├── pm-os-reference/                       # PM OS inception materials (meta-recursive)
 │   ├── README.md                   # Explains artifacts vs documentation
 │   ├── identity/                   # PM OS's own organizational context (reference examples)
 │   │   ├── README.md               # Explains PM OS's meta-recursive identity layer
@@ -153,7 +153,7 @@ The Identity Layer stores YOUR organizational intelligence that agents use for d
 - **`identity/ROADMAP.md`**: YOUR product roadmap (customize this template!)
 - **`identity/README.md`**: Customization guide with step-by-step instructions
 
-**Reference Examples**: PM OS's own organizational context is in `examples/identity/` (PM OS building itself - reference only, don't edit)
+**Reference Examples**: PM OS's own organizational context is in `pm-os-reference/identity/` (PM OS building itself - reference only, don't edit)
 
 **Key Principle**: All agents automatically load YOUR identity files before generating outputs. Customize the templates in `identity/` with YOUR organization's actual context.
 
@@ -226,7 +226,7 @@ PM OS integrates external tools via Model Context Protocol:
 **Example**: "Add a new agent for handling payments domain"
 
 **What Happens**:
-1. Product Architect checks `examples/identity/ROADMAP.md` to verify PM OS phase supports new agents
+1. Product Architect checks `pm-os-reference/identity/ROADMAP.md` to verify PM OS phase supports new agents
 2. Uses `templates/agent_spec_template.md` as foundation
 3. Generates both Cursor (`.mdc`) and Claude Code (`.md`) versions
 4. Proposes Orchestrator routing update
@@ -247,9 +247,9 @@ PM OS integrates external tools via Model Context Protocol:
 - 🟡 Snowflake MCP integration (data warehouse queries)
 
 **For detailed roadmap and implementation status**, see:
-- `examples/documentation/VELOCITY_TRACKING.md` - Actual development velocity and time logs
-- `examples/identity/ROADMAP.md` - PM OS's comprehensive 7-phase implementation roadmap
-- `examples/documentation/IMPLEMENTATION_STATUS.md` - Current phase progress details
+- `pm-os-reference/documentation/VELOCITY_TRACKING.md` - Actual development velocity and time logs
+- `pm-os-reference/identity/ROADMAP.md` - PM OS's comprehensive 7-phase implementation roadmap
+- `pm-os-reference/documentation/IMPLEMENTATION_STATUS.md` - Current phase progress details
 - `identity/ROADMAP.md` - YOUR product roadmap (template to customize)
 
 ---
@@ -433,7 +433,7 @@ MCP integrations are configured but disabled by default. To enable when ready:
 - **`identity/STANDARDS.md`**: YOUR brand voice, tech stack, security (template)
 - **`identity/ROADMAP.md`**: YOUR product roadmap (template)
 - **`execution/README.md`**: Artifact pipeline guide and quality standards
-- **`examples/identity/`**: PM OS's own organizational context (reference examples)
+- **`pm-os-reference/identity/`**: PM OS's own organizational context (reference examples)
 - **`templates/`**: All artifact templates
 
 ### Agent Documentation
@@ -498,7 +498,7 @@ No problem! PM OS is designed for progressive enhancement:
      - `identity/STRATEGY.md`: YOUR vision, mission, metrics
      - `identity/STANDARDS.md`: YOUR brand voice, tech stack
      - `identity/ROADMAP.md`: YOUR product roadmap
-   - Reference `examples/identity/` for structural examples (PM OS's own files)
+   - Reference `pm-os-reference/identity/` for structural examples (PM OS's own files)
 
 2. **Customize Templates** (Optional):
    - Modify `templates/prd_template.md` for your PRD format

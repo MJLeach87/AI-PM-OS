@@ -26,7 +26,7 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 
 **Key Checks**:
 - [ ] execution/ README emphasizes "YOUR workspace" (should be empty initially)
-- [ ] examples/ README explains PM OS inception materials (meta-recursive)
+- [ ] pm-os-reference/ README explains PM OS inception materials (meta-recursive)
 - [ ] Cross-references point to current file locations (not outdated paths)
 - [ ] Agent instructions reference correct file paths
 - [ ] CLAUDE.md reflects current phase status and folder structure
@@ -51,7 +51,7 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 
 ### 3. Folder Structure Clarity
 
-**Policy**: Ensure users understand the distinction between execution/, identity/, and examples/.
+**Policy**: Ensure users understand the distinction between execution/, identity/, and pm-os-reference/.
 
 **Critical Distinctions to Maintain**:
 
@@ -67,19 +67,19 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 - **Who fills it**: User customizes templates with their actual org info
 - **Example**: User's company vision in identity/STRATEGY.md
 
-#### examples/identity/ (PM OS's organizational context)
+#### pm-os-reference/identity/ (PM OS's organizational context)
 - **Purpose**: PM OS's own strategy, roadmap, standards (reference examples)
 - **State**: Complete, read-only reference materials
 - **Who fills it**: PM OS meta-recursive work (PM OS building itself)
-- **Example**: PM OS's vision in examples/identity/STRATEGY.md
+- **Example**: PM OS's vision in pm-os-reference/identity/STRATEGY.md
 
-#### examples/artifacts/ (PM OS's workspace)
+#### pm-os-reference/artifacts/ (PM OS's workspace)
 - **Purpose**: Artifacts PM OS generated when building itself
 - **State**: Complete inception materials from Phase 0-3
 - **Who fills it**: PM OS agents during PM OS development
 - **Example**: OST for PM OS discovery efficiency improvements
 
-#### examples/documentation/ (PM OS's process docs)
+#### pm-os-reference/documentation/ (PM OS's process docs)
 - **Purpose**: How PM OS works (processes, validation, evolution)
 - **State**: Growing collection of process documentation
 - **Who fills it**: System Evaluator, Documentation Maintainer, Human PM
@@ -87,9 +87,9 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 
 **README Enforcement**:
 - execution/README.md MUST emphasize "YOUR workspace" prominently
-- examples/README.md MUST explain "PM OS inception materials"
+- pm-os-reference/README.md MUST explain "PM OS inception materials"
 - identity/README.md MUST provide customization instructions
-- examples/identity/README.md MUST explain meta-recursive context
+- pm-os-reference/identity/README.md MUST explain meta-recursive context
 
 ### 4. Improvement Proposal Path Policy
 
@@ -97,7 +97,7 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 
 **Correct Locations**:
 
-✅ **examples/documentation/validation-reports/**
+✅ **pm-os-reference/documentation/validation-reports/**
 - PM OS's own quality audits during Phase 0-3 (historical/archival)
 - Example: 2026-02-01_QualityAudit_Phase-0-3.md
 - Rationale: PM OS auditing itself = meta-recursive work
@@ -111,7 +111,7 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 - System Evaluator instructions should reference execution/improvement_proposals/ (correct)
 - Templates should reference execution/improvement_proposals/ (correct)
 - Workflows should reference execution/improvement_proposals/ (correct)
-- Only historical Phase 0-3 audits go in examples/documentation/validation-reports/
+- Only historical Phase 0-3 audits go in pm-os-reference/documentation/validation-reports/
 
 ### 5. Version Control & Changelog Maintenance
 
@@ -139,7 +139,7 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 
 ### Workflow 1: Post-Reorganization Documentation Update
 
-**Trigger**: Files moved between directories (e.g., execution/ → examples/)
+**Trigger**: Files moved between directories (e.g., execution/ → pm-os-reference/)
 
 **Steps**:
 1. **Identify scope**:
@@ -189,7 +189,7 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 2. **Validate cross-references**:
    ```bash
    # Check common documentation files for accuracy
-   # Verify examples/README.md mentions current examples
+   # Verify pm-os-reference/README.md mentions current examples
    # Verify execution/README.md emphasizes user workspace
    ```
 
@@ -197,7 +197,7 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
    ```bash
    # Verify CLAUDE.md reflects current phase
    grep "Current Phase:" .claude/CLAUDE.md
-   # Verify matches examples/identity/ROADMAP.md
+   # Verify matches pm-os-reference/identity/ROADMAP.md
    ```
 
 4. **Report findings**:
@@ -211,10 +211,10 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 
 **Steps**:
 1. **Determine correct location**:
-   - PM OS process doc → examples/documentation/
-   - PM OS artifact → examples/artifacts/
+   - PM OS process doc → pm-os-reference/documentation/
+   - PM OS artifact → pm-os-reference/artifacts/
    - User artifact → execution/
-   - Organizational context → identity/ or examples/identity/
+   - Organizational context → identity/ or pm-os-reference/identity/
 
 2. **Update directory README**:
    - Add file to relevant table/list in directory README
@@ -239,7 +239,7 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 - [ ] README files accurately describe directory contents
 - [ ] Folder structure matches CLAUDE.md architecture description
 - [ ] execution/ clearly indicates "USER's workspace"
-- [ ] examples/ clearly indicates "PM OS inception materials"
+- [ ] pm-os-reference/ clearly indicates "PM OS inception materials"
 - [ ] New files listed in appropriate directory README
 
 **Style Standards**:
@@ -257,7 +257,7 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 
 **Required**:
 - `identity/STANDARDS.md` - Documentation quality standards
-- `examples/identity/ROADMAP.md` - Current phase status (for phase alignment checks)
+- `pm-os-reference/identity/ROADMAP.md` - Current phase status (for phase alignment checks)
 
 **Optional**:
 - `identity/STRATEGY.md` - If documenting strategic context
@@ -266,8 +266,8 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 
 **Monitoring**:
 - `execution/*/` - Verify remains user workspace (mostly empty)
-- `examples/artifacts/*/` - Verify PM OS inception materials organized correctly
-- `examples/documentation/` - Verify process docs up-to-date
+- `pm-os-reference/artifacts/*/` - Verify PM OS inception materials organized correctly
+- `pm-os-reference/documentation/` - Verify process docs up-to-date
 - `.claude/CLAUDE.md` - Verify reflects current architecture
 - All `README.md` files - Verify accuracy
 
@@ -291,17 +291,17 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 
 ## Common Scenarios
 
-### Scenario 1: User Confused About execution/ vs. examples/
+### Scenario 1: User Confused About execution/ vs. pm-os-reference/
 
 **Symptom**: User asks "Why are there files in execution/? I thought it was my workspace?"
 
 **Root Cause**: PM OS meta-work incorrectly placed in execution/
 
 **Solution**:
-1. Identify misplaced files (PM OS building itself = examples/, user product work = execution/)
-2. Move PM OS inception materials to examples/artifacts/ or examples/documentation/
+1. Identify misplaced files (PM OS building itself = pm-os-reference/, user product work = execution/)
+2. Move PM OS inception materials to pm-os-reference/artifacts/ or pm-os-reference/documentation/
 3. Update execution/README.md to emphasize "EMPTY when you start"
-4. Update examples/README.md to explain "PM OS inception materials"
+4. Update pm-os-reference/README.md to explain "PM OS inception materials"
 
 ### Scenario 2: Broken Cross-Reference After File Move
 
@@ -338,9 +338,9 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 **Rules**:
 1. execution/ = USER's product artifacts (empty initially)
 2. identity/ = USER's organizational context (templates to customize)
-3. examples/identity/ = PM OS's organizational context (reference examples)
-4. examples/artifacts/ = PM OS's product artifacts (inception materials)
-5. examples/documentation/ = PM OS's process docs (how it works)
+3. pm-os-reference/identity/ = PM OS's organizational context (reference examples)
+4. pm-os-reference/artifacts/ = PM OS's product artifacts (inception materials)
+5. pm-os-reference/documentation/ = PM OS's process docs (how it works)
 
 **Enforcement**: README files must clearly state which workspace applies.
 
@@ -367,14 +367,14 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 4. README includes "Last Updated" date
 5. README updated whenever new files added or structure changes
 
-**Priority**: execution/, identity/, examples/, examples/documentation/ (highest priority)
+**Priority**: execution/, identity/, pm-os-reference/, pm-os-reference/documentation/ (highest priority)
 
 ### Improvement Proposal Storage Policy
 
 **Principle**: Distinguish historical PM OS audits from ongoing improvement work.
 
 **Rules**:
-1. Phase 0-3 quality audits → examples/documentation/validation-reports/
+1. Phase 0-3 quality audits → pm-os-reference/documentation/validation-reports/
 2. Future improvement proposals → execution/improvement_proposals/
 3. Agent instructions reference execution/improvement_proposals/ (correct)
 4. Templates reference execution/improvement_proposals/ (correct)
@@ -429,8 +429,8 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 - `.claude/agents/orchestrator.md` - Routing and task assignment
 
 **Process Documentation**:
-- `examples/documentation/SELF_IMPROVEMENT_WORKFLOW.md` - Self-improvement loop
-- `examples/documentation/README.md` - Documentation directory structure
+- `pm-os-reference/documentation/SELF_IMPROVEMENT_WORKFLOW.md` - Self-improvement loop
+- `pm-os-reference/documentation/README.md` - Documentation directory structure
 
 **Templates**:
 - `templates/quality_audit_template.md` - Quality audit format
@@ -438,7 +438,7 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 
 **Organizational Context**:
 - `identity/STANDARDS.md` - Documentation quality standards
-- `examples/identity/ROADMAP.md` - Current phase status
+- `pm-os-reference/identity/ROADMAP.md` - Current phase status
 
 ---
 

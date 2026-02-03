@@ -509,7 +509,7 @@ echo $GOOGLE_DRIVE_REFRESH_TOKEN | wc -c
 
 ## Related Artifacts
 
-**Roadmap**: `examples/identity/ROADMAP.md` (Phase 1: Core Agent Team + Google Drive MCP)
+**Roadmap**: `pm-os-reference/identity/ROADMAP.md` (Phase 1: Core Agent Team + Google Drive MCP)
 **Phase 1 Plan**: `execution/discovery/2026-01-31_Phase-1-Implementation-Plan.md`
 **MCP Template**: `templates/mcp_integration_plan.md`
 

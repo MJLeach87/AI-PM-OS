@@ -28,7 +28,7 @@ PM OS/
 ├── .cursor/rules/          # Cursor agent logic
 ├── .claude/                # Claude Code agent logic
 ├── identity/               # YOUR org's context (customize templates!)
-├── examples/identity/      # PM OS's own context (reference examples)
+├── pm-os-reference/identity/      # PM OS's own context (reference examples)
 ├── execution/              # YOUR outputs go here
 ├── templates/              # Standard formats
 └── README.md               # Full documentation
@@ -149,13 +149,13 @@ Product Architect: Create a new agent for [domain]
 Read identity/STRATEGY.md          # YOUR company's strategy (after customization)
 Read identity/STANDARDS.md         # YOUR tech stack and standards (after customization)
 Read identity/ROADMAP.md           # YOUR product roadmap (after customization)
-Read examples/identity/STRATEGY.md # PM OS's own strategy (reference example)
+Read pm-os-reference/identity/STRATEGY.md # PM OS's own strategy (reference example)
 ```
 
 **In Claude Code**: Use Read tool directly
 **In Cursor**: View files or ask "What is our North Star Metric?"
 
-**Important**: `identity/` contains YOUR customized files (active), `examples/identity/` contains PM OS's reference examples (read-only)
+**Important**: `identity/` contains YOUR customized files (active), `pm-os-reference/identity/` contains PM OS's reference examples (read-only)
 
 ---
 
@@ -167,15 +167,15 @@ Read examples/identity/STRATEGY.md # PM OS's own strategy (reference example)
 
 **Commands**:
 ```
-Read examples/documentation/IMPLEMENTATION_STATUS.md  # Current PM OS phase progress
-Read examples/identity/ROADMAP.md                    # PM OS's 7-phase implementation plan
+Read pm-os-reference/documentation/IMPLEMENTATION_STATUS.md  # Current PM OS phase progress
+Read pm-os-reference/identity/ROADMAP.md                    # PM OS's 7-phase implementation plan
 Read identity/README.md                              # Guide to customizing YOUR identity layer
 Read execution/README.md                             # Guide to YOUR artifact workspace
 ```
 
 **Shows**: Current phase progress, validation status, next steps
 
-**Note**: See `examples/` folder for PM OS inception artifacts demonstrating output quality
+**Note**: See `pm-os-reference/` folder for PM OS inception artifacts demonstrating output quality
 
 ---
 
@@ -364,7 +364,7 @@ The `identity/` folder contains templates for YOUR organizational context. **You
    - `identity/STRATEGY.md`: YOUR company vision, mission, North Star Metrics (not PM OS defaults!)
    - `identity/STANDARDS.md`: YOUR brand voice, approved tech stack (not PM OS defaults!)
    - `identity/ROADMAP.md`: YOUR product roadmap (not PM OS's Phase 0-7 timeline!)
-3. **See reference examples**: `examples/identity/` contains PM OS's own organizational context (for structural inspiration only)
+3. **See reference examples**: `pm-os-reference/identity/` contains PM OS's own organizational context (for structural inspiration only)
 
 **Why this matters**: Agents automatically load YOUR `identity/` files to ensure outputs align with YOUR organization. If you skip customization, agents will use PM OS defaults instead of your actual context.
 
@@ -468,7 +468,7 @@ Use the versioning convention in filenames:
 - Re-run agent after customizing identity files
 - **Verify**: Agent outputs should now cite YOUR vision from `identity/STRATEGY.md`
 
-**Common mistake**: Confusing `examples/identity/` (PM OS's reference files, read-only) with `identity/` (YOUR templates to customize)
+**Common mistake**: Confusing `pm-os-reference/identity/` (PM OS's reference files, read-only) with `identity/` (YOUR templates to customize)
 
 ---
 
@@ -511,10 +511,10 @@ Use the versioning convention in filenames:
 4. **Customize identity layer** with your organization's actual context
 
 ### Short-Term (Explore PM OS Capabilities)
-5. **Review inception examples** in `examples/artifacts/` to see quality benchmarks
+5. **Review inception examples** in `pm-os-reference/artifacts/` to see quality benchmarks
 6. **Generate a test agent** to understand self-building capability
 7. **Read full documentation** (`README.md`) for deep dive
-8. **Check implementation status** in `examples/documentation/IMPLEMENTATION_STATUS.md`
+8. **Check implementation status** in `pm-os-reference/documentation/IMPLEMENTATION_STATUS.md`
 
 ### Medium-Term (Phase 1 Prep)
 9. **Identify 3 features** you want to use end-to-end workflow for
@@ -583,7 +583,7 @@ Use the versioning convention in filenames:
 | **New Agent** | `Product Architect: Create agent for [domain]` | `.cursor/rules/` + `.claude/agents/` |
 | **Check Strategy** | `Read identity/STRATEGY.md` | Display YOUR strategy |
 | **Check Standards** | `Read identity/STANDARDS.md` | Display YOUR standards |
-| **Check PM OS Phase** | `Read examples/identity/ROADMAP.md` | Display PM OS status |
+| **Check PM OS Phase** | `Read pm-os-reference/identity/ROADMAP.md` | Display PM OS status |
 | **Customize Guide** | `Read identity/README.md` | Customization instructions |
 | **Workspace Guide** | `Read execution/README.md` | Artifact pipeline guide |
 
@@ -598,7 +598,7 @@ Use the versioning convention in filenames:
 | **GTM Materials** | `execution/gtm/` |
 | **Templates** | `templates/` |
 | **YOUR Org Context** | `identity/` (customize these!) |
-| **PM OS Org Context (reference)** | `examples/identity/` (read-only) |
+| **PM OS Org Context (reference)** | `pm-os-reference/identity/` (read-only) |
 | **Agent Logic** | `.cursor/rules/` + `.claude/agents/` |
 
 ---

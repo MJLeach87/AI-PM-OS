@@ -348,7 +348,7 @@ Future (Linear, Notion - as needed)
 - Deliverable-based milestones with completion %
 - Actual start/completion dates tracked
 - Duration recorded post-completion (no pre-estimates for future phases)
-- Velocity tracking document for future reference (`examples/documentation/VELOCITY_TRACKING.md`)
+- Velocity tracking document for future reference (`pm-os-reference/documentation/VELOCITY_TRACKING.md`)
 
 **Rationale**:
 PM OS development velocity was **15-30x faster than week estimates**. Phases 0, 1, 2, and most of Phase 3 completed in 3 days (Jan 31 - Feb 2) vs. 11 weeks projected. Week-based tracking created confusion and didn't reflect reality.
@@ -373,8 +373,8 @@ PM OS development velocity was **15-30x faster than week estimates**. Phases 0, 
 - Deliverable-based progress more accurate than calendar dates
 
 **Documentation Updates**:
-- ✅ `examples/identity/ROADMAP.md`: Removed "Weeks X-Y", added actual dates, added this Phase Evolution History
-- ✅ `examples/documentation/VELOCITY_TRACKING.md`: Created with detailed time logs and velocity analysis
+- ✅ `pm-os-reference/identity/ROADMAP.md`: Removed "Weeks X-Y", added actual dates, added this Phase Evolution History
+- ✅ `pm-os-reference/documentation/VELOCITY_TRACKING.md`: Created with detailed time logs and velocity analysis
 - ⏳ `README.md`: Update current phase reference (pending)
 - ⏳ `QUICK_START.md`: Remove week callouts from agent timelines (pending)
 - ⏳ `.claude/CLAUDE.md`: Update phase roadmap table (pending)

@@ -165,7 +165,7 @@ This document tracks the implementation progress of PM OS across all seven phase
 
 **Estimated Duration**: 5-7 days (most complex phase, many unknowns)
 
-**Full roadmap details**: See `examples/identity/ROADMAP.md`
+**Full roadmap details**: See `pm-os-reference/identity/ROADMAP.md`
 
 ---
 

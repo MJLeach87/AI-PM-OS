@@ -705,10 +705,10 @@ related_docs:
 | File Path | Artifact Type | Date | Quality Score | Issues | Notes |
 |-----------|---------------|------|---------------|--------|-------|
 | execution/discovery/2026-02-01_OST_Real-Time-Collaboration-Indicator.md | OST | 2026-02-01 | 92/100 | 0 critical | ✅ Excellent NSM alignment, comprehensive solution exploration |
-| examples/artifacts/discovery/2026-01-31_OST_PM-OS-Discovery-Improvements.md | OST | 2026-01-31 | 88/100 | 1 minor (verbose) | ✅ Good evidence-based opportunities, slightly verbose |
-| examples/artifacts/prds/2026-01-31_PRD_Artifact-Search-Filter_v0.1.md | PRD | 2026-01-31 | 87/100 | 2 minor (baselines, related docs) | ✅ BMAD compliant, comprehensive Details section |
-| examples/artifacts/technical_specs/2026-02-01_Feasibility_Artifact-Search.md | Technical Spec | 2026-02-01 | 85/100 | 1 moderate (accessibility) | ✅ Excellent security review, missing accessibility |
-| examples/artifacts/prototypes/2026-02-01_Prototype_Artifact-Search-Filter.md | Prototype Doc | 2026-02-01 | 90/100 | 1 minor (TODO comment) | ✅ WCAG 2.1 AA compliant, comprehensive testing strategy |
+| pm-os-reference/artifacts/discovery/2026-01-31_OST_PM-OS-Discovery-Improvements.md | OST | 2026-01-31 | 88/100 | 1 minor (verbose) | ✅ Good evidence-based opportunities, slightly verbose |
+| pm-os-reference/artifacts/prds/2026-01-31_PRD_Artifact-Search-Filter_v0.1.md | PRD | 2026-01-31 | 87/100 | 2 minor (baselines, related docs) | ✅ BMAD compliant, comprehensive Details section |
+| pm-os-reference/artifacts/technical_specs/2026-02-01_Feasibility_Artifact-Search.md | Technical Spec | 2026-02-01 | 85/100 | 1 moderate (accessibility) | ✅ Excellent security review, missing accessibility |
+| pm-os-reference/artifacts/prototypes/2026-02-01_Prototype_Artifact-Search-Filter.md | Prototype Doc | 2026-02-01 | 90/100 | 1 minor (TODO comment) | ✅ WCAG 2.1 AA compliant, comprehensive testing strategy |
 
 **Total Artifacts**: 5 read in detail (2 additional files scanned)
 **Average Quality Score**: 88.4/100
@@ -724,7 +724,7 @@ related_docs:
 |----------|----------|-----------|-------------|-------------------|----------------|
 | QA-001 | Moderate | execution/technical_specs/2026-02-01_Feasibility_Artifact-Search.md | N/A (entire doc) | No accessibility requirements section | Add WCAG 2.1 checklist to Engineering Partner spec |
 | QA-002 | Minor | execution/prds/2026-01-31_PRD_Artifact-Search-Filter_v0.1.md | 124 | "Artifact Discovery Rate" target without baseline | Require baselines for all success metrics |
-| QA-003 | Minor | examples/artifacts/discovery/2026-01-31_OST_PM-OS-Discovery-Improvements.md | 159-183 | Solution 2A description verbose (can trim 20%) | Update Product Architect prompt for conciseness |
+| QA-003 | Minor | pm-os-reference/artifacts/discovery/2026-01-31_OST_PM-OS-Discovery-Improvements.md | 159-183 | Solution 2A description verbose (can trim 20%) | Update Product Architect prompt for conciseness |
 | QA-004 | Minor | execution/prototypes/2026-02-01_Prototype_Artifact-Search-Filter.md | 350 | TODO comment remaining in production doc | Remove TODO or move to implementation tracker |
 | QA-005 | Minor | All artifacts | Various | Inconsistent Related Documents frontmatter format | Standardize YAML frontmatter across templates |
 | QA-006 | Minor | OST: PM OS Discovery | 82 | Unsupported claim: "common pattern in AI tool adoption" | Require source citations or label as "estimated" |

@@ -166,7 +166,7 @@ graph TD
 
 **Rationale**:
 - **Clear problem**: 40% non-adoption, users cite "not sure how to use"
-- **Proven pattern**: Other PM OS templates (PRD) have 100% adoption due to examples/structure
+- **Proven pattern**: Other PM OS templates (PRD) have 100% adoption due to pm-os-reference/structure
 - **Lower effort**: Easier than interactive wizard (Solution 2B)
 
 **Feasibility**: High (just enhance existing templates with examples)

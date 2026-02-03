@@ -195,7 +195,7 @@ PM OS Documentation (PMOS)
 - Existing PRDs from `execution/prds/`
 - Existing specs from `execution/technical_specs/`
 - Agent specs from `.claude/agents/` (convert .md → Confluence)
-- Phase completion reports from `examples/documentation/phase-history/`
+- Phase completion reports from `pm-os-reference/documentation/phase-history/`
 - Quality dashboard, velocity tracking
 
 **Confluence Page Metadata**:

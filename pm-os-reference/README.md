@@ -7,13 +7,13 @@ This directory contains **PM OS building itself** - the artifacts and documentat
 2. **Quality reference**: Examples of expected output quality for discovery, PRDs, technical specs, and prototypes
 3. **Historical record**: Documentation of PM OS's self-improvement journey
 
-**Important**: These are **examples**, not templates. User artifacts should be created in `execution/` (currently empty and ready for your work).
+**Important**: These are **reference materials**, not templates. User artifacts should be created in `execution/` (currently empty and ready for your work).
 
 ---
 
 ## Historical Context: Metrics Evolution
 
-**Important**: Artifacts in `examples/artifacts/` were created during Phase 0-1 using the original North Star Metrics (volume-based: PRD time reduction, rework reduction, artifact count).
+**Important**: Artifacts in `pm-os-reference/artifacts/` were created during Phase 0-1 using the original North Star Metrics (volume-based: PRD time reduction, rework reduction, artifact count).
 
 Starting Phase 2, PM OS transitioned to a flexible metric framework emphasizing:
 - **Strategic Velocity** (Time-to-Spec)
@@ -154,15 +154,15 @@ When creating your own artifacts, reference these examples for:
 
 ## What NOT to Do
 
-**Don't modify files in examples/** - they're historical records and reference examples. Create new artifacts in `execution/` instead.
+**Don't modify files in pm-os-reference/** - they're historical records and reference examples. Create new artifacts in `execution/` instead.
 
 **Don't treat artifacts as templates** - use actual templates in `templates/` directory. These are completed examples showing what good output looks like.
 
 **Don't confuse with your work**:
-- YOUR artifacts go in `execution/`, not `examples/artifacts/`
-- YOUR organizational context goes in `identity/` (customize templates), not `examples/identity/` (PM OS's reference examples)
+- YOUR artifacts go in `execution/`, not `pm-os-reference/artifacts/`
+- YOUR organizational context goes in `identity/` (customize templates), not `pm-os-reference/identity/` (PM OS's reference examples)
 
-**Don't edit examples/identity/ files** - these are PM OS's own organizational context (read-only reference). Edit `identity/` files instead (templates with "🔧 CUSTOMIZE THIS" headers).
+**Don't edit pm-os-reference/identity/ files** - these are PM OS's own organizational context (read-only reference). Edit `identity/` files instead (templates with "🔧 CUSTOMIZE THIS" headers).
 
 ---
 
@@ -171,9 +171,9 @@ When creating your own artifacts, reference these examples for:
 PM OS demonstrates **meta-recursive** self-improvement:
 
 **Identity Layer**: PM OS has its own organizational context
-- **examples/identity/STRATEGY.md**: PM OS's vision to transform PMs
-- **examples/identity/ROADMAP.md**: PM OS's 7-phase implementation plan
-- **examples/identity/STANDARDS.md**: PM OS's quality standards
+- **pm-os-reference/identity/STRATEGY.md**: PM OS's vision to transform PMs
+- **pm-os-reference/identity/ROADMAP.md**: PM OS's 7-phase implementation plan
+- **pm-os-reference/identity/STANDARDS.md**: PM OS's quality standards
 - Agents reference these files when working on PM OS improvements
 
 **Phase 0**: PM OS defined its own architecture
@@ -219,8 +219,8 @@ YYYY-MM-DD_[artifact-type]_[brief-title].md
 **Identity Layer Documentation**:
 - **[identity/README.md](../identity/README.md)** - CRITICAL: Guide to customizing YOUR organizational context
 - **[identity/](../identity/)** - YOUR organizational intelligence (customize these templates!)
-- **[examples/identity/README.md](identity/README.md)** - Explains PM OS's own organizational context (reference)
-- **[examples/identity/](identity/)** - PM OS's organizational intelligence (reference examples, read-only)
+- **[pm-os-reference/identity/README.md](identity/README.md)** - Explains PM OS's own organizational context (reference)
+- **[pm-os-reference/identity/](identity/)** - PM OS's organizational intelligence (reference examples, read-only)
 
 **Templates**:
 - [templates/](../templates/) - Agent spec, PRD, and MCP integration templates

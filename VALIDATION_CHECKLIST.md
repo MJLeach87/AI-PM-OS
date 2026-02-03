@@ -322,8 +322,8 @@ Product Architect: Articulate the detailed Phase 1 implementation plan for PM OS
 **Phase 0 Status**: 100% Complete
 
 **Next Steps**:
-1. ✅ Update `examples/documentation/IMPLEMENTATION_STATUS.md` with completion status
-2. ✅ Save validation results to `examples/documentation/validation-reports/`
+1. ✅ Update `pm-os-reference/documentation/IMPLEMENTATION_STATUS.md` with completion status
+2. ✅ Save validation results to `pm-os-reference/documentation/validation-reports/`
 3. ✅ Phase 1 completed:
    - ✅ Engineering Partner agent spec created and implemented
    - ✅ UX Strategist agent spec created and implemented
@@ -348,7 +348,7 @@ Product Architect: Articulate the detailed Phase 1 implementation plan for PM OS
 3. **Verify Identity Layer** files are complete (STRATEGY.md, STANDARDS.md, ROADMAP.md)
 4. **Review agent logic** in relevant `.mdc` or `.md` file
 5. **Re-run test** with more explicit prompts (cite templates/identity files directly)
-6. **Document issue** in `examples/documentation/IMPLEMENTATION_STATUS.md` under "Active Risks"
+6. **Document issue** in `pm-os-reference/documentation/IMPLEMENTATION_STATUS.md` under "Active Risks"
 
 **If multiple tests fail**:
 - Review Orchestrator routing logic (may be routing to wrong agent)
@@ -401,7 +401,7 @@ Product Architect: Articulate the detailed Phase 1 implementation plan for PM OS
 
 ### Test Results Template
 
-Save validation results to `examples/documentation/validation-reports/YYYY-MM-DD_Validation_Results.md` using this template:
+Save validation results to `pm-os-reference/documentation/validation-reports/YYYY-MM-DD_Validation_Results.md` using this template:
 
 ```markdown
 ## Validation Test Results (Executed: YYYY-MM-DD)

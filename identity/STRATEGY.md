@@ -2,7 +2,7 @@
 
 **IMPORTANT**: This is a template. Replace all PM OS default content below with YOUR company's actual vision, mission, and North Star Metrics.
 
-**Reference**: See `examples/identity/STRATEGY.md` for PM OS's own strategy as an example of what this file should contain.
+**Reference**: See `pm-os-reference/identity/STRATEGY.md` for PM OS's own strategy as an example of what this file should contain.
 
 **Purpose**: This file contains YOUR organizational strategy that PM OS agents will use to ensure all product decisions align with your company's vision and goals.
 

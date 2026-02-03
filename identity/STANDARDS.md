@@ -2,7 +2,7 @@
 
 **IMPORTANT**: Replace all content below with YOUR tech stack, brand voice, security requirements, and quality standards.
 
-**Reference**: See `examples/identity/STANDARDS.md` for PM OS's own standards as a structural example.
+**Reference**: See `pm-os-reference/identity/STANDARDS.md` for PM OS's own standards as a structural example.
 
 **Purpose**: This file defines YOUR organization's standards that PM OS agents must follow when generating artifacts.
 

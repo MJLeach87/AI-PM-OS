@@ -129,7 +129,7 @@ Each phase evolution record follows this template (see `templates/phase_evolutio
 4. PM provides context with specific evidence (timelines, complexity estimates, dependencies)
 5. Documentation Maintainer:
    - Creates phase evolution record using template
-   - Updates `examples/identity/ROADMAP.md` with Phase Evolution History section
+   - Updates `pm-os-reference/identity/ROADMAP.md` with Phase Evolution History section
    - Updates all documentation references (README, QUICK_START, CLAUDE.md, IMPLEMENTATION_STATUS)
    - Auto-commits with descriptive message
 
@@ -139,22 +139,22 @@ Each phase evolution record follows this template (see `templates/phase_evolutio
 
 ## Relationship to Other PM OS Documentation
 
-**Phase History** (`examples/documentation/phase-history/`):
+**Phase History** (`pm-os-reference/documentation/phase-history/`):
 - Records phase **completions** (what was delivered, lessons learned)
 - Created when phase finishes
 - Backward-looking (historical record)
 
-**Phase Evolution** (`examples/documentation/phase-evolution/` - THIS DIRECTORY):
+**Phase Evolution** (`pm-os-reference/documentation/phase-evolution/` - THIS DIRECTORY):
 - Records roadmap **adaptations** (why phases changed)
 - Created when roadmap needs adjustment (mid-implementation)
 - Forward-looking (planning evolution)
 
-**ROADMAP.md** (`examples/identity/ROADMAP.md`):
+**ROADMAP.md** (`pm-os-reference/identity/ROADMAP.md`):
 - Current plan with evolution history embedded
 - Single source of truth for PM OS implementation timeline
 - Updated when phases complete OR when roadmap adapts
 
-**IMPLEMENTATION_STATUS.md** (`examples/documentation/IMPLEMENTATION_STATUS.md`):
+**IMPLEMENTATION_STATUS.md** (`pm-os-reference/documentation/IMPLEMENTATION_STATUS.md`):
 - Real-time progress tracking (% complete, blockers, active work)
 - Updated weekly or as needed
 - Operational status (day-to-day)

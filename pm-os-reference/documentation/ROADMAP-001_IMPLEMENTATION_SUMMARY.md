@@ -15,7 +15,7 @@ Successfully converted PM OS roadmap from fictional week-based estimates to real
 
 ## Files Updated (8 files)
 
-### 1. ✅ `examples/documentation/VELOCITY_TRACKING.md` (CREATED)
+### 1. ✅ `pm-os-reference/documentation/VELOCITY_TRACKING.md` (CREATED)
 **Changes**: Created new velocity tracking document with actual time logs
 **Lines Added**: ~400 lines
 
@@ -32,7 +32,7 @@ Successfully converted PM OS roadmap from fictional week-based estimates to real
 
 ---
 
-### 2. ✅ `examples/identity/ROADMAP.md` (PRIMARY ROADMAP)
+### 2. ✅ `pm-os-reference/identity/ROADMAP.md` (PRIMARY ROADMAP)
 **Changes**:
 - Removed all "Weeks X-Y" references from phase descriptions
 - Added actual start/completion dates for completed phases (0, 1, 2)
@@ -62,7 +62,7 @@ Successfully converted PM OS roadmap from fictional week-based estimates to real
 - Phase 3: "Weeks 9-11" → "⏳ 85% (2 days)"
 - Phase 4-7: Week ranges → "🟡 Planned"
 
-**Added Note**: "PM OS completed Phases 0-2 and 85% of Phase 3 in **3 days** (2026-01-31 to 2026-02-02), vs. original 11-week estimate. See `examples/documentation/VELOCITY_TRACKING.md` for detailed velocity analysis."
+**Added Note**: "PM OS completed Phases 0-2 and 85% of Phase 3 in **3 days** (2026-01-31 to 2026-02-02), vs. original 11-week estimate. See `pm-os-reference/documentation/VELOCITY_TRACKING.md` for detailed velocity analysis."
 
 **Updated Current Phase Section**:
 - Changed from "Phase 1 (Weeks 3-5)" to "Phase 3 (Self-Improvement Loop)"
@@ -93,7 +93,7 @@ Successfully converted PM OS roadmap from fictional week-based estimates to real
 **Next**: Phase 4 (MCP Integration Suite) when Phase 3 quality dashboard complete
 ```
 
-**Added**: Reference to `examples/documentation/VELOCITY_TRACKING.md` in documentation list
+**Added**: Reference to `pm-os-reference/documentation/VELOCITY_TRACKING.md` in documentation list
 
 ---
 
@@ -108,7 +108,7 @@ Successfully converted PM OS roadmap from fictional week-based estimates to real
 
 ---
 
-### 6. ✅ `examples/documentation/IMPLEMENTATION_STATUS.md`
+### 6. ✅ `pm-os-reference/documentation/IMPLEMENTATION_STATUS.md`
 **Changes**: Aligned all phase descriptions with ROADMAP.md reality-based format
 
 **Phase Format Updates**:
@@ -275,9 +275,9 @@ Successfully converted PM OS roadmap from fictional week-based estimates to real
 
 ## Related Documents
 
-- **Primary Roadmap**: `examples/identity/ROADMAP.md` (with ROADMAP-001 Phase Evolution History)
-- **Velocity Tracking**: `examples/documentation/VELOCITY_TRACKING.md` (NEW)
-- **Implementation Status**: `examples/documentation/IMPLEMENTATION_STATUS.md`
+- **Primary Roadmap**: `pm-os-reference/identity/ROADMAP.md` (with ROADMAP-001 Phase Evolution History)
+- **Velocity Tracking**: `pm-os-reference/documentation/VELOCITY_TRACKING.md` (NEW)
+- **Implementation Status**: `pm-os-reference/documentation/IMPLEMENTATION_STATUS.md`
 - **Project Context**: `.claude/CLAUDE.md`
 - **Main README**: `README.md`
 - **Quick Start Guide**: `QUICK_START.md`

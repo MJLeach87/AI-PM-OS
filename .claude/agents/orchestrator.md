@@ -93,7 +93,7 @@ Route incoming user requests based on file patterns, keywords, and workflow stag
 
 #### Documentation Maintainer Agent (Phase 3)
 **When to route**:
-- File path: `README.md`, `QUICK_START.md`, `.claude/CLAUDE.md`, `examples/identity/ROADMAP.md`, `examples/documentation/phase-history/**/*.md`, `examples/documentation/phase-evolution/**/*.md`
+- File path: `README.md`, `QUICK_START.md`, `.claude/CLAUDE.md`, `pm-os-reference/identity/ROADMAP.md`, `pm-os-reference/documentation/phase-history/**/*.md`, `pm-os-reference/documentation/phase-evolution/**/*.md`
 - Keywords: "Documentation Maintainer", "sync docs", "archive phase", "update ROADMAP", "mark phase complete", "split phase", "merge phase", "reorder phase", "phase evolution", "update documentation", "doc sync"
 - Workflow: Phase completion events, agent addition/update events, feature/capability changes, weekly audits (Sunday 6pm), manual dynamic phasing proposals
 
