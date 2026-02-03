@@ -25,7 +25,8 @@
       "Bash(git mv:*)",
       "Bash(if exist \"PM OS Vision and North Start Refinment.md\" del /q \"PM OS Vision and North Start Refinment.md\")",
       "Bash(dir:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(ls:*)"
     ]
   }
 }

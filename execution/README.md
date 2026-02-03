@@ -1,5 +1,16 @@
 # Execution Workspace - Product Artifact Pipeline Guide
 
+## ⚠️ IMPORTANT: This is YOUR Workspace
+
+**This directory should be EMPTY when you start using PM OS.** It fills up with YOUR product artifacts as you use the system:
+- OSTs, PRDs, specs for YOUR features
+- Prototypes, GTM materials for YOUR products
+- Improvement proposals for YOUR PM OS instance
+
+**NOT PM OS inception materials** - Those are in `examples/artifacts/` (PM OS building itself = meta-recursive work). This workspace is for YOUR actual product development work.
+
+---
+
 This directory is **YOUR workspace** for product artifacts. PM OS agents save all generated outputs here - discovery artifacts, PRDs, technical specs, prototypes, GTM materials, and improvement proposals.
 
 **Purpose**: Version-controlled product development pipeline with structured artifact storage and clear workflow progression.
