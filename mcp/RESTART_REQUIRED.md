@@ -1,7 +1,9 @@
 # Restart Required - Migrated to Atlassian Rovo MCP
 
+**Phase**: Phase 4 (MCP Integration Suite) - Jira/Confluence Integration
 **Date**: 2026-02-03
 **Reason**: Strategic migration from custom MCP server to Atlassian's official Rovo MCP Server
+**Context**: During Phase 4 Day 1-2 implementation, encountered OAuth 2.0 refresh_token issues with custom Jira MCP server. Pivoted to official Atlassian Rovo MCP for better reliability and zero maintenance.
 
 ---
 
