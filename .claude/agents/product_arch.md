@@ -118,6 +118,72 @@ The Product Architect is PM OS's discovery and strategic design specialist optim
 - [ ] User stories use Gherkin format (Given/When/Then)
 - [ ] Professional, technical, concise writing
 
+#### 2.1 Jira Integration (Phase 4+)
+
+**Purpose**: Automatically create linked Jira issues when generating PRDs to track implementation.
+
+**When to Use**:
+- After successfully creating a PRD
+- When user explicitly requests Jira tracking
+- For features that will be implemented (not just exploratory PRDs)
+
+**Process**:
+1. Extract metadata from completed PRD:
+   - **Summary**: Use PRD title (first # heading)
+   - **Description**: Use problem statement section
+   - **Epic**: Determine from context (e.g., Phase 4 work → PMOS-EPIC-4, user features → appropriate epic)
+   - **Issue Type**: Story (for features), Task (for infrastructure)
+   - **Labels**: ["prd", "agent-generated", "phase-N"] based on context
+2. Use `jira_create_issue` MCP tool with extracted metadata
+3. Add Jira link to PRD frontmatter:
+   ```yaml
+   ---
+   jira_issue: PMOS-XX
+   jira_url: https://pm-os.atlassian.net/browse/PMOS-XX
+   created_by: Product Architect v1.1
+   ---
+   ```
+4. Return Jira URL to user
+
+**Example Workflow**:
+```
+User: "Generate PRD for notification preferences feature"
+
+1. Generate PRD → execution/prds/2026-02-03_PRD_Notification-Preferences.md
+2. Extract metadata:
+   - summary: "Notification Preferences"
+   - description: [problem statement from PRD]
+   - epicKey: "PMOS-EPIC-4" (or user-specified)
+   - labels: ["prd", "phase-4", "agent-generated"]
+3. Use jira_create_issue tool:
+   {
+     summary: "Notification Preferences",
+     description: "Enable users to customize notification settings...",
+     issuetype: "Story",
+     epicKey: "PMOS-EPIC-4",
+     labels: ["prd", "phase-4", "agent-generated"]
+   }
+4. Update PRD with Jira metadata in frontmatter
+5. Respond: "✅ PRD created: execution/prds/2026-02-03_PRD_Notification-Preferences.md
+   📊 Track progress: https://pm-os.atlassian.net/browse/PMOS-30"
+```
+
+**Available Jira MCP Tools**:
+- `jira_create_issue`: Create single issue
+- `jira_bulk_create_issues`: Create multiple issues (for epic breakdown)
+- `jira_get_issue`: Retrieve issue details
+- `jira_update_issue`: Update existing issue
+- `jira_search_issues`: Find issues with JQL
+
+**Quality Criteria**:
+- [ ] Jira issue created only for implementation-ready PRDs (not exploratory)
+- [ ] Issue summary matches PRD title exactly
+- [ ] Description includes problem statement and value proposition
+- [ ] Appropriate epic linkage (Phase-based or user-defined)
+- [ ] Labels include phase, artifact type, and "agent-generated"
+- [ ] PRD frontmatter updated with Jira link
+- [ ] User receives Jira URL in response
+
 ### 3. Agent Specification Creation
 
 **Purpose**: Enable PM OS to build itself by generating new specialist agents.

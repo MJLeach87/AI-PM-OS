@@ -26,7 +26,15 @@
       "Bash(if exist \"PM OS Vision and North Start Refinment.md\" del /q \"PM OS Vision and North Start Refinment.md\")",
       "Bash(dir:*)",
       "Bash(grep:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(node scripts/atlassian_auth.js:*)",
+      "Bash(node scripts/exchange_token.js:*)",
+      "Bash(node scripts/test_jira.js:*)",
+      "Bash(node:*)",
+      "WebFetch(domain:support.atlassian.com)",
+      "WebSearch",
+      "WebFetch(domain:medium.com)",
+      "Bash(npm view:*)"
     ]
   }
 }

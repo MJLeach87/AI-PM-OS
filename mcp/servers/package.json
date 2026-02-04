@@ -1,0 +1,15 @@
+{
+  "name": "pm-os-mcp-servers",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "PM OS Model Context Protocol Servers",
+  "scripts": {
+    "jira": "node jira_server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

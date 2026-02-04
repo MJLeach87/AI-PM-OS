@@ -1,34 +1,49 @@
+#!/usr/bin/env node
+
 /**
  * Jira MCP Server
  *
  * Model Context Protocol server for Jira Cloud API
- * Provides CRUD operations for issues, epics, and projects
+ * Provides tools for creating and managing issues, epics, and projects
  *
- * Version: 1.0
+ * Version: 2.0 (Proper MCP Implementation)
  * Phase: 4 (MCP Integration Suite)
  */
 
-const fs = require('fs');
-const path = require('path');
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import {
+  CallToolRequestSchema,
+  ListToolsRequestSchema,
+} from '@modelcontextprotocol/sdk/types.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Paths
 const TOKEN_PATH = path.join(__dirname, '../credentials/atlassian_token.json');
 
-// Load tokens and get Jira Cloud ID
+// Token data
 let tokenData, accessToken, cloudId, baseUrl;
 
+/**
+ * Load OAuth tokens
+ */
 function loadTokens() {
   tokenData = JSON.parse(fs.readFileSync(TOKEN_PATH, 'utf-8'));
   accessToken = tokenData.access_token;
 
-  // Get Jira resource (first one with read:jira-work scope)
+  // Get Jira resource
   const jiraResource = tokenData.resources.find(r => r.scopes.includes('read:jira-work'));
+  if (!jiraResource) {
+    throw new Error('No Jira resource found in token data');
+  }
   cloudId = jiraResource.id;
   baseUrl = `https://api.atlassian.com/ex/jira/${cloudId}`;
 }
-
-// Initialize on module load
-loadTokens();
 
 /**
  * Refresh access token if expired
@@ -39,7 +54,7 @@ async function refreshTokenIfNeeded() {
   const bufferTime = 5 * 60 * 1000; // Refresh 5 min before expiry
 
   if (now >= expiresAt - bufferTime) {
-    console.log('🔄 Refreshing access token...');
+    console.error('🔄 Refreshing access token...');
 
     const credentials = JSON.parse(fs.readFileSync(
       path.join(__dirname, '../credentials/atlassian_oauth.json'),
@@ -71,7 +86,7 @@ async function refreshTokenIfNeeded() {
     fs.writeFileSync(TOKEN_PATH, JSON.stringify(tokenData, null, 2));
 
     accessToken = newTokens.access_token;
-    console.log('✅ Token refreshed');
+    console.error('✅ Token refreshed');
   }
 }
 
@@ -98,53 +113,36 @@ async function jiraRequest(endpoint, options = {}) {
 
       // Handle rate limiting
       if (response.status === 429) {
-        const retryAfter = parseInt(response.headers.get('Retry-After') || '5');
-        console.log(`⏳ Rate limited. Retrying after ${retryAfter}s...`);
+        const retryAfter = parseInt(response.headers.get('Retry-After') || '1');
+        console.error(`⏳ Rate limited. Retrying after ${retryAfter}s...`);
         await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
         attempt++;
         continue;
       }
 
-      // Handle errors
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`Jira API error ${response.status}: ${errorText}`);
       }
 
-      // Parse response
-      const contentType = response.headers.get('content-type');
-      const contentLength = response.headers.get('content-length');
-
-      // Handle empty responses (common for PUT/DELETE)
-      if (contentLength === '0' || !contentType) {
-        return null;
-      }
-
-      if (contentType && contentType.includes('application/json')) {
-        const text = await response.text();
-        return text ? JSON.parse(text) : null;
-      }
-
-      return await response.text();
+      return await response.json();
 
     } catch (error) {
       attempt++;
       if (attempt >= maxRetries) {
         throw error;
       }
-
-      // Exponential backoff
-      const delay = Math.pow(2, attempt) * 1000;
-      console.log(`⚠️ Request failed, retrying in ${delay}ms... (${attempt}/${maxRetries})`);
-      await new Promise(resolve => setTimeout(resolve, delay));
+      const backoff = Math.pow(2, attempt) * 1000; // Exponential backoff
+      console.error(`❌ Request failed (attempt ${attempt}/${maxRetries}). Retrying in ${backoff}ms...`);
+      await new Promise(resolve => setTimeout(resolve, backoff));
     }
   }
 }
 
 /**
- * 1. Test Connection
- * GET /rest/api/3/myself
+ * Tool Implementations
  */
+
 async function testConnection() {
   const user = await jiraRequest('/rest/api/3/myself');
   return {
@@ -159,13 +157,7 @@ async function testConnection() {
   };
 }
 
-/**
- * 2. Create Epic
- * POST /rest/api/3/issue
- */
-async function createEpic(epicData) {
-  const { summary, description, project = 'PMOS' } = epicData;
-
+async function createEpic({ summary, description, project = 'PMOS' }) {
   const body = {
     fields: {
       project: { key: project },
@@ -184,9 +176,6 @@ async function createEpic(epicData) {
     }
   };
 
-  // Note: Next-gen projects don't use Epic Name custom field
-  // Epic name is just the summary field
-
   const result = await jiraRequest('/rest/api/3/issue', {
     method: 'POST',
     body: JSON.stringify(body)
@@ -195,25 +184,11 @@ async function createEpic(epicData) {
   return {
     id: result.id,
     key: result.key,
-    self: result.self
+    url: `https://pm-os.atlassian.net/browse/${result.key}`
   };
 }
 
-/**
- * 3. Create Issue (Story/Task)
- * POST /rest/api/3/issue
- */
-async function createIssue(issueData) {
-  const {
-    summary,
-    description,
-    issuetype = 'Story',
-    project = 'PMOS',
-    epicKey,
-    labels = [],
-    customFields = {}
-  } = issueData;
-
+async function createIssue({ summary, description, issuetype = 'Story', project = 'PMOS', epicKey, labels = [] }) {
   const body = {
     fields: {
       project: { key: project },
@@ -233,13 +208,9 @@ async function createIssue(issueData) {
     }
   };
 
-  // Add parent (epic) if provided
   if (epicKey) {
     body.fields.parent = { key: epicKey };
   }
-
-  // Add custom fields
-  Object.assign(body.fields, customFields);
 
   const result = await jiraRequest('/rest/api/3/issue', {
     method: 'POST',
@@ -249,24 +220,19 @@ async function createIssue(issueData) {
   return {
     id: result.id,
     key: result.key,
-    self: result.self
+    url: `https://pm-os.atlassian.net/browse/${result.key}`
   };
 }
 
-/**
- * 4. Bulk Create Issues
- * POST /rest/api/3/issue/bulk
- */
-async function bulkCreateIssues(issuesArray) {
-  const issueUpdates = issuesArray.map(issueData => {
+async function bulkCreateIssues({ issues }) {
+  const issueUpdates = issues.map(issueData => {
     const {
       summary,
       description,
       issuetype = 'Story',
       project = 'PMOS',
       epicKey,
-      labels = [],
-      customFields = {}
+      labels = []
     } = issueData;
 
     const fields = {
@@ -283,8 +249,7 @@ async function bulkCreateIssues(issuesArray) {
           }
         ]
       },
-      labels: labels,
-      ...customFields
+      labels: labels
     };
 
     if (epicKey) {
@@ -303,225 +268,348 @@ async function bulkCreateIssues(issuesArray) {
     issues: result.issues.map(i => ({
       id: i.id,
       key: i.key,
-      self: i.self
+      url: `https://pm-os.atlassian.net/browse/${i.key}`
     })),
     errors: result.errors || []
   };
 }
 
-/**
- * 5. Get Issue
- * GET /rest/api/3/issue/{issueKey}
- */
-async function getIssue(issueKey) {
+async function getIssue({ issueKey }) {
   const issue = await jiraRequest(`/rest/api/3/issue/${issueKey}`);
-
   return {
-    id: issue.id,
     key: issue.key,
-    self: issue.self,
     summary: issue.fields.summary,
-    description: issue.fields.description,
     status: issue.fields.status.name,
     issuetype: issue.fields.issuetype.name,
+    description: issue.fields.description,
     labels: issue.fields.labels,
-    created: issue.fields.created,
-    updated: issue.fields.updated,
-    fields: issue.fields // Include all fields for custom field access
+    url: `https://pm-os.atlassian.net/browse/${issue.key}`
   };
 }
 
-/**
- * 6. Update Issue
- * PUT /rest/api/3/issue/{issueKey}
- */
-async function updateIssue(issueKey, updates) {
-  const { summary, description, status, labels, customFields = {} } = updates;
-
+async function updateIssue({ issueKey, updates }) {
   const body = { fields: {} };
 
-  if (summary) body.fields.summary = summary;
-  if (description) {
+  if (updates.summary) body.fields.summary = updates.summary;
+  if (updates.description) {
     body.fields.description = {
       type: 'doc',
       version: 1,
       content: [
         {
           type: 'paragraph',
-          content: [{ type: 'text', text: description }]
+          content: [{ type: 'text', text: updates.description }]
         }
       ]
     };
   }
-  if (labels) body.fields.labels = labels;
-
-  // Add custom fields
-  Object.assign(body.fields, customFields);
+  if (updates.labels) body.fields.labels = updates.labels;
 
   await jiraRequest(`/rest/api/3/issue/${issueKey}`, {
     method: 'PUT',
     body: JSON.stringify(body)
   });
 
-  // Update status separately if provided (uses transitions API)
-  if (status) {
-    await updateIssueStatus(issueKey, status);
-  }
-
-  return { success: true, issueKey };
+  return {
+    success: true,
+    key: issueKey,
+    url: `https://pm-os.atlassian.net/browse/${issueKey}`
+  };
 }
 
-/**
- * Update Issue Status (via transitions)
- */
-async function updateIssueStatus(issueKey, statusName) {
-  // Get available transitions
-  const transitions = await jiraRequest(`/rest/api/3/issue/${issueKey}/transitions`);
-
-  // Find transition to desired status
-  const transition = transitions.transitions.find(
-    t => t.to.name.toLowerCase() === statusName.toLowerCase()
-  );
-
-  if (!transition) {
-    throw new Error(`No transition found to status "${statusName}"`);
-  }
-
-  // Execute transition
-  await jiraRequest(`/rest/api/3/issue/${issueKey}/transitions`, {
-    method: 'POST',
-    body: JSON.stringify({ transition: { id: transition.id } })
-  });
-}
-
-/**
- * 7. Search Issues (JQL)
- * GET /rest/api/3/search/jql (new endpoint as of 2024)
- */
-async function searchIssues(jql, options = {}) {
-  const { maxResults = 50, startAt = 0 } = options;
-
-  // Use GET with query parameters for the new JQL endpoint
+async function searchIssues({ jql, maxResults = 50 }) {
   const params = new URLSearchParams({
     jql: jql,
-    maxResults: maxResults.toString(),
-    startAt: startAt.toString()
+    maxResults: maxResults.toString()
   });
 
-  const result = await jiraRequest(`/rest/api/3/search/jql?${params.toString()}`, {
-    method: 'GET'
-  });
-
-  // Handle both old (issues) and new (values) response formats
-  const issuesList = result.values || result.issues || [];
+  const result = await jiraRequest(`/rest/api/3/search/jql?${params}`);
 
   return {
-    total: result.total || issuesList.length,
-    maxResults: result.maxResults || maxResults,
-    startAt: result.startAt || startAt,
-    issues: issuesList.map(issue => ({
-      id: issue.id,
-      key: issue.key,
-      summary: issue.fields.summary,
-      status: issue.fields.status.name,
-      issuetype: issue.fields.issuetype.name,
-      fields: issue.fields
+    total: result.total,
+    issues: result.issues.map(i => ({
+      key: i.key,
+      summary: i.fields.summary,
+      status: i.fields.status.name,
+      issuetype: i.fields.issuetype.name,
+      url: `https://pm-os.atlassian.net/browse/${i.key}`
     }))
   };
 }
 
-/**
- * 8. Delete Issue
- * DELETE /rest/api/3/issue/{issueKey}
- */
-async function deleteIssue(issueKey) {
-  await jiraRequest(`/rest/api/3/issue/${issueKey}`, {
-    method: 'DELETE'
-  });
-
-  return { success: true, issueKey };
-}
-
-/**
- * 9. Get Project
- * GET /rest/api/3/project/{projectKey}
- */
-async function getProject(projectKey = 'PMOS') {
+async function getProject({ projectKey = 'PMOS' }) {
   const project = await jiraRequest(`/rest/api/3/project/${projectKey}`);
-
   return {
     id: project.id,
     key: project.key,
     name: project.name,
     projectTypeKey: project.projectTypeKey,
+    simplified: project.simplified,
     style: project.style,
-    issueTypes: project.issueTypes.map(t => ({
-      id: t.id,
-      name: t.name,
-      subtask: t.subtask
-    }))
+    url: project.self
   };
 }
 
 /**
- * 10. Get Custom Fields
- * GET /rest/api/3/field
+ * Initialize MCP Server
  */
-async function getCustomFields() {
-  const fields = await jiraRequest('/rest/api/3/field');
+async function main() {
+  // Load tokens
+  loadTokens();
 
-  // Filter to custom fields only
-  return fields
-    .filter(f => f.custom)
-    .map(f => ({
-      id: f.id,
-      name: f.name,
-      schema: f.schema
-    }));
-}
-
-// Export all functions
-module.exports = {
-  testConnection,
-  createEpic,
-  createIssue,
-  bulkCreateIssues,
-  getIssue,
-  updateIssue,
-  searchIssues,
-  deleteIssue,
-  getProject,
-  getCustomFields
-};
-
-// CLI testing support
-if (require.main === module) {
-  const command = process.argv[2];
-
-  (async () => {
-    try {
-      switch (command) {
-        case 'test':
-          const result = await testConnection();
-          console.log('✅ Connection successful:', result);
-          break;
-
-        case 'fields':
-          const fields = await getCustomFields();
-          console.log('Custom Fields:', JSON.stringify(fields, null, 2));
-          break;
-
-        case 'project':
-          const project = await getProject();
-          console.log('Project:', JSON.stringify(project, null, 2));
-          break;
-
-        default:
-          console.log('Usage: node jira_server.js [test|fields|project]');
-      }
-    } catch (error) {
-      console.error('❌ Error:', error.message);
-      process.exit(1);
+  const server = new Server(
+    {
+      name: 'jira-server',
+      version: '2.0.0',
+    },
+    {
+      capabilities: {
+        tools: {},
+      },
     }
-  })();
+  );
+
+  // Tool definitions
+  server.setRequestHandler(ListToolsRequestSchema, async () => {
+    return {
+      tools: [
+        {
+          name: 'jira_test_connection',
+          description: 'Test Jira API connection and get current user info',
+          inputSchema: {
+            type: 'object',
+            properties: {},
+            required: []
+          }
+        },
+        {
+          name: 'jira_create_epic',
+          description: 'Create a new epic in Jira',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              summary: {
+                type: 'string',
+                description: 'Epic title/summary'
+              },
+              description: {
+                type: 'string',
+                description: 'Epic description'
+              },
+              project: {
+                type: 'string',
+                description: 'Project key (default: PMOS)',
+                default: 'PMOS'
+              }
+            },
+            required: ['summary']
+          }
+        },
+        {
+          name: 'jira_create_issue',
+          description: 'Create a new issue (story/task) in Jira',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              summary: {
+                type: 'string',
+                description: 'Issue title/summary'
+              },
+              description: {
+                type: 'string',
+                description: 'Issue description'
+              },
+              issuetype: {
+                type: 'string',
+                description: 'Issue type: Story, Task, Bug',
+                default: 'Story'
+              },
+              project: {
+                type: 'string',
+                description: 'Project key (default: PMOS)',
+                default: 'PMOS'
+              },
+              epicKey: {
+                type: 'string',
+                description: 'Parent epic key (e.g., PMOS-EPIC-4)'
+              },
+              labels: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Labels for the issue'
+              }
+            },
+            required: ['summary']
+          }
+        },
+        {
+          name: 'jira_bulk_create_issues',
+          description: 'Create multiple issues in bulk (up to 50 at once)',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              issues: {
+                type: 'array',
+                description: 'Array of issue objects to create',
+                items: {
+                  type: 'object',
+                  properties: {
+                    summary: { type: 'string' },
+                    description: { type: 'string' },
+                    issuetype: { type: 'string' },
+                    project: { type: 'string' },
+                    epicKey: { type: 'string' },
+                    labels: {
+                      type: 'array',
+                      items: { type: 'string' }
+                    }
+                  },
+                  required: ['summary']
+                }
+              }
+            },
+            required: ['issues']
+          }
+        },
+        {
+          name: 'jira_get_issue',
+          description: 'Get details of a specific issue by key',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              issueKey: {
+                type: 'string',
+                description: 'Issue key (e.g., PMOS-1)'
+              }
+            },
+            required: ['issueKey']
+          }
+        },
+        {
+          name: 'jira_update_issue',
+          description: 'Update an existing issue',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              issueKey: {
+                type: 'string',
+                description: 'Issue key to update'
+              },
+              updates: {
+                type: 'object',
+                description: 'Fields to update',
+                properties: {
+                  summary: { type: 'string' },
+                  description: { type: 'string' },
+                  labels: {
+                    type: 'array',
+                    items: { type: 'string' }
+                  }
+                }
+              }
+            },
+            required: ['issueKey', 'updates']
+          }
+        },
+        {
+          name: 'jira_search_issues',
+          description: 'Search issues using JQL (Jira Query Language)',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              jql: {
+                type: 'string',
+                description: 'JQL query (e.g., "project=PMOS AND status=Done")'
+              },
+              maxResults: {
+                type: 'number',
+                description: 'Maximum results to return (default: 50)',
+                default: 50
+              }
+            },
+            required: ['jql']
+          }
+        },
+        {
+          name: 'jira_get_project',
+          description: 'Get project metadata',
+          inputSchema: {
+            type: 'object',
+            properties: {
+              projectKey: {
+                type: 'string',
+                description: 'Project key (default: PMOS)',
+                default: 'PMOS'
+              }
+            }
+          }
+        }
+      ]
+    };
+  });
+
+  // Tool execution
+  server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    const { name, arguments: args } = request.params;
+
+    try {
+      let result;
+
+      switch (name) {
+        case 'jira_test_connection':
+          result = await testConnection();
+          break;
+        case 'jira_create_epic':
+          result = await createEpic(args);
+          break;
+        case 'jira_create_issue':
+          result = await createIssue(args);
+          break;
+        case 'jira_bulk_create_issues':
+          result = await bulkCreateIssues(args);
+          break;
+        case 'jira_get_issue':
+          result = await getIssue(args);
+          break;
+        case 'jira_update_issue':
+          result = await updateIssue(args);
+          break;
+        case 'jira_search_issues':
+          result = await searchIssues(args);
+          break;
+        case 'jira_get_project':
+          result = await getProject(args);
+          break;
+        default:
+          throw new Error(`Unknown tool: ${name}`);
+      }
+
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify(result, null, 2)
+          }
+        ]
+      };
+
+    } catch (error) {
+      return {
+        content: [
+          {
+            type: 'text',
+            text: `Error: ${error.message}`
+          }
+        ],
+        isError: true
+      };
+    }
+  });
+
+  // Start server
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+  console.error('Jira MCP Server running on stdio');
 }
+
+main().catch(console.error);
