@@ -34,7 +34,9 @@
       "WebFetch(domain:support.atlassian.com)",
       "WebSearch",
       "WebFetch(domain:medium.com)",
-      "Bash(npm view:*)"
+      "Bash(npm view:*)",
+      "mcp__jira__jira_test_connection",
+      "WebFetch(domain:github.com)"
     ]
   }
 }

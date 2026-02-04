@@ -1,9 +1,8 @@
 {
   "mcpServers": {
-    "jira": {
-      "command": "node",
-      "args": ["mcp/servers/jira_server.js"],
-      "env": {}
+    "atlassian": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.atlassian.com/v1/mcp"]
     }
   }
 }

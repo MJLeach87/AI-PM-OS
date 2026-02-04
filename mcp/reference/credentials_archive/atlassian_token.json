@@ -1,0 +1,30 @@
+{
+  "access_token": "[REDACTED - OAuth 2.0 access token removed for security - expired JWT]",
+  "expires_in": 3600,
+  "token_type": "Bearer",
+  "scope": "read:jira-work write:confluence-content write:jira-work read:jira-user read:confluence-content.summary",
+  "created_at": 1770176712781,
+  "resources": [
+    {
+      "id": "d1d9d612-3182-4d76-ad10-bce2f315b8f3",
+      "url": "https://aipmos.atlassian.net",
+      "name": "aipmos",
+      "scopes": [
+        "read:jira-work",
+        "write:jira-work",
+        "read:jira-user"
+      ],
+      "avatarUrl": "https://site-admin-avatar-cdn.prod.public.atl-paas.net/avatars/240/pencilmarker.png"
+    },
+    {
+      "id": "d1d9d612-3182-4d76-ad10-bce2f315b8f3",
+      "url": "https://aipmos.atlassian.net",
+      "name": "aipmos",
+      "scopes": [
+        "write:confluence-content",
+        "read:confluence-content.summary"
+      ],
+      "avatarUrl": "https://site-admin-avatar-cdn.prod.public.atl-paas.net/avatars/240/pencilmarker.png"
+    }
+  ]
+}

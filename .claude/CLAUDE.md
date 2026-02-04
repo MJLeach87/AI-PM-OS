@@ -33,8 +33,9 @@ See `identity/STRATEGY.md` for detailed metric definitions and recommended sets 
 
 ## Current Phase: Phase 4 (MCP Integration Suite)
 
-**Status**: Planning (Phase 3 completed 2026-02-02)
-**Objective**: Integrate all external tools via Model Context Protocol (Jira, Confluence, Slack, Snowflake)
+**Status**: In Progress - Migrated to Atlassian Rovo MCP (2026-02-03)
+**Objective**: Integrate external tools via Model Context Protocol using official providers
+**Approach**: Atlassian Rovo MCP (official) for Jira/Confluence instead of custom servers
 
 ### Phase 1 Deliverables
 - [x] Engineering Partner agent (Cursor + Claude versions) - v1.1 with legacy code analysis
@@ -118,19 +119,29 @@ All artifacts follow standardized templates stored in `templates/`:
 
 ### MCP Integration Suite
 
-PM OS integrates external tools via Model Context Protocol:
+PM OS integrates external tools via Model Context Protocol using official providers:
 
-**Phase 1** ✅: Google Drive (legacy document retrieval) - Already operational
-**Phase 4** (Consolidated): All remaining MCPs in single phase
-- Jira (bi-directional issue sync)
-- Confluence (documentation publishing)
-- Slack (team communication, notifications)
-- Snowflake (data warehouse queries)
-**Future**: Linear, Notion (under evaluation based on team stack preferences)
+**Phase 1** ✅: Google Drive (legacy document retrieval) - Operational
+**Phase 4** ✅: Atlassian Rovo MCP (2026-02-03) - **Active**
+- **Jira**: Issue tracking, epic/story creation, JQL search (natural language interface)
+- **Confluence**: Documentation publishing, page creation, search (natural language interface)
+- **Authentication**: Automatic OAuth 2.1 via browser (zero manual token management)
+- **Endpoint**: `https://mcp.atlassian.com/v1/mcp` via `npx mcp-remote`
+- **Setup Guide**: `mcp/setup_guides/ROVO_MCP_SETUP.md`
 
-**Rationale**: Consolidating MCP work enables unified OAuth management, consistent error handling, and batch integration testing.
+**Strategic Decision**: Migrated from custom MCP server to Atlassian's official Rovo MCP Server
+- ✅ Eliminates OAuth 2.0 token refresh issues
+- ✅ Automatic permission inheritance from Jira/Confluence
+- ✅ Zero maintenance (Atlassian-managed)
+- ✅ Enterprise security and audit logging
+- ✅ Free during beta period
 
-**Configuration**: `mcp/config.json` with credentials in `.env` (gitignored)
+**Future MCPs** (Phase 5-7):
+- Slack (team communication) - Phase 7-8
+- Snowflake (data warehouse) - Phase 5
+- Linear, Notion (under evaluation)
+
+**Configuration**: `.mcp.json` (project-scoped, version controlled)
 
 ---
 
@@ -379,7 +390,7 @@ Validate against identity/STANDARDS.md quality gates:
 | **1** | ✅ Complete (2 days) | Core Agents | Engineering Partner, UX Strategist, Google Drive MCP |
 | **2** | ✅ Complete (4 hrs) | Execution Layer | Data Analyst, GTM Strategist (5-agent team complete) |
 | **3** | ✅ Complete (2 days) | Self-Improvement | System Evaluator, Doc Maintainer, quality dashboard |
-| **4** | 🟡 Planning | MCP Integration Suite | Jira, Confluence, Slack, Snowflake (all MCPs consolidated) |
+| **4** | 🟢 In Progress | MCP Integration Suite | Atlassian Rovo MCP (Jira + Confluence, official integration) |
 | **5** | 🟡 Planned | Data Intelligence | Data dictionary, metric automation |
 | **6** | 🟡 Planned | IDE Optimization | Parallel processing, domain specialists |
 | **7** | 🟡 Planned | Enterprise | Multi-user, security hardening, web prototype |

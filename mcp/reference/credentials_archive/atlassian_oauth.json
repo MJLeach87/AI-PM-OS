@@ -1,0 +1,16 @@
+{
+  "installed": {
+    "client_id": "[REDACTED - OAuth 2.0 client ID removed for security]",
+    "client_secret": "[REDACTED - OAuth 2.0 client secret removed for security]",
+    "auth_uri": "https://auth.atlassian.com/authorize",
+    "token_uri": "https://auth.atlassian.com/oauth/token",
+    "redirect_uris": ["http://localhost:3000/oauth/callback"],
+    "scopes": [
+      "read:jira-work",
+      "write:jira-work",
+      "read:jira-user",
+      "read:confluence-content.summary",
+      "write:confluence-content"
+    ]
+  }
+}

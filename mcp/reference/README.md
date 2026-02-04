@@ -1,18 +1,47 @@
-# MCP Reference - Direct API Patterns
+# MCP Reference - Custom Implementation Archive
 
-This folder contains the original direct API implementation of the Jira integration, preserved for reference.
+This folder contains archived custom implementations of Jira/Confluence integration, preserved for reference and learning purposes.
 
-## Files
+## Migration History
 
-- **jira_server_direct_api.js** - Original Jira API wrapper with OAuth, retry logic, rate limiting
+**Phase 1 (Direct API)** → **Phase 2 (Custom MCP)** → **Phase 3 (Atlassian Rovo MCP)** ✅
+
+PM OS migrated to **Atlassian's official Rovo MCP Server** on 2026-02-03 for superior authentication, security, and maintainability.
+
+## Archived Files
+
+### Direct API Implementation (Day 1)
+- **jira_server_direct_api.js** - Original Jira API wrapper with OAuth 2.0, retry logic, rate limiting
 - **atlassian_auth.js** - OAuth 2.0 flow with callback server
 - **exchange_token.js** - Manual token exchange workflow
 - **test_jira.js** - Basic connection test
 - **test_jira_crud.js** - Comprehensive CRUD test suite (10 tests)
 
-## Why Archived
+### Custom MCP Server (Day 1-2)
+- **jira_server_mcp_v2.js** - Full MCP server implementation using @modelcontextprotocol/sdk
+  - 8 MCP tools (test_connection, create_epic, create_issue, bulk_create, get_issue, update_issue, search_issues, get_project)
+  - OAuth 2.0 token management with refresh logic
+  - Retry logic with exponential backoff
+  - Rate limiting handling (429 responses)
 
-These files represented a direct API approach where functions were called as Node.js modules via scripts. This pattern was replaced with a proper MCP server implementation that follows the Model Context Protocol, allowing Claude Code to call Jira tools directly without intermediate scripts.
+## Why We Migrated to Rovo MCP
+
+**Custom Implementation Issues**:
+- ❌ OAuth 2.0 refresh token problems (Atlassian API inconsistently returns refresh_token)
+- ❌ Manual token management and expiry handling
+- ❌ Custom permission logic required
+- ❌ Ongoing maintenance burden
+- ❌ OAuth security complexity
+
+**Rovo MCP Advantages**:
+- ✅ OAuth 2.1 handled automatically via browser flow
+- ✅ Zero token management (no refresh_token issues!)
+- ✅ Respects existing Jira/Confluence permissions automatically
+- ✅ Officially supported by Atlassian
+- ✅ Free during beta period
+- ✅ Built-in audit logging
+- ✅ Natural language interface for common operations
+- ✅ Multi-client support (Claude, ChatGPT, Gemini)
 
 ## When to Reference
 
@@ -34,7 +63,15 @@ The `atlassian_auth.js` and `exchange_token.js` files contain robust OAuth 2.0 i
 
 These patterns can be adapted for other Atlassian services or OAuth 2.0 integrations.
 
+## Current Integration (Rovo MCP)
+
+PM OS now uses **Atlassian Rovo MCP Server** via remote connection:
+- **Endpoint**: `https://mcp.atlassian.com/v1/mcp`
+- **Setup Guide**: See `mcp/setup_guides/ROVO_MCP_SETUP.md`
+- **Configuration**: `.mcp.json` uses `npx mcp-remote` proxy
+
 ---
 
 **Created**: 2026-02-03
+**Updated**: 2026-02-03 (Migration to Rovo MCP)
 **Status**: Reference Only (Do Not Execute)
