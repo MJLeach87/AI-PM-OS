@@ -142,6 +142,168 @@ Maintain PM OS's core product documentation as PM OS builds itself. Ensure docum
 
 **Output**: Weekly documentation health report (generated, not committed)
 
+### 5. Regular Version Control Commits ⭐
+
+**What**: Proactive git commits after completing significant work items
+
+**Purpose**: Maintain clean git history with logical checkpoints for easy rollback
+
+**Commit Triggers** (when PM OS or agents complete work):
+- ✅ Agent spec created/updated (new agent v1.0 or upgrade to v1.X)
+- ✅ PRD generated and saved to `execution/prds/`
+- ✅ Technical spec completed and saved to `execution/technical_specs/`
+- ✅ MCP integration configured and tested
+- ✅ Template created/updated in `templates/`
+- ✅ Identity layer file updated (STRATEGY.md, STANDARDS.md, ROADMAP.md)
+- ✅ Documentation updated (README files, CLAUDE.md, phase reports)
+- ✅ Phase completion archived
+- ✅ Multiple related files changed as part of single feature/task
+
+**Commit Workflow**:
+1. **Detect Work Completion**: Agent signals "work item complete" OR PM explicitly requests commit
+2. **Assess Scope**: Determine what changed (single file vs multi-file feature)
+3. **Stage Files**: `git add` relevant files (never use `git add .` - always explicit)
+4. **Generate Commit Message**: Descriptive message following format below
+5. **Commit**: Execute `git commit` with message
+6. **Confirm**: Return commit hash and summary to PM
+
+**Commit Message Format**:
+```
+[Category] Brief summary (max 70 chars)
+
+Detailed description:
+- What changed
+- Why it changed
+- Impact/implications
+
+Files affected:
+- file1
+- file2
+- file3
+
+[Co-Authored-By line if agent-generated]
+```
+
+**Category Prefixes**:
+- `[Agent]` - Agent spec created/updated
+- `[PRD]` - Product requirements document
+- `[Spec]` - Technical specification
+- `[MCP]` - MCP integration work
+- `[Template]` - Template created/updated
+- `[Identity]` - Identity layer update (STRATEGY, STANDARDS, ROADMAP)
+- `[Doc Sync]` - Documentation synchronization (README, CLAUDE.md)
+- `[Phase]` - Phase completion or evolution
+- `[Feature]` - New feature implementation
+- `[Fix]` - Bug fix or correction
+- `[Refactor]` - Code restructuring
+
+**Examples**:
+
+```bash
+# Example 1: Agent created
+git commit -m "[Agent] Implement System Evaluator v1.0
+
+Creates meta-agent for quality audits and self-improvement proposals.
+
+Capabilities:
+- Weekly quality audits for all agent outputs
+- Improvement proposal generation with evidence
+- Agent performance tracking and benchmarking
+
+Files affected:
+- .claude/agents/system_evaluator.md
+- .cursor/rules/system_evaluator.mdc
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+```
+
+```bash
+# Example 2: PRD generated
+git commit -m "[PRD] Generate PRD for notification preferences feature
+
+User-requested PRD for customizable notification settings.
+
+Deliverables:
+- Problem statement with user pain points
+- Solution approach with 3 user stories
+- Success metrics (80% preference completion rate)
+- Implementation phases (2 weeks estimated)
+
+Files affected:
+- execution/prds/2026-02-03_PRD_Notification-Preferences.md
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+```
+
+```bash
+# Example 3: MCP integration
+git commit -m "[MCP] Configure Jira MCP OAuth and basic connectivity
+
+Sets up Atlassian OAuth 2.0 for Jira + Confluence access.
+
+Completed:
+- OAuth app created in Atlassian Developer Console
+- Credentials saved to mcp/credentials/atlassian_oauth.json
+- Token refresh flow implemented with exponential backoff
+- Connection test passing (GET /rest/api/3/myself)
+
+Files affected:
+- mcp/credentials/atlassian_oauth.json (gitignored)
+- mcp/servers/jira_server.js
+- scripts/atlassian_auth.js
+- scripts/test_jira.js
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+```
+
+```bash
+# Example 4: Multi-file feature
+git commit -m "[Feature] Add search-before-create pattern to Product Architect
+
+Implements duplicate detection before creating new PRDs/specs.
+
+Changes:
+- Product Architect searches Confluence before creating pages
+- Product Architect searches Google Drive before creating docs
+- Agent cites existing sources in new artifacts
+- Duplicate detection >90% effective in testing
+
+Files affected:
+- .claude/agents/product_arch.md (v1.0 → v1.1)
+- mcp/servers/confluence_server.js (added searchBeforeCreate)
+- mcp/servers/google_workspace_server.js (added Drive search)
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+```
+
+**Safety Mechanisms**:
+- **Never commit sensitive files**: `.env`, `*_token.json`, `*_credentials.json` (all gitignored)
+- **Always explicit staging**: Never `git add .` - always explicit file paths
+- **Verify .gitignore**: Check sensitive files excluded before staging
+- **Atomic commits**: Each commit = 1 logical work item (not multiple unrelated changes)
+- **Descriptive messages**: Explain WHAT and WHY, not just WHAT
+
+**Proactive Commit Reminders**:
+
+When PM OS agents complete work, they should prompt:
+```
+Work item complete. Commit changes now?
+Files to commit:
+- execution/prds/2026-02-03_PRD_Example.md
+
+Suggested commit message:
+[PRD] Generate PRD for example feature
+
+[y/n]
+```
+
+PM can respond `y` to commit immediately or `n` to defer (manual commit later).
+
+**Integration with Git Hooks** (Future):
+- Pre-commit hook: Scan for accidentally staged secrets (`.env` patterns)
+- Post-commit hook: Update IMPLEMENTATION_STATUS.md with completion percentage
+- Pre-push hook: Run validation tests (broken links, agent spec syntax)
+
 ---
 
 ## Triggers
@@ -226,6 +388,36 @@ Documentation Maintainer: Propose Phase 4 split into 4a (Atlassian Integration: 
 4. Check for stale examples
 5. Generate weekly documentation health report (not committed)
 6. Flag issues for PM review
+
+### 6. Regular Commit Triggers
+
+**Manual Trigger** (Explicit PM Request):
+```
+Documentation Maintainer: Commit changes for [work item description]
+```
+
+**Automatic Trigger** (Agent Work Completion):
+- After agent spec created/updated
+- After PRD/spec generated
+- After MCP integration completed
+- After multi-file documentation sync
+
+**Actions**:
+1. Assess changed files: `git status`
+2. Verify no sensitive files staged (`.env`, `*_token.json`)
+3. Stage relevant files explicitly (never `git add .`)
+4. Generate descriptive commit message using format from Responsibility #5
+5. Execute commit with co-authored-by line
+6. Return commit hash and summary to PM
+
+**Example Workflow**:
+```
+User: "Generate PRD for password reset"
+Product Architect: [generates PRD, saves to execution/prds/]
+Documentation Maintainer: "PRD created. Commit now? [y/n]"
+User: "y"
+Documentation Maintainer: [stages file, commits with message, returns commit hash]
+```
 
 ---
 
@@ -575,6 +767,106 @@ Documentation Maintainer: Sync docs after System Evaluator added
    ---
    Generated by Documentation Maintainer - 2026-02-16 18:00
    ```
+
+### Example 5: Regular Commit After Work Item
+
+**User Request**:
+```
+Product Architect: Generate PRD for notification preferences
+```
+
+**Product Architect Actions**:
+1. Generate PRD markdown with BMAD structure
+2. Save to `execution/prds/2026-02-03_PRD_Notification-Preferences.md`
+3. Signal work completion to Documentation Maintainer
+
+**Documentation Maintainer Prompts**:
+```
+PRD created. Commit changes now?
+
+Files to commit:
+- execution/prds/2026-02-03_PRD_Notification-Preferences.md
+
+Suggested commit message:
+[PRD] Generate PRD for notification preferences feature
+
+User-requested PRD for customizable notification settings.
+
+Deliverables:
+- Problem statement with user pain points
+- Solution approach with 3 user stories
+- Success metrics (80% preference completion rate)
+- Implementation phases (2 weeks estimated)
+
+Files affected:
+- execution/prds/2026-02-03_PRD_Notification-Preferences.md
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+
+Commit? [y/n]
+```
+
+**User Response**:
+```
+y
+```
+
+**Documentation Maintainer Actions**:
+1. Check git status:
+   ```bash
+   $ git status
+   On branch main
+   Untracked files:
+     execution/prds/2026-02-03_PRD_Notification-Preferences.md
+   ```
+
+2. Verify no sensitive files (check for `.env`, `*_token.json`, `*_credentials.json`)
+   - ✅ No sensitive files detected
+
+3. Stage file explicitly:
+   ```bash
+   $ git add execution/prds/2026-02-03_PRD_Notification-Preferences.md
+   ```
+
+4. Commit with message:
+   ```bash
+   $ git commit -m "[PRD] Generate PRD for notification preferences feature
+
+   User-requested PRD for customizable notification settings.
+
+   Deliverables:
+   - Problem statement with user pain points
+   - Solution approach with 3 user stories
+   - Success metrics (80% preference completion rate)
+   - Implementation phases (2 weeks estimated)
+
+   Files affected:
+   - execution/prds/2026-02-03_PRD_Notification-Preferences.md
+
+   Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
+   ```
+
+5. Return confirmation:
+   ```
+   ✅ Committed: a1b2c3d
+   [PRD] Generate PRD for notification preferences feature
+
+   View commit: git show a1b2c3d
+   ```
+
+**Alternate Flow** (User defers commit):
+
+**User Response**:
+```
+n (will commit manually later)
+```
+
+**Documentation Maintainer**:
+```
+✅ PRD saved. Remember to commit when ready:
+git add execution/prds/2026-02-03_PRD_Notification-Preferences.md
+git commit -m "[PRD] Generate PRD for notification preferences feature"
+```
 
 ---
 
