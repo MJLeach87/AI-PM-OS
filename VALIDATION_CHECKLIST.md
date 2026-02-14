@@ -22,16 +22,16 @@ Run these to confirm setup is complete:
 
 ```bash
 # Verify directory structure
-ls -la .cursor/rules/
 ls -la .claude/agents/
+ls -la .claude/commands/
 ls -la identity/
 ls -la templates/
 ls -la execution/
 
 # Verify key files exist
 cat identity/STRATEGY.md | head -20
-cat .cursor/rules/_orchestrator.mdc | head -20
-cat .cursor/rules/product_arch.mdc | head -20
+cat .claude/agents/orchestrator.md | head -20
+cat .claude/agents/product_arch.md | head -20
 ```
 
 Expected: All files present, no errors
@@ -45,14 +45,13 @@ Validate Product Architect can generate Opportunity Solution Trees in Mermaid fo
 
 ### Test Command
 
-**In Cursor**:
-```
-@product_arch Generate an OST for improving PM OS discovery workflows
-```
-
-**In Claude Code**:
 ```
 Product Architect: Generate an OST for improving PM OS discovery workflows
+```
+
+Or via skill command:
+```
+/discovery Generate an OST for improving PM OS discovery workflows
 ```
 
 ### Expected Output
@@ -103,9 +102,9 @@ graph TD
 ❌ **FAIL** if Mermaid invalid, no evidence, or <2 solutions per opportunity
 
 ### If Test Fails
-1. Check Product Architect agent file exists: `.cursor/rules/product_arch.mdc`
+1. Check Product Architect agent file exists: `.claude/agents/product_arch.md`
 2. Verify Identity Layer loaded: Look for references to `identity/STRATEGY.md`
-3. Review agent logic in `.cursor/rules/product_arch.mdc:1-100` (OST generation section)
+3. Review agent logic in `.claude/agents/product_arch.md` (OST generation section)
 4. Re-run with more specific prompt: "Generate a detailed OST for [topic] using Mermaid diagram format"
 
 ---
@@ -117,14 +116,13 @@ Validate Product Architect can generate BMAD-compliant PRDs
 
 ### Test Command
 
-**In Cursor**:
-```
-@product_arch Create a PRD for adding a simple search filter to the PM OS artifact browser
-```
-
-**In Claude Code**:
 ```
 Product Architect: Create a PRD for adding a simple search filter to the PM OS artifact browser
+```
+
+Or via skill command:
+```
+/prd Add a simple search filter to the PM OS artifact browser
 ```
 
 ### Expected Output
@@ -157,7 +155,7 @@ Product Architect: Create a PRD for adding a simple search filter to the PM OS a
 ### If Test Fails
 1. Check `templates/prd_template.md` is being used: Look for template structure in output
 2. Verify `identity/STANDARDS.md` loaded: Check for approved tech stack mentioned
-3. Review Product Architect PRD generation logic in `.cursor/rules/product_arch.mdc:250-400`
+3. Review Product Architect PRD generation logic in `.claude/agents/product_arch.md`
 4. Re-run with explicit template reference: "Create a PRD using templates/prd_template.md for [feature]"
 
 ---
@@ -169,12 +167,6 @@ Validate Product Architect can create new agent specifications (self-building ca
 
 ### Test Command
 
-**In Cursor**:
-```
-@product_arch Create a new agent for reviewing API documentation quality
-```
-
-**In Claude Code**:
 ```
 Product Architect: Create a new agent for reviewing API documentation quality
 ```
@@ -182,8 +174,8 @@ Product Architect: Create a new agent for reviewing API documentation quality
 ### Expected Output
 
 **Files Created**:
-1. `.cursor/rules/api_doc_reviewer.mdc` (Cursor version)
-2. `.claude/agents/api_doc_reviewer.md` (Claude Code version)
+1. `.claude/agents/api_doc_reviewer.md` (required - agent logic)
+2. `.claude/commands/api_doc_reviewer.md` (optional - skill command entry point)
 
 **Structure**: Follow `templates/agent_spec_template.md` with these sections:
 - Overview (purpose, status, created date)
@@ -197,7 +189,7 @@ Product Architect: Create a new agent for reviewing API documentation quality
 
 ### Validation Criteria
 
-- [ ] **Both files exist**: `.cursor/rules/api_doc_reviewer.mdc` AND `.claude/agents/api_doc_reviewer.md`
+- [ ] **Agent file exists**: `.claude/agents/api_doc_reviewer.md` (required)
 - [ ] **All template sections present**: No "[TODO]" placeholders remaining
 - [ ] **Capabilities section complete**: 3-5 capabilities with examples
 - [ ] **Routing triggers defined**: File patterns (glob) and/or keywords
@@ -212,8 +204,8 @@ Product Architect: Create a new agent for reviewing API documentation quality
 
 ### If Test Fails
 1. Check `templates/agent_spec_template.md` exists and is complete
-2. Verify both Cursor and Claude Code versions created (not just one)
-3. Review Product Architect agent spec generation logic in `.cursor/rules/product_arch.mdc:400-550`
+2. Verify `.claude/agents/api_doc_reviewer.md` was created (this is the required output)
+3. Review Product Architect agent spec generation logic in `.claude/agents/product_arch.md`
 4. Re-run with template reference: "Create agent spec using templates/agent_spec_template.md for [domain]"
 
 ---
@@ -247,10 +239,10 @@ From **Test 3 (Agent Spec)**:
 ❌ **FAIL** if no identity references found in any output
 
 ### If Test Fails
-1. **Cursor**: Check Orchestrator has `alwaysApply: true` in `.cursor/rules/_orchestrator.mdc:1`
-2. **Claude Code**: Verify `.claude/CLAUDE.md` exists and is comprehensive
+1. Verify `.claude/CLAUDE.md` exists and is comprehensive
+2. Check `.claude/agents/orchestrator.md` exists and includes identity context loading logic
 3. Manually test: Ask "What is our North Star Metric?" and verify response cites `identity/STRATEGY.md`
-4. Review Orchestrator context injection logic in `.cursor/rules/_orchestrator.mdc:50-150`
+4. Review Orchestrator context injection logic in `.claude/agents/orchestrator.md`
 
 ---
 
@@ -261,12 +253,6 @@ Validate PM OS can articulate its own next phase using roadmap context
 
 ### Test Command
 
-**In Cursor**:
-```
-@product_arch Articulate the detailed Phase 1 implementation plan for PM OS
-```
-
-**In Claude Code**:
 ```
 Product Architect: Articulate the detailed Phase 1 implementation plan for PM OS, including Engineering Partner agent, UX Strategist agent, and Google Drive MCP integration
 ```
@@ -309,9 +295,9 @@ Product Architect: Articulate the detailed Phase 1 implementation plan for PM OS
 
 ### If Test Fails
 1. Check `identity/ROADMAP.md` exists and Phase 1 section is complete
-2. Verify Product Architect has roadmap awareness in `.cursor/rules/product_arch.mdc` or `.claude/agents/product_arch.md`
+2. Verify Product Architect has roadmap awareness in `.claude/agents/product_arch.md`
 3. Re-run with explicit roadmap reference: "Using identity/ROADMAP.md, articulate the Phase 1 plan"
-4. Review Orchestrator context loading for `identity/ROADMAP.md` in `.cursor/rules/_orchestrator.mdc:80-100`
+4. Review Orchestrator context loading in `.claude/agents/orchestrator.md`
 
 ---
 
@@ -353,7 +339,7 @@ Product Architect: Articulate the detailed Phase 1 implementation plan for PM OS
 **If multiple tests fail**:
 - Review Orchestrator routing logic (may be routing to wrong agent)
 - Check for file corruption (re-read template files)
-- Verify environment (Cursor vs Claude Code specific issues)
+- Verify environment setup (check `.claude/CLAUDE.md` is loaded, agents exist in `.claude/agents/`)
 
 ### Partial Success Scenarios
 
@@ -420,7 +406,7 @@ Save validation results to `pm-os-reference/documentation/validation-reports/YYY
 
 ### Test 3: Agent Spec Creation
 - **Status**: [PASS / FAIL]
-- **Files Created**: .cursor/rules/[filename], .claude/agents/[filename]
+- **File Created**: .claude/agents/[filename] (required); .claude/commands/[filename] (optional)
 - **Criteria Met**: X/8
 - **Notes**: [Any observations]
 
@@ -482,7 +468,7 @@ Date: ___________________
 
 # Test 3 (15 min)
 # Command: Product Architect: Create a new agent for reviewing API documentation quality
-# Check: .cursor/rules/api_doc_reviewer.mdc + .claude/agents/api_doc_reviewer.md
+# Check: .claude/agents/api_doc_reviewer.md (required) + .claude/commands/api_doc_reviewer.md (optional)
 
 # Test 4 (5 min)
 # Review Tests 1-3 outputs for identity/STRATEGY.md references

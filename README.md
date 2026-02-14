@@ -9,7 +9,7 @@
 
 ## Overview
 
-PM OS is a self-improving product management system that uses hybrid Cursor + Claude Code environments, full MCP integration suite, and multi-agent architecture to augment product managers into AI-powered product leaders.
+PM OS is a self-improving product management system that uses a Claude Code environment, full MCP integration suite, and multi-agent architecture to augment product managers into AI-powered product leaders.
 
 ### Vision
 To transform Product Managers from document-authors into high-leverage Strategic Architects. The PM OS uses AI to bridge the gap between customer empathy, technical feasibility, and business impact—amplifying strategic judgment over administrative output.
@@ -58,12 +58,6 @@ See `identity/STRATEGY.md` for detailed metric definitions and recommended sets 
 
 Try this to validate the bootstrap:
 
-**In Cursor**:
-```
-@product_arch Generate an OST for improving PM OS discovery workflows
-```
-
-**In Claude Code**:
 ```
 Product Architect: Generate an OST for improving PM OS discovery workflows
 ```
@@ -79,15 +73,11 @@ Product Architect: Generate an OST for improving PM OS discovery workflows
 
 ```
 PM OS/
-├── .cursor/
-│   └── rules/                      # Cursor agent logic
-│       ├── _orchestrator.mdc       # Master routing agent
-│       └── product_arch.mdc        # Product Architect agent
-│
 ├── .claude/
 │   ├── CLAUDE.md                   # Project context for Claude Code
-│   └── agents/                     # Claude Code agent logic
-│       └── product_arch.md         # Product Architect agent
+│   ├── agents/                     # Agent logic (orchestrator + specialists)
+│   │   └── product_arch.md         # Product Architect agent
+│   └── commands/                   # Skill layer (user-facing slash commands)
 │
 ├── identity/                       # YOUR organizational intelligence (customize these templates!)
 │   ├── README.md                   # Guide to customizing YOUR identity layer
@@ -228,9 +218,9 @@ PM OS integrates external tools via Model Context Protocol:
 **What Happens**:
 1. Product Architect checks `pm-os-reference/identity/ROADMAP.md` to verify PM OS phase supports new agents
 2. Uses `templates/agent_spec_template.md` as foundation
-3. Generates both Cursor (`.mdc`) and Claude Code (`.md`) versions
-4. Proposes Orchestrator routing update
-5. Creates files in `.cursor/rules/` and `.claude/agents/`
+3. Generates the agent file at `.claude/agents/[name].md`
+4. Optionally creates `.claude/commands/[name].md` for a user-facing slash command
+5. Proposes Orchestrator routing update in `.claude/agents/orchestrator.md`
 
 **Current Phase**: Phase 4 (MCP Integration Suite) - Planning
 
@@ -270,10 +260,12 @@ Combine AI automation with human strategic oversight. Agents generate, humans ap
 ### 4. Progressive Disclosure
 Start minimal (Phase 0 bootstrap) → self-building (Phases 1-2) → self-improving (Phase 3) → enterprise-ready (Phases 4-6).
 
-### 5. Multi-Environment Design
-Optimize for both:
-- **Cursor IDE**: Real-time collaborative editing, plan mode, integrated browser
-- **Claude Code**: Deep codebase analysis, terminal automation, parallel processing
+### 5. Claude Code-First Design
+Optimized for Claude Code:
+- **Deep codebase analysis**: Explore and understand large codebases across multiple files
+- **Terminal automation**: Git workflows, script execution, MCP tool calls
+- **Parallel processing**: Spawn multiple agent tasks simultaneously
+- **Skill layer**: `/discovery`, `/prd`, `/audit` and other slash commands for fast invocation
 
 ---
 
@@ -302,9 +294,8 @@ Before any agent output is approved:
 ## Environment Setup
 
 ### Prerequisites
-- Cursor IDE (recommended) or Visual Studio Code
-- Claude Code CLI (recommended for deep analysis)
-- Node.js (for MCP integrations in future phases)
+- Claude Code CLI
+- Node.js (for MCP integrations)
 - Git
 
 ### Initial Setup
@@ -324,12 +315,12 @@ Before any agent output is approved:
 3. **Verify structure**:
    ```bash
    ls -la
-   # Should see .cursor/, .claude/, identity/, execution/, templates/, mcp/
+   # Should see .claude/, identity/, execution/, templates/, mcp/
    ```
 
 4. **Test bootstrap**:
-   - Open in Cursor or Claude Code
-   - Try the "First Test" from Quick Start section above
+   - Open the project in Claude Code
+   - Try the "First Test" from the Quick Start section above
 
 ### MCP Configuration (Future Phases)
 
@@ -338,7 +329,7 @@ MCP integrations are configured but disabled by default. To enable when ready:
 1. Follow setup guide: `mcp/setup_guides/[SERVICE]_SETUP.md`
 2. Add credentials to `.env`
 3. Edit `mcp/config.json`: Change `"disabled": true` to `"disabled": false`
-4. Restart IDE
+4. Restart Claude Code
 
 ---
 
@@ -372,16 +363,17 @@ MCP integrations are configured but disabled by default. To enable when ready:
 
 **CODEOWNERS** (future):
 - `identity/*` requires Head of Product approval
-- `.cursor/rules/*` and `.claude/agents/*` require validation testing
+- `.claude/agents/*` and `.claude/commands/*` require validation testing
 
 ---
 
 ## Troubleshooting
 
 ### "Agent not responding"
-- **Cursor**: Verify `.cursor/rules/[agent].mdc` exists
-- **Claude Code**: Verify context in `.claude/CLAUDE.md` is loaded
-- Check Orchestrator routing logic recognizes keywords
+- Verify `.claude/agents/[agent].md` exists
+- Verify context in `.claude/CLAUDE.md` is loaded
+- Check Orchestrator routing logic in `.claude/agents/orchestrator.md` recognizes keywords
+- For skill invocation, verify `.claude/commands/[skill].md` exists
 
 ### "Identity Layer not loading"
 - Verify files exist in `identity/` directory
@@ -391,7 +383,7 @@ MCP integrations are configured but disabled by default. To enable when ready:
 ### "MCP integration failing"
 - Verify credentials in `.env` are correct
 - Check `mcp/config.json` has `"disabled": false` for that service
-- Restart IDE after configuration changes
+- Restart Claude Code after configuration changes
 - Consult `mcp/setup_guides/[SERVICE]_SETUP.md`
 
 ### "Artifacts not saving"
@@ -437,9 +429,9 @@ MCP integrations are configured but disabled by default. To enable when ready:
 - **`templates/`**: All artifact templates
 
 ### Agent Documentation
-- **`.cursor/rules/_orchestrator.mdc`**: Orchestrator agent logic
-- **`.cursor/rules/product_arch.mdc`**: Product Architect agent (Cursor)
-- **`.claude/agents/product_arch.md`**: Product Architect agent (Claude Code)
+- **`.claude/agents/orchestrator.md`**: Orchestrator agent logic
+- **`.claude/agents/product_arch.md`**: Product Architect agent
+- **`.claude/commands/`**: Skill layer - user-facing slash commands
 
 ### Future Documentation (Phases 1+)
 - `docs/GETTING_STARTED.md`: PM onboarding guide
@@ -451,7 +443,7 @@ MCP integrations are configured but disabled by default. To enable when ready:
 
 ## Frequently Asked Questions
 
-### How is PM OS different from just using Claude/Cursor directly?
+### How is PM OS different from just using Claude directly?
 
 PM OS adds:
 1. **Organizational Context**: Identity Layer ensures outputs align with your company's vision, standards, and tech stack
@@ -464,24 +456,18 @@ PM OS adds:
 
 Yes! The Product Architect agent can:
 - Generate new agent specifications using `templates/agent_spec_template.md`
-- Create both Cursor and Claude Code agent files
-- Propose Orchestrator routing updates
+- Create `.claude/agents/[name].md` and optionally `.claude/commands/[name].md`
+- Propose Orchestrator routing updates in `.claude/agents/orchestrator.md`
 - By Phase 3, System Evaluator proposes improvements to existing agents
 
-### Which IDE should I use, Cursor or Claude Code?
+### What environment does PM OS run in?
 
-**Use Cursor for**:
-- Real-time collaborative PRD editing
-- Plan mode for complex discovery workflows
-- Integrated browser for prototype previews
-
-**Use Claude Code for**:
-- Deep codebase exploration and analysis
-- Parallel processing (spawn multiple agents)
+PM OS runs in Claude Code, which provides:
+- Deep codebase exploration and multi-file analysis
+- Parallel processing (spawn multiple agent tasks)
 - Terminal automation and git workflows
-- Complex multi-step research tasks
-
-**Best Practice**: Use both! They complement each other and share the same agent logic.
+- MCP tool integrations (Jira, Confluence, etc.)
+- Skill invocation via `/discovery`, `/prd`, `/audit`, and similar slash commands
 
 ### What if I don't have access to Snowflake/Jira/Slack?
 
@@ -511,7 +497,7 @@ No problem! PM OS is designed for progressive enhancement:
 ### How much does PM OS cost?
 
 PM OS itself is a framework (no direct cost). Costs come from:
-- **Cursor/Claude subscriptions**: Check respective pricing pages
+- **Claude Code subscription**: Check Anthropic pricing
 - **MCP services**: Costs for Jira, Snowflake, etc. (if used)
 - **Development time**: Initial setup (Phase 0: ~8 hours)
 
@@ -541,8 +527,7 @@ PM OS itself is a framework (no direct cost). Costs come from:
 **PM OS Framework**: Developed as a self-improving product management system
 
 **Built With**:
-- Cursor IDE (for collaborative editing)
-- Claude Code (for deep analysis)
+- Claude Code (deep analysis, multi-agent orchestration, skill layer)
 - Model Context Protocol (for external integrations)
 - BMAD Method (for PRD structure)
 - Opportunity Solution Trees (for discovery)

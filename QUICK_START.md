@@ -25,8 +25,10 @@ PM OS is your AI-powered product management assistant that helps you:
 You should see this directory structure:
 ```
 PM OS/
-├── .cursor/rules/          # Cursor agent logic
-├── .claude/                # Claude Code agent logic
+├── .claude/
+│   ├── CLAUDE.md           # Project context (auto-loaded by Claude Code)
+│   ├── agents/             # Agent logic (orchestrator + specialists)
+│   └── commands/           # Skill layer (slash commands like /discovery, /prd)
 ├── identity/               # YOUR org's context (customize templates!)
 ├── pm-os-reference/identity/      # PM OS's own context (reference examples)
 ├── execution/              # YOUR outputs go here
@@ -36,31 +38,24 @@ PM OS/
 
 **If missing**: Clone the PM OS repository or follow installation in README.md
 
-### Step 2: Open in Your IDE
+### Step 2: Open in Claude Code
 
-**Using Cursor**:
-1. Open PM OS folder in Cursor
-2. Cursor will auto-load agents from `.cursor/rules/`
-3. Ready to use!
-
-**Using Claude Code**:
-1. Navigate to PM OS directory in terminal
-2. Run: `claude-code` (or open in IDE with Claude Code support)
-3. Claude Code loads context from `.claude/CLAUDE.md`
+1. Navigate to the PM OS directory in your terminal
+2. Run: `claude` to open Claude Code
+3. Claude Code auto-loads project context from `.claude/CLAUDE.md`
 4. Ready to use!
 
 ### Step 3: First Command
 
 Try this now:
 
-**In Cursor**:
-```
-@product_arch Generate an OST for improving team collaboration
-```
-
-**In Claude Code**:
 ```
 Product Architect: Generate an OST for improving team collaboration
+```
+
+Or use the skill shortcut:
+```
+/discovery Generate an OST for improving team collaboration
 ```
 
 **Expected Result**:
@@ -131,8 +126,8 @@ Product Architect: Create a new agent for [domain]
 - "Generate an agent spec for customer interview synthesis"
 
 **Output**:
-- `.cursor/rules/[agent-name].mdc`
-- `.claude/agents/[agent-name].md`
+- `.claude/agents/[agent-name].md` (agent logic)
+- `.claude/commands/[agent-name].md` (optional slash command entry point)
 
 **Note**: These are specifications. You'll review and activate them.
 
@@ -152,8 +147,7 @@ Read identity/ROADMAP.md           # YOUR product roadmap (after customization)
 Read pm-os-reference/identity/STRATEGY.md # PM OS's own strategy (reference example)
 ```
 
-**In Claude Code**: Use Read tool directly
-**In Cursor**: View files or ask "What is our North Star Metric?"
+Use the Read tool directly, or ask: "What is our North Star Metric?" (the Orchestrator will load context automatically)
 
 **Important**: `identity/` contains YOUR customized files (active), `pm-os-reference/identity/` contains PM OS's reference examples (read-only)
 
@@ -224,8 +218,8 @@ Read execution/README.md                             # Guide to YOUR artifact wo
    ```
 
 3. **Review Generated Spec**:
-   - Check `.cursor/rules/security_compliance.mdc`
    - Check `.claude/agents/security_compliance.md`
+   - Optionally check `.claude/commands/security_compliance.md` (skill entry point)
    - Validate capabilities, triggers, quality criteria
 
 4. **Activate** (or defer to later):
@@ -274,7 +268,7 @@ Read execution/README.md                             # Guide to YOUR artifact wo
 
 ### Product Architect (Discovery & Strategy)
 **Active**: Phase 0 (now)
-**Invoke With**: `@product_arch` (Cursor) or "Product Architect:" (Claude Code)
+**Invoke With**: "Product Architect: [request]" or `/discovery` / `/prd` skill commands
 
 **What It Does**:
 - Generates Opportunity Solution Trees (OSTs)
@@ -409,17 +403,27 @@ Use the versioning convention in filenames:
 
 ---
 
-## Keyboard Shortcuts (IDE-Specific)
+## Skill Commands & Invocation Patterns
 
-### Cursor
-- `@product_arch`: Invoke Product Architect
-- `Cmd/Ctrl + K`: Open command palette (select agents)
-- `Cmd/Ctrl + Shift + P`: Cursor settings (configure agents)
+### Skill Commands (Slash Commands)
+These invoke the `.claude/commands/` skill layer for fast, user-facing entry points:
+- `/discovery [topic]`: Generate an Opportunity Solution Tree
+- `/prd [feature]`: Draft a PRD using BMAD structure
+- `/feature [description]`: End-to-end feature development workflow
+- `/audit`: Run a quality audit via System Evaluator
+- `/sync-docs`: Sync documentation across files via Documentation Maintainer
 
-### Claude Code
-- Type agent name in natural language: "Product Architect:"
+### Natural Language Invocation
+Address agents directly in any Claude Code message:
+- `"Product Architect: Generate an OST for [topic]"`
+- `"Engineering Partner: Review this API spec for security issues"`
+- `"UX Strategist: Create an IA map for the onboarding flow"`
+- `"System Evaluator: Audit the latest PRD for quality"`
+
+### Claude Code Utilities
 - Use Read/Write tools for file operations
 - Git workflow integrated (commit directly from Claude Code)
+- MCP tools available for Jira, Confluence, and other integrations
 
 ---
 
@@ -429,11 +433,12 @@ Use the versioning convention in filenames:
 **Symptom**: You invoke an agent but nothing happens
 
 **Fix**:
-- **Cursor**: Check `.cursor/rules/[agent].mdc` file exists
-- **Claude Code**: Check `.claude/CLAUDE.md` has project context
+- Check `.claude/agents/[agent].md` file exists
+- Check `.claude/CLAUDE.md` has project context
+- For skill commands, check `.claude/commands/[skill].md` exists
 - Verify you're using correct invocation syntax
 
-**Example**: Use `@product_arch` in Cursor, not just "product architect"
+**Example**: Use "Product Architect: [request]" or `/discovery [topic]`
 
 ---
 
@@ -476,9 +481,9 @@ Use the versioning convention in filenames:
 **Symptom**: Agent outputs lack strategic context or reference to North Star Metrics
 
 **Fix**:
-- **Claude Code**: Explicitly run `Read identity/STRATEGY.md` before invoking agent
-- **Cursor**: Check Orchestrator is active (should be automatic)
+- Explicitly run `Read identity/STRATEGY.md` before invoking the agent
 - Verify `identity/` files exist and aren't empty
+- Check Orchestrator agent in `.claude/agents/orchestrator.md` is loading identity context
 
 ---
 
@@ -580,7 +585,7 @@ Use the versioning convention in filenames:
 |------|---------|-----------------|
 | **Discovery** | `Product Architect: Generate OST for [topic]` | `execution/discovery/` |
 | **PRD Draft** | `Product Architect: Create PRD for [feature]` | `execution/prds/` |
-| **New Agent** | `Product Architect: Create agent for [domain]` | `.cursor/rules/` + `.claude/agents/` |
+| **New Agent** | `Product Architect: Create agent for [domain]` | `.claude/agents/` + `.claude/commands/` |
 | **Check Strategy** | `Read identity/STRATEGY.md` | Display YOUR strategy |
 | **Check Standards** | `Read identity/STANDARDS.md` | Display YOUR standards |
 | **Check PM OS Phase** | `Read pm-os-reference/identity/ROADMAP.md` | Display PM OS status |
@@ -599,7 +604,7 @@ Use the versioning convention in filenames:
 | **Templates** | `templates/` |
 | **YOUR Org Context** | `identity/` (customize these!) |
 | **PM OS Org Context (reference)** | `pm-os-reference/identity/` (read-only) |
-| **Agent Logic** | `.cursor/rules/` + `.claude/agents/` |
+| **Agent Logic** | `.claude/agents/` + `.claude/commands/` (skill layer) |
 
 ---
 

@@ -43,7 +43,7 @@
 ## Triggers & Routing
 
 ### Automatic Activation Patterns
-[File glob patterns or keywords that route tasks to this agent via Orchestrator]
+[File glob patterns or keywords that route tasks to this agent via `.claude/agents/orchestrator.md`]
 
 **File Patterns**:
 - `execution/[specific-type]/**/*.md`
@@ -59,8 +59,8 @@
 
 ### Manual Invocation
 [How users explicitly request this agent]
-- Cursor: [Specific @mention or command]
-- Claude Code: [Specific prompt pattern]
+- Claude Code: [Specific prompt pattern, e.g., "Engineering Partner: review this spec"]
+- Skill command: `/[skill-name]` (if a `.claude/commands/[name].md` entry point exists)
 
 ---
 
@@ -125,6 +125,19 @@
 **Template**: `templates/[template-file].md`
 **Storage Location**: `execution/[artifact-type]/`
 **Naming Convention**: `YYYY-MM-DD_[agent-name]_[brief-title].md`
+
+### Agent File Output (When Creating a New Agent)
+
+When the Product Architect generates a new agent from this template, the output is a single
+Claude Code agent file:
+
+**Agent file**: `.claude/agents/[agent-name].md`
+
+**Optional skill layer** (user-facing entry points):
+`.claude/commands/[agent-name].md` — creates a `/[agent-name]` slash command for quick invocation.
+Use this layer when the agent should be accessible as a top-level skill (e.g., `/discovery`, `/prd`, `/audit`).
+
+**Note**: There is no separate Cursor `.mdc` file. All agent logic lives in `.claude/agents/`.
 
 **Structure**:
 ```
@@ -244,6 +257,10 @@ Description: [When this alternative is used]
 
 **Related Agents**:
 - [Agent Name]: [Relationship description]
+- Orchestrator: Routes tasks to this agent (`.claude/agents/orchestrator.md`)
+
+**Skill Layer** (optional):
+- `.claude/commands/[agent-name].md`: User-facing slash command entry point for this agent
 
 **Related Templates**:
 - `templates/[template-name].md`
