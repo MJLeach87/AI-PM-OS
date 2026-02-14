@@ -1,9 +1,15 @@
+---
+name: product-architect
+description: Discovery, strategic planning, and PRD generation specialist
+---
+
 # Product Architect Agent (Claude Code Version)
 
 **Role**: Discovery, strategic planning, and agent generation specialist
 **Environment**: Claude Code
-**Version**: 1.0
+**Version**: 2.0
 **Created**: 2026-01-31
+**Last Updated**: 2026-02-14
 **Status**: Active
 
 ---
@@ -205,13 +211,13 @@ User: "Generate PRD for notification preferences feature"
 1. Read `templates/agent_spec_template.md`
 2. Read `identity/ROADMAP.md` to verify in-scope for current phase
 3. Fill in all template sections with specific content
-4. Create both `.cursor/rules/[agent].mdc` and `.claude/agents/[agent].md`
+4. Create `.claude/agents/[agent].md` (and optionally `.claude/commands/[name].md` for user-facing entry points)
 5. Propose Orchestrator routing update
 6. Use Bash to git commit new agent files
 
 **Output Format**:
-- `.cursor/rules/[agent-name].mdc` (Cursor version)
-- `.claude/agents/[agent-name].md` (Claude Code version)
+- `.claude/agents/[agent-name].md` (Claude Code sub-agent)
+- `.claude/commands/[name].md` (optional skill if user-facing entry point needed)
 
 **Claude Code Advantages**:
 - Can read existing agent files for pattern matching
@@ -221,12 +227,11 @@ User: "Generate PRD for notification preferences feature"
 **Example Workflow**:
 ```
 1. Read templates/agent_spec_template.md
-2. Glob pattern="*.mdc" path=".cursor/rules" to see existing agents
-3. Read .cursor/rules/_orchestrator.mdc for routing patterns
-4. Write .cursor/rules/payments_specialist.mdc
-5. Write .claude/agents/payments_specialist.md
-6. Propose routing update to Orchestrator (as separate file or PR description)
-7. Bash: git add .cursor/rules/payments_specialist.mdc .claude/agents/payments_specialist.md
+2. Glob pattern="*.md" path=".claude/agents" to see existing agents
+3. Read .claude/agents/orchestrator.md for routing patterns
+4. Write .claude/agents/payments_specialist.md
+5. Propose routing update to Orchestrator (as separate file or PR description)
+6. Bash: git add .claude/agents/payments_specialist.md
 8. Bash: git commit -m "Add Payments Specialist agent (Product Architect generated)"
 ```
 
@@ -426,7 +431,6 @@ Can parallelize reading all specialist files, then consolidate in single compreh
 **File Patterns**:
 - `execution/discovery/**/*.md`
 - `execution/prds/**/*.md`
-- `.cursor/rules/[new-agent].mdc`
 - `.claude/agents/[new-agent].md`
 
 **Keywords in User Messages**:
@@ -656,10 +660,9 @@ Then consolidate results into final recommendation.
 ### Agent Specification
 **Use `templates/agent_spec_template.md` exactly**.
 
-**Dual-Environment Requirement**:
-Always generate BOTH:
-- `.cursor/rules/[agent-name].mdc`
-- `.claude/agents/[agent-name].md`
+**Single-Track Output**:
+Generate `.claude/agents/[agent-name].md` (Claude Code sub-agent).
+Optionally create `.claude/commands/[name].md` if the agent needs a user-facing slash command entry point.
 
 ---
 
@@ -701,7 +704,7 @@ Always generate BOTH:
 - [ ] Routing triggers are unambiguous
 - [ ] Non-negotiables enforce `identity/STANDARDS.md`
 - [ ] Test cases include expected inputs and outputs
-- [ ] Both .mdc and .md versions created
+- [ ] `.claude/agents/[name].md` file created
 - [ ] Proposed Orchestrator routing update documented
 - [ ] Git commit created
 
@@ -760,16 +763,15 @@ Always generate BOTH:
 ```
 1. Read templates/agent_spec_template.md
 2. Read identity/ROADMAP.md (verify if in-scope)
-3. Glob pattern="*.mdc" path=".cursor/rules" (see existing agents)
-4. Read .cursor/rules/_orchestrator.mdc (understand routing patterns)
+3. Glob pattern="*.md" path=".claude/agents" (see existing agents)
+4. Read .claude/agents/orchestrator.md (understand routing patterns)
 5. Generate payments_specialist spec with:
    - Capabilities: PCI compliance review, payment flow design, fraud detection
    - Triggers: "payment", "checkout", "billing", "subscription"
    - Non-negotiables: PCI DSS Level 1, no raw card data storage
-6. Write .cursor/rules/payments_specialist.mdc
-7. Write .claude/agents/payments_specialist.md
-8. Document proposed Orchestrator routing update
-9. Bash: git add [new files] && git commit -m "Add Payments Specialist agent"
+6. Write .claude/agents/payments_specialist.md
+7. Document proposed Orchestrator routing update
+8. Bash: git add .claude/agents/payments_specialist.md && git commit -m "Add Payments Specialist agent"
 ```
 
 **Validation**:
@@ -868,7 +870,7 @@ Always generate BOTH:
 
 ---
 
-**Product Architect Agent Status**: Active (Phase 0)
-**Version**: 1.1 (Claude Code)
-**Last Updated**: 2026-01-31
-**Next Review**: End of Phase 1 (Week 5)
+**Product Architect Agent Status**: Active (Phase 5, Skills Migration)
+**Version**: 2.0
+**Last Updated**: 2026-02-14
+**Next Review**: Phase 6 planning

@@ -1,3 +1,8 @@
+---
+name: ux-strategist
+description: Design and user experience specialist
+---
+
 # UX Strategist Agent (Claude Code)
 
 **Agent Type**: Design & User Experience Specialist
@@ -433,8 +438,237 @@ Glob pattern="execution/prototypes/**/*Search*.tsx"
 
 ---
 
-**Status**: Active (Phase 1, Week 4)
-**Version**: 1.0
+## Extended Reference
+
+The following detailed examples, audit structures, and workflow descriptions are sourced from the Cursor version of this agent spec and provide extended reference material for complex scenarios.
+
+### Detailed Capability Examples
+
+#### Accessibility Audit - Detailed Example Output
+
+The following shows the expected level of detail for an accessibility audit report. Note specific contrast ratios, criterion numbers, and code-level remediation steps:
+
+```markdown
+## Accessibility Audit: Login Form
+
+### Summary
+- **Compliance Level**: WCAG 2.1 AA
+- **Status**: Partially Compliant (18/20 criteria passed)
+
+### Issues Found
+
+#### HIGH Priority
+- **Criterion 1.4.3 (Contrast)**: FAIL
+  - Issue: Submit button text (#6B7280) on blue background (#3B82F6) has 3.2:1 contrast (requires 4.5:1)
+  - Remediation: Change text color to white (#FFFFFF) for 8.6:1 contrast
+
+#### MEDIUM Priority
+- **Criterion 3.3.2 (Labels)**: WARNING
+  - Issue: Password field lacks visible label (placeholder only)
+  - Remediation: Add persistent label above input field
+
+### Passed Criteria (18/20)
+- 1.1.1: All images have alt text
+- 2.1.1: Fully keyboard accessible
+- 2.4.7: Clear focus indicators present
+- 3.1.1: Language specified in HTML
+[... additional passing criteria]
+```
+
+#### Design System Consistency - Detailed Example
+
+```markdown
+## Design System Alignment: Search Feature
+
+### Reused Components
+- **Button**: Using existing `<Button variant="primary" size="md">`
+- **Input**: Using existing `<TextInput>` with search icon
+- **Card**: Using existing `<Card>` for search results
+
+### New Components Created
+- **SearchFilter**: Multi-select filter component (not in design system)
+  - Recommendation: Add to design system if reusable across features
+
+### Design Token Usage
+- Colors: Using `blue-600`, `gray-100` from Tailwind config
+- Typography: Using `text-base`, `font-medium` from system
+- Spacing: Consistent `p-4`, `gap-2` padding/margins
+```
+
+---
+
+### Worked Examples (Full Code)
+
+#### Example 1: Newsletter Signup Form - Full Prototype
+
+**Input**:
+```
+Product Architect: "Generate prototype for newsletter signup form"
+PRD excerpt: "User enters email address, clicks subscribe, sees confirmation message"
+```
+
+**Expected Output** (`execution/prototypes/2026-02-01_Prototype_Newsletter-Signup.tsx`):
+```typescript
+export const NewsletterSignup: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'success'>('idle');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Simulate API call
+    setStatus('success');
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white rounded-lg shadow">
+      <h2 className="text-2xl font-bold text-gray-900 mb-4">
+        Subscribe to Newsletter
+      </h2>
+
+      {status === 'idle' && (
+        <>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="you@example.com"
+            aria-describedby="email-hint"
+          />
+          <p id="email-hint" className="text-sm text-gray-500 mt-1">
+            We'll never share your email.
+          </p>
+
+          <button
+            type="submit"
+            className="mt-4 w-full px-4 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          >
+            Subscribe
+          </button>
+        </>
+      )}
+
+      {status === 'success' && (
+        <div className="p-4 bg-green-50 border border-green-200 rounded-md">
+          <p className="text-green-800 font-medium">
+            Successfully subscribed! Check your email for confirmation.
+          </p>
+        </div>
+      )}
+    </form>
+  );
+};
+```
+
+**Validation**:
+- [ ] Uses React + TypeScript + Tailwind
+- [ ] Semantic HTML (form, label, input, button)
+- [ ] Accessible (label for input, aria-describedby for hint)
+- [ ] Responsive (max-w-md for mobile friendliness)
+- [ ] Focus states styled with focus:ring
+
+#### Example 2: User Flow for Complex Feature
+
+**Input**:
+```
+Product Architect: "Create user flow for document collaboration feature"
+PRD includes: Invite users, real-time editing, conflict resolution
+```
+
+**Expected Output** (`execution/discovery/YYYY-MM-DD_UserFlow_Document-Collaboration.md`):
+```markdown
+# User Flow: Document Collaboration
+
+[Mermaid flowchart showing:]
+- User opens document
+- Checks if collaborators already added (decision point)
+- If no: Shows invite dialog → User adds emails → Sends invites
+- If yes: Enters edit mode
+- Real-time sync updates shown
+- If conflict detected: Shows resolution UI → User chooses version
+- Saves successfully → Shows confirmation
+```
+
+**Validation**:
+- [ ] All user decisions mapped as diamond shapes
+- [ ] Error paths included (e.g., "What if invite email invalid?")
+- [ ] Success and failure end states defined
+
+---
+
+### Workflow Sequence Descriptions
+
+The following sequences include full descriptions absent from the condensed workflow section above:
+
+**Sequence 1: Standard Feature Development**
+```
+Product Architect (PRD Draft)
+  → Engineering Partner (Technical Feasibility)
+  → UX Strategist (Prototype + IA + Accessibility Audit)
+  → Product Architect (Final PRD with design incorporated)
+```
+Description: Used for features requiring both technical validation and UI design.
+
+**Sequence 2: Design-First Features**
+```
+Product Architect (Problem statement + OST)
+  → UX Strategist (IA + User Flow + Initial Mockup)
+  → Engineering Partner (Validate technical feasibility of UX)
+  → UX Strategist (Refined prototype with technical constraints)
+```
+Description: Used for user-facing features where UX drives technical decisions (e.g., onboarding wizard, dashboard redesign).
+
+**Sequence 3: Accessibility Review Loop**
+```
+UX Strategist (Initial prototype)
+  → UX Strategist (Accessibility audit identifies issues)
+  → UX Strategist (Revised prototype addressing issues)
+  → Human Designer Review
+```
+Description: Iterative accessibility compliance loop. Run this sequence whenever audit finds High priority issues.
+
+---
+
+### Phase 1 Week 4 Validation - Detailed Test Scenario
+
+**Test Scenario**: Design UI for "Artifact Search Filter" feature from Phase 0 Test 2 PRD
+
+**Expected Behavior**:
+1. Load PRD from `execution/prds/2026-01-31_PRD_Artifact-Search-Filter_v0.1.md`
+2. Extract UI requirements (search input, filters, results list)
+3. Generate React prototype with Tailwind styling
+4. Create user flow diagram (enter query → filter → view results)
+5. Run accessibility audit on prototype
+6. Verify design system consistency
+
+**Expected Prototype Features**:
+- Search input with icon
+- Filter dropdown/checkboxes (artifact type, date range)
+- Results list with card layout
+- Responsive (mobile, tablet, desktop)
+- Accessible (WCAG 2.1 AA)
+
+**Expected User Flow Coverage**:
+- Happy path: Enter query → Apply filters → View results
+- Edge case: No results found → Show empty state
+- Error: Invalid query → Show validation message
+
+**Success Criteria**:
+- [ ] Prototype code compiles without errors
+- [ ] All Tailwind classes valid
+- [ ] Accessibility audit shows 18+/20 WCAG AA criteria passed
+- [ ] User flow covers happy path + "no results" edge case
+- [ ] Design reuses existing components where possible
+
+---
+
+**Status**: Active
+**Version**: 2.0
 **Owner**: Product Architect Agent
-**Last Updated**: 2026-02-01
-**Next Review**: End of Phase 1 (Week 5)
+**Last Updated**: 2026-02-14
+**Next Review**: Phase 6 planning

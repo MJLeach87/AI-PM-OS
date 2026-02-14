@@ -1,16 +1,16 @@
 # PM OS - Claude Code Project Context
 
 **Project Name**: Product Management Operating System (PM OS)
-**Version**: Phase 1 (Core Agent Team + Google Drive MCP)
+**Version**: Phase 5 (Claude Code Skills Migration)
 **Created**: 2026-01-31
-**Updated**: 2026-02-01
+**Updated**: 2026-02-14
 **Status**: Active Development
 
 ---
 
 ## Project Overview
 
-PM OS is a self-improving product management system that uses hybrid Cursor + Claude Code environments, full MCP integration suite, and multi-agent architecture to augment product managers into AI-powered product leaders.
+PM OS is a self-improving product management system that uses Claude Code, a full MCP integration suite, and multi-agent architecture to augment product managers into AI-powered product leaders.
 
 ### Vision
 To transform Product Managers from document-authors into high-leverage Strategic Architects. The PM OS uses AI to bridge the gap between customer empathy, technical feasibility, and business impact—amplifying strategic judgment over administrative output.
@@ -31,11 +31,11 @@ See `identity/STRATEGY.md` for detailed metric definitions and recommended sets 
 
 ---
 
-## Current Phase: Phase 4 (MCP Integration Suite)
+## Current Phase: Phase 5 (Claude Code Skills Migration) ✅ Complete → Phase 6 Next
 
-**Status**: In Progress - Migrated to Atlassian Rovo MCP (2026-02-03)
-**Objective**: Integrate external tools via Model Context Protocol using official providers
-**Approach**: Atlassian Rovo MCP (official) for Jira/Confluence instead of custom servers
+**Status**: Phase 5 Complete (2026-02-14) — Phase 6 (Data Intelligence) not yet started
+**Objective**: Consolidated PM OS to Claude Code-only; eliminated 9 Cursor .mdc files; created .claude/commands/ skills layer
+**ADR**: `pm-os-reference/documentation/2026-02-14_ADR_Skills-Migration-Architecture.md`
 
 ### Phase 1 Deliverables
 - [x] Engineering Partner agent (Cursor + Claude versions) - v1.1 with legacy code analysis
@@ -81,7 +81,7 @@ The Identity Layer stores YOUR organizational intelligence that agents use for d
 
 **Orchestrator Agent**:
 - **Role**: Master router for all tasks
-- **File**: `.cursor/rules/_orchestrator.mdc` (Cursor), this file serves orchestration for Claude Code
+- **File**: `.claude/agents/orchestrator.md` (deep routing reference), this file (CLAUDE.md) serves as the ambient orchestration layer
 - **Capabilities**: Task routing, context injection, security enforcement, workflow management
 
 **Specialist Agents** (Progressive implementation):
@@ -265,8 +265,8 @@ Human PM Review & Approval
 **Process**:
 1. Check `pm-os-reference/identity/ROADMAP.md` to ensure PM OS's current phase supports new agents
 2. Use `templates/agent_spec_template.md` as foundation
-3. Generate both Cursor (`.mdc`) and Claude Code (`.md`) versions
-4. Update Orchestrator routing logic to recognize payments-related keywords
+3. Generate `.claude/agents/[agent-name].md` (and optionally `.claude/commands/[name].md` for user-facing entry point)
+4. Update Orchestrator routing logic in `.claude/agents/orchestrator.md` to recognize payments-related keywords
 5. Propose changes as documented enhancement for human review
 
 ---
@@ -277,14 +277,25 @@ Human PM Review & Approval
 PM OS/
 ├── .cursor/
 │   └── rules/
-│       └── _orchestrator.mdc          # Master router (Cursor)
+│       └── RETIRED.md                 # Retirement notice (Cursor rules deleted in Phase 5)
 ├── .claude/
-│   ├── CLAUDE.md                      # This file (project context)
-│   └── agents/                        # Specialist agents (Claude Code)
-│       ├── orchestrator.md            # Master router
-│       ├── product_arch.md            # Product Architect
-│       ├── engineering_partner.md     # Engineering Partner v1.2
-│       └── ux_strategist.md           # UX Strategist
+│   ├── CLAUDE.md                      # This file (project context + ambient orchestration)
+│   ├── agents/                        # Specialist agents (Claude Code sub-agents)
+│   │   ├── orchestrator.md            # Master router (deep reference)
+│   │   ├── product_arch.md            # Product Architect v2.0
+│   │   ├── engineering_partner.md     # Engineering Partner v2.0
+│   │   ├── ux_strategist.md           # UX Strategist v2.0
+│   │   ├── data_analyst.md            # Data Analyst v2.0
+│   │   ├── gtm_strategist.md          # GTM Strategist v2.0
+│   │   ├── system_evaluator.md        # System Evaluator v2.0
+│   │   ├── documentation_maintainer.md # Documentation Maintainer v2.0
+│   │   └── api_doc_reviewer.md        # API Doc Reviewer v2.0
+│   └── commands/                      # User-invocable skills (slash commands)
+│       ├── discovery.md               # /discovery — OST generation
+│       ├── prd.md                     # /prd — BMAD PRD generation
+│       ├── feature.md                 # /feature — Full pipeline
+│       ├── audit.md                   # /audit — Quality audit
+│       └── sync-docs.md               # /sync-docs — Doc sync
 ├── identity/                          # YOUR organizational context (customize templates!)
 │   ├── README.md                      # Customization guide
 │   ├── STRATEGY.md                    # YOUR vision, mission, NSM (template)
@@ -390,12 +401,13 @@ Validate against identity/STANDARDS.md quality gates:
 | **1** | ✅ Complete (2 days) | Core Agents | Engineering Partner, UX Strategist, Google Drive MCP |
 | **2** | ✅ Complete (4 hrs) | Execution Layer | Data Analyst, GTM Strategist (5-agent team complete) |
 | **3** | ✅ Complete (2 days) | Self-Improvement | System Evaluator, Doc Maintainer, quality dashboard |
-| **4** | 🟢 In Progress | MCP Integration Suite | Atlassian Rovo MCP (Jira + Confluence, official integration) |
-| **5** | 🟡 Planned | Data Intelligence | Data dictionary, metric automation |
-| **6** | 🟡 Planned | IDE Optimization | Parallel processing, domain specialists |
-| **7** | 🟡 Planned | Enterprise | Multi-user, security hardening, web prototype |
+| **4** | ✅ Complete | MCP Integration Suite | Atlassian Rovo MCP (Jira + Confluence, official integration) |
+| **5** | ✅ Complete (1 day) | Skills Migration | Claude Code-only, 9 .mdc deleted, 5 skills created |
+| **6** | 🟡 Planned | Data Intelligence | Data dictionary, metric automation |
+| **7** | 🟡 Planned | Claude Code Advanced Workflows | Parallel processing, domain specialists |
+| **8** | 🟡 Planned | Enterprise | Multi-user, security hardening, web prototype |
 
-**Note**: PM OS completed Phases 0-3 in **5.2 days** (2026-01-31 to 2026-02-02), vs. original 11-week estimate (11x faster). See `pm-os-reference/documentation/VELOCITY_TRACKING.md` for detailed velocity analysis and `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md` for comprehensive system metrics.
+**Note**: PM OS completed Phases 0-3 in **5.2 days** (2026-01-31 to 2026-02-02), vs. original 11-week estimate (11x faster). Phase 4 added Atlassian Rovo MCP. Phase 5 migrated to Claude Code-only (2026-02-14). See `pm-os-reference/documentation/VELOCITY_TRACKING.md` for velocity analysis and `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md` for system metrics.
 
 ---
 
@@ -471,7 +483,7 @@ Use Claude Code for:
 
 ---
 
-**Project Status**: Phase 0 (Bootstrap) - Active Development
-**Last Updated**: 2026-01-31
-**Next Milestone**: Product Architect agent creation
+**Project Status**: Phase 5 Complete → Phase 6 (Data Intelligence) Next
+**Last Updated**: 2026-02-14
+**Next Milestone**: Phase 6 — Data Intelligence Layer
 **Maintained By**: PM OS Orchestrator + Human PM

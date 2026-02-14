@@ -1,3 +1,8 @@
+---
+name: orchestrator
+description: Master router and workflow coordinator for PM OS
+---
+
 # Orchestrator Agent (Claude Code)
 
 **Agent Type**: Master Router & Workflow Coordinator
@@ -405,9 +410,9 @@ Turn 3: User asks "what's the security risk?"
 | Product Architect | 0-1 | ✅ Active | OSTs, PRDs, Agent Specs | "OST", "PRD", "discovery", "research" |
 | Engineering Partner v1.2 | 1 | ✅ Active | Feasibility, Security, API Specs, BPMN | "technical", "API", "security", "OWASP" |
 | UX Strategist | 1 | ✅ Active | Prototypes, IA, User Flows | "UI", "UX", "wireframe", "accessibility" |
-| Data Analyst | 2 | 🔜 Planned | SQL, Metrics, A/B Tests | "SQL", "analytics", "metrics" |
-| GTM Strategist | 2 | 🔜 Planned | Value Props, Positioning | "GTM", "positioning", "value prop" |
-| System Evaluator | 3 | 🔜 Planned | Quality Audits, Improvements | "evaluate", "self-improvement" |
+| Data Analyst | 2 | ✅ Active | SQL, Metrics, A/B Tests | "SQL", "analytics", "metrics" |
+| GTM Strategist | 2 | ✅ Active | Value Props, Positioning | "GTM", "positioning", "value prop" |
+| System Evaluator | 3 | ✅ Active | Quality Audits, Improvements | "evaluate", "self-improvement" |
 | Documentation Maintainer | 3 | ✅ Active | Doc Updates, Phase Archives, Evolution Records | "sync docs", "archive phase", "phase evolution" |
 
 ---
@@ -528,7 +533,7 @@ Contains "sync docs", "archive phase", "phase evolution", "Documentation Maintai
 
 ---
 
-**Orchestrator Agent Version**: 1.0
-**Last Updated**: 2026-02-01
+**Orchestrator Agent Version**: 2.0
+**Last Updated**: 2026-02-14
 **Maintained By**: PM OS Core Team
-**Next Review**: Phase 2 completion (after Data Analyst + GTM Strategist added)
+**Next Review**: Phase 6 planning

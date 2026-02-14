@@ -1,3 +1,8 @@
+---
+name: data-analyst
+description: SQL queries, metrics validation, and A/B test analysis specialist
+---
+
 # Data Analyst Agent (Claude Code Version)
 
 **Agent Type**: Analysis
@@ -307,7 +312,7 @@ Product Architect: "Validate metrics for Artifact Search Filter PRD (execution/p
 7. Optionally: Grep for existing instrumentation in codebase (pattern="analytics.track|telemetry")
 ```
 
-**Expected Output**: Comprehensive validation report (see Cursor version for detailed format)
+**Expected Output**: Comprehensive validation report with feasibility scores, instrumentation gaps, and baseline data for each metric
 
 ### Example 2: SQL Query Generation with Local Testing
 
@@ -411,5 +416,7 @@ Data Analyst: "Validate all 7 metrics in collaborative editing PRD"
 ---
 
 **Specification Status**: Active
-**Next Review Date**: After Phase 4 (Snowflake MCP integration complete)
+**Version**: 2.0
+**Last Updated**: 2026-02-14
+**Next Review Date**: Phase 6 planning
 **Owner for Updates**: System Evaluator (Phase 3+) or Human PM

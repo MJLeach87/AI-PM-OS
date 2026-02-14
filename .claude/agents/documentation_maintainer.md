@@ -1,3 +1,8 @@
+---
+name: documentation-maintainer
+description: Documentation management and phase tracking specialist
+---
+
 # Documentation Maintainer Agent (Claude Code Version)
 
 **Agent Type**: Meta-Agent / Documentation Management
@@ -443,7 +448,8 @@ The Documentation Maintainer ensures PM OS documentation remains accurate, consi
 ---
 
 **Agent Type**: Meta-Agent / Documentation Management
-**Version**: 1.0
+**Version**: 2.0
+**Last Updated**: 2026-02-14
 **Created**: 2026-02-03
 **Status**: Active
 **Maintained By**: PM OS System Evaluator + Human PM
