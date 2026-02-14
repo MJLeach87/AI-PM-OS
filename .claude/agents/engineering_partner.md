@@ -1,3 +1,8 @@
+---
+name: engineering-partner
+description: Technical feasibility and security assessment specialist
+---
+
 # Engineering Partner Agent (Claude Code)
 
 **Agent Type**: Technical Feasibility & Security Specialist
@@ -534,8 +539,297 @@ Read file_path="identity/STANDARDS.md"
 
 ---
 
-**Status**: Active (Phase 1, Week 3)
-**Version**: 1.1
+**Status**: Active (Phase 5, Skills Migration)
+**Version**: 2.0
 **Owner**: Product Architect Agent
-**Last Updated**: 2026-02-01
-**Next Review**: End of Phase 1 (Week 5)
+**Last Updated**: 2026-02-14
+**Next Review**: Phase 6 planning
+
+---
+
+## Extended Reference
+
+*Detailed examples and reference material merged from Cursor version during Phase 5 Skills Migration.*
+
+### OWASP Top 10 — Detailed Walkthrough with Code Examples
+
+The following is a detailed example of how to apply the OWASP Top 10 assessment for a User Profile Update API (Medium risk feature).
+
+#### Full Security Assessment Example
+
+```markdown
+# Information Security Assessment: User Profile Update API
+
+## Executive Summary
+**Security Risk Level**: MEDIUM
+**Primary Concerns**: PII handling (email, phone), authorization bypass risk
+**Recommendation**: ✅ APPROVED with required security controls
+
+## Threat Model (STRIDE)
+**Spoofing**:
+- Risk: Attacker impersonates user to modify someone else's profile
+- Mitigation: JWT token validation + user ID match in authorization check
+
+**Tampering**:
+- Risk: SQL injection via profile fields (name, bio)
+- Mitigation: Parameterized queries + input validation (max length, allowed characters)
+
+**Information Disclosure**:
+- Risk: Error messages leak PII ("Email john.doe@company.com already exists")
+- Mitigation: Generic error messages ("Email already in use")
+
+**Denial of Service**:
+- Risk: Rapid profile update requests exhaust database
+- Mitigation: Rate limit 10 requests/minute per user
+
+**Elevation of Privilege**:
+- Risk: User modifies `role` or `permissions` fields via API
+- Mitigation: Exclude privileged fields from update endpoint (separate admin API)
+
+## OWASP Top 10 Assessment
+
+### A01: Broken Access Control ⚠️ MEDIUM RISK
+**Issue**: User ID taken from request body (can be manipulated)
+**Required Fix**: Extract user ID from authenticated JWT token
+```javascript
+// ❌ VULNERABLE
+app.put('/api/v1/profile', (req) => {
+  const userId = req.body.userId; // User controls this!
+  updateProfile(userId, req.body);
+});
+
+// ✅ SECURE
+app.put('/api/v1/profile', authenticateJWT, (req) => {
+  const userId = req.user.id; // From verified JWT
+  updateProfile(userId, req.body);
+});
+\```
+
+### A02: Cryptographic Failures ✅ LOW RISK
+PII (email, phone) stored in PostgreSQL with full-disk encryption (AES-256).
+Required: Ensure TLS 1.3 for data in transit.
+
+### A03: Injection ⚠️ MEDIUM RISK
+**Issue**: User-supplied bio field stored in database
+**Required Fix**: Parameterized query + input sanitization
+```sql
+-- ❌ VULNERABLE
+query = `UPDATE users SET bio = '${req.body.bio}' WHERE id = ${userId}`;
+
+-- ✅ SECURE
+query = 'UPDATE users SET bio = $1 WHERE id = $2';
+params = [sanitize(req.body.bio), userId];
+\```
+**Additional Control**: Max bio length 500 chars, strip HTML tags
+
+### A07: Authentication Failures ✅ LOW RISK
+Requires JWT authentication. OAuth 2.0 with 15-minute token expiration. Compliant.
+
+## Privacy & Compliance
+
+### PII Identified
+| Field | Type | GDPR Category | Retention |
+|-------|------|---------------|-----------|
+| email | Contact | Personal Data | Account lifetime + 30 days |
+| phone | Contact | Personal Data | Account lifetime + 30 days |
+| name  | Identity | Personal Data | Account lifetime + 30 days |
+| bio   | User Content | Personal Data | User-controlled |
+
+### GDPR Requirements
+- ✅ Consent: Obtained during signup
+- ✅ Right to Access: Export API exists
+- ✅ Right to Erasure: Delete account API exists
+- ⚠️ Right to Rectification: This API implements it
+- ✅ Data Portability: Export API returns JSON
+- ⚠️ Breach Notification: Ensure audit logging
+
+## Security Controls Required
+
+### MANDATORY (Blocks approval if missing)
+1. Authorization Check: User ID from JWT, not request body
+2. Input Validation: Max lengths, allowed characters, HTML stripping
+3. SQL Injection Prevention: Parameterized queries only
+4. Rate Limiting: 10 requests/minute per user
+5. Audit Logging: Log all profile updates (user ID, timestamp, IP, changed fields)
+6. PII Redaction: Error messages must not expose PII
+
+### RECOMMENDED (High priority)
+7. Field-Level Authorization: Prevent `role` field modification
+8. HTTPS Enforcement: Reject HTTP requests
+9. CORS Policy: Whitelist allowed origins only
+10. Content Security Policy: Prevent XSS if bio displayed on web
+
+## Risk Register
+
+| Risk ID | Description | Severity | Likelihood | Impact | Mitigation |
+|---------|-------------|----------|------------|--------|------------|
+| SEC-001 | Authorization bypass via body user ID | HIGH | Medium | High | Use JWT user ID |
+| SEC-002 | SQL injection in bio field | HIGH | Low | High | Parameterized queries |
+| SEC-003 | DoS via rapid requests | MEDIUM | Medium | Medium | Rate limiting |
+| SEC-004 | PII leak in error messages | MEDIUM | High | Low | Generic errors |
+| SEC-005 | Privilege escalation via role field | CRITICAL | Low | Critical | Field exclusion |
+
+**CVSS Scores**: SEC-005 (9.1 Critical), SEC-001 (7.5 High), SEC-002 (7.5 High)
+
+## Approval Status
+**Status**: ✅ APPROVED WITH CONDITIONS
+**Conditions**: Must implement P0 security controls before launch
+**Re-Review Required**: After implementing authorization fix (SEC-001, SEC-005)
+```
+
+---
+
+### Secondary Functions
+
+#### 7. Technical Spec Template Creation
+Generate standardized templates for recurring technical artifacts.
+
+**Output**: Template files in `templates/` directory
+- `templates/tech_spec_template.md`
+- `templates/api_contract_template.yaml`
+- `templates/bpmn_template.md`
+- `templates/implementation_analysis_template.md`
+
+#### 8. Engineering Story Sharding
+Break large technical features into implementable engineering stories with dependencies.
+
+**Input**: PRD with complex feature
+**Output**: Sequenced list of stories with effort estimates and dependencies
+**Example**: "User authentication" → 8 stories (DB schema, API endpoints, frontend forms, testing, security audit)
+
+---
+
+### Workflow Sequences (Detailed)
+
+#### Sequence 1: Standard Feature Development
+```
+Product Architect (PRD Draft)
+  → Engineering Partner (Feasibility Review + Technical Spec)
+  → UX Strategist (Prototype with technical constraints)
+  → Product Architect (Final PRD with tech spec incorporated)
+```
+**Use when**: New features requiring technical validation before design work.
+
+#### Sequence 2: Technical-First Features
+```
+Product Architect (Problem statement + OST)
+  → Engineering Partner (Evaluate technical solutions + legacy code analysis)
+  → Product Architect (PRD with recommended technical approach)
+  → Engineering Partner (Detailed API spec + implementation analysis)
+```
+**Use when**: Technically complex features where architecture drives product decisions.
+
+#### Sequence 3: Security Review
+```
+Product Architect (PRD with auth/payments/PII)
+  → Engineering Partner (Security audit + threat modeling)
+  → [If vulnerabilities found] → Product Architect (Revise PRD)
+  → Engineering Partner (Re-review)
+  → UX Strategist (Proceed with design)
+```
+**Use when**: Mandatory for security-sensitive features.
+
+---
+
+### Detailed Examples
+
+#### Example 1: CSV Export (Simple)
+
+**Input**: "Review PRD for adding export to CSV feature"
+
+**Expected Output**:
+```markdown
+# Technical Feasibility: CSV Export
+
+## Executive Summary
+✅ Feasible. Standard feature using approved tech stack.
+
+## Technical Analysis
+- Frontend: React + `react-csv` library (MIT license) ✅
+- Backend: Node.js with `json2csv` (if server-side) ✅
+- Complexity: Simple
+- Effort: XS (4-8 hours)
+
+## Security Review
+- No auth required (data already visible to user)
+- Rate limiting: Limit to 10 exports/minute to prevent abuse
+- Input validation: Sanitize column headers (prevent CSV injection)
+
+## Recommendation
+Implement client-side CSV generation using `react-csv` library.
+```
+
+#### Example 2: Authentication API (Complex)
+
+**Input**: "Generate API spec for user authentication system" (Email/password, OAuth Google, password reset, MFA)
+
+**Expected Output** (abbreviated):
+```yaml
+openapi: 3.0.0
+info:
+  title: Authentication API
+  version: 1.0.0
+
+paths:
+  /api/v1/auth/login:
+    post:
+      summary: Authenticate user with email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                  minLength: 12
+              required: [email, password]
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken: {type: string}
+                  refreshToken: {type: string}
+                  expiresIn: {type: integer}
+        '401':
+          description: Invalid credentials
+        '429':
+          description: Rate limit exceeded (max 5 attempts per 15 min)
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+```
+
+#### Example 3: BPMN Order Fulfillment
+
+**Input**: "Model the order fulfillment workflow with payment processing, inventory check, and shipping"
+
+**Expected Output**:
+```markdown
+# BPMN: Order Fulfillment Workflow
+
+## Process Overview
+Trigger: User submits order
+End State: Order shipped OR order cancelled
+
+## Diagram
+[Mermaid flowchart with swim lanes for Customer, System, Payment Provider, Warehouse]
+
+## Error Paths
+- Payment declined → Notify user → Retry or cancel
+- Inventory insufficient → Partial shipment or full cancellation
+- Shipping error → Retry or manual intervention
+```
