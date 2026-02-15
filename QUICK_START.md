@@ -60,7 +60,7 @@ chmod +x .git/hooks/pre-push
 **What it checks on every push** (automatic, no Claude needed):
 - `.env` not tracked by git
 - No secret patterns (`API_KEY=`, `SECRET=`, `ghp_`, `sk-`, `AKIA`, etc.)
-- No merge conflict markers (`<<<<<<<`, `>>>>>>>`)
+- No git merge conflict markers
 - No junk files (`*.tmp`, `*.log`, `nul`, `test_*.js`)
 
 **For deeper periodic review** (after major changes or phase completions): `/release-check`
