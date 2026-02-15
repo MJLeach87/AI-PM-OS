@@ -14,6 +14,7 @@ This directory contains **YOUR organizational context** - the strategy, standard
 - ✅ `STRATEGY.md` - YOUR company's vision, mission, North Star Metrics
 - ✅ `ROADMAP.md` - YOUR product's roadmap (not PM OS's implementation phases)
 - ✅ `STANDARDS.md` - YOUR tech stack, brand voice, security requirements
+- ✅ `DATA_DICTIONARY.md` - YOUR data tables, metric formulas, instrumentation status (Phase 6 — required for metrics validation)
 
 **Why this is critical**: PM OS agents automatically load these files to guide their work. If you don't customize them, agents will generate outputs based on PM OS's defaults instead of YOUR organization's context.
 
@@ -380,9 +381,11 @@ Want to see a complete, real-world Identity Layer? Check out `pm-os-reference/id
 1. ✅ Customize `identity/STRATEGY.md` with YOUR vision, mission, NSM (30 min)
 2. ✅ Customize `identity/ROADMAP.md` with YOUR product roadmap (20 min)
 3. ✅ Customize `identity/STANDARDS.md` with YOUR tech stack and standards (30 min)
-4. ✅ Commit changes: `git add identity/ && git commit -m "Customize Identity Layer"`
-5. ✅ Test: Ask Product Architect to generate PRD, verify it cites YOUR vision
-6. ✅ Start using PM OS for real work with YOUR organizational context!
+4. ✅ Customize `identity/DATA_DICTIONARY.md` with YOUR tables, metrics, instrumentation status (45 min — do Sections 1-3 first as minimum viable setup)
+5. ✅ Commit changes: `git add identity/ && git commit -m "Customize Identity Layer"`
+6. ✅ Test: Ask Product Architect to generate PRD, verify it cites YOUR vision
+7. ✅ Test: Run `/prd [feature]` and accept the metrics validation offer to test Data Analyst with your DATA_DICTIONARY
+8. ✅ Start using PM OS for real work with YOUR organizational context!
 
 ---
 

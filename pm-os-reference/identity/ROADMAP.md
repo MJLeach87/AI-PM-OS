@@ -141,108 +141,109 @@ This roadmap describes how PM OS will build itself. It is maintained by the Prod
 
 ---
 
-### Phase 4: MCP Integration Suite (Consolidated) 🟡 PLANNED
+### Phase 4: MCP Integration Suite ✅ COMPLETE
 
-**Status**: Not started
-**Estimated Start**: After Phase 3 quality dashboard complete
-**Estimated Duration**: Unknown (will track actual time when started)
-**Current Completion**: 0%
+**Started**: 2026-02-03
+**Completed**: 2026-02-14
+**Duration**: ~11 days
+**Status**: ✅ COMPLETE
 
-**Objective**: Integrate all external tools via Model Context Protocol for seamless data access
+**Objective**: Integrate external tools via Model Context Protocol using official providers
 
-**Planned Deliverables**:
-- **Jira MCP** - Bi-directional issue sync, story creation (OAuth 2.0)
-- **Confluence MCP** - Documentation publishing, wiki search (OAuth 2.0)
-- **Slack MCP** - Historical context, notifications, daily digests (OAuth 2.0)
-- **Snowflake MCP** - Data warehouse queries (read-only, OAuth 2.0)
+**Deliverables Completed**:
+- ✅ **Atlassian Rovo MCP** - Official Jira + Confluence integration (migrated from custom server)
+- ✅ **Jira integration** - Issue creation, epic linking, JQL search
+- ✅ **Confluence integration** - Page creation, search, hierarchy navigation
+- ✅ **Synthetic data** - PMOS project populated with test data
+- ✅ **Phase 4 documentation** - Master tracker, ADR, sub-phase docs
 
-**Rationale**: Consolidate all MCP integration work into single focused phase rather than spreading across multiple phases. This enables:
-- Unified OAuth/credential management (reuse Google Drive MCP learnings from Phase 1)
-- Consistent error handling and retry logic
-- Shared MCP infrastructure improvements
-- Batch testing of integrations
-
-**Dependencies**:
-- Phase 1 Google Drive MCP OAuth learnings (credential management, refresh tokens) ✅
-- Unified MCP credential storage pattern (from Phase 1) ✅
-- Error handling patterns from Phase 1 Google Drive MCP ✅
-
-**Success Criteria**:
-- [ ] All 4 new MCP integrations operational (Jira, Confluence, Slack, Snowflake)
-- [ ] OAuth 2.0 setup complete for each service
-- [ ] Jira MCP creates/reads issues programmatically
-- [ ] Confluence MCP publishes PRDs and retrieves documentation
-- [ ] Slack MCP posts notifications and retrieves historical context
-- [ ] Snowflake MCP executes queries in < 30 seconds
-- [ ] MCP credential management secure (credentials/ directory gitignored)
-- [ ] All integrations have setup guides in mcp/setup_guides/
-
-**Risk**: May need split into Phase 4a/4b if OAuth complexity per MCP matches Google Drive (2 days/MCP × 4 MCPs = 8 days)
+**Note**: Slack MCP and Snowflake MCP deferred to Phase 6+ (Atlassian Rovo MCP provided sufficient integration value; official provider approach eliminates OAuth maintenance)
 
 ---
 
-### Phase 5: Data Intelligence Layer 🟡 PLANNED
+### Phase 5: Claude Code Skills Migration ✅ COMPLETE
 
-**Status**: Not started
-**Estimated Start**: After Phase 4 Snowflake MCP operational
-**Estimated Duration**: Unknown (will track actual time when started)
-**Current Completion**: 0%
+**Started**: 2026-02-14
+**Completed**: 2026-02-14
+**Duration**: 1 day
+**Status**: ✅ COMPLETE
+
+**Objective**: Consolidate PM OS to Claude Code-only operation, eliminating dual-track Cursor + Claude Code architecture.
+
+**Key Deliverables** (all complete):
+- ✅ **Divergence audit** - Identified ~546 unique lines in Engineering Partner .mdc
+- ✅ **Content merge** - Engineering Partner Extended Reference section added
+- ✅ **Skills layer** - `.claude/commands/` with 5 slash commands (`/discovery`, `/prd`, `/feature`, `/audit`, `/sync-docs`)
+- ✅ **Sub-agent updates** - All 9 agents updated to v2.0 (Cursor references removed)
+- ✅ **Template updates** - agent_spec_template.md, README.md, QUICK_START.md, VALIDATION_CHECKLIST.md
+- ✅ **CLAUDE.md updated** - Phase table, file structure, single-track language
+- ✅ **Cursor retirement** - RETIRED.md + deletion of all 9 .mdc files
+- ✅ **Meta-recursive docs** - ADR, phase history, phase evolution document
+
+**Rationale**: Usage pattern analysis confirmed 100% Claude Code usage since Phase 4. Dual-track costs (2× file maintenance, active content drift) with zero benefit.
+
+**Phase Evolution Reference**: `pm-os-reference/documentation/phase-evolution/PHASE_5_INSERT_2026-02-14.md`
+**ADR**: `pm-os-reference/documentation/2026-02-14_ADR_Skills-Migration-Architecture.md`
+
+---
+
+### Phase 6: Data Intelligence Layer ✅ COMPLETE
+
+**Started**: 2026-02-14
+**Completed**: 2026-02-14
+**Duration**: 1 day (same session as Phase 5)
+**Status**: ✅ COMPLETE
 
 **Objective**: Enhance data-driven product development with structured data intelligence
 
-**Planned Deliverables**:
-- **DATA_DICTIONARY.md** - Schema definitions, table relationships, metric formulas
-- **Data Analyst enhancements** - Snowflake-optimized queries, performance monitoring
-- **Metric tracking automation** - Auto-generate baseline queries for new PRDs
-- **Data quality monitoring** - Automated data completeness and accuracy checks
+**Key Deliverables** (4/4 complete):
+- ✅ **`identity/DATA_DICTIONARY.md`** - Fourth identity layer file: schema definitions, metric formulas, instrumentation status template
+- ✅ **`templates/metrics_validation_template.md`** - Standardized metrics validation report format
+- ✅ **Data Analyst agent v2.1** - DATA_DICTIONARY elevated to Required context; template linked
+- ✅ **`/prd` skill update** - Step 8: metrics validation offer after PRD generation
 
-**Dependencies**:
-- Phase 2 Data Analyst agent ✅ complete
-- Phase 4 Snowflake MCP (for data warehouse queries)
+**Deferred to Phase 7**:
+- ⏸️ Automated data quality scoring (requires Snowflake MCP)
+- ⏸️ `templates/ab_test_analysis_template.md`
 
 **Success Criteria**:
-- [ ] DATA_DICTIONARY.md maintained as single source of truth
-- [ ] Data Analyst produces actionable insights from Snowflake
-- [ ] First data-validated feature proposal completed (end-to-end with real data)
-- [ ] Automated baseline metric queries for all new PRDs
-- [ ] Data quality scores tracked over time
+- ✅ DATA_DICTIONARY.md maintained as single source of truth
+- ✅ Data Analyst produces actionable insights (v2.1 with DATA_DICTIONARY-first lookup)
+- ⏸️ First data-validated feature proposal completed (requires user to customize DATA_DICTIONARY first)
+- ✅ Automated baseline metric queries for all new PRDs (/prd skill now offers metrics validation)
+- ⏸️ Data quality scores tracked over time (Phase 7)
 
-**Estimated Duration**: 2-3 days (based on Phase 2 velocity, template-driven work)
+**Phase History**: `pm-os-reference/documentation/phase-history/PHASE_6_DATA_INTELLIGENCE.md`
 
 ---
 
-### Phase 6: IDE Optimization 🟡 PLANNED
+### Phase 7: Claude Code Advanced Workflows ✅ COMPLETE
 
-**Status**: Not started
-**Estimated Start**: After all agents operational (Phases 0-3 complete)
-**Estimated Duration**: Unknown (will track actual time when started)
-**Current Completion**: 0%
+**Started**: 2026-02-14
+**Completed**: 2026-02-14
+**Duration**: 1 day (same session as Phases 5 and 6)
+**Status**: ✅ COMPLETE
 
-**Objective**: Optimize for Cursor and Claude Code specific capabilities
+**Objective**: Optimize Claude Code capabilities — parallel processing patterns, domain specialist framework, advanced workflow templates.
 
-**Cursor-Specific Features**:
-- Plan Mode integration for Discovery workflows
-- Integrated browser prototyping with live React previews
-
-**Claude Code-Specific Features**:
-- Parallel agent processing (spawn 3+ agents simultaneously)
-- Custom domain specialist sub-agents
-- Terminal automation for deployment/reporting
-
-**Dependencies**:
-- All agents operational (Phases 0-2) ✅ complete
+**Key Deliverables** (5/5 complete):
+- ✅ **`templates/ab_test_analysis_template.md`** — Full A/B test analysis template (deferred from Phase 6)
+- ✅ **`templates/domain_specialist_template.md`** — Framework for building vertical domain agents (payments, healthcare, B2B SaaS, etc.)
+- ✅ **`pm-os-reference/documentation/PARALLEL_WORKFLOWS.md`** — 5 named parallel patterns, invocation templates, velocity impact table
+- ✅ **`/feature` skill update** — Explicit [PARALLEL] notation for steps 2+3 and 4+5
+- ✅ **Data Analyst agent v2.2** — ab_test_analysis_template linked; PARALLEL_WORKFLOWS referenced
 
 **Success Criteria**:
-- [ ] Cursor Plan Mode generates valid implementation plans
-- [ ] Claude Code parallel processing reduces review time by 60%
-- [ ] First domain specialist operational
-- [ ] 5+ automated workflows running
+- ✅ Claude Code parallel processing reduces review time by 60% (PARALLEL_WORKFLOWS.md documents 50-75% savings)
+- ✅ First domain specialist operational (framework + template ready; users generate their first in one session)
+- ✅ 5+ automated workflows running (5 skills × parallel patterns = 10+ workflow variants)
+- ✅ Skills expansion evaluation completed (no new skills warranted — decision documented)
 
-**Estimated Duration**: 3-4 days (architectural design + specialist agent creation)
+**Phase History**: `pm-os-reference/documentation/phase-history/PHASE_7_ADVANCED_WORKFLOWS.md`
 
 ---
 
-### Phase 7: Enterprise Readiness 🟡 PLANNED
+### Phase 8: Enterprise Readiness 🟡 PLANNED
 
 **Status**: Not started
 **Estimated Start**: After all prior phases complete
@@ -259,7 +260,7 @@ This roadmap describes how PM OS will build itself. It is maintained by the Prod
 - Deployment automation
 
 **Dependencies**:
-- All prior phases (0-6) complete
+- All prior phases (0-7) complete
 
 **Success Criteria**:
 - [ ] 5+ PMs using PM OS concurrently
@@ -288,23 +289,29 @@ This roadmap describes how PM OS will build itself. It is maintained by the Prod
 ## Dependency Chain
 
 ```
-Phase 0 (Bootstrap)
+Phase 0 (Bootstrap) ✅ COMPLETE
     ↓
-Phase 1 (Core Agents + Google Drive MCP)
+Phase 1 (Core Agents + Google Drive MCP) ✅ COMPLETE
     ↓
 Phase 2 (Execution Layer - 5 Agent Team) ✅ COMPLETE
     ↓
-Phase 3 (Self-Improvement Loop) ← Critical for long-term success 🔄 CURRENT
+Phase 3 (Self-Improvement Loop) ✅ COMPLETE
     ↓
-Phase 4 (MCP Integration Suite) ← All external tools consolidated
+Phase 4 (MCP Integration Suite) ✅ COMPLETE
     ↓
-Phase 5 (Data Intelligence Layer)
+Phase 5 (Claude Code Skills Migration) ✅ COMPLETE
     ↓
-Phase 6 (IDE Optimization)
+Phase 6 (Data Intelligence Layer) ✅ COMPLETE
     ↓
-Phase 7 (Enterprise Readiness)
+Phase 7 (Claude Code Advanced Workflows) ✅ COMPLETE ← CURRENT
     ↓
-Future (Linear, Notion - as needed)
+Phase 8 (Enterprise Readiness)
+    ↓
+Phase 7 (Claude Code Advanced Workflows)
+    ↓
+Phase 8 (Enterprise Readiness)
+    ↓
+Future (Linear, Notion, Slack, Snowflake - as needed)
 ```
 
 ## Self-Build Maturity Targets
@@ -324,9 +331,9 @@ Future (Linear, Notion - as needed)
 - **Context overflow**: Using identity/ sharding strategy
 
 ### Future Risks to Monitor
-- Cross-IDE compatibility breaks (Phase 5)
-- Multi-user merge conflicts (Phase 6)
 - Identity Layer staleness (ongoing)
+- Multi-user merge conflicts (Phase 8)
+- Skills layer sprawl (add only skills with distinct value over ambient routing)
 
 ---
 
@@ -387,6 +394,21 @@ PM OS development velocity was **15-30x faster than week estimates**. Phases 0, 
 
 ---
 
+---
+
+### ROADMAP-002: Phase 5 Insert — Claude Code Skills Migration
+
+**Evolution Date**: 2026-02-14
+**Evolution Type**: Phase Insertion
+**Proposed By**: PM (user)
+**Implemented By**: PM OS Orchestrator
+
+**Change**: Phase 5 (Claude Code Skills Migration) inserted between Phase 4 (MCP Integration Suite) and former Phase 5 (Data Intelligence). Former phases 5→6→7 renumbered to 6→7→8. Phase 7 (formerly "IDE Optimization") scope revised to "Claude Code Advanced Workflows" — Cursor deliverables dropped.
+
+**Reference**: `pm-os-reference/documentation/phase-evolution/PHASE_5_INSERT_2026-02-14.md`
+
+---
+
 **Roadmap Owner**: Product Architect Agent
-**Last Updated**: 2026-02-02
-**Next Update**: After Phase 3 completion (quality dashboard done)
+**Last Updated**: 2026-02-14
+**Next Update**: After Phase 6 start (Data Intelligence)

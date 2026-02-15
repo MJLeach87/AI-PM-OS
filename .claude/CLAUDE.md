@@ -1,10 +1,10 @@
 # PM OS - Claude Code Project Context
 
 **Project Name**: Product Management Operating System (PM OS)
-**Version**: Phase 5 (Claude Code Skills Migration)
+**Version**: Phase 7 (Claude Code Advanced Workflows)
 **Created**: 2026-01-31
 **Updated**: 2026-02-14
-**Status**: Active Development
+**Status**: Active Development — Phase 7 Complete → Phase 8 (Enterprise) Next
 
 ---
 
@@ -33,9 +33,9 @@ See `identity/STRATEGY.md` for detailed metric definitions and recommended sets 
 
 ## Current Phase: Phase 5 (Claude Code Skills Migration) ✅ Complete → Phase 6 Next
 
-**Status**: Phase 5 Complete (2026-02-14) — Phase 6 (Data Intelligence) not yet started
-**Objective**: Consolidated PM OS to Claude Code-only; eliminated 9 Cursor .mdc files; created .claude/commands/ skills layer
-**ADR**: `pm-os-reference/documentation/2026-02-14_ADR_Skills-Migration-Architecture.md`
+**Status**: Phase 7 Complete (2026-02-14) — Phase 8 (Enterprise Readiness) next
+**Objective**: Claude Code advanced workflows — A/B test template, domain specialist framework, PARALLEL_WORKFLOWS guide, /feature parallel notation, Data Analyst v2.2
+**Phase History**: `pm-os-reference/documentation/phase-history/PHASE_7_ADVANCED_WORKFLOWS.md`
 
 ### Phase 1 Deliverables
 - [x] Engineering Partner agent (Cursor + Claude versions) - v1.1 with legacy code analysis
@@ -65,6 +65,7 @@ The Identity Layer stores YOUR organizational intelligence that agents use for d
 - **`identity/STRATEGY.md`**: YOUR company vision, mission, North Star metrics (template - replace with YOUR actual strategy!)
 - **`identity/STANDARDS.md`**: YOUR brand voice, tech stack, security requirements (template - replace with YOUR actual standards!)
 - **`identity/ROADMAP.md`**: YOUR product roadmap (template - replace with YOUR actual roadmap!)
+- **`identity/DATA_DICTIONARY.md`**: YOUR data schema, metric formulas, instrumentation status (template - Phase 6, replace with YOUR actual tables/metrics!)
 - **`identity/README.md`**: Customization guide with step-by-step instructions
 
 **PM OS's Own Context** (in `pm-os-reference/identity/` - reference examples, read-only):
@@ -300,7 +301,8 @@ PM OS/
 │   ├── README.md                      # Customization guide
 │   ├── STRATEGY.md                    # YOUR vision, mission, NSM (template)
 │   ├── STANDARDS.md                   # YOUR brand voice, tech stack (template)
-│   └── ROADMAP.md                     # YOUR product roadmap (template)
+│   ├── ROADMAP.md                     # YOUR product roadmap (template)
+│   └── DATA_DICTIONARY.md             # YOUR data schema, metrics, instrumentation (template - Phase 6)
 ├── pm-os-reference/                          # PM OS inception materials (meta-recursive)
 │   ├── README.md                      # Explains artifacts vs documentation
 │   ├── identity/                      # PM OS's own organizational context (reference)
@@ -403,11 +405,11 @@ Validate against identity/STANDARDS.md quality gates:
 | **3** | ✅ Complete (2 days) | Self-Improvement | System Evaluator, Doc Maintainer, quality dashboard |
 | **4** | ✅ Complete | MCP Integration Suite | Atlassian Rovo MCP (Jira + Confluence, official integration) |
 | **5** | ✅ Complete (1 day) | Skills Migration | Claude Code-only, 9 .mdc deleted, 5 skills created |
-| **6** | 🟡 Planned | Data Intelligence | Data dictionary, metric automation |
-| **7** | 🟡 Planned | Claude Code Advanced Workflows | Parallel processing, domain specialists |
+| **6** | ✅ Complete (1 day) | Data Intelligence | DATA_DICTIONARY, metrics validation template, Data Analyst v2.1 |
+| **7** | ✅ Complete (1 day) | Claude Code Advanced Workflows | A/B test template, domain specialist framework, PARALLEL_WORKFLOWS guide |
 | **8** | 🟡 Planned | Enterprise | Multi-user, security hardening, web prototype |
 
-**Note**: PM OS completed Phases 0-3 in **5.2 days** (2026-01-31 to 2026-02-02), vs. original 11-week estimate (11x faster). Phase 4 added Atlassian Rovo MCP. Phase 5 migrated to Claude Code-only (2026-02-14). See `pm-os-reference/documentation/VELOCITY_TRACKING.md` for velocity analysis and `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md` for system metrics.
+**Note**: PM OS completed Phases 0-3 in **5.2 days** (2026-01-31 to 2026-02-02), vs. original 11-week estimate (11x faster). Phase 4 added Atlassian Rovo MCP. Phases 5-7 all completed 2026-02-14: Skills Migration → Data Intelligence → Advanced Workflows. See `pm-os-reference/documentation/VELOCITY_TRACKING.md` for velocity analysis and `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md` for system metrics.
 
 ---
 
@@ -483,7 +485,7 @@ Use Claude Code for:
 
 ---
 
-**Project Status**: Phase 5 Complete → Phase 6 (Data Intelligence) Next
+**Project Status**: Phase 7 Complete → Phase 8 (Enterprise Readiness) Next
 **Last Updated**: 2026-02-14
-**Next Milestone**: Phase 6 — Data Intelligence Layer
+**Next Milestone**: Phase 8 — Enterprise Readiness (multi-user Git, security hardening, onboarding, web prototype)
 **Maintained By**: PM OS Orchestrator + Human PM
