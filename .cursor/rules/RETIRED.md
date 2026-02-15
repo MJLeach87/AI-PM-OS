@@ -13,27 +13,32 @@ PM OS migrated to **Claude Code-only** operation as of Phase 5. All Cursor `.mdc
 
 | Former File | Migrated To |
 |------------|-------------|
-| `_orchestrator.mdc` | `.claude/agents/orchestrator.md` (routing reference) + `.claude/CLAUDE.md` (ambient layer) |
-| `product_arch.mdc` | `.claude/agents/product_arch.md` |
-| `engineering_partner.mdc` | `.claude/agents/engineering_partner.md` (includes merged content) |
-| `ux_strategist.mdc` | `.claude/agents/ux_strategist.md` |
-| `data_analyst.mdc` | `.claude/agents/data_analyst.md` |
-| `gtm_strategist.mdc` | `.claude/agents/gtm_strategist.md` |
-| `system_evaluator.mdc` | `.claude/agents/system_evaluator.md` |
-| `documentation_maintainer.mdc` | `.claude/agents/documentation_maintainer.md` |
-| `api_doc_reviewer.mdc` | `.claude/agents/api_doc_reviewer.md` |
+| `_orchestrator.mdc` | `.claude/CLAUDE.md` (ambient routing layer) |
+| `product_arch.mdc` | `.claude/skills/product-architect/SKILL.md` |
+| `engineering_partner.mdc` | `.claude/skills/engineering-partner/SKILL.md` (includes merged content) |
+| `ux_strategist.mdc` | `.claude/skills/ux-strategist/SKILL.md` |
+| `data_analyst.mdc` | `.claude/skills/data-analyst/SKILL.md` |
+| `gtm_strategist.mdc` | `.claude/skills/gtm-strategist/SKILL.md` |
+| `system_evaluator.mdc` | `.claude/skills/pm-os-audit/SKILL.md` |
+| `documentation_maintainer.mdc` | `.claude/skills/pm-os-sync/SKILL.md` |
+| `api_doc_reviewer.mdc` | `.claude/skills/engineering-partner/SKILL.md` (API doc review is part of Engineering Partner) |
 
 ## New Architecture
 
-**Sub-agents** (deep specialist context): `.claude/agents/`
-**Skills** (user-invocable slash commands): `.claude/commands/`
+**Skills** (sole canonical source): `.claude/skills/`
+**Routing** (ambient orchestration): `.claude/CLAUDE.md`
 
 Available skills:
-- `/discovery` — OST generation workflow
+- `/product-architect` — Discovery, PRD, OST, agent spec creation
+- `/engineering-partner` — Feasibility, security, API contracts, BPMN
+- `/ux-strategist` — Prototypes, IA, user flows, accessibility
+- `/data-analyst` — SQL, metrics validation, A/B analysis
+- `/gtm-strategist` — Positioning, battle cards, GTM
+- `/discovery` — Full OST + discovery pipeline
 - `/prd` — BMAD PRD generation
-- `/feature` — Full end-to-end pipeline
-- `/audit` — System Evaluator quality check
-- `/sync-docs` — Documentation Maintainer sync
+- `/feature` — End-to-end feature workflow
+- `/pm-os-audit` — PM OS quality audit
+- `/pm-os-sync` — PM OS documentation sync
 
 ## Accessing Archived Content
 
