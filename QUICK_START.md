@@ -2,8 +2,8 @@
 
 **For**: Product Managers new to PM OS
 **Time to First Artifact**: 5 minutes
-**Current Phase**: 4 (MCP Integration Suite) - Planning
-**Phase 3 Completed**: 2026-02-02 ✅
+**Current Phase**: 8 (Enterprise Readiness) - Planning
+**Phase 7 Completed**: 2026-02-14 ✅
 
 ---
 
@@ -27,8 +27,17 @@ You should see this directory structure:
 PM OS/
 ├── .claude/
 │   ├── CLAUDE.md           # Project context (auto-loaded by Claude Code)
-│   ├── agents/             # Agent logic (orchestrator + specialists)
-│   └── commands/           # Skill layer (slash commands like /discovery, /prd)
+│   └── skills/             # Canonical specialist source (10 skills — invoked as /skill-name)
+│       ├── discovery/      # /discovery — OST + discovery artifacts
+│       ├── prd/            # /prd — BMAD PRD generation
+│       ├── feature/        # /feature — Full pipeline (parallel workflows)
+│       ├── product-architect/    # /product-architect — Discovery, PRD, agent specs
+│       ├── engineering-partner/  # /engineering-partner — Feasibility, security, API
+│       ├── ux-strategist/        # /ux-strategist — Prototypes, IA, accessibility
+│       ├── data-analyst/         # /data-analyst — SQL, metrics, A/B analysis
+│       ├── gtm-strategist/       # /gtm-strategist — Positioning, battle cards, GTM
+│       ├── pm-os-audit/          # /pm-os-audit — PM OS quality audit
+│       └── pm-os-sync/           # /pm-os-sync — PM OS doc sync
 ├── identity/               # YOUR org's context (customize templates!)
 ├── pm-os-reference/identity/      # PM OS's own context (reference examples)
 ├── execution/              # YOUR outputs go here
@@ -126,8 +135,7 @@ Product Architect: Create a new agent for [domain]
 - "Generate an agent spec for customer interview synthesis"
 
 **Output**:
-- `.claude/agents/[agent-name].md` (agent logic)
-- `.claude/commands/[agent-name].md` (optional slash command entry point)
+- `.claude/skills/[name]/SKILL.md` (skill implementation — the canonical source)
 
 **Note**: These are specifications. You'll review and activate them.
 
@@ -252,29 +260,14 @@ Read execution/README.md                             # Guide to YOUR artifact wo
 
 ## Understanding Agent Roles
 
-### Orchestrator (Master Router)
-**Active**: Always (behind the scenes)
-**You Don't Invoke Directly**: It routes your requests to the right specialist
-
-**What It Does**:
-- Routes tasks to appropriate agents
-- Injects organizational context from `identity/` files
-- Enforces security and quality standards
-- Maintains workflow state
-
-**When You Notice It**: When a request automatically goes to the right specialist
-
----
-
 ### Product Architect (Discovery & Strategy)
-**Active**: Phase 0 (now)
-**Invoke With**: "Product Architect: [request]" or `/discovery` / `/prd` skill commands
+**Invoke With**: `/product-architect [request]` or `/discovery` / `/prd` skill commands
 
 **What It Does**:
 - Generates Opportunity Solution Trees (OSTs)
 - Drafts PRDs following BMAD methodology
-- Creates new agent specifications
-- Consolidates multi-agent outputs (Phase 1+)
+- Creates new agent/skill specifications
+- Consolidates multi-agent outputs
 
 **Use For**:
 - Discovery and problem exploration
@@ -284,54 +277,61 @@ Read execution/README.md                             # Guide to YOUR artifact wo
 
 ---
 
-### Engineering Partner v1.2
-**Status**: ✅ Active (deployed 2026-01-31)
-**Phase**: 1 (Core Agent Team)
+### Engineering Partner (Technical & Security)
+**Invoke With**: `/engineering-partner [request]`
 
 **What It Does**:
-- Technical feasibility audits
+- Technical feasibility audits (complexity, effort sizing)
+- STRIDE + OWASP Top 10 security assessments
 - Legacy code analysis
 - BPMN process modeling
-- API specification generation
-- Security review for technical features
+- API specification generation (OpenAPI)
 
 ---
 
-### UX Strategist v1.0
-**Status**: ✅ Active (deployed 2026-01-31)
-**Phase**: 1 (Core Agent Team)
+### UX Strategist (Design & Accessibility)
+**Invoke With**: `/ux-strategist [request]`
 
 **What It Does**:
 - Information architecture mapping
 - React/Tailwind prototype generation
-- Accessibility audits
+- Accessibility audits (WCAG 2.1 AA)
 - User flow design
 
 ---
 
-### System Evaluator v1.0
-**Status**: ✅ Active (deployed 2026-02-01)
-**Phase**: 3 (Self-Improvement Loop)
-**Purpose**: Meta-agent that audits other agents and proposes improvements
+### Data Analyst (Metrics & Analytics)
+**Invoke With**: `/data-analyst [request]`
 
 **What It Does**:
-- Weekly quality audits of agent outputs
-- Detect drift from standards
-- Propose agent logic improvements
-- Enable self-improvement loop
+- SQL query generation
+- PRD metrics validation (cross-referenced with DATA_DICTIONARY)
+- A/B test statistical analysis
+- Baseline data gathering
+- Data quality assessment
 
 ---
 
-### Documentation Maintainer v1.0
-**Status**: ✅ Active (deployed 2026-02-02)
-**Phase**: 3 (Self-Improvement Loop)
-**Purpose**: Keeps documentation synchronized across all files
+### GTM Strategist (Positioning & Sales)
+**Invoke With**: `/gtm-strategist [request]`
 
 **What It Does**:
-- Auto-sync phase status across README, CLAUDE.md, ROADMAP.md
-- Maintain Phase Evolution History
-- Track velocity and actual completion times
-- Ensure documentation accuracy
+- Value proposition development
+- Competitive positioning and battle cards
+- Pricing strategy analysis
+- Market segmentation
+
+---
+
+### System Evaluator / Quality Audit
+**Invoke With**: `/pm-os-audit`
+**What It Does**: Audits PM OS agents, templates, and phase consistency; proposes self-improvement
+
+---
+
+### Documentation Maintainer / Doc Sync
+**Invoke With**: `/pm-os-sync`
+**What It Does**: Syncs PM OS documentation across CLAUDE.md, ROADMAP.md, README and phase history files
 
 ---
 
@@ -406,19 +406,31 @@ Use the versioning convention in filenames:
 ## Skill Commands & Invocation Patterns
 
 ### Skill Commands (Slash Commands)
-These invoke the `.claude/commands/` skill layer for fast, user-facing entry points:
-- `/discovery [topic]`: Generate an Opportunity Solution Tree
-- `/prd [feature]`: Draft a PRD using BMAD structure
-- `/feature [description]`: End-to-end feature development workflow
-- `/audit`: Run a quality audit via System Evaluator
-- `/sync-docs`: Sync documentation across files via Documentation Maintainer
+These invoke the `.claude/skills/` canonical source — self-contained specialist guides:
+
+**Workflow Skills** (full pipelines):
+- `/discovery [topic]`: Generate an Opportunity Solution Tree + discovery artifacts
+- `/prd [feature]`: Draft a PRD using BMAD structure (with Data Analyst metrics validation)
+- `/feature [description]`: End-to-end feature development workflow (supports parallel agent notation)
+
+**Specialist Skills** (invoke a specific domain expert directly):
+- `/product-architect [request]`: Discovery, PRD drafting, OST generation, agent spec creation
+- `/engineering-partner [request]`: Technical feasibility, STRIDE + OWASP security assessment, API contracts, BPMN
+- `/ux-strategist [request]`: React/Tailwind prototypes, information architecture, user flows, accessibility audits
+- `/data-analyst [request]`: SQL queries, metrics validation, A/B test analysis, baseline data
+- `/gtm-strategist [request]`: Value propositions, competitive positioning, battle cards, pricing strategy
+
+**PM OS Maintenance Skills** (scoped to PM OS self-improvement):
+- `/pm-os-audit`: Run a quality audit via System Evaluator
+- `/pm-os-sync`: Sync PM OS documentation across files via Documentation Maintainer
 
 ### Natural Language Invocation
 Address agents directly in any Claude Code message:
 - `"Product Architect: Generate an OST for [topic]"`
-- `"Engineering Partner: Review this API spec for security issues"`
-- `"UX Strategist: Create an IA map for the onboarding flow"`
-- `"System Evaluator: Audit the latest PRD for quality"`
+- `/engineering-partner Review this PRD for security issues`
+- `/ux-strategist Create an IA map for the onboarding flow`
+- `/data-analyst Validate the metrics in this PRD`
+- `/gtm-strategist Generate a value proposition for this feature`
 
 ### Claude Code Utilities
 - Use Read/Write tools for file operations
@@ -433,12 +445,11 @@ Address agents directly in any Claude Code message:
 **Symptom**: You invoke an agent but nothing happens
 
 **Fix**:
-- Check `.claude/agents/[agent].md` file exists
+- Check `.claude/skills/[skill]/SKILL.md` exists
 - Check `.claude/CLAUDE.md` has project context
-- For skill commands, check `.claude/commands/[skill].md` exists
-- Verify you're using correct invocation syntax
+- Verify you're using correct invocation syntax: `/skill-name [request]`
 
-**Example**: Use "Product Architect: [request]" or `/discovery [topic]`
+**Example**: Use `/product-architect [request]` or `/discovery [topic]`
 
 ---
 
@@ -487,23 +498,23 @@ Address agents directly in any Claude Code message:
 
 ---
 
-## Phase 0 Limitations (What PM OS Can't Do Yet)
+## Current Capabilities (Phase 7 Complete)
 
-### Currently Not Available
-- ❌ **Technical feasibility reviews** (Engineering Partner coming in Phase 1)
-- ❌ **UI/UX prototyping** (UX Strategist coming in Phase 1)
-- ❌ **Data analysis and SQL queries** (Data Analyst coming in Phase 2)
-- ❌ **GTM and positioning materials** (GTM Strategist coming in Phase 2)
-- ❌ **MCP integrations** (Google Drive, Jira, Slack, etc. coming in Phases 1-4)
-- ❌ **Self-improvement loop** (System Evaluator coming in Phase 3)
+### All 10 Skills Active ✅
+- ✅ **Discovery & PRD** → `/discovery`, `/prd`, `/product-architect`
+- ✅ **Technical review & security** → `/engineering-partner`
+- ✅ **UI/UX prototyping** → `/ux-strategist`
+- ✅ **Data analysis & SQL** → `/data-analyst`
+- ✅ **GTM and positioning** → `/gtm-strategist`
+- ✅ **Full pipeline** → `/feature` (parallel workflow notation supported)
+- ✅ **MCP integrations** → Atlassian Rovo MCP (Jira + Confluence), Google Drive MCP
+- ✅ **Self-improvement loop** → `/pm-os-audit`, `/pm-os-sync`
 
-### Workarounds (For Now)
-- Technical questions: Note them in PRD, escalate to engineering team
-- Prototypes: Describe desired UI in PRD "User Interface Specifications" section
-- Data questions: Note metric baselines as "TBD - validate with data team"
-- GTM needs: Use PRD "Business Case" section, expand with human GTM expert
-
-**These capabilities unlock progressively across 6 phases (see `identity/ROADMAP.md`)**
+### Phase 8 (Enterprise) — Coming Next
+- 🟡 Multi-user Git workflow (CODEOWNERS, branch protection)
+- 🟡 Security hardening (SOC 2 readiness checklist)
+- 🟡 Web application prototype (optional)
+- 🟡 Deployment automation
 
 ---
 
@@ -604,11 +615,11 @@ Address agents directly in any Claude Code message:
 | **Templates** | `templates/` |
 | **YOUR Org Context** | `identity/` (customize these!) |
 | **PM OS Org Context (reference)** | `pm-os-reference/identity/` (read-only) |
-| **Agent Logic** | `.claude/agents/` + `.claude/commands/` (skill layer) |
+| **Skills (all capabilities)** | `.claude/skills/[name]/SKILL.md` — 10 skills |
 
 ---
 
-**Quick Start Version**: 1.0 (Phase 0)
-**Last Updated**: 2026-01-31
+**Quick Start Version**: 2.0 (Phase 7)
+**Last Updated**: 2026-02-14
 **For More**: See `README.md` for comprehensive guide
 **Next**: Run your first OST generation command!

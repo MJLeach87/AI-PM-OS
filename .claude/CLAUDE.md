@@ -78,20 +78,45 @@ The Identity Layer stores YOUR organizational intelligence that agents use for d
 
 **Usage**: All agents automatically load relevant identity context from `identity/` before generating outputs.
 
-### Agent Architecture
+### Orchestration
 
-**Orchestrator Agent**:
-- **Role**: Master router for all tasks
-- **File**: `.claude/agents/orchestrator.md` (deep routing reference), this file (CLAUDE.md) serves as the ambient orchestration layer
-- **Capabilities**: Task routing, context injection, security enforcement, workflow management
+This file (CLAUDE.md) is the ambient orchestration layer — it routes all tasks, injects identity context, and enforces quality and security standards. There are no separate agent files; skills are the sole specialist implementation.
 
-**Specialist Agents** (Progressive implementation):
-- **Product Architect** (Phase 0-1): Discovery, OSTs, PRD generation, agent spec creation
-- **Engineering Partner** (Phase 1): Technical feasibility, BPMN modeling, API specs
-- **UX Strategist** (Phase 1): Information architecture, React/Tailwind prototypes
-- **Data Analyst** (Phase 2): SQL queries, metrics validation, A/B test analysis
-- **GTM Strategist** (Phase 2): Value propositions, positioning, sales enablement
-- **System Evaluator** (Phase 3): Meta-agent for quality audits and self-improvement proposals
+**Task routing**:
+- Discovery / OST / PRD / agent spec → `/product-architect`
+- Technical feasibility / security / API / BPMN → `/engineering-partner`
+- Prototypes / IA / user flows / accessibility → `/ux-strategist`
+- SQL / metrics validation / A/B analysis → `/data-analyst`
+- Positioning / battle cards / GTM → `/gtm-strategist`
+- Full pipeline → `/feature`
+- PM OS quality audit → `/pm-os-audit`
+- PM OS doc sync → `/pm-os-sync`
+
+### Skills Layer (Canonical Specialist Source)
+
+Skills in `.claude/skills/` are the **canonical source** for all specialist capabilities. They are self-contained invocation guides that Claude reads directly when a user invokes a slash command.
+
+**Architecture Principle**: Skills = single source of truth. `.claude/agents/` is empty — CLAUDE.md handles routing, skills handle specialist execution.
+
+**Invoke a specialist directly**:
+- `/product-architect` — Discovery, PRD drafting, OST generation, agent spec creation
+- `/engineering-partner` — Technical feasibility, security assessment (STRIDE + OWASP), API contracts, BPMN
+- `/ux-strategist` — React/Tailwind prototypes, information architecture, user flows, accessibility audits
+- `/data-analyst` — SQL queries, metrics validation, A/B test analysis, baseline data
+- `/gtm-strategist` — Value propositions, competitive positioning, battle cards, pricing strategy
+
+**Invoke full pipelines**:
+- `/discovery` — OST + discovery artifacts
+- `/prd` — BMAD PRD generation (includes Data Analyst metrics validation at step 8)
+- `/feature` — End-to-end feature workflow (supports parallel notation for multi-agent runs)
+
+**Invoke PM OS maintenance** (scoped to PM OS self-improvement, not user product work):
+- `/pm-os-audit` — Quality audit via System Evaluator
+- `/pm-os-sync` — Documentation sync via Documentation Maintainer
+
+**Architecture note**: `.claude/agents/` is now empty. Skills are the complete and sole implementation layer. Routing, quality enforcement, and specialist capabilities all live in skills + this CLAUDE.md file.
+
+---
 
 ### Templates
 
@@ -266,8 +291,8 @@ Human PM Review & Approval
 **Process**:
 1. Check `pm-os-reference/identity/ROADMAP.md` to ensure PM OS's current phase supports new agents
 2. Use `templates/agent_spec_template.md` as foundation
-3. Generate `.claude/agents/[agent-name].md` (and optionally `.claude/commands/[name].md` for user-facing entry point)
-4. Update Orchestrator routing logic in `.claude/agents/orchestrator.md` to recognize payments-related keywords
+3. Generate `.claude/skills/[name]/SKILL.md` for the new specialist
+4. Propose updating CLAUDE.md task routing section to include the new skill's keywords
 5. Propose changes as documented enhancement for human review
 
 ---
@@ -281,22 +306,17 @@ PM OS/
 │       └── RETIRED.md                 # Retirement notice (Cursor rules deleted in Phase 5)
 ├── .claude/
 │   ├── CLAUDE.md                      # This file (project context + ambient orchestration)
-│   ├── agents/                        # Specialist agents (Claude Code sub-agents)
-│   │   ├── orchestrator.md            # Master router (deep reference)
-│   │   ├── product_arch.md            # Product Architect v2.0
-│   │   ├── engineering_partner.md     # Engineering Partner v2.0
-│   │   ├── ux_strategist.md           # UX Strategist v2.0
-│   │   ├── data_analyst.md            # Data Analyst v2.0
-│   │   ├── gtm_strategist.md          # GTM Strategist v2.0
-│   │   ├── system_evaluator.md        # System Evaluator v2.0
-│   │   ├── documentation_maintainer.md # Documentation Maintainer v2.0
-│   │   └── api_doc_reviewer.md        # API Doc Reviewer v2.0
-│   └── commands/                      # User-invocable skills (slash commands)
-│       ├── discovery.md               # /discovery — OST generation
-│       ├── prd.md                     # /prd — BMAD PRD generation
-│       ├── feature.md                 # /feature — Full pipeline
-│       ├── audit.md                   # /audit — Quality audit
-│       └── sync-docs.md               # /sync-docs — Doc sync
+│   └── skills/                        # Skills — sole canonical source for all specialist capabilities
+│       ├── discovery/SKILL.md         # /discovery — OST + discovery artifacts
+│       ├── prd/SKILL.md               # /prd — BMAD PRD generation
+│       ├── feature/SKILL.md           # /feature — Full pipeline (parallel workflows)
+│       ├── product-architect/SKILL.md # /product-architect — Discovery, PRD, agent specs
+│       ├── engineering-partner/SKILL.md # /engineering-partner — Feasibility, security, API
+│       ├── ux-strategist/SKILL.md     # /ux-strategist — Prototypes, IA, accessibility
+│       ├── data-analyst/SKILL.md      # /data-analyst — SQL, metrics, A/B analysis
+│       ├── gtm-strategist/SKILL.md    # /gtm-strategist — Positioning, battle cards, GTM
+│       ├── pm-os-audit/SKILL.md       # /pm-os-audit — PM OS quality audit (maintenance)
+│       └── pm-os-sync/SKILL.md        # /pm-os-sync — PM OS doc sync (maintenance)
 ├── identity/                          # YOUR organizational context (customize templates!)
 │   ├── README.md                      # Customization guide
 │   ├── STRATEGY.md                    # YOUR vision, mission, NSM (template)
@@ -404,7 +424,7 @@ Validate against identity/STANDARDS.md quality gates:
 | **2** | ✅ Complete (4 hrs) | Execution Layer | Data Analyst, GTM Strategist (5-agent team complete) |
 | **3** | ✅ Complete (2 days) | Self-Improvement | System Evaluator, Doc Maintainer, quality dashboard |
 | **4** | ✅ Complete | MCP Integration Suite | Atlassian Rovo MCP (Jira + Confluence, official integration) |
-| **5** | ✅ Complete (1 day) | Skills Migration | Claude Code-only, 9 .mdc deleted, 5 skills created |
+| **5** | ✅ Complete (1 day) | Skills Migration | Skills as canonical source; 10 skills created, 5 redundant agent files removed |
 | **6** | ✅ Complete (1 day) | Data Intelligence | DATA_DICTIONARY, metrics validation template, Data Analyst v2.1 |
 | **7** | ✅ Complete (1 day) | Claude Code Advanced Workflows | A/B test template, domain specialist framework, PARALLEL_WORKFLOWS guide |
 | **8** | 🟡 Planned | Enterprise | Multi-user, security hardening, web prototype |
