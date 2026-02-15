@@ -30,7 +30,7 @@ PM OS/
 │   └── skills/             # Canonical specialist source (10 skills — invoked as /skill-name)
 │       ├── discovery/      # /discovery — OST + discovery artifacts
 │       ├── prd/            # /prd — BMAD PRD generation
-│       ├── feature/        # /feature — Full pipeline (parallel workflows)
+│       ├── feature-pipeline/ # /feature-pipeline — Full pipeline (parallel workflows)
 │       ├── product-architect/    # /product-architect — Discovery, PRD, agent specs
 │       ├── engineering-partner/  # /engineering-partner — Feasibility, security, API
 │       ├── ux-strategist/        # /ux-strategist — Prototypes, IA, accessibility
@@ -410,7 +410,7 @@ These invoke the `.claude/skills/` canonical source — self-contained specialis
 **Workflow Skills** (full pipelines):
 - `/discovery [topic]`: Generate an Opportunity Solution Tree + discovery artifacts
 - `/prd [feature]`: Draft a PRD using BMAD structure (with Data Analyst metrics validation)
-- `/feature [description]`: End-to-end feature development workflow (supports parallel agent notation)
+- `/feature-pipeline [description]`: End-to-end feature development workflow (supports parallel agent notation)
 
 **Specialist Skills** (invoke a specific domain expert directly):
 - `/product-architect [request]`: Discovery, PRD drafting, OST generation, agent spec creation
@@ -505,7 +505,7 @@ Address agents directly in any Claude Code message:
 - ✅ **UI/UX prototyping** → `/ux-strategist`
 - ✅ **Data analysis & SQL** → `/data-analyst`
 - ✅ **GTM and positioning** → `/gtm-strategist`
-- ✅ **Full pipeline** → `/feature` (parallel workflow notation supported)
+- ✅ **Full pipeline** → `/feature-pipeline` (parallel workflow notation supported)
 - ✅ **MCP integrations** → Atlassian Rovo MCP (Jira + Confluence), Google Drive MCP
 - ✅ **Self-improvement loop** → `/pm-os-audit`, `/pm-os-sync`
 

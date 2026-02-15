@@ -1,5 +1,5 @@
 ---
-name: feature
+name: feature-pipeline
 description: Run the full end-to-end PM OS feature development pipeline. Orchestrates all specialist agents from discovery through final PRD — Engineering Partner, UX Strategist, Data Analyst, and GTM Strategist run in parallel after the initial PRD draft to maximize throughput.
 ---
 

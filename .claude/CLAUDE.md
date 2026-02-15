@@ -34,7 +34,7 @@ See `identity/STRATEGY.md` for detailed metric definitions and recommended sets 
 ## Current Phase: Phase 5 (Claude Code Skills Migration) ✅ Complete → Phase 6 Next
 
 **Status**: Phase 7 Complete (2026-02-14) — Phase 8 (Enterprise Readiness) next
-**Objective**: Claude Code advanced workflows — A/B test template, domain specialist framework, PARALLEL_WORKFLOWS guide, /feature parallel notation, Data Analyst v2.2
+**Objective**: Claude Code advanced workflows — A/B test template, domain specialist framework, PARALLEL_WORKFLOWS guide, /feature-pipeline parallel notation, Data Analyst v2.2
 **Phase History**: `pm-os-reference/documentation/phase-history/PHASE_7_ADVANCED_WORKFLOWS.md`
 
 ### Phase 1 Deliverables
@@ -88,7 +88,7 @@ This file (CLAUDE.md) is the ambient orchestration layer — it routes all tasks
 - Prototypes / IA / user flows / accessibility → `/ux-strategist`
 - SQL / metrics validation / A/B analysis → `/data-analyst`
 - Positioning / battle cards / GTM → `/gtm-strategist`
-- Full pipeline → `/feature`
+- Full pipeline → `/feature-pipeline`
 - PM OS quality audit → `/pm-os-audit`
 - PM OS doc sync → `/pm-os-sync`
 
@@ -108,7 +108,7 @@ Skills in `.claude/skills/` are the **canonical source** for all specialist capa
 **Invoke full pipelines**:
 - `/discovery` — OST + discovery artifacts
 - `/prd` — BMAD PRD generation (includes Data Analyst metrics validation at step 8)
-- `/feature` — End-to-end feature workflow (supports parallel notation for multi-agent runs)
+- `/feature-pipeline` — End-to-end feature workflow (supports parallel notation for multi-agent runs)
 
 **Invoke PM OS maintenance** (scoped to PM OS self-improvement, not user product work):
 - `/pm-os-audit` — Quality audit via System Evaluator
@@ -309,7 +309,7 @@ PM OS/
 │   └── skills/                        # Skills — sole canonical source for all specialist capabilities
 │       ├── discovery/SKILL.md         # /discovery — OST + discovery artifacts
 │       ├── prd/SKILL.md               # /prd — BMAD PRD generation
-│       ├── feature/SKILL.md           # /feature — Full pipeline (parallel workflows)
+│       ├── feature-pipeline/SKILL.md  # /feature-pipeline — Full pipeline (parallel workflows)
 │       ├── product-architect/SKILL.md # /product-architect — Discovery, PRD, agent specs
 │       ├── engineering-partner/SKILL.md # /engineering-partner — Feasibility, security, API
 │       ├── ux-strategist/SKILL.md     # /ux-strategist — Prototypes, IA, accessibility

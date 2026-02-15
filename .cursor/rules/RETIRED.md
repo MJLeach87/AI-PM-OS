@@ -36,7 +36,7 @@ Available skills:
 - `/gtm-strategist` — Positioning, battle cards, GTM
 - `/discovery` — Full OST + discovery pipeline
 - `/prd` — BMAD PRD generation
-- `/feature` — End-to-end feature workflow
+- `/feature-pipeline` — End-to-end feature workflow
 - `/pm-os-audit` — PM OS quality audit
 - `/pm-os-sync` — PM OS documentation sync
 

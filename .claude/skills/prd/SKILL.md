@@ -58,4 +58,4 @@ Save to `execution/prds/YYYY-MM-DD_PRD_[feature]_v0.1.md`
 After saving, offer:
 - **Jira story**: "Would you like me to create a linked Jira story in your project via Rovo MCP?"
 - **Metrics validation**: If `identity/DATA_DICTIONARY.md` is customized — "Would you like the Data Analyst to validate these metrics against your data schema and generate baseline SQL?"
-- **Full pipeline**: "Ready to run the full feature pipeline? Use `/feature [feature name]` to run Engineering Partner + UX Strategist + Data Analyst + GTM Strategist in parallel."
+- **Full pipeline**: "Ready to run the full feature pipeline? Use `/feature-pipeline [feature name]` to run Engineering Partner + UX Strategist + Data Analyst + GTM Strategist in parallel."
