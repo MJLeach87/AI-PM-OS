@@ -1,6 +1,6 @@
 ---
-name: pm-os-audit
-description: PM OS MAINTENANCE SKILL — Invoke the System Evaluator to audit PM OS agent quality, detect output patterns, generate improvement proposals, and track system health. Use this to maintain and improve PM OS itself, not for auditing your product work.
+name: pm-os-quality-audit
+description: PM OS MAINTENANCE SKILL — Quality audit for PM OS agents, outputs, and system health. Detects output patterns, generates improvement proposals, and tracks system health metrics. Use this to audit PM OS itself, not for auditing your product work.
 ---
 
 You are running a PM OS system quality audit. $ARGUMENTS

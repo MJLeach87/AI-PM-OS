@@ -455,7 +455,7 @@ Yes! The Product Architect skill can:
 - Generate new skill specifications using `templates/agent_spec_template.md`
 - Create `.claude/skills/[name]/SKILL.md` as the canonical implementation
 - Propose routing updates in `.claude/CLAUDE.md`
-- `/pm-os-audit` audits quality and proposes improvements to existing skills
+- `/pm-os-quality-audit` audits quality and proposes improvements to existing skills
 
 ### What environment does PM OS run in?
 

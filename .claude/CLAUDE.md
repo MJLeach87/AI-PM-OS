@@ -89,8 +89,9 @@ This file (CLAUDE.md) is the ambient orchestration layer — it routes all tasks
 - SQL / metrics validation / A/B analysis → `/data-analyst`
 - Positioning / battle cards / GTM → `/gtm-strategist`
 - Full pipeline → `/feature-pipeline`
-- PM OS quality audit → `/pm-os-audit`
-- PM OS doc sync → `/pm-os-sync`
+- PM OS quality audit → `/pm-os-quality-audit`
+- PM OS doc sync → `/pm-os-doc-sync`
+- Push / release / pre-push check → `scripts/pre-push` (automatic on every push) + `/release-check` (deep periodic review)
 
 ### Skills Layer (Canonical Specialist Source)
 
@@ -111,8 +112,9 @@ Skills in `.claude/skills/` are the **canonical source** for all specialist capa
 - `/feature-pipeline` — End-to-end feature workflow (supports parallel notation for multi-agent runs)
 
 **Invoke PM OS maintenance** (scoped to PM OS self-improvement, not user product work):
-- `/pm-os-audit` — Quality audit via System Evaluator
-- `/pm-os-sync` — Documentation sync via Documentation Maintainer
+- `/pm-os-quality-audit` — Quality audit via System Evaluator
+- `/pm-os-doc-sync` — Documentation sync via Documentation Maintainer
+- `/release-check` — Deep pre-push review (doc currency, commit quality, phase alignment, PII scan)
 
 **Architecture note**: `.claude/agents/` is now empty. Skills are the complete and sole implementation layer. Routing, quality enforcement, and specialist capabilities all live in skills + this CLAUDE.md file.
 
@@ -315,8 +317,9 @@ PM OS/
 │       ├── ux-strategist/SKILL.md     # /ux-strategist — Prototypes, IA, accessibility
 │       ├── data-analyst/SKILL.md      # /data-analyst — SQL, metrics, A/B analysis
 │       ├── gtm-strategist/SKILL.md    # /gtm-strategist — Positioning, battle cards, GTM
-│       ├── pm-os-audit/SKILL.md       # /pm-os-audit — PM OS quality audit (maintenance)
-│       └── pm-os-sync/SKILL.md        # /pm-os-sync — PM OS doc sync (maintenance)
+│       ├── pm-os-quality-audit/SKILL.md # /pm-os-quality-audit — PM OS quality audit (maintenance)
+│       ├── pm-os-doc-sync/SKILL.md    # /pm-os-doc-sync — PM OS doc sync (maintenance)
+│       └── release-check/SKILL.md     # /release-check — Pre-push deep review (maintenance)
 ├── identity/                          # YOUR organizational context (customize templates!)
 │   ├── README.md                      # Customization guide
 │   ├── STRATEGY.md                    # YOUR vision, mission, NSM (template)
@@ -357,6 +360,8 @@ PM OS/
 │   ├── config.json                    # MCP server configurations
 │   ├── credentials/                   # Gitignored secrets
 │   └── setup_guides/                  # Service-specific setup docs
+├── scripts/
+│   └── pre-push                       # Automated git pre-push hook (security + hygiene)
 ├── .gitignore                         # Excludes .env, credentials
 ├── .env.example                       # Credential template
 ├── README.md                          # Product overview

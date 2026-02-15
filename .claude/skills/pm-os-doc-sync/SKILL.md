@@ -1,6 +1,6 @@
 ---
-name: pm-os-sync
-description: PM OS MAINTENANCE SKILL — Invoke the Documentation Maintainer to synchronize PM OS meta-documentation. Keeps CLAUDE.md, ROADMAP, phase history, and quality dashboard consistent after agent updates, phase completions, or structural changes. Not for syncing your product documentation.
+name: pm-os-doc-sync
+description: PM OS MAINTENANCE SKILL — Documentation sync for PM OS meta-documentation. Keeps CLAUDE.md, ROADMAP, phase history, and quality dashboard consistent after agent updates, phase completions, or structural changes. Not for syncing your product documentation.
 ---
 
 You are running PM OS documentation sync. $ARGUMENTS

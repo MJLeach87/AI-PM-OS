@@ -19,8 +19,8 @@ PM OS migrated to **Claude Code-only** operation as of Phase 5. All Cursor `.mdc
 | `ux_strategist.mdc` | `.claude/skills/ux-strategist/SKILL.md` |
 | `data_analyst.mdc` | `.claude/skills/data-analyst/SKILL.md` |
 | `gtm_strategist.mdc` | `.claude/skills/gtm-strategist/SKILL.md` |
-| `system_evaluator.mdc` | `.claude/skills/pm-os-audit/SKILL.md` |
-| `documentation_maintainer.mdc` | `.claude/skills/pm-os-sync/SKILL.md` |
+| `system_evaluator.mdc` | `.claude/skills/pm-os-quality-audit/SKILL.md` |
+| `documentation_maintainer.mdc` | `.claude/skills/pm-os-doc-sync/SKILL.md` |
 | `api_doc_reviewer.mdc` | `.claude/skills/engineering-partner/SKILL.md` (API doc review is part of Engineering Partner) |
 
 ## New Architecture
@@ -37,8 +37,9 @@ Available skills:
 - `/discovery` — Full OST + discovery pipeline
 - `/prd` — BMAD PRD generation
 - `/feature-pipeline` — End-to-end feature workflow
-- `/pm-os-audit` — PM OS quality audit
-- `/pm-os-sync` — PM OS documentation sync
+- `/pm-os-quality-audit` — PM OS quality audit
+- `/pm-os-doc-sync` — PM OS documentation sync
+- `/release-check` — Pre-push deep review (security, doc currency, phase alignment)
 
 ## Accessing Archived Content
 

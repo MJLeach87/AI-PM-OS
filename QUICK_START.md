@@ -36,8 +36,9 @@ PM OS/
 │       ├── ux-strategist/        # /ux-strategist — Prototypes, IA, accessibility
 │       ├── data-analyst/         # /data-analyst — SQL, metrics, A/B analysis
 │       ├── gtm-strategist/       # /gtm-strategist — Positioning, battle cards, GTM
-│       ├── pm-os-audit/          # /pm-os-audit — PM OS quality audit
-│       └── pm-os-sync/           # /pm-os-sync — PM OS doc sync
+│       ├── pm-os-quality-audit/  # /pm-os-quality-audit — PM OS quality audit
+│       ├── pm-os-doc-sync/       # /pm-os-doc-sync — PM OS doc sync
+│       └── release-check/        # /release-check — Pre-push deep review
 ├── identity/               # YOUR org's context (customize templates!)
 ├── pm-os-reference/identity/      # PM OS's own context (reference examples)
 ├── execution/              # YOUR outputs go here
@@ -46,6 +47,23 @@ PM OS/
 ```
 
 **If missing**: Clone the PM OS repository or follow installation in README.md
+
+### Step 1b: Install Pre-Push Hook (One-Time, Required)
+
+This installs the automated security gate that blocks pushes containing secrets, conflict markers, or junk files:
+
+```bash
+cp scripts/pre-push .git/hooks/pre-push
+chmod +x .git/hooks/pre-push
+```
+
+**What it checks on every push** (automatic, no Claude needed):
+- `.env` not tracked by git
+- No secret patterns (`API_KEY=`, `SECRET=`, `ghp_`, `sk-`, `AKIA`, etc.)
+- No merge conflict markers (`<<<<<<<`, `>>>>>>>`)
+- No junk files (`*.tmp`, `*.log`, `nul`, `test_*.js`)
+
+**For deeper periodic review** (after major changes or phase completions): `/release-check`
 
 ### Step 2: Open in Claude Code
 
@@ -323,14 +341,20 @@ Read execution/README.md                             # Guide to YOUR artifact wo
 ---
 
 ### System Evaluator / Quality Audit
-**Invoke With**: `/pm-os-audit`
+**Invoke With**: `/pm-os-quality-audit`
 **What It Does**: Audits PM OS agents, templates, and phase consistency; proposes self-improvement
 
 ---
 
 ### Documentation Maintainer / Doc Sync
-**Invoke With**: `/pm-os-sync`
+**Invoke With**: `/pm-os-doc-sync`
 **What It Does**: Syncs PM OS documentation across CLAUDE.md, ROADMAP.md, README and phase history files
+
+---
+
+### Pre-Push Gate / Release Check
+**Invoke With**: `/release-check`
+**What It Does**: Deep pre-push review — checks documentation currency, commit message quality, phase alignment, and PII in artifacts. Run after major changes. (Automated security + hygiene runs via `scripts/pre-push` hook on every push.)
 
 ---
 
@@ -420,8 +444,9 @@ These invoke the `.claude/skills/` canonical source — self-contained specialis
 - `/gtm-strategist [request]`: Value propositions, competitive positioning, battle cards, pricing strategy
 
 **PM OS Maintenance Skills** (scoped to PM OS self-improvement):
-- `/pm-os-audit`: Run a quality audit via System Evaluator
-- `/pm-os-sync`: Sync PM OS documentation across files via Documentation Maintainer
+- `/pm-os-quality-audit`: Run a quality audit via System Evaluator
+- `/pm-os-doc-sync`: Sync PM OS documentation across files via Documentation Maintainer
+- `/release-check`: Deep pre-push review (doc currency, commit quality, phase alignment, PII scan)
 
 ### Natural Language Invocation
 Address agents directly in any Claude Code message:
@@ -507,7 +532,7 @@ Address agents directly in any Claude Code message:
 - ✅ **GTM and positioning** → `/gtm-strategist`
 - ✅ **Full pipeline** → `/feature-pipeline` (parallel workflow notation supported)
 - ✅ **MCP integrations** → Atlassian Rovo MCP (Jira + Confluence), Google Drive MCP
-- ✅ **Self-improvement loop** → `/pm-os-audit`, `/pm-os-sync`
+- ✅ **Self-improvement loop** → `/pm-os-quality-audit`, `/pm-os-doc-sync`, `/release-check`
 
 ### Phase 8 (Enterprise) — Coming Next
 - 🟡 Multi-user Git workflow (CODEOWNERS, branch protection)
