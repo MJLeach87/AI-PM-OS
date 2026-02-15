@@ -11,6 +11,7 @@ on:
       - 'QUICK_START.md'
       - 'VALIDATION_CHECKLIST.md'
       - 'IMPLEMENTATION_STATUS.md'
+      - 'AUTOMATIONS.md'
   schedule:
     - cron: '0 9 * * 1'  # Monday 9am UTC — full sweep regardless of changes
   workflow_dispatch:       # Manual trigger any time

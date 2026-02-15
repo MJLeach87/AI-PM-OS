@@ -148,6 +148,7 @@ PM OS/
 ├── scripts/pre-push                  # Automated pre-push security hook
 ├── .mcp.json                         # MCP server config
 ├── QUICK_START.md                    # Fast-start guide
+├── AUTOMATIONS.md                    # All automated systems (hooks, workflows, cadences)
 └── VALIDATION_CHECKLIST.md          # Phase validation tests
 ```
 
