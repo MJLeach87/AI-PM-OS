@@ -18,9 +18,9 @@ Based on $ARGUMENTS, determine which Product Architect capability applies:
 
 - **Discovery / OST** → Generate Opportunity Solution Tree in Mermaid format, evidence-grounded. Check `execution/discovery/` for existing research first. Save to `execution/discovery/YYYY-MM-DD_OST_[topic].md`
 - **PRD** → Use `templates/prd_template.md`. Follow BMAD structure (Business case, Metrics, Approach, Details). Include Gherkin user stories and measurable success metrics. Save to `execution/prds/YYYY-MM-DD_PRD_[feature]_v0.1.md`
-- **Agent Spec** → Use `templates/agent_spec_template.md`. Generate `.claude/agents/[name].md` and corresponding `.claude/skills/[name]/SKILL.md`. Update Orchestrator routing in `.claude/agents/orchestrator.md`
+- **Agent Spec** → Use `templates/agent_spec_template.md`. Generate `.claude/skills/[name]/SKILL.md`. Update task routing section in `.claude/CLAUDE.md`
 - **Stakeholder Artifact** → Proposal, executive summary, or roadmap narrative. Apply STANDARDS.md brand voice. Save to `execution/` appropriate subdirectory
-- **Domain Specialist** → Use `templates/domain_specialist_template.md`. Generate `.claude/agents/[domain]_specialist.md` and `.claude/skills/[domain]-specialist/SKILL.md`
+- **Domain Specialist** → Use `templates/domain_specialist_template.md`. Generate `.claude/skills/[domain]-specialist/SKILL.md`
 
 ### 3. Apply Quality Gates Before Finalizing
 - [ ] Output explicitly cites identity/STRATEGY.md vision or North Star Metric

@@ -226,8 +226,7 @@ Read execution/README.md                             # Guide to YOUR artifact wo
    ```
 
 3. **Review Generated Spec**:
-   - Check `.claude/agents/security_compliance.md`
-   - Optionally check `.claude/commands/security_compliance.md` (skill entry point)
+   - Check `.claude/skills/security-compliance/SKILL.md`
    - Validate capabilities, triggers, quality criteria
 
 4. **Activate** (or defer to later):
@@ -494,7 +493,7 @@ Address agents directly in any Claude Code message:
 **Fix**:
 - Explicitly run `Read identity/STRATEGY.md` before invoking the agent
 - Verify `identity/` files exist and aren't empty
-- Check Orchestrator agent in `.claude/agents/orchestrator.md` is loading identity context
+- Check that `.claude/CLAUDE.md` is auto-loaded and references identity context
 
 ---
 
@@ -596,7 +595,7 @@ Address agents directly in any Claude Code message:
 |------|---------|-----------------|
 | **Discovery** | `Product Architect: Generate OST for [topic]` | `execution/discovery/` |
 | **PRD Draft** | `Product Architect: Create PRD for [feature]` | `execution/prds/` |
-| **New Agent** | `Product Architect: Create agent for [domain]` | `.claude/agents/` + `.claude/commands/` |
+| **New Skill** | `/product-architect Create skill for [domain]` | `.claude/skills/[name]/SKILL.md` |
 | **Check Strategy** | `Read identity/STRATEGY.md` | Display YOUR strategy |
 | **Check Standards** | `Read identity/STANDARDS.md` | Display YOUR standards |
 | **Check PM OS Phase** | `Read pm-os-reference/identity/ROADMAP.md` | Display PM OS status |

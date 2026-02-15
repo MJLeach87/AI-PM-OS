@@ -354,10 +354,10 @@ Want to see a complete, real-world Identity Layer? Check out `pm-os-reference/id
 - [QUICK_START.md](../QUICK_START.md) - Fast-start guide with Identity Layer customization emphasis
 - [.claude/CLAUDE.md](../.claude/CLAUDE.md) - Project context explaining Identity Layer architecture
 
-**Agent Documentation**:
-- [.claude/agents/](../.claude/agents/) - Agent specification files that load your Identity Layer
-- [Product Architect](../.claude/agents/product_arch.md) - Generates PRDs using YOUR strategy
-- [Engineering Partner](../.claude/agents/engineering_partner.md) - Validates specs using YOUR tech stack
+**Skills Documentation**:
+- [.claude/skills/](../.claude/skills/) - All specialist skills (canonical source)
+- [Product Architect](../.claude/skills/product-architect/SKILL.md) - Generates PRDs using YOUR strategy
+- [Engineering Partner](../.claude/skills/engineering-partner/SKILL.md) - Validates specs using YOUR tech stack
 
 **Workspace Guides**:
 - [execution/README.md](../execution/README.md) - Product workspace artifact pipeline guide

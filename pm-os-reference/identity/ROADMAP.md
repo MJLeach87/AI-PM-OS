@@ -243,6 +243,28 @@ This roadmap describes how PM OS will build itself. It is maintained by the Prod
 
 ---
 
+### Inter-Phase: Skills-Only Architecture (Agent Retirement) ✅ COMPLETE
+
+**Date**: 2026-02-15
+**Type**: Architectural cleanup (between Phase 7 → Phase 8)
+**Status**: ✅ COMPLETE
+
+**Objective**: Complete the skills migration started in Phase 5 by retiring all `.claude/agents/` files, making skills the sole canonical source.
+
+**Context**: Phase 5 created 10 skills and removed 5 redundant agent files. Phase 7 closed, 4 agents remained (orchestrator, system_evaluator, documentation_maintainer, api_doc_reviewer). Routing/orchestration analysis confirmed CLAUDE.md provides full ambient routing; skills cover all specialist and maintenance capabilities. All agent files removed.
+
+**Key Changes**:
+- ✅ Deleted all 9 `.claude/agents/` files (5 in Phase 5 + 4 now)
+- ✅ `.claude/agents/` directory now empty — skills are the sole implementation layer
+- ✅ CLAUDE.md updated as ambient orchestrator + routing authority
+- ✅ QUICK_START.md v2.0 — all 10 skills documented, agents section removed
+- ✅ Active docs cleaned: VALIDATION_CHECKLIST.md, README.md, templates, identity/README.md
+
+**ADR**: `pm-os-reference/documentation/2026-02-15_ADR_Skills-Only-Architecture.md`
+**Phase History**: `pm-os-reference/documentation/phase-history/PHASE_5_ADDENDUM_Agent-Retirement_2026-02-15.md`
+
+---
+
 ### Phase 8: Enterprise Readiness 🟡 PLANNED
 
 **Status**: Not started

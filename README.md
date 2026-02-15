@@ -216,11 +216,10 @@ PM OS integrates external tools via Model Context Protocol:
 **Example**: "Add a new agent for handling payments domain"
 
 **What Happens**:
-1. Product Architect checks `pm-os-reference/identity/ROADMAP.md` to verify PM OS phase supports new agents
+1. Product Architect checks `pm-os-reference/identity/ROADMAP.md` to verify PM OS phase supports new skills
 2. Uses `templates/agent_spec_template.md` as foundation
-3. Generates the agent file at `.claude/agents/[name].md`
-4. Optionally creates `.claude/commands/[name].md` for a user-facing slash command
-5. Proposes Orchestrator routing update in `.claude/agents/orchestrator.md`
+3. Generates the skill file at `.claude/skills/[name]/SKILL.md`
+4. Proposes task routing update in `.claude/CLAUDE.md`
 
 **Current Phase**: Phase 4 (MCP Integration Suite) - Planning
 
@@ -363,17 +362,16 @@ MCP integrations are configured but disabled by default. To enable when ready:
 
 **CODEOWNERS** (future):
 - `identity/*` requires Head of Product approval
-- `.claude/agents/*` and `.claude/commands/*` require validation testing
+- `.claude/skills/*` and `.claude/CLAUDE.md` require validation testing
 
 ---
 
 ## Troubleshooting
 
-### "Agent not responding"
-- Verify `.claude/agents/[agent].md` exists
-- Verify context in `.claude/CLAUDE.md` is loaded
-- Check Orchestrator routing logic in `.claude/agents/orchestrator.md` recognizes keywords
-- For skill invocation, verify `.claude/commands/[skill].md` exists
+### "Skill not responding"
+- Verify `.claude/skills/[skill]/SKILL.md` exists
+- Verify `.claude/CLAUDE.md` is loaded and task routing section covers the request keywords
+- Use explicit invocation: `/skill-name [request]`
 
 ### "Identity Layer not loading"
 - Verify files exist in `identity/` directory
@@ -428,10 +426,9 @@ MCP integrations are configured but disabled by default. To enable when ready:
 - **`pm-os-reference/identity/`**: PM OS's own organizational context (reference examples)
 - **`templates/`**: All artifact templates
 
-### Agent Documentation
-- **`.claude/agents/orchestrator.md`**: Orchestrator agent logic
-- **`.claude/agents/product_arch.md`**: Product Architect agent
-- **`.claude/commands/`**: Skill layer - user-facing slash commands
+### Skills Documentation
+- **`.claude/skills/`**: All 10 specialist skills (canonical source)
+- **`.claude/CLAUDE.md`**: Routing logic, identity context, project orchestration
 
 ### Future Documentation (Phases 1+)
 - `docs/GETTING_STARTED.md`: PM onboarding guide
@@ -454,11 +451,11 @@ PM OS adds:
 
 ### Can PM OS really build itself?
 
-Yes! The Product Architect agent can:
-- Generate new agent specifications using `templates/agent_spec_template.md`
-- Create `.claude/agents/[name].md` and optionally `.claude/commands/[name].md`
-- Propose Orchestrator routing updates in `.claude/agents/orchestrator.md`
-- By Phase 3, System Evaluator proposes improvements to existing agents
+Yes! The Product Architect skill can:
+- Generate new skill specifications using `templates/agent_spec_template.md`
+- Create `.claude/skills/[name]/SKILL.md` as the canonical implementation
+- Propose routing updates in `.claude/CLAUDE.md`
+- `/pm-os-audit` audits quality and proposes improvements to existing skills
 
 ### What environment does PM OS run in?
 

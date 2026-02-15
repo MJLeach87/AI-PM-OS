@@ -22,16 +22,15 @@ Run these to confirm setup is complete:
 
 ```bash
 # Verify directory structure
-ls -la .claude/agents/
-ls -la .claude/commands/
+ls -la .claude/skills/
 ls -la identity/
 ls -la templates/
 ls -la execution/
 
 # Verify key files exist
 cat identity/STRATEGY.md | head -20
-cat .claude/agents/orchestrator.md | head -20
-cat .claude/agents/product_arch.md | head -20
+cat .claude/CLAUDE.md | head -20
+cat .claude/skills/product-architect/SKILL.md | head -20
 ```
 
 Expected: All files present, no errors
@@ -102,10 +101,9 @@ graph TD
 ❌ **FAIL** if Mermaid invalid, no evidence, or <2 solutions per opportunity
 
 ### If Test Fails
-1. Check Product Architect agent file exists: `.claude/agents/product_arch.md`
+1. Check Product Architect skill exists: `.claude/skills/product-architect/SKILL.md`
 2. Verify Identity Layer loaded: Look for references to `identity/STRATEGY.md`
-3. Review agent logic in `.claude/agents/product_arch.md` (OST generation section)
-4. Re-run with more specific prompt: "Generate a detailed OST for [topic] using Mermaid diagram format"
+3. Use explicit invocation: `/product-architect Generate a detailed OST for [topic] using Mermaid diagram format`
 
 ---
 
@@ -155,7 +153,7 @@ Or via skill command:
 ### If Test Fails
 1. Check `templates/prd_template.md` is being used: Look for template structure in output
 2. Verify `identity/STANDARDS.md` loaded: Check for approved tech stack mentioned
-3. Review Product Architect PRD generation logic in `.claude/agents/product_arch.md`
+3. Review Product Architect PRD generation logic in `.claude/skills/product-architect/SKILL.md`
 4. Re-run with explicit template reference: "Create a PRD using templates/prd_template.md for [feature]"
 
 ---
@@ -174,8 +172,8 @@ Product Architect: Create a new agent for reviewing API documentation quality
 ### Expected Output
 
 **Files Created**:
-1. `.claude/agents/api_doc_reviewer.md` (required - agent logic)
-2. `.claude/commands/api_doc_reviewer.md` (optional - skill command entry point)
+1. `.claude/skills/api-doc-reviewer/SKILL.md` (required - skill logic)
+2. Update CLAUDE.md task routing to include API doc review keywords (required)
 
 **Structure**: Follow `templates/agent_spec_template.md` with these sections:
 - Overview (purpose, status, created date)
@@ -189,14 +187,14 @@ Product Architect: Create a new agent for reviewing API documentation quality
 
 ### Validation Criteria
 
-- [ ] **Agent file exists**: `.claude/agents/api_doc_reviewer.md` (required)
+- [ ] **Skill file exists**: `.claude/skills/api-doc-reviewer/SKILL.md` (required)
 - [ ] **All template sections present**: No "[TODO]" placeholders remaining
 - [ ] **Capabilities section complete**: 3-5 capabilities with examples
 - [ ] **Routing triggers defined**: File patterns (glob) and/or keywords
 - [ ] **Non-negotiables specified**: Quality criteria and security requirements
 - [ ] **Examples include I/O**: Show expected input and output for each test case
 - [ ] **References identity/STANDARDS.md**: Enforces approved standards
-- [ ] **Orchestrator routing proposed**: Notes how Orchestrator should route to this agent
+- [ ] **CLAUDE.md routing proposed**: Notes keyword triggers and routing logic to add to `.claude/CLAUDE.md`
 
 ### Success Criteria
 ✅ **PASS** if all 8 validation criteria met
@@ -204,8 +202,8 @@ Product Architect: Create a new agent for reviewing API documentation quality
 
 ### If Test Fails
 1. Check `templates/agent_spec_template.md` exists and is complete
-2. Verify `.claude/agents/api_doc_reviewer.md` was created (this is the required output)
-3. Review Product Architect agent spec generation logic in `.claude/agents/product_arch.md`
+2. Verify `.claude/skills/api-doc-reviewer/SKILL.md` was created (this is the required output)
+3. Review Product Architect skill creation logic in `.claude/skills/product-architect/SKILL.md`
 4. Re-run with template reference: "Create agent spec using templates/agent_spec_template.md for [domain]"
 
 ---
@@ -240,9 +238,9 @@ From **Test 3 (Agent Spec)**:
 
 ### If Test Fails
 1. Verify `.claude/CLAUDE.md` exists and is comprehensive
-2. Check `.claude/agents/orchestrator.md` exists and includes identity context loading logic
+2. Check `.claude/CLAUDE.md` includes identity context loading logic in the Orchestration section
 3. Manually test: Ask "What is our North Star Metric?" and verify response cites `identity/STRATEGY.md`
-4. Review Orchestrator context injection logic in `.claude/agents/orchestrator.md`
+4. Review context injection logic in the "Standard Task Routing" section of `.claude/CLAUDE.md`
 
 ---
 
@@ -295,9 +293,9 @@ Product Architect: Articulate the detailed Phase 1 implementation plan for PM OS
 
 ### If Test Fails
 1. Check `identity/ROADMAP.md` exists and Phase 1 section is complete
-2. Verify Product Architect has roadmap awareness in `.claude/agents/product_arch.md`
+2. Verify Product Architect has roadmap awareness in `.claude/skills/product-architect/SKILL.md`
 3. Re-run with explicit roadmap reference: "Using identity/ROADMAP.md, articulate the Phase 1 plan"
-4. Review Orchestrator context loading in `.claude/agents/orchestrator.md`
+4. Review context loading in the "Standard Task Routing" section of `.claude/CLAUDE.md`
 
 ---
 
@@ -339,7 +337,7 @@ Product Architect: Articulate the detailed Phase 1 implementation plan for PM OS
 **If multiple tests fail**:
 - Review Orchestrator routing logic (may be routing to wrong agent)
 - Check for file corruption (re-read template files)
-- Verify environment setup (check `.claude/CLAUDE.md` is loaded, agents exist in `.claude/agents/`)
+- Verify environment setup (check `.claude/CLAUDE.md` is loaded, skills exist in `.claude/skills/`)
 
 ### Partial Success Scenarios
 
@@ -406,7 +404,7 @@ Save validation results to `pm-os-reference/documentation/validation-reports/YYY
 
 ### Test 3: Agent Spec Creation
 - **Status**: [PASS / FAIL]
-- **File Created**: .claude/agents/[filename] (required); .claude/commands/[filename] (optional)
+- **File Created**: .claude/skills/[name]/SKILL.md (required)
 - **Criteria Met**: X/8
 - **Notes**: [Any observations]
 
@@ -468,7 +466,7 @@ Date: ___________________
 
 # Test 3 (15 min)
 # Command: Product Architect: Create a new agent for reviewing API documentation quality
-# Check: .claude/agents/api_doc_reviewer.md (required) + .claude/commands/api_doc_reviewer.md (optional)
+# Check: .claude/skills/api-doc-reviewer/SKILL.md (required)
 
 # Test 4 (5 min)
 # Review Tests 1-3 outputs for identity/STRATEGY.md references

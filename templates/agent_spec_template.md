@@ -126,18 +126,14 @@
 **Storage Location**: `execution/[artifact-type]/`
 **Naming Convention**: `YYYY-MM-DD_[agent-name]_[brief-title].md`
 
-### Agent File Output (When Creating a New Agent)
+### Skill File Output (When Creating a New Skill)
 
-When the Product Architect generates a new agent from this template, the output is a single
-Claude Code agent file:
+When the Product Architect generates a new specialist from this template, the output is a single skill file:
 
-**Agent file**: `.claude/agents/[agent-name].md`
+**Skill file**: `.claude/skills/[name]/SKILL.md`
 
-**Optional skill layer** (user-facing entry points):
-`.claude/commands/[agent-name].md` — creates a `/[agent-name]` slash command for quick invocation.
-Use this layer when the agent should be accessible as a top-level skill (e.g., `/discovery`, `/prd`, `/audit`).
-
-**Note**: There is no separate Cursor `.mdc` file. All agent logic lives in `.claude/agents/`.
+This is the canonical source. No separate agent file or Cursor rule is needed.
+After creating the skill, update the task routing section in `.claude/CLAUDE.md` to include trigger keywords for the new skill.
 
 **Structure**:
 ```
@@ -257,10 +253,10 @@ Description: [When this alternative is used]
 
 **Related Agents**:
 - [Agent Name]: [Relationship description]
-- Orchestrator: Routes tasks to this agent (`.claude/agents/orchestrator.md`)
+- Routing: Add trigger keywords to `.claude/CLAUDE.md` task routing section
 
-**Skill Layer** (optional):
-- `.claude/commands/[agent-name].md`: User-facing slash command entry point for this agent
+**Skill file**:
+- `.claude/skills/[name]/SKILL.md`: The canonical implementation (this file)
 
 **Related Templates**:
 - `templates/[template-name].md`

@@ -41,7 +41,7 @@ User request with domain keywords
 
 ## Template: [Domain Name] Specialist
 
-Copy this template and fill in YOUR domain's specifics. Save to `.claude/agents/[domain]_specialist.md`.
+Copy this template and fill in YOUR domain's specifics. Save to `.claude/skills/[domain]-specialist/SKILL.md`.
 
 ---
 
@@ -181,9 +181,9 @@ Standard PM OS workflows modified for [domain]:
 
 ## Triggers & Routing
 
-### Keyword Triggers (add to Orchestrator)
+### Keyword Triggers (add to CLAUDE.md routing)
 
-Add these keywords to `.claude/agents/orchestrator.md` routing table:
+Add these keywords to the task routing section in `.claude/CLAUDE.md`:
 
 ```
 [Domain] specialist keywords:
@@ -238,17 +238,17 @@ Before any artifact is finalized in this domain, verify:
 
 ## How to Activate a Domain Specialist
 
-After creating `.claude/agents/[domain]_specialist.md`:
+After creating `.claude/skills/[domain]-specialist/SKILL.md`:
 
-**Step 1: Update Orchestrator routing**
+**Step 1: Update CLAUDE.md routing**
 
-Add domain keywords to `.claude/agents/orchestrator.md` routing section so it knows when to invoke the specialist.
+Add domain keywords to the task routing section in `.claude/CLAUDE.md` so Claude knows when to invoke `/[domain]-specialist`.
 
 **Step 2: Test routing**
 
 ```
 Test prompt: "[Domain keyword]-related request"
-Expected: Orchestrator routes to [domain]_specialist → specialist loads context → hands to Product Architect
+Expected: CLAUDE.md routes to /[domain]-specialist → specialist loads context → hands to Product Architect
 ```
 
 **Step 3: Validate PRD output**
