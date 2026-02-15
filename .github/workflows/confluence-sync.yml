@@ -7,8 +7,10 @@ on:
       - '.claude/skills/**'          # Skill updates sync immediately
       - 'execution/**/*.md'          # New artifacts sync immediately
       - 'pm-os-reference/documentation/**/*.md'  # PM OS meta-docs
-      - 'README.md'
+      - '**/README.md'
       - 'QUICK_START.md'
+      - 'VALIDATION_CHECKLIST.md'
+      - 'IMPLEMENTATION_STATUS.md'
   schedule:
     - cron: '0 9 * * 1'  # Monday 9am UTC — full sweep regardless of changes
   workflow_dispatch:       # Manual trigger any time
