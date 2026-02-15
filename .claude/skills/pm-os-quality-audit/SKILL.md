@@ -68,7 +68,7 @@ Update `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md`:
 If triggered, publish a phase completion report to Confluence using the idempotency pattern:
 
 1. **Search** for an existing page:
-   - CQL: `title = "Phase [N] Completion Report: [phase name]"` AND `space = "PMOS"`
+   - CQL: `title = "Phase [N] Completion Report: [phase name]"` AND `space = "PM"`
    - Cloud ID: `d1d9d612-3182-4d76-ad10-bce2f315b8f3`
 2. **If found** → call `updateConfluencePage` with the existing page ID
 3. **If not found** → call `createConfluencePage` under parent page ID `1179649` (PM OS - Phase Reports)

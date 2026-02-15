@@ -83,7 +83,7 @@ Every opportunity in the output must cite at minimum one piece of evidence. Unci
 ### 8. Publish to Confluence
 For each artifact saved in steps 3 and 5, publish to the PM OS Confluence space using the idempotency pattern:
 
-1. **Search** for an existing page matching the artifact title in space `PMOS`
+1. **Search** for an existing page matching the artifact title in space `PM`
    - Cloud ID: `d1d9d612-3182-4d76-ad10-bce2f315b8f3`
 2. **If found** → call `updateConfluencePage` with the existing page ID
 3. **If not found** → call `createConfluencePage` under parent page ID `1146881` (PM OS - Discovery)

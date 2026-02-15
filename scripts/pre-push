@@ -42,11 +42,13 @@ else
 fi
 
 # 2. Secret patterns in tracked files
-# sk- pattern requires 20+ chars to avoid matching English words like "risk-based".
-# Real API keys (OpenAI, Anthropic) are always much longer.
-SECRET_PATTERNS='API_KEY=|SECRET=|PASSWORD=|ghp_[A-Za-z0-9]+|sk-[A-Za-z0-9]{20,}|AKIA[A-Z0-9]+'
-if git ls-files -z | xargs -0 grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -qv '^\.env'; then
-  MATCHES=$(git ls-files -z | xargs -0 grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -v '^\.env' || true)
+# Patterns require the value (after =) to not start with < or [ — this prevents
+# false positives on placeholder values like KEY=<your-value> or KEY=[placeholder].
+# sk- requires 20+ chars to avoid matching common words like "risk-based" or "task-repo".
+# scripts/pre-push is self-excluded (it contains these pattern strings as shell variables).
+SECRET_PATTERNS='API_KEY=[^<\[]|SECRET=[^<\[]|PASSWORD=[^<\[]|ghp_[A-Za-z0-9]+|sk-[A-Za-z0-9]{20,}|AKIA[A-Z0-9]+'
+if git ls-files -z | xargs -0 grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -qvE '^(\.env|scripts/pre-push)$'; then
+  MATCHES=$(git ls-files -z | xargs -0 grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -vE '^(\.env|scripts/pre-push)$' || true)
   fail "Potential secrets found in tracked files:\n$MATCHES"
 else
   ok "No secret patterns detected"

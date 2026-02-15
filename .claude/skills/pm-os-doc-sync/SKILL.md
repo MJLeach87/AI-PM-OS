@@ -57,3 +57,20 @@ Report:
 - Stale references found (count by file)
 - Updates applied vs. proposed
 - Any broken paths that need human resolution
+
+### 6b. Save Sync Report
+Save a record of this sync run to:
+`execution/improvement_proposals/YYYY-MM-DD_DocSync_[trigger].md`
+
+Where `[trigger]` is a slug of the sync trigger (e.g., `full-audit`, `after-phase-7`, `new-skill-release-check`).
+
+Contents: sync trigger, files audited, stale references found, updates applied, proposed changes (if any), broken paths.
+
+### 7. Publish to Confluence
+Publish the sync report to the PM OS Confluence space using the idempotency pattern:
+
+1. **CQL search**: `title = "Doc Sync: [trigger description]"` AND `space = "PM"`
+   - Cloud ID: `d1d9d612-3182-4d76-ad10-bce2f315b8f3`
+2. **If found** → call `updateConfluencePage` with the existing page ID
+3. **If not found** → call `createConfluencePage` under parent page ID `1212417` (PM OS - Operations)
+4. **Confirm**: State the published page title and URL to the user

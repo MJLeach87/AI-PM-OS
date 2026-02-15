@@ -85,3 +85,22 @@ Present a final table:
 
 If any ❌ items: list specific fixes required before the push proceeds.
 If only ⚠️ items: user decides whether to proceed.
+
+---
+
+### 6. Save Release Check Report
+Save a record of this review to:
+`execution/improvement_proposals/YYYY-MM-DD_ReleaseCheck_[ref].md`
+
+Where `[ref]` is a phase reference if applicable (e.g., `phase-7`), otherwise today's date (e.g., `2026-02-15`).
+
+Contents: scope, all four check results with detail, overall status, required actions (if any).
+
+### 7. Publish to Confluence
+Publish the release check report to the PM OS Confluence space using the idempotency pattern:
+
+1. **CQL search**: `title = "Release Check: [phase or date ref]"` AND `space = "PM"`
+   - Cloud ID: `d1d9d612-3182-4d76-ad10-bce2f315b8f3`
+2. **If found** → call `updateConfluencePage` with the existing page ID
+3. **If not found** → call `createConfluencePage` under parent page ID `1212417` (PM OS - Operations)
+4. **Confirm**: State the published page title and URL to the user
