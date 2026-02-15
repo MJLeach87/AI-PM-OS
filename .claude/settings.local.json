@@ -54,7 +54,26 @@
       "mcp__atlassian__createJiraIssue",
       "mcp__atlassian__addCommentToJiraIssue",
       "mcp__atlassian__getTransitionsForJiraIssue",
-      "mcp__atlassian__transitionJiraIssue"
+      "mcp__atlassian__transitionJiraIssue",
+      "mcp__atlassian__createConfluencePage",
+      "mcp__atlassian__searchConfluenceUsingCql",
+      "mcp__atlassian__getConfluencePageDescendants",
+      "Bash(npx:*)",
+      "Bash(python3:*)",
+      "mcp__atlassian__updateConfluencePage"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs');const files=fs.readdirSync('execution',{recursive:true}).filter(f=>f.endsWith('.md')&&fs.statSync('execution/'+f).mtimeMs>Date.now()-300000);if(files.length>0){console.log('Advisory: New execution/ files detected. Confirm Confluence publish step ran for:',files.join(', '));}\""
+          }
+        ]
+      }
     ]
   }
 }

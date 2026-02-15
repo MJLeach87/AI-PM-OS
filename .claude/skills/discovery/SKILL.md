@@ -79,3 +79,20 @@ Every opportunity in the output must cite at minimum one piece of evidence. Unci
 - OST complete → offer Product Architect to generate PRD for highest-priority opportunity
 - Insights summary complete → offer Data Analyst to validate quantitative baseline for top themes
 - If major gaps in research: specify what additional data would most de-risk the top opportunities
+
+### 8. Publish to Confluence
+For each artifact saved in steps 3 and 5, publish to the PM OS Confluence space using the idempotency pattern:
+
+1. **Search** for an existing page matching the artifact title in space `PMOS`
+   - Cloud ID: `d1d9d612-3182-4d76-ad10-bce2f315b8f3`
+2. **If found** → call `updateConfluencePage` with the existing page ID
+3. **If not found** → call `createConfluencePage` under parent page ID `1146881` (PM OS - Discovery)
+4. **Confirm**: State each published page title and URL to the user
+
+**Title conventions**:
+- Insights → `Insights: [topic]`
+- OST → `OST: [topic]`
+- User Flow → `User Flow: [topic]`
+- Problem Statement → `Problem Statement: [topic]`
+
+**Content**: Artifact markdown (same content written to `execution/discovery/`)

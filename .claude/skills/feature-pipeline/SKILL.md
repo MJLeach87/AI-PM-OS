@@ -58,9 +58,28 @@ Product Architect consolidates all specialist inputs:
 
 Save to `execution/prds/YYYY-MM-DD_PRD_[feature]_v1.0.md`
 
-### Step 9 — Pipeline Summary
+### Step 9a — Publish Feature Summary to Confluence
+Before presenting the summary, publish a consolidated feature summary to Confluence using the idempotency pattern:
+
+1. **Search** for an existing page:
+   - CQL: `title = "Feature Summary: [feature]"` AND `space = "PMOS"`
+   - Cloud ID: `d1d9d612-3182-4d76-ad10-bce2f315b8f3`
+2. **If found** → call `updateConfluencePage` with the existing page ID
+3. **If not found** → call `createConfluencePage` under parent page ID `1048577` (PM OS - PRDs & Discovery)
+4. **Confirm**: State the published page title and URL to the user
+
+**Title convention**: `Feature Summary: [feature]`
+
+**Content**: Consolidated summary including:
+- PRD v1.0 core sections (Business Case, Metrics, Approach)
+- Engineering Partner: complexity rating and top security requirement
+- Data Analyst: metric baselines and any instrumentation gaps
+- GTM Strategist: one-line value proposition
+
+### Step 9b — Pipeline Summary
 Present to user:
 - ✅ All artifact links (PRD v1.0, feasibility, security, IA, prototype, metrics validation, value prop)
+- ✅ Feature Summary published to Confluence
 - ⚠️ Any open items requiring human review (security risks, instrumentation gaps, open questions)
 - 📋 Suggested Jira stories to create from this pipeline
 

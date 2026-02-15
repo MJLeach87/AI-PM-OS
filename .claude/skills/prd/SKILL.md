@@ -54,7 +54,23 @@ Follow the BMAD method throughout:
 ### 4. Save the PRD
 Save to `execution/prds/YYYY-MM-DD_PRD_[feature]_v0.1.md`
 
-### 5. Offer Follow-On Actions
+### 5. Publish to Confluence
+Publish the saved PRD to the PM OS Confluence space using the idempotency pattern:
+
+1. **Search** for an existing page:
+   - CQL: `title = "PRD: [feature] (Draft)"` (for v0.x) or `title = "PRD: [feature]"` (for v1.0) AND `space = "PMOS"`
+   - Cloud ID: `d1d9d612-3182-4d76-ad10-bce2f315b8f3`
+2. **If found** → call `updateConfluencePage` with the existing page ID
+3. **If not found** → call `createConfluencePage` under parent page ID `1048577` (PM OS - PRDs & Discovery)
+4. **Confirm**: State the published Confluence page title and URL to the user
+
+**Title convention**:
+- v0.x (draft) → `PRD: [feature] (Draft)`
+- v1.0+ (final) → `PRD: [feature]`
+
+**Content**: Full PRD markdown (same content written to `execution/prds/`)
+
+### 6. Offer Follow-On Actions
 After saving, offer:
 - **Jira story**: "Would you like me to create a linked Jira story in your project via Rovo MCP?"
 - **Metrics validation**: If `identity/DATA_DICTIONARY.md` is customized — "Would you like the Data Analyst to validate these metrics against your data schema and generate baseline SQL?"
