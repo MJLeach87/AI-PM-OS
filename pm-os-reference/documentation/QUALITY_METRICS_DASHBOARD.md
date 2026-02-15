@@ -1,21 +1,21 @@
 # PM OS Quality Metrics Dashboard
 
-**Last Updated**: 2026-02-02
+**Last Updated**: 2026-02-15
 **Reporting Period**: Inception (2026-01-31) to Present
-**Dashboard Version**: 1.0
+**Dashboard Version**: 1.1
 
 ---
 
 ## Executive Summary
 
-**System Status**: ✅ Operational (Phase 3 - Self-Improvement Loop at 100%)
+**System Status**: ✅ Operational (Phase 7 Complete → Phase 8 Planned)
 
-**Key Metrics** (as of 2026-02-02):
-- **Phases Completed**: 3/7 (Phase 0, 1, 2 complete; Phase 3 at 100%)
-- **Agents Operational**: 7/7 planned core agents (100% agent team coverage)
+**Key Metrics** (as of 2026-02-15):
+- **Phases Completed**: 7/8 (Phases 0–7 complete + inter-phase agent retirement; Phase 8 planned)
+- **Skills Operational**: 11/11 skills in `.claude/skills/` (skills-only architecture since 2026-02-15)
 - **Development Velocity**: 15-30x faster than initial estimates
-- **Total Development Time**: 3 days (vs 11 weeks projected)
-- **Artifacts Generated**: 25+ deliverables across discovery, agents, specs, and documentation
+- **Total Development Time**: ~15 days across Phases 0–7 (vs 11 weeks projected for Phases 0–3 alone)
+- **Artifacts Generated**: 40+ deliverables across phases, specs, skills, and documentation
 - **Quality Gate Pass Rate**: 100% (all validation tests passed)
 
 ---
@@ -30,13 +30,14 @@
 | **1: Core Agents** | ✅ Complete | 5/5 | 100% | 2 days | 2.5 deliverables/day |
 | **2: Execution Layer** | ✅ Complete | 5/5 | 100% | 4 hours | 1.25 deliverables/hour |
 | **3: Self-Improvement** | ✅ Complete | 7/7 | 100% | 2 days | 3.5 deliverables/day |
-| **4: MCP Suite** | ✅ Complete | 4/4 | 100% | ~11 days | TBD |
+| **4: MCP Suite** | ✅ Complete | 5/5 | 100% | ~11 days | ~0.5 deliverables/day |
 | **5: Skills Migration** | ✅ Complete | 8/8 | 100% | 1 day | 8 deliverables/day |
+| **Inter-phase: Agent Retirement** | ✅ Complete | 5/5 | 100% | 1 day | 5 deliverables/day |
 | **6: Data Intelligence** | ✅ Complete | 4/4 | 100% | 1 day | 4 deliverables/day |
 | **7: Advanced Workflows** | ✅ Complete | 5/5 | 100% | 1 day | 5 deliverables/day |
 | **8: Enterprise** | 🟡 Planned | 0/5 | 0% | Not started | TBD |
 
-**Overall System Completion**: 46/58 deliverables (~79%)
+**Overall System Completion**: 57/62 deliverables (~92%)
 
 ---
 
@@ -61,37 +62,40 @@
 
 ---
 
-## 2. Agent Performance Metrics
+## 2. Skills Architecture Metrics
 
-### Agent Team Status (7/7 Operational)
+### Skills Layer Status (11/11 Operational) — Updated 2026-02-15
 
-| Agent | Version | Deployed | Artifacts Generated | Acceptance Rate | Avg Time/Artifact |
-|-------|---------|----------|--------------------|-----------------|--------------------|
-| **Orchestrator** | v1.0 | 2026-01-31 | N/A (router) | N/A | N/A |
-| **Product Architect** | v1.0 | 2026-01-31 | 5 (OSTs, PRDs, plans) | 100% | ~2 hours |
-| **Engineering Partner** | v1.2 | 2026-01-31 | 6 (feasibility, security, specs) | 100% | ~1.5 hours |
-| **UX Strategist** | v1.0 | 2026-01-31 | 3 (IA maps, prototypes) | 100% | ~2 hours |
-| **Data Analyst** | v1.0 | 2026-02-01 | 1 (metric frameworks) | 100% | ~1 hour |
-| **GTM Strategist** | v1.0 | 2026-02-01 | 1 (positioning docs) | 100% | ~1 hour |
-| **System Evaluator** | v1.0 | 2026-02-01 | 2 (audits, proposals) | 100% | ~2 hours |
-| **Documentation Maintainer** | v1.0 | 2026-02-02 | 3 (doc updates, sync) | 100% | ~1 hour |
+**Architecture Note**: PM OS migrated from agent-based to skills-only architecture in Phase 5 (2026-02-14) and completed agent retirement on 2026-02-15. `.claude/agents/` is now empty. Skills in `.claude/skills/` are the sole canonical implementation layer.
 
-**Total Artifacts Generated**: 21 deliverables (excluding infrastructure/templates)
+| Skill | Invocation | Status | Confluence Auto-Publish |
+|-------|-----------|--------|------------------------|
+| product-architect | `/product-architect` | ✅ Active | N/A (ambient specialist) |
+| engineering-partner | `/engineering-partner` | ✅ Active | N/A (ambient specialist) |
+| ux-strategist | `/ux-strategist` | ✅ Active | N/A (ambient specialist) |
+| data-analyst | `/data-analyst` | ✅ Active | N/A (ambient specialist) |
+| gtm-strategist | `/gtm-strategist` | ✅ Active | N/A (ambient specialist) |
+| discovery | `/discovery` | ✅ Active | ✅ Under PM OS - Discovery |
+| prd | `/prd` | ✅ Active | ✅ Under PM OS - PRDs & Discovery |
+| feature-pipeline | `/feature-pipeline` | ✅ Active | ✅ Under PM OS - PRDs & Discovery |
+| pm-os-quality-audit | `/pm-os-quality-audit` | ✅ Active | ✅ Under PM OS - Phase Reports (phase args) |
+| pm-os-doc-sync | `/pm-os-doc-sync` | ✅ Active | ✅ Under PM OS - Operations |
+| release-check | `/release-check` | ✅ Active | ✅ Under PM OS - Operations |
 
-### Agent Evolution Tracking
+**ADR**: `pm-os-reference/documentation/2026-02-15_ADR_Skills-Only-Architecture.md`
 
-| Agent | Initial Version | Current Version | Upgrades | Improvement Drivers |
-|-------|----------------|-----------------|----------|---------------------|
-| Orchestrator | v1.0 | v1.0 | 0 | Baseline stable |
-| Product Architect | v1.0 | v1.0 | 0 | Baseline stable |
-| Engineering Partner | v1.0 | v1.2 | 2 | +Legacy code analysis (v1.1), +Security review (v1.2) |
-| UX Strategist | v1.0 | v1.0 | 0 | Baseline stable |
-| Data Analyst | v1.0 | v1.0 | 0 | New agent |
-| GTM Strategist | v1.0 | v1.0 | 0 | New agent |
-| System Evaluator | v1.0 | v1.0 | 0 | New agent |
-| Documentation Maintainer | v1.0 | v1.0 | 0 | New agent |
+### Former Agent → Skill Mapping
 
-**Agent Evolution Rate**: 2 upgrades across 8 agents (25% upgrade rate in first 3 days)
+| Former Agent | Replaced By |
+|-------------|-------------|
+| Orchestrator v1.0 | CLAUDE.md (ambient routing) |
+| Product Architect v1.0 | `/product-architect` skill |
+| Engineering Partner v1.2 | `/engineering-partner` skill |
+| UX Strategist v1.0 | `/ux-strategist` skill |
+| Data Analyst v2.2 | `/data-analyst` skill |
+| GTM Strategist v1.0 | `/gtm-strategist` skill |
+| System Evaluator v1.0 | `/pm-os-quality-audit` skill |
+| Documentation Maintainer v1.0 | `/pm-os-doc-sync` skill |
 
 ---
 
@@ -200,29 +204,32 @@ All agents automatically load context from `identity/` before generating outputs
 
 ### MCP Integration Performance
 
-| MCP Service | Status | Avg Latency | Uptime | Error Rate |
-|-------------|--------|-------------|--------|------------|
-| **Google Drive** | ✅ Operational | 514ms | 100% | 0% |
-| Jira | 🟡 Planned | N/A | N/A | N/A |
-| Confluence | 🟡 Planned | N/A | N/A | N/A |
-| Slack | 🟡 Planned | N/A | N/A | N/A |
-| Snowflake | 🟡 Planned | N/A | N/A | N/A |
+| MCP Service | Status | Provider | Auth | Notes |
+|-------------|--------|----------|------|-------|
+| **Google Drive** | ✅ Operational | Custom MCP | OAuth 2.0 | 514ms latency; Phase 1 |
+| **Jira** | ✅ Operational | Atlassian Rovo MCP | OAuth 2.1 (browser) | Phase 4; issue creation, JQL search |
+| **Confluence** | ✅ Operational | Atlassian Rovo MCP | OAuth 2.1 (browser) | Phase 4; page CRUD, search, comments |
+| Slack | 🟡 Planned | TBD | TBD | Phase 8 |
+| Snowflake | 🟡 Planned | TBD | TBD | Phase 8 |
 
-**Performance**: Google Drive MCP achieving 514ms latency (83% faster than 3-second target)
+**Known constraint**: Confluence space creation requires Confluence UI — Rovo MCP supports page CRUD, search, and comments only. See MEMORY.md.
+
+**Config**: `.mcp.json` (project-scoped) | **Setup**: `mcp/setup_guides/ROVO_MCP_SETUP.md`
 
 ### Documentation Synchronization Status
 
-| Documentation File | Last Sync | Status | Drift Detection |
-|-------------------|-----------|--------|-----------------|
-| `pm-os-reference/identity/ROADMAP.md` | 2026-02-02 | ✅ Current | No drift |
-| `README.md` | 2026-02-02 | ✅ Current | No drift |
-| `.claude/CLAUDE.md` | 2026-02-02 | ✅ Current | No drift |
-| `QUICK_START.md` | 2026-02-02 | ✅ Current | No drift |
-| `IMPLEMENTATION_STATUS.md` | 2026-02-02 | ✅ Current | No drift |
-| `VALIDATION_CHECKLIST.md` | 2026-02-02 | ✅ Current | No drift |
-| `VELOCITY_TRACKING.md` | 2026-02-02 | ✅ Current | No drift |
+| Documentation File | Last Sync | Status | Notes |
+|-------------------|-----------|--------|-------|
+| `pm-os-reference/identity/ROADMAP.md` | 2026-02-15 | ✅ Current | Phases 4–7 + inter-phase added |
+| `README.md` | 2026-02-15 | ✅ Current | Rewritten: skills catalog focus |
+| `.claude/CLAUDE.md` | 2026-02-15 | ✅ Current | Slimmed 516→152 lines; Two Modes section |
+| `QUICK_START.md` | 2026-02-15 | ✅ Current | v2.0 — all 11 skills documented |
+| `IMPLEMENTATION_STATUS.md` | 2026-02-15 | ✅ Current | Phase 7 complete, Phase 8 planned |
+| `VALIDATION_CHECKLIST.md` | 2026-02-15 | ✅ Current | Agent refs cleaned |
+| `VELOCITY_TRACKING.md` | 2026-02-02 | ⚠️ Stale | Phase 4–7 velocity not yet added |
+| `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md` | 2026-02-15 | ✅ Current | This update |
 
-**Documentation Health**: 100% synchronized (7/7 files current)
+**Documentation Health**: 7/8 current (VELOCITY_TRACKING.md needs Phase 4–7 data)
 
 ---
 
@@ -274,10 +281,10 @@ All agents automatically load context from `identity/` before generating outputs
 | RISK-001 | MCP credential leakage | Low | High | `.gitignore` + pre-commit hooks | ✅ Mitigated |
 | RISK-002 | Agent prompt drift | Low | Medium | System Evaluator weekly audits | ✅ Mitigated (Phase 3) |
 | RISK-003 | Context overflow | Low | Medium | Identity layer sharding | ✅ Mitigated |
-| RISK-004 | OAuth complexity in Phase 4 | Medium | High | Google Drive learnings documented | ⏸️ Monitoring |
+| RISK-004 | OAuth complexity in Phase 4 | Low | Low | Atlassian Rovo MCP eliminated OAuth maintenance (official provider) | ✅ Resolved |
 | RISK-005 | Documentation drift | Low | Medium | Documentation Maintainer auto-sync | ✅ Mitigated (Phase 3) |
 
-**Active High-Impact Risks**: 1 (RISK-004 - Phase 4 OAuth complexity)
+**Active High-Impact Risks**: 0 (all known risks mitigated)
 
 ### Open Issues
 
@@ -331,33 +338,35 @@ Phase 3: ████████████████████ 100% (7/7 
 
 ## 10. Recommendations
 
-### Immediate Actions (Phase 3 → Phase 4 Transition)
+### Immediate Actions (Phase 7 Complete → Phase 8 Planned) — Updated 2026-02-15
 
-1. ✅ **Complete Phase 3 Quality Dashboard** (this document) → **DONE**
-2. 🟡 **Update ROADMAP.md**: Mark Phase 3 as 100% complete
-3. 🟡 **Update VELOCITY_TRACKING.md**: Add Phase 3 final duration
-4. 🟡 **Plan Phase 4**: Use Product Architect to generate Phase 4 MCP Integration Suite implementation plan
-5. 🟡 **Document Google Drive OAuth learnings**: Create OAuth playbook for Phase 4 MCP integrations
+1. ✅ **Update Quality Dashboard** (this document) → **DONE**
+2. ✅ **Confluence auto-publish** integrated into all relevant skills → **DONE**
+3. ✅ **Skills-only architecture** complete, agent files retired → **DONE**
+4. 🟡 **Action Jira/Confluence updates**: Create agent retirement Jira ticket + update Confluence Architecture Overview (see `execution/improvement_proposals/2026-02-15_Confluence-Jira-Update-Reference.md`)
+5. 🟡 **Fix ROADMAP.md**: Remove duplicate dependency chain entries; clear ⏳ markers in ROADMAP-001
+6. 🟡 **Update VELOCITY_TRACKING.md**: Add Phase 4–7 velocity data
+7. 🟡 **Plan Phase 8**: Enterprise Readiness scope definition
 
-### Performance Optimization Opportunities
+### Open Improvement Proposals (from 2026-02-15 audit)
 
-| Opportunity | Impact | Effort | Priority | Target Phase |
-|-------------|--------|--------|----------|--------------|
-| **Automated doc sync** | High (reduce 1-2 hr/update to 0) | Medium | High | Phase 4 |
-| **Parallel MCP integration** | Medium (reduce 8 days to 4 days) | Low | Medium | Phase 4 |
-| **Agent prompt optimization** | Medium (reduce context size 20%) | Medium | Low | Phase 6 |
-| **Caching for Google Drive** | Low (reduce 514ms to ~100ms) | Low | Low | Phase 5 |
+| ID | Title | Priority | Effort | Status |
+|----|-------|----------|--------|--------|
+| IP-001 | Dashboard update cadence at phase close | High | XS | 🟡 Accepted — add to Phase 8 success criteria |
+| IP-002 | Quality audit Confluence publish for all runs | Medium | XS | 🟡 Pending |
+| IP-003 | ROADMAP.md duplicate dependency chain | Low | XS | 🟡 Pending |
+| IP-004 | ROADMAP-001 pending items cleanup | Low | XS | 🟡 Pending |
+| IP-005 | Action Jira/Confluence update reference | Low | S | 🟡 Pending |
 
-### System Evaluator First Audit Recommendations
+### Performance Optimization Opportunities (Phase 8 Focus)
 
-**Scheduled**: After Phase 4 completion (first production data available)
-
-**Audit Scope**:
-1. Agent output quality analysis (PRDs, specs, prototypes)
-2. Template compliance verification
-3. Strategic alignment audit (identity layer traceability)
-4. Performance bottleneck identification
-5. Improvement proposal generation (3+ proposals expected)
+| Opportunity | Impact | Effort | Priority |
+|-------------|--------|--------|----------|
+| **Multi-user Git workflow (CODEOWNERS)** | High (unblocks team use) | Medium | High |
+| **Security hardening / SOC 2** | High (enterprise readiness) | Large | High |
+| **Onboarding documentation** | Medium (< 2hr onboarding target) | Medium | High |
+| **Web prototype** | Medium (demonstrates feature parity) | Large | Medium |
+| **Slack/Snowflake MCP** | Medium (team comms + data) | Medium | Medium |
 
 ---
 
@@ -389,28 +398,32 @@ Phase 3: ████████████████████ 100% (7/7 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
 | **1.0** | 2026-02-02 | Initial dashboard creation | Documentation Maintainer Agent |
+| **1.1** | 2026-02-15 | Phases 4–7 + inter-phase update; skills-only architecture; MCP status; risk resolution; recommendations for Phase 8 | pm-os-quality-audit skill |
 
 ---
 
 ## Summary: PM OS Health Status ✅
 
-**Overall Health**: ✅ **EXCELLENT**
+**Overall Health**: 🟢 **HEALTHY** (5 open improvement proposals, all Low–Medium priority)
 
-- ✅ All Phase 0-3 deliverables complete (100%)
-- ✅ 7/7 core agents operational
-- ✅ 100% quality gate pass rate (zero rework)
-- ✅ 100% strategic alignment (all artifacts cite identity layer)
-- ✅ 11x faster velocity than traditional software development
+- ✅ All Phase 0–7 deliverables complete + inter-phase agent retirement (92% overall)
+- ✅ 11/11 skills operational (skills-only architecture)
+- ✅ Atlassian Rovo MCP (Jira + Confluence) active since Phase 4
+- ✅ Google Drive MCP active since Phase 1
+- ✅ Confluence auto-publish integrated into all workflow skills
+- ✅ 100% quality gate pass rate (zero rework across all phases)
 - ✅ Zero security incidents
-- ✅ Zero open issues/blockers
+- ✅ Pre-push gate enforced on every push (scripts/pre-push)
+- 🟡 5 open improvement proposals (all Low–Medium priority; see Section 10)
+- 🟡 VELOCITY_TRACKING.md needs Phase 4–7 data
 
-**System Status**: Ready for Phase 4 (MCP Integration Suite)
+**System Status**: Ready for Phase 8 (Enterprise Readiness)
 
-**Next Milestone**: Complete Phase 4 MCP integrations (Jira, Confluence, Slack, Snowflake) with unified OAuth management
+**Next Milestone**: Phase 8 — Multi-user Git, security hardening, onboarding, web prototype
 
 ---
 
-**Dashboard Maintained By**: Documentation Maintainer Agent + System Evaluator Agent
-**Last Updated**: 2026-02-02
-**Next Update**: After Phase 4 completion or weekly (whichever comes first)
+**Dashboard Maintained By**: pm-os-quality-audit skill + pm-os-doc-sync skill
+**Last Updated**: 2026-02-15
+**Next Update**: After Phase 8 launch or next `/pm-os-quality-audit` run
 **Contact**: Human PM for questions or dashboard enhancement requests
