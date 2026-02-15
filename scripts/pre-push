@@ -107,6 +107,37 @@ else
   ok "All skills referenced in CLAUDE.md"
 fi
 
+# 7. Structural change without doc update
+# If this push changes structural PM OS files (ROADMAP, CLAUDE.md, templates,
+# MCP config) but does NOT touch any README or doc files, prompt a doc sync.
+# Uses git diff against the upstream tracking branch to see exactly what's
+# being pushed. Falls back to HEAD~1 if no upstream is configured yet.
+PUSH_DIFF=$(git diff --name-only "@{push}" HEAD 2>/dev/null || git diff --name-only HEAD~1 HEAD 2>/dev/null || true)
+
+STRUCTURAL_CHANGED=""
+DOC_CHANGED=""
+while IFS= read -r f; do
+  case "$f" in
+    pm-os-reference/identity/ROADMAP.md|\
+    .claude/CLAUDE.md|\
+    templates/*.md|\
+    .mcp.json|\
+    .claude/skills/*/SKILL.md)
+      STRUCTURAL_CHANGED="$STRUCTURAL_CHANGED\n  - $f" ;;
+    README.md|*/README.md|\
+    QUICK_START.md|\
+    IMPLEMENTATION_STATUS.md|\
+    VALIDATION_CHECKLIST.md)
+      DOC_CHANGED="yes" ;;
+  esac
+done <<< "$PUSH_DIFF"
+
+if [ -n "$STRUCTURAL_CHANGED" ] && [ -z "$DOC_CHANGED" ]; then
+  warn "Structural PM OS changes pushed without a doc update — run /pm-os-doc-sync:$STRUCTURAL_CHANGED"
+elif [ -n "$STRUCTURAL_CHANGED" ]; then
+  ok "Structural changes include doc update"
+fi
+
 # ─── RESULT ────────────────────────────────────────────────────────────────
 
 echo ""
