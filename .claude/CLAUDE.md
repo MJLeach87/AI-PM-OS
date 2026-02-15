@@ -1,516 +1,152 @@
 # PM OS - Claude Code Project Context
 
 **Project Name**: Product Management Operating System (PM OS)
-**Version**: Phase 7 (Claude Code Advanced Workflows)
-**Created**: 2026-01-31
-**Updated**: 2026-02-14
-**Status**: Active Development — Phase 7 Complete → Phase 8 (Enterprise) Next
-
----
-
-## Project Overview
-
-PM OS is a self-improving product management system that uses Claude Code, a full MCP integration suite, and multi-agent architecture to augment product managers into AI-powered product leaders.
-
-### Vision
-To transform Product Managers from document-authors into high-leverage Strategic Architects. The PM OS uses AI to bridge the gap between customer empathy, technical feasibility, and business impact—amplifying strategic judgment over administrative output.
-
-### Mission
-Institutionalize product strategy, discovery, and execution as executable code that improves itself over time.
-
-### North Star Metrics (Flexible Framework)
-
-Organizations choose 3-4 metrics that fit their context. Options include:
-
-**Time Efficiency**: 50% PRD time reduction (8h → 4h) OR 80% Time-to-Spec reduction (< 4h)
-**Quality & Rework**: 40% rework reduction (40% → 10%) OR > 95% Sprint Readiness (zero clarifications)
-**Discovery & Validation**: 4x discovery artifacts (2 → 8/week) OR 2x Hypothesis-to-Halt velocity
-**Strategic Alignment**: 100% Identity Traceability (all artifacts cite vision/mission/roadmap)
-
-See `identity/STRATEGY.md` for detailed metric definitions and recommended sets for different team maturity levels.
-
----
-
-## Current Phase: Phase 5 (Claude Code Skills Migration) ✅ Complete → Phase 6 Next
-
-**Status**: Phase 7 Complete (2026-02-14) — Phase 8 (Enterprise Readiness) next
-**Objective**: Claude Code advanced workflows — A/B test template, domain specialist framework, PARALLEL_WORKFLOWS guide, /feature-pipeline parallel notation, Data Analyst v2.2
-**Phase History**: `pm-os-reference/documentation/phase-history/PHASE_7_ADVANCED_WORKFLOWS.md`
-
-### Phase 1 Deliverables
-- [x] Engineering Partner agent (Cursor + Claude versions) - v1.1 with legacy code analysis
-- [x] UX Strategist agent (Cursor + Claude versions) - v1.0
-- [x] Technical spec templates (feasibility, implementation analysis, API contract)
-- [x] Google Drive MCP integration plan
-- [ ] Google Drive MCP OAuth setup and connectivity testing
-- [ ] End-to-end workflow test (Discovery → Feasibility → Prototype)
-
-### Phase 0 Completed ✅
-- [x] Directory structure
-- [x] Identity Layer (STRATEGY.md, STANDARDS.md, ROADMAP.md)
-- [x] Templates (agent spec, PRD, MCP integration)
-- [x] Git configuration (.gitignore, .env.example)
-- [x] Orchestrator agent (Cursor + Claude Code versions)
-- [x] Product Architect agent (Cursor + Claude versions)
-- [x] All 5 validation tests passed
-
----
-
-## Key Architecture Components
-
-### Identity Layer (Organizational Context)
-The Identity Layer stores YOUR organizational intelligence that agents use for decision-making:
-
-**YOUR Organizational Context** (in `identity/` - customize these templates!):
-- **`identity/STRATEGY.md`**: YOUR company vision, mission, North Star metrics (template - replace with YOUR actual strategy!)
-- **`identity/STANDARDS.md`**: YOUR brand voice, tech stack, security requirements (template - replace with YOUR actual standards!)
-- **`identity/ROADMAP.md`**: YOUR product roadmap (template - replace with YOUR actual roadmap!)
-- **`identity/DATA_DICTIONARY.md`**: YOUR data schema, metric formulas, instrumentation status (template - Phase 6, replace with YOUR actual tables/metrics!)
-- **`identity/README.md`**: Customization guide with step-by-step instructions
-
-**PM OS's Own Context** (in `pm-os-reference/identity/` - reference examples, read-only):
-- **`pm-os-reference/identity/STRATEGY.md`**: PM OS's vision, mission, NSM (reference example)
-- **`pm-os-reference/identity/STANDARDS.md`**: PM OS's brand voice, tech stack (reference example)
-- **`pm-os-reference/identity/ROADMAP.md`**: PM OS's Phase 0-7 implementation timeline (reference example)
-- **`pm-os-reference/identity/README.md`**: Explains PM OS's meta-recursive organizational context
-
-**CRITICAL**: Agents load files from `identity/` (YOUR context), NOT from `pm-os-reference/identity/` (PM OS's reference examples). Users must customize `identity/` templates with THEIR actual organizational information.
-
-**Usage**: All agents automatically load relevant identity context from `identity/` before generating outputs.
-
-### Orchestration
-
-This file (CLAUDE.md) is the ambient orchestration layer — it routes all tasks, injects identity context, and enforces quality and security standards. There are no separate agent files; skills are the sole specialist implementation.
-
-**Task routing**:
-- Discovery / OST / PRD / agent spec → `/product-architect`
-- Technical feasibility / security / API / BPMN → `/engineering-partner`
-- Prototypes / IA / user flows / accessibility → `/ux-strategist`
-- SQL / metrics validation / A/B analysis → `/data-analyst`
-- Positioning / battle cards / GTM → `/gtm-strategist`
-- Full pipeline → `/feature-pipeline`
-- PM OS quality audit → `/pm-os-quality-audit`
-- PM OS doc sync → `/pm-os-doc-sync`
-- Push / release / pre-push check → `scripts/pre-push` (automatic on every push) + `/release-check` (deep periodic review)
-
-### Skills Layer (Canonical Specialist Source)
-
-Skills in `.claude/skills/` are the **canonical source** for all specialist capabilities. They are self-contained invocation guides that Claude reads directly when a user invokes a slash command.
-
-**Architecture Principle**: Skills = single source of truth. `.claude/agents/` is empty — CLAUDE.md handles routing, skills handle specialist execution.
-
-**Invoke a specialist directly**:
-- `/product-architect` — Discovery, PRD drafting, OST generation, agent spec creation
-- `/engineering-partner` — Technical feasibility, security assessment (STRIDE + OWASP), API contracts, BPMN
-- `/ux-strategist` — React/Tailwind prototypes, information architecture, user flows, accessibility audits
-- `/data-analyst` — SQL queries, metrics validation, A/B test analysis, baseline data
-- `/gtm-strategist` — Value propositions, competitive positioning, battle cards, pricing strategy
-
-**Invoke full pipelines**:
-- `/discovery` — OST + discovery artifacts
-- `/prd` — BMAD PRD generation (includes Data Analyst metrics validation at step 8)
-- `/feature-pipeline` — End-to-end feature workflow (supports parallel notation for multi-agent runs)
-
-**Invoke PM OS maintenance** (scoped to PM OS self-improvement, not user product work):
-- `/pm-os-quality-audit` — Quality audit via System Evaluator
-- `/pm-os-doc-sync` — Documentation sync via Documentation Maintainer
-- `/release-check` — Deep pre-push review (doc currency, commit quality, phase alignment, PII scan)
-
-**Architecture note**: `.claude/agents/` is now empty. Skills are the complete and sole implementation layer. Routing, quality enforcement, and specialist capabilities all live in skills + this CLAUDE.md file.
-
----
-
-### Templates
-
-All artifacts follow standardized templates stored in `templates/`:
-
-- **`agent_spec_template.md`**: Format for defining new agents
-- **`prd_template.md`**: BMAD-compliant PRD structure (Business, Metrics, Approach, Details)
-- **`mcp_integration_plan.md`**: Standard setup guide for MCP services
-
-### Execution Layer (Version-Controlled Outputs)
-
-**User Workspace**: Artifacts are stored in `execution/` with version control:
-
-- `execution/discovery/`: Opportunity Solution Trees, user research, IA maps
-- `execution/prds/`: Product requirements documents
-- `execution/technical_specs/`: BPMN models, API contracts, Gherkin scenarios
-- `execution/prototypes/`: React/Tailwind components
-- `execution/gtm/`: Value propositions, battle cards, positioning docs
-- `execution/automation/`: (Phase 5) Deployment scripts, reporting cron jobs
-
-**Naming Convention**: `YYYY-MM-DD_[artifact-type]_[brief-title].md`
-
-**Examples**: PM OS inception materials (showing the system building itself) are in `pm-os-reference/`:
-- `pm-os-reference/artifacts/`: PM OS discovery, PRDs, specs, prototypes from Phase 0-1
-- `pm-os-reference/documentation/`: Validation reports, phase history, changelogs, research
-
-### MCP Integration Suite
-
-PM OS integrates external tools via Model Context Protocol using official providers:
-
-**Phase 1** ✅: Google Drive (legacy document retrieval) - Operational
-**Phase 4** ✅: Atlassian Rovo MCP (2026-02-03) - **Active**
-- **Jira**: Issue tracking, epic/story creation, JQL search (natural language interface)
-- **Confluence**: Documentation publishing, page creation, search (natural language interface)
-- **Authentication**: Automatic OAuth 2.1 via browser (zero manual token management)
-- **Endpoint**: `https://mcp.atlassian.com/v1/mcp` via `npx mcp-remote`
-- **Setup Guide**: `mcp/setup_guides/ROVO_MCP_SETUP.md`
-
-**Strategic Decision**: Migrated from custom MCP server to Atlassian's official Rovo MCP Server
-- ✅ Eliminates OAuth 2.0 token refresh issues
-- ✅ Automatic permission inheritance from Jira/Confluence
-- ✅ Zero maintenance (Atlassian-managed)
-- ✅ Enterprise security and audit logging
-- ✅ Free during beta period
-
-**Future MCPs** (Phase 5-7):
-- Slack (team communication) - Phase 7-8
-- Snowflake (data warehouse) - Phase 5
-- Linear, Notion (under evaluation)
-
-**Configuration**: `.mcp.json` (project-scoped, version controlled)
-
----
-
-## Workflow Patterns
-
-### Standard Task Routing (Orchestrator Logic)
-
-When you receive a user request in Claude Code:
-
-1. **Identify Task Type**:
-   - Discovery (OST, user research) → Product Architect
-   - Technical (API, architecture) → Engineering Partner
-   - UI/UX (wireframes, prototypes) → UX Strategist
-   - Data (SQL, analytics) → Data Analyst
-   - GTM (positioning, value prop) → GTM Strategist
-   - Quality audit → System Evaluator
-
-2. **Load Identity Context**:
-   - Always: `identity/STRATEGY.md` (USER's strategy), `identity/STANDARDS.md` (USER's standards)
-   - For PM OS meta-tasks: `pm-os-reference/identity/ROADMAP.md` (PM OS's implementation timeline)
-   - For user's product work: `identity/ROADMAP.md` (USER's product roadmap)
-   - Conditionally: `identity/DATA_DICTIONARY.md` (Future Phase 5)
-
-3. **Apply Quality Standards**:
-   - Check output follows `identity/STANDARDS.md` brand voice
-   - Verify technical stack matches approved technologies
-   - Ensure security requirements met
-   - Validate artifact structure matches relevant template
-
-4. **Execute or Route**:
-   - For tasks within Claude Code capabilities (deep analysis, file operations): Execute directly
-   - For tasks requiring specific agent: Explain which agent would handle this in full implementation
-   - For complex workflows: Outline multi-agent sequence
-
-### End-to-End Feature Development Workflow
-
-```
-User Request
-  ↓
-Product Architect: Generate OST + Initial PRD
-  ↓
-Engineering Partner: Technical Feasibility Review
-  ↓
-UX Strategist: Prototype + Information Architecture
-  ↓
-Data Analyst: Validate Metrics
-  ↓
-GTM Strategist: Positioning + Value Proposition
-  ↓
-Product Architect: Consolidate into Final PRD
-  ↓
-Human PM Review & Approval
-```
-
-**Parallel Processing Opportunities**:
-- UX Strategist + Engineering Partner (after initial PRD)
-- Data Analyst + GTM Strategist (both use PRD independently)
-
----
-
-## Security & Quality Standards
-
-### Security Non-Negotiables (from `identity/STANDARDS.md`)
-
-1. **No hardcoded secrets**: All credentials in `.env` (gitignored)
-2. **OAuth 2.0 required**: For all MCP integrations with user data
-3. **Read-only by default**: Write permissions require explicit justification
-4. **PII redaction**: Automatically redact sensitive data in logs/outputs
-5. **Pre-commit scanning**: Git hooks scan for accidentally committed secrets
-
-### Quality Gates (Before Agent Output Approval)
-
-- [ ] Aligns with `identity/STRATEGY.md` vision
-- [ ] Follows brand voice from `identity/STANDARDS.md`
-- [ ] Includes specific metrics/acceptance criteria
-- [ ] Cites evidence for key decisions
-- [ ] Free of security vulnerabilities (no SQL injection, XSS, etc.)
-- [ ] Technical stack matches approved technologies
-
----
-
-## How to Use PM OS in Claude Code
-
-### For Discovery Tasks
-
-**Example**: "Generate an OST for improving user onboarding"
-
-**Process**:
-1. Load `identity/STRATEGY.md` to check strategic alignment
-2. Generate Opportunity Solution Tree in Mermaid format
-3. Save to `execution/discovery/YYYY-MM-DD_OST_[brief-title].md`
-4. Follow structure from any existing OST examples or best practices
-
-### For PRD Generation
-
-**Example**: "Create a PRD for collaborative editing feature"
-
-**Process**:
-1. Load `identity/STRATEGY.md` (vision alignment) and `identity/STANDARDS.md` (quality standards)
-2. Use `templates/prd_template.md` as structure
-3. Follow BMAD method (Business case, Metrics, Approach, Details)
-4. Save to `execution/prds/YYYY-MM-DD_PRD_[brief-title].md`
-5. Ensure includes: problem statement, success metrics, user stories with Gherkin scenarios
-
-### For Technical Specifications
-
-**Example**: "Design API for real-time sync"
-
-**Process**:
-1. Load `identity/STANDARDS.md` (approved tech stack: React, Node.js, TypeScript)
-2. Generate OpenAPI specification
-3. Create BPMN diagram for complex workflows (if applicable)
-4. Write Gherkin acceptance scenarios
-5. Include security review checklist
-6. Save to `execution/technical_specs/YYYY-MM-DD_TechSpec_[brief-title].md`
-
-### For PM OS Self-Improvement
-
-**Example**: "Add a new agent for handling payments domain"
-
-**Process**:
-1. Check `pm-os-reference/identity/ROADMAP.md` to ensure PM OS's current phase supports new agents
-2. Use `templates/agent_spec_template.md` as foundation
-3. Generate `.claude/skills/[name]/SKILL.md` for the new specialist
-4. Propose updating CLAUDE.md task routing section to include the new skill's keywords
-5. Propose changes as documented enhancement for human review
-
----
-
-## File Structure Reference
-
-```
-PM OS/
-├── .cursor/
-│   └── rules/
-│       └── RETIRED.md                 # Retirement notice (Cursor rules deleted in Phase 5)
-├── .claude/
-│   ├── CLAUDE.md                      # This file (project context + ambient orchestration)
-│   └── skills/                        # Skills — sole canonical source for all specialist capabilities
-│       ├── discovery/SKILL.md         # /discovery — OST + discovery artifacts
-│       ├── prd/SKILL.md               # /prd — BMAD PRD generation
-│       ├── feature-pipeline/SKILL.md  # /feature-pipeline — Full pipeline (parallel workflows)
-│       ├── product-architect/SKILL.md # /product-architect — Discovery, PRD, agent specs
-│       ├── engineering-partner/SKILL.md # /engineering-partner — Feasibility, security, API
-│       ├── ux-strategist/SKILL.md     # /ux-strategist — Prototypes, IA, accessibility
-│       ├── data-analyst/SKILL.md      # /data-analyst — SQL, metrics, A/B analysis
-│       ├── gtm-strategist/SKILL.md    # /gtm-strategist — Positioning, battle cards, GTM
-│       ├── pm-os-quality-audit/SKILL.md # /pm-os-quality-audit — PM OS quality audit (maintenance)
-│       ├── pm-os-doc-sync/SKILL.md    # /pm-os-doc-sync — PM OS doc sync (maintenance)
-│       └── release-check/SKILL.md     # /release-check — Pre-push deep review (maintenance)
-├── identity/                          # YOUR organizational context (customize templates!)
-│   ├── README.md                      # Customization guide
-│   ├── STRATEGY.md                    # YOUR vision, mission, NSM (template)
-│   ├── STANDARDS.md                   # YOUR brand voice, tech stack (template)
-│   ├── ROADMAP.md                     # YOUR product roadmap (template)
-│   └── DATA_DICTIONARY.md             # YOUR data schema, metrics, instrumentation (template - Phase 6)
-├── pm-os-reference/                          # PM OS inception materials (meta-recursive)
-│   ├── README.md                      # Explains artifacts vs documentation
-│   ├── identity/                      # PM OS's own organizational context (reference)
-│   │   ├── README.md                  # Explains PM OS's meta-recursive identity
-│   │   ├── STRATEGY.md                # PM OS's vision (reference example)
-│   │   ├── STANDARDS.md               # PM OS's tech stack (reference example)
-│   │   └── ROADMAP.md                 # PM OS's Phase 0-7 timeline (reference)
-│   ├── artifacts/                     # PM OS outputs during Phase 0-1
-│   │   ├── discovery/                 # OSTs, implementation plans
-│   │   ├── prds/                      # Product requirements docs
-│   │   ├── technical_specs/           # Feasibility assessments
-│   │   └── prototypes/                # React/Tailwind components
-│   └── documentation/                 # PM OS process documentation
-│       ├── phase-history/             # Phase completion records
-│       ├── validation-reports/        # Comprehensive test results
-│       ├── changelogs/                # Agent evolution tracking
-│       └── research/                  # Background research, status
-├── execution/                         # YOUR workspace (currently empty)
-│   ├── README.md                      # Artifact pipeline guide
-│   ├── discovery/                     # OSTs, research notes
-│   ├── prds/                          # Product requirements docs
-│   ├── technical_specs/               # API specs, BPMN, Gherkin
-│   ├── prototypes/                    # React components
-│   ├── gtm/                           # Marketing materials
-│   ├── improvement_proposals/         # PM OS self-improvement proposals
-│   └── automation/                    # Scripts (Phase 5+)
-├── templates/
-│   ├── agent_spec_template.md         # Agent definition format
-│   ├── prd_template.md                # BMAD PRD structure
-│   └── mcp_integration_plan.md        # MCP setup guide
-├── mcp/
-│   ├── config.json                    # MCP server configurations
-│   ├── credentials/                   # Gitignored secrets
-│   └── setup_guides/                  # Service-specific setup docs
-├── scripts/
-│   └── pre-push                       # Automated git pre-push hook (security + hygiene)
-├── .gitignore                         # Excludes .env, credentials
-├── .env.example                       # Credential template
-├── README.md                          # Product overview
-├── QUICK_START.md                     # Fast-start guide
-└── VALIDATION_CHECKLIST.md            # Phase validation tests
-```
-
----
-
-## Common Commands & Patterns
-
-### Reading Identity Context
-
-Before any substantive task:
-```
-Read identity/STRATEGY.md and identity/STANDARDS.md to understand USER's organizational context
-```
-
-For PM OS meta-tasks (improving PM OS itself):
-```
-Read pm-os-reference/identity/ROADMAP.md to check PM OS's current phase status
-```
-
-### Generating Artifacts
-
-Always use templates:
-```
-Use templates/prd_template.md as structure for this PRD
-Save to execution/prds/2026-01-31_PRD_[feature-name].md
-```
-
-### Checking Current Phase
-
-To understand what's in scope for PM OS development:
-```
-Read pm-os-reference/identity/ROADMAP.md to check PM OS's current phase status
-Verify this task aligns with Phase [N] objectives for PM OS implementation
-```
-
-To understand user's product roadmap:
-```
-Read identity/ROADMAP.md to check USER's product roadmap
-Verify feature aligns with USER's strategic timeline
-```
-
-### Validating Outputs
-
-Before finalizing any artifact:
-```
-Validate against identity/STANDARDS.md quality gates:
-- Professional, technical, concise writing
-- Evidence-based decisions
-- Approved tech stack
-- Security requirements met
-```
-
----
-
-## Phase Roadmap Summary
-
-| Phase | Status | Focus | Key Deliverables |
-|-------|--------|-------|------------------|
-| **0** | ✅ Complete (1 day) | Bootstrap | Orchestrator, Product Architect, Templates, Identity Layer |
-| **1** | ✅ Complete (2 days) | Core Agents | Engineering Partner, UX Strategist, Google Drive MCP |
-| **2** | ✅ Complete (4 hrs) | Execution Layer | Data Analyst, GTM Strategist (5-agent team complete) |
-| **3** | ✅ Complete (2 days) | Self-Improvement | System Evaluator, Doc Maintainer, quality dashboard |
-| **4** | ✅ Complete | MCP Integration Suite | Atlassian Rovo MCP (Jira + Confluence, official integration) |
-| **5** | ✅ Complete (1 day) | Skills Migration | Skills as canonical source; 10 skills created, 5 redundant agent files removed |
-| **6** | ✅ Complete (1 day) | Data Intelligence | DATA_DICTIONARY, metrics validation template, Data Analyst v2.1 |
-| **7** | ✅ Complete (1 day) | Claude Code Advanced Workflows | A/B test template, domain specialist framework, PARALLEL_WORKFLOWS guide |
-| **8** | 🟡 Planned | Enterprise | Multi-user, security hardening, web prototype |
-
-**Note**: PM OS completed Phases 0-3 in **5.2 days** (2026-01-31 to 2026-02-02), vs. original 11-week estimate (11x faster). Phase 4 added Atlassian Rovo MCP. Phases 5-7 all completed 2026-02-14: Skills Migration → Data Intelligence → Advanced Workflows. See `pm-os-reference/documentation/VELOCITY_TRACKING.md` for velocity analysis and `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md` for system metrics.
-
----
-
-## Key Principles for Claude Code Usage
-
-### 1. Deep Analysis Mode
-Use Claude Code for:
-- Comprehensive codebase exploration (read multiple files, understand architecture)
-- Complex multi-step workflows requiring extensive context
-- Terminal operations (git, deployment scripts)
-- Parallel agent processing (spawn multiple analysis tasks)
-
-### 2. Context Preservation
-- Maintain session state across multi-turn conversations
-- Link related artifacts (OST → PRD → Tech Spec)
-- Carry forward key decisions between workflow steps
-
-### 3. Self-Awareness
-- PM OS is building itself (meta-recursive)
-- When working on PM OS improvements, consult `pm-os-reference/identity/ROADMAP.md` (PM OS's implementation phases)
-- When working on user's product features, consult `identity/ROADMAP.md` (user's product roadmap)
-- Propose enhancements aligned with current phase
-
-### 4. Quality Over Speed
-- Always validate against `identity/STANDARDS.md`
-- Include evidence and reasoning
-- Flag uncertainties for human review
-- Don't skip security checks
+**Created**: 2026-01-31 | **Updated**: 2026-02-15
+**Status**: Phase 7 Complete → Phase 8 (Enterprise Readiness) Planned
+
+PM OS is a self-improving product management system using Claude Code, MCP integrations, and
+a skills-based multi-agent architecture. It transforms PMs from document-authors into
+high-leverage Strategic Architects by institutionalizing strategy, discovery, and execution
+as executable code that improves itself over time.
+
+See `identity/STRATEGY.md` for vision, mission, and North Star metrics.
 
 ---
 
 ## Current Status
 
-**Phase 0 Progress**: ~60% complete
+**Phase 7 Complete** (2026-02-14) — A/B test template, domain specialist framework,
+PARALLEL_WORKFLOWS guide, Data Analyst v2.2.
+**Next**: Phase 8 — Enterprise Readiness (multi-user Git, security hardening, web prototype).
+**Phase history**: `pm-os-reference/documentation/phase-history/`
 
-**Completed**:
-- ✅ Directory structure
-- ✅ Identity Layer (STRATEGY, STANDARDS, ROADMAP)
-- ✅ Templates (agent spec, PRD, MCP integration)
-- ✅ Git configuration
-- ✅ Orchestrator agent (Cursor version)
-- ✅ Project context (this file)
+---
 
-**Next Steps**:
-1. Create Product Architect agent (Cursor + Claude versions)
-2. Test bootstrap: Generate OST for PM OS discovery workflows
-3. Validate Product Architect can generate agent specs using template
-4. Complete Phase 0 success criteria
-5. Begin Phase 1 planning
+## Two Modes of Operation
+
+**Mode A — Your product work** (what PM OS is built for):
+- Context: `identity/STRATEGY.md`, `identity/ROADMAP.md`, `identity/STANDARDS.md` (YOUR org)
+- Outputs: `execution/` subdirectories (`discovery/`, `prds/`, `technical_specs/`, etc.)
+- Skills: `/discovery`, `/prd`, `/feature-pipeline`, `/product-architect`, `/engineering-partner`, `/ux-strategist`, `/data-analyst`, `/gtm-strategist`
+
+**Mode B — PM OS self-improvement** (improving the system itself):
+- Context: `pm-os-reference/identity/ROADMAP.md` (PM OS's implementation timeline)
+- Outputs: `execution/improvement_proposals/`
+- Skills: `/pm-os-quality-audit`, `/pm-os-doc-sync`, `/release-check`
+
+**Critical**: Always load `identity/` (YOUR org context), never `pm-os-reference/identity/`
+(PM OS's own reference examples), for Mode A work.
+
+---
+
+## Key Architecture Components
+
+### Identity Layer
+
+`identity/` holds YOUR organizational intelligence. Customize these templates:
+
+| File | Contents |
+|------|----------|
+| `identity/STRATEGY.md` | YOUR vision, mission, North Star metrics |
+| `identity/STANDARDS.md` | YOUR brand voice, tech stack, security requirements |
+| `identity/ROADMAP.md` | YOUR product roadmap |
+| `identity/DATA_DICTIONARY.md` | YOUR data schema and metric formulas |
+
+See `identity/README.md` for customization instructions.
+
+### Skills Layer (Routing)
+
+`.claude/skills/` is the **sole canonical source** for all specialist capabilities.
+`.claude/agents/` is empty — CLAUDE.md routes, skills execute.
+
+| Trigger | Skill | Capability |
+|---------|-------|------------|
+| Discovery / OST / research | `/discovery` | OST + discovery artifacts |
+| PRD / requirements | `/prd` | BMAD PRD with metrics validation |
+| Full feature pipeline | `/feature-pipeline` | End-to-end parallel workflow |
+| Discovery / PRD / agent specs | `/product-architect` | Core PM outputs |
+| Technical / security / API / BPMN | `/engineering-partner` | Feasibility + security |
+| Prototypes / IA / accessibility | `/ux-strategist` | React/Tailwind + flows |
+| SQL / metrics / A/B analysis | `/data-analyst` | Data queries + validation |
+| Positioning / GTM / battle cards | `/gtm-strategist` | Competitive + GTM |
+| PM OS quality audit | `/pm-os-quality-audit` | System health (Mode B) |
+| PM OS doc sync | `/pm-os-doc-sync` | Meta-docs consistency (Mode B) |
+| Pre-push deep review | `/release-check` | Doc currency + PII scan (Mode B) |
+
+Automated on every push: `scripts/pre-push` (security + hygiene).
+
+### Execution Layer
+
+Artifacts use naming convention `YYYY-MM-DD_[artifact-type]_[brief-title].md`:
+
+| Directory | Contents |
+|-----------|----------|
+| `execution/discovery/` | OSTs, user research, IA maps |
+| `execution/prds/` | Product requirements documents |
+| `execution/technical_specs/` | BPMN, API contracts, Gherkin |
+| `execution/prototypes/` | React/Tailwind components |
+| `execution/gtm/` | Value props, battle cards, positioning |
+| `execution/improvement_proposals/` | PM OS self-improvement proposals |
+
+PM OS inception examples (Phase 0–1): `pm-os-reference/artifacts/`
+
+### MCP Integration Suite
+
+| Integration | Status | Capability |
+|-------------|--------|------------|
+| Atlassian Rovo MCP | ✅ Active | Jira (issues, JQL) + Confluence (pages, search) |
+| Google Drive | ✅ Active | Legacy document retrieval |
+| Slack / Snowflake | 🟡 Planned | Phase 8 |
+
+Config: `.mcp.json` | Setup guide: `mcp/setup_guides/ROVO_MCP_SETUP.md`
+
+**Known constraint**: Confluence space creation requires Confluence UI — Rovo MCP supports
+page CRUD, search, and comments only.
+
+---
+
+## Security & Quality Gates
+
+**Non-negotiables**:
+1. No hardcoded secrets — all credentials in `.env` (gitignored)
+2. OAuth 2.0 required for all MCP integrations
+3. Read-only by default — write permissions require explicit justification
+4. PII redacted in all logs and outputs
+5. Pre-push hook scans for accidentally committed secrets
+
+**Before approving any agent output**:
+- Aligns with `identity/STRATEGY.md` vision
+- Follows brand voice and tech stack from `identity/STANDARDS.md`
+- Includes specific metrics and acceptance criteria
+- Evidence-based decisions, no security vulnerabilities
+
+---
+
+## Key Principles
+
+**Self-Awareness (meta-recursive)**:
+- PM OS is building itself. Keep Mode A and Mode B clearly separated.
+- Mode A improvements (user's product): reference `identity/ROADMAP.md`
+- Mode B improvements (PM OS itself): reference `pm-os-reference/identity/ROADMAP.md`
+- New skills → `.claude/skills/[name]/SKILL.md` + update routing table above
+- Propose PM OS changes via `execution/improvement_proposals/` for human review
+
+**Quality over speed**: Validate against `identity/STANDARDS.md`. Flag uncertainties.
+Never skip security checks.
 
 ---
 
 ## Getting Help
 
-**Documentation**:
-- **Customization Guides**: `identity/README.md`, `execution/README.md`, `pm-os-reference/identity/README.md`
-- **YOUR Organizational Context**: `identity/*.md` (customize these templates!)
-- **PM OS's Own Context** (reference): `pm-os-reference/identity/*.md`
-- **Templates**: `templates/*.md`
-- **MCP Setup Guides**: `mcp/setup_guides/*.md` (future)
-- **Troubleshooting**: `docs/TROUBLESHOOTING.md` (future)
-
-**For PM OS Implementation Questions**:
-1. Check `pm-os-reference/identity/ROADMAP.md` for PM OS's current phase scope
-2. Consult `identity/STANDARDS.md` for USER's quality guidelines
-3. Review relevant template in `templates/`
-4. Flag complex decisions for human PM review
-
-**For User's Product Work**:
-1. Load `identity/STRATEGY.md` (USER's vision) and `identity/STANDARDS.md` (USER's standards)
-2. Reference `identity/ROADMAP.md` (USER's product roadmap) for alignment
-3. Save outputs to `execution/` subdirectories
+| Resource | Path |
+|----------|------|
+| Customization guide | `identity/README.md` |
+| Templates (PRD, agent spec, MCP) | `templates/` |
+| Phase history | `pm-os-reference/documentation/phase-history/` |
+| Velocity + quality metrics | `pm-os-reference/documentation/VELOCITY_TRACKING.md` |
+| MCP setup | `mcp/setup_guides/ROVO_MCP_SETUP.md` |
+| Execution workspace guide | `execution/README.md` |
 
 ---
 
-**Project Status**: Phase 7 Complete → Phase 8 (Enterprise Readiness) Next
-**Last Updated**: 2026-02-14
-**Next Milestone**: Phase 8 — Enterprise Readiness (multi-user Git, security hardening, onboarding, web prototype)
-**Maintained By**: PM OS Orchestrator + Human PM
+**Last Updated**: 2026-02-15 | **Maintained By**: PM OS Orchestrator + Human PM
