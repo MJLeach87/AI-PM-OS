@@ -28,7 +28,7 @@ and **Claude Code skills** (AI-powered, invoked manually or prompted by the abov
 |---|-------|------|-------------|
 | 1 | `.env` not tracked | 🔴 **Block** | `.env` file committed to git |
 | 2 | No secret patterns | 🔴 **Block** | API keys, tokens, passwords with real values in tracked files |
-| 3 | No conflict markers | 🔴 **Block** | Unresolved `<<<<<<<` / `>>>>>>>` merge conflicts |
+| 3 | No conflict markers | 🔴 **Block** | Unresolved git merge conflict markers in tracked files |
 | 4 | No junk files | 🔴 **Block** | `*.tmp`, `*.log`, `test_*.js`, `nul` committed |
 | 5 | Skills in README.md | 🟡 **Warn** | A skill directory exists with no mention in `README.md` |
 | 6 | Skills in CLAUDE.md | 🟡 **Warn** | A skill directory not present in `.claude/CLAUDE.md` routing table |
