@@ -42,12 +42,11 @@ else
 fi
 
 # 2. Secret patterns in tracked files
-# Exclude known-safe paths: docs with example credentials, templates, setup guides,
-# historical pm-os-reference docs, and this script itself.
-SECRET_PATTERNS='API_KEY=|SECRET=|PASSWORD=|ghp_[A-Za-z0-9]+|sk-[A-Za-z0-9]+|AKIA[A-Z0-9]+'
-EXCLUDE_DOCS='^(\.env|pm-os-reference/|mcp/setup_guides/|mcp/validations/|templates/|scripts/|QUICK_START\.md)'
-if git ls-files -z | xargs -0 grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -qvE "$EXCLUDE_DOCS"; then
-  MATCHES=$(git ls-files -z | xargs -0 grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -vE "$EXCLUDE_DOCS" || true)
+# sk- pattern requires 20+ chars to avoid matching English words like "risk-based".
+# Real API keys (OpenAI, Anthropic) are always much longer.
+SECRET_PATTERNS='API_KEY=|SECRET=|PASSWORD=|ghp_[A-Za-z0-9]+|sk-[A-Za-z0-9]{20,}|AKIA[A-Z0-9]+'
+if git ls-files -z | xargs -0 grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -qv '^\.env'; then
+  MATCHES=$(git ls-files -z | xargs -0 grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -v '^\.env' || true)
   fail "Potential secrets found in tracked files:\n$MATCHES"
 else
   ok "No secret patterns detected"

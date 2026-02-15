@@ -367,8 +367,8 @@ User: "[Natural language request]"
 ### `.env` (if applicable)
 ```bash
 [PROVIDER]_CLIENT_ID=your_client_id
-[PROVIDER]_CLIENT_SECRET=your_client_secret
-[PROVIDER]_API_KEY=your_api_key
+[PROVIDER]_CLIENT_SECRET=<your-client-secret>
+[PROVIDER]_API_KEY=<your-api-key>
 ```
 
 ---

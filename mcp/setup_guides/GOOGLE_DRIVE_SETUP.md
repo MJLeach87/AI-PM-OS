@@ -152,7 +152,7 @@ npm install googleapis google-auth-library
 ```bash
 # Google Drive MCP Configuration (Phase 1)
 GOOGLE_DRIVE_CLIENT_ID=123456789-abcdefg.apps.googleusercontent.com
-GOOGLE_DRIVE_CLIENT_SECRET=GOCSPX-abc123XYZ
+GOOGLE_DRIVE_CLIENT_SECRET=<your-client-secret>
 GOOGLE_DRIVE_REFRESH_TOKEN=1//0abc123xyz-refreshtoken
 GOOGLE_DRIVE_REDIRECT_URI=http://localhost:3000/oauth/callback
 
@@ -165,7 +165,7 @@ GOOGLE_DRIVE_RESEARCH_FOLDER_ID=folder-id-for-user-research
 ```bash
 # Google Drive MCP Configuration
 GOOGLE_DRIVE_CLIENT_ID=your_google_client_id_here
-GOOGLE_DRIVE_CLIENT_SECRET=your_google_client_secret_here
+GOOGLE_DRIVE_CLIENT_SECRET=<your-client-secret>
 GOOGLE_DRIVE_REFRESH_TOKEN=your_refresh_token_here
 GOOGLE_DRIVE_REDIRECT_URI=http://localhost:3000/oauth/callback
 

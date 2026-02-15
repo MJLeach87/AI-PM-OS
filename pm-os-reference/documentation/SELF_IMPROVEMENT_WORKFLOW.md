@@ -684,7 +684,7 @@ Weekly Trigger → ORCHESTRATOR → SYSTEM EVALUATOR (Quality Audit)
 - GitHub personal access token (for API access)
 - Store in `.env` (gitignored):
   ```
-  GITHUB_TOKEN=ghp_xxxxxxxxxxxx
+  GITHUB_TOKEN=<your-github-pat>
   GITHUB_REPO=MJLeach87/AI-PM-OS
   HUMAN_PM_GITHUB=MJLeach87
   ```

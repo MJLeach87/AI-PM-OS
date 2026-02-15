@@ -93,7 +93,7 @@ npx -y @[org]/[mcp-package-name]
 ```bash
 # [Service Name] MCP Configuration
 [SERVICE]_CLIENT_ID=[your-client-id]
-[SERVICE]_CLIENT_SECRET=[your-client-secret]
+[SERVICE]_CLIENT_SECRET=<your-client-secret>
 [SERVICE]_API_TOKEN=[your-api-token]
 [SERVICE]_REFRESH_TOKEN=[your-refresh-token]
 ```
@@ -102,7 +102,7 @@ npx -y @[org]/[mcp-package-name]
 ```bash
 # [Service Name] MCP Configuration
 [SERVICE]_CLIENT_ID=your_client_id_here
-[SERVICE]_CLIENT_SECRET=your_client_secret_here
+[SERVICE]_CLIENT_SECRET=<your-client-secret>
 [SERVICE]_API_TOKEN=your_api_token_here
 [SERVICE]_REFRESH_TOKEN=your_refresh_token_here
 ```
