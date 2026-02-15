@@ -6,7 +6,8 @@
   "scripts": {
     "auth:google-drive": "node scripts/google_drive_auth.js",
     "test:google-drive": "node scripts/test_google_drive.js",
-    "search": "node scripts/search.js"
+    "search": "node scripts/search.js",
+    "sync:confluence": "node scripts/confluence-sync.js"
   },
   "keywords": [
     "product-management",
@@ -18,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "googleapis": "^128.0.0",
+    "marked": "^9.0.0",
     "open": "^8.4.2"
   },
   "devDependencies": {

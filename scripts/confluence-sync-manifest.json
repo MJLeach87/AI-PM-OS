@@ -1,0 +1,80 @@
+{
+  "lastSync": "2026-02-15",
+  "pages": {
+    ".claude/skills/prd/SKILL.md": {
+      "pageId": "3145770",
+      "parentId": "1114113",
+      "hash": ""
+    },
+    ".claude/skills/discovery/SKILL.md": {
+      "pageId": "3571715",
+      "parentId": "1114113",
+      "hash": ""
+    },
+    ".claude/skills/feature-pipeline/SKILL.md": {
+      "pageId": "3211274",
+      "parentId": "1114113",
+      "hash": ""
+    },
+    ".claude/skills/product-architect/SKILL.md": {
+      "pageId": "1179668",
+      "parentId": "1114113",
+      "hash": ""
+    },
+    ".claude/skills/engineering-partner/SKILL.md": {
+      "pageId": "1474561",
+      "parentId": "1114113",
+      "hash": ""
+    },
+    ".claude/skills/ux-strategist/SKILL.md": {
+      "pageId": "1540097",
+      "parentId": "1114113",
+      "hash": ""
+    },
+    ".claude/skills/data-analyst/SKILL.md": {
+      "pageId": "1572865",
+      "parentId": "1114113",
+      "hash": ""
+    },
+    ".claude/skills/gtm-strategist/SKILL.md": {
+      "pageId": "1605633",
+      "parentId": "1114113",
+      "hash": ""
+    },
+    ".claude/skills/pm-os-quality-audit/SKILL.md": {
+      "pageId": "1638401",
+      "parentId": "1114113",
+      "hash": ""
+    },
+    ".claude/skills/pm-os-doc-sync/SKILL.md": {
+      "pageId": "1671169",
+      "parentId": "1114113",
+      "hash": ""
+    },
+    ".claude/skills/release-check/SKILL.md": {
+      "pageId": "3276843",
+      "parentId": "1114113",
+      "hash": ""
+    }
+  },
+  "directories": {
+    "execution/prds": {
+      "parentId": "1048577"
+    },
+    "execution/discovery": {
+      "parentId": "1146881"
+    },
+    "execution/technical_specs": {
+      "parentId": "1081345"
+    },
+    "execution/improvement_proposals": {
+      "parentId": "1212417"
+    },
+    "execution/gtm": {
+      "parentId": "1048577"
+    },
+    "execution/data_analysis": {
+      "parentId": "1048577"
+    }
+  }
+}
