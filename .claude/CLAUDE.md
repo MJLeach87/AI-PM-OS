@@ -33,6 +33,7 @@ PARALLEL_WORKFLOWS guide, Data Analyst v2.2.
 - Context: `pm-os-reference/identity/ROADMAP.md` (PM OS's implementation timeline)
 - Outputs: `execution/improvement_proposals/`
 - Skills: `/pm-os-quality-audit`, `/pm-os-doc-sync`, `/release-check`
+- **Audit cadence**: Monthly (GitHub Issue + Jira ticket auto-created by `.github/workflows/audit-reminder.yml`) + after each phase closes
 
 **Critical**: Always load `identity/` (YOUR org context), never `pm-os-reference/identity/`
 (PM OS's own reference examples), for Mode A work.

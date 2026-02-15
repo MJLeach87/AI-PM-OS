@@ -352,7 +352,7 @@ Phase 3: ████████████████████ 100% (7/7 
 
 | ID | Title | Priority | Effort | Status |
 |----|-------|----------|--------|--------|
-| IP-001 | Dashboard update cadence at phase close | High | XS | 🟡 Accepted — add to Phase 8 success criteria |
+| IP-001 | Dashboard update cadence at phase close | High | XS | ✅ Implemented — Phase 8 criteria updated; monthly GH Actions reminder added |
 | IP-002 | Quality audit Confluence publish for all runs | Medium | XS | 🟡 Pending |
 | IP-003 | ROADMAP.md duplicate dependency chain | Low | XS | 🟡 Pending |
 | IP-004 | ROADMAP-001 pending items cleanup | Low | XS | 🟡 Pending |

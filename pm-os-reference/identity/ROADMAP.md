@@ -289,6 +289,7 @@ This roadmap describes how PM OS will build itself. It is maintained by the Prod
 - [ ] Zero security incidents
 - [ ] Onboarding time < 2 hours
 - [ ] Web prototype demonstrates PRD generation feature parity
+- [ ] Quality dashboard updated at phase close (IP-001 process gate)
 
 **Estimated Duration**: 5-7 days (most complex phase, many unknowns)
 
