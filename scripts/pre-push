@@ -74,6 +74,39 @@ else
   ok "No junk files tracked"
 fi
 
+# ─── DOCUMENTATION CURRENCY CHECKS (warning only) ──────────────────────────
+
+# 5. Skill–README drift
+# Every directory under .claude/skills/ should appear in README.md.
+# This catches "new skill added but README not updated" before push.
+# Warning only — README update may be a follow-on commit.
+SKILL_DIRS=$(git ls-files '.claude/skills/' | grep '/SKILL\.md$' | sed 's|\.claude/skills/||;s|/SKILL\.md||' | sort)
+MISSING_README=""
+for skill in $SKILL_DIRS; do
+  if ! grep -q "$skill" README.md 2>/dev/null; then
+    MISSING_README="$MISSING_README\n  - $skill"
+  fi
+done
+if [ -n "$MISSING_README" ]; then
+  warn "Skills not mentioned in README.md — run /pm-os-doc-sync to update:$MISSING_README"
+else
+  ok "All skills referenced in README.md"
+fi
+
+# 6. Skill–CLAUDE.md routing drift
+# Every skill directory should also appear in the CLAUDE.md routing table.
+MISSING_CLAUDE=""
+for skill in $SKILL_DIRS; do
+  if ! grep -q "$skill" .claude/CLAUDE.md 2>/dev/null; then
+    MISSING_CLAUDE="$MISSING_CLAUDE\n  - $skill"
+  fi
+done
+if [ -n "$MISSING_CLAUDE" ]; then
+  warn "Skills not mentioned in .claude/CLAUDE.md — run /pm-os-doc-sync to update:$MISSING_CLAUDE"
+else
+  ok "All skills referenced in CLAUDE.md"
+fi
+
 # ─── RESULT ────────────────────────────────────────────────────────────────
 
 echo ""
