@@ -863,7 +863,78 @@ Cross-reference final Jira item count against `pm-os-reference/identity/ROADMAP.
 
 ---
 
-**Artifact Status**: DRAFT — Awaiting User Review
-**Next Action**: User reviews and approves → action in Rovo-enabled session
+## Part 5: Jira Ticket Reference (Actioned 2026-02-16)
+
+### Epic Mapping
+
+| Plan ID | Epic Title | Jira Key | Status |
+|---------|-----------|----------|--------|
+| E1 | Phase 0 - Bootstrap Foundation | PMOS-17 | Done ✅ |
+| E2 | Phase 1 - Core Agent Team + Google Drive MCP | PMOS-18 | Done ✅ |
+| E3 | Phase 2 - Execution Layer | PMOS-19 | Done ✅ |
+| E4 | Phase 3 - Self-Improvement Loop | PMOS-20 | Done ✅ |
+| E5 | Phase 4 - MCP Integration Suite | PMOS-21 | Done ✅ (transitioned) |
+| E6 | Phase 5 - Claude Code Skills Migration | PMOS-22 | Done ✅ (renamed + transitioned) |
+| E7 | Phase 6 - Data Intelligence Layer | PMOS-23 | Done ✅ (renamed + transitioned) |
+| E8 | Phase 7 - Claude Code Advanced Workflows | PMOS-24 | Done ✅ (renamed + transitioned) |
+| E9 | Phase 8 - Enterprise Readiness | PMOS-59 | Open 🔵 (created) |
+| E10 | PM OS Maintenance & Continuous Improvement | PMOS-60 | Open 🔵 (created) |
+
+### Story/Task Mapping
+
+| Plan ID | Jira Key | Summary | Status |
+|---------|----------|---------|--------|
+| A1 | PMOS-61 | Create identity/DATA_DICTIONARY.md | Done ✅ |
+| A2 | PMOS-62 | Create templates/metrics_validation_template.md | Done ✅ |
+| A3 | PMOS-63 | Data Analyst agent v2.1 — DATA_DICTIONARY as required context | Done ✅ |
+| A4 | PMOS-64 | /prd skill Step 8 — Metrics validation offer | Done ✅ |
+| A5 | PMOS-65 | Automated data quality scoring (deferred — requires Snowflake MCP) | Open |
+| B1 | PMOS-66 | Create templates/ab_test_analysis_template.md | Done ✅ |
+| B2 | PMOS-67 | Create templates/domain_specialist_template.md | Done ✅ |
+| B3 | PMOS-68 | Create pm-os-reference/documentation/PARALLEL_WORKFLOWS.md | Done ✅ |
+| B4 | PMOS-69 | /feature-pipeline skill — [PARALLEL] notation | Done ✅ |
+| B5 | PMOS-70 | Data Analyst v2.2 — A/B template + PARALLEL_WORKFLOWS | Done ✅ |
+| B6 | PMOS-71 | Skills expansion evaluation — no new skills decision | Done ✅ |
+| C1 | PMOS-72 | Retire all .claude/agents/ files — skills-only architecture | Done ✅ |
+| C2 | PMOS-73 | Update CLAUDE.md as ambient orchestrator and routing authority | Done ✅ |
+| C3 | PMOS-74 | ADR: Skills-Only Architecture decision record | Done ✅ |
+| D1 | PMOS-82 | Multi-user Git workflow | Open |
+| D2 | PMOS-83 | Security hardening — SOC 2 readiness assessment | Open |
+| D3 | PMOS-84 | Onboarding documentation and training | Open |
+| D4 | PMOS-85 | Web application prototype (optional) | Open |
+| D5 | PMOS-86 | Deployment automation | Open |
+| D6 | PMOS-87 | Quality dashboard update — Phase 8 success criteria gate | Open |
+| E1 | PMOS-88 | IP-001: Enforce quality dashboard update at phase closeout | Open |
+| E2 | PMOS-89 | IP-002: Extend quality audit publishing to non-phase runs | Open |
+| E3 | PMOS-90 | IP-003: Fix ROADMAP.md dependency chain duplicate | Open |
+| E4 | PMOS-91 | IP-004: Clear pending markers in ROADMAP-001 evolution tracking | Open |
+| E5 | PMOS-92 | IP-005: Action Jira/Confluence Update Reference items | Open |
+| F1 | PMOS-93 | Update Confluence Architecture Overview — skills-only table | Open |
+| F2 | PMOS-94 | Create Confluence Changelog entry — 2026-02-15 agent retirement | Open |
+| G1 | PMOS-75 | pm-os-quality-audit: Confluence auto-publish for phase closeout | Done ✅ |
+| G2 | PMOS-76 | pm-os-doc-sync: Confluence auto-publish for doc sync reports | Done ✅ |
+| G3 | PMOS-77 | release-check: Confluence auto-publish for release check reports | Done ✅ |
+| H1 | PMOS-78 | GitHub Actions: Monthly Audit Reminder (audit-reminder.yml) | Done ✅ |
+| H2 | PMOS-79 | GitHub Actions: Confluence Weekly Sync (confluence-sync.yml) | Done ✅ |
+| H3 | PMOS-80 | Confluence Sync Script (scripts/confluence-sync.js) | Done ✅ |
+| H4 | PMOS-81 | Confluence Sync Manifest (scripts/confluence-sync-manifest.json) | Done ✅ |
+| I1 | PMOS-95 | Mermaid lifecycle diagram for PM OS | Open |
+| I2 | PMOS-96 | Discovery skill: expand beyond OST to additional artifact types | Open |
+| I3 | PMOS-97 | Fix discovery template vs PRD template location inconsistency | Open |
+| I4 | PMOS-98 | Identity layer expansion — branding, Help Center context | Open |
+| I5 | PMOS-99 | Presentation generation — templates and skill capability | Open |
+| I6 | PMOS-100 | UX Strategist — OOUX methodology integration | Open |
+| I7 | PMOS-101 | Cagan Product Model — identity and template integration | Open |
+| I8 | PMOS-102 | Competitive market research capability | Open |
+| I9 | PMOS-103 | New integrations evaluation — Figma, Pendo, Heap, Fullstory, Datadog | Open |
+| I10 | PMOS-104 | End-user authorization setup guide — OAuth for new PM onboarding | Open |
+| I11 | PMOS-105 | Identity layer rename consideration — 'identity' vs 'context' | Open |
+| I12 | PMOS-106 | SaaS version assessment — ChatPRD competitive analysis | Open |
+
+---
+
+**Artifact Status**: COMPLETE ✅
+**Actioned**: 2026-02-16
+**Jira range**: PMOS-59 to PMOS-106 (new tickets created this session)
 **Created**: 2026-02-15
 **Owner**: PM OS Orchestrator
