@@ -88,7 +88,15 @@ If only ⚠️ items: user decides whether to proceed.
 
 ---
 
-### 6. Save Release Check Report
+### 6. Save & Publish (conditional)
+
+**Only proceed with steps 6a and 6b if**:
+- Overall status is ⚠️ or ❌ (there is something to act on), **OR**
+- The user explicitly requested a saved record (e.g., passed a phase argument like "Phase 8" or "save")
+
+If all checks are ✅ with no action items, **skip steps 6a and 6b entirely** — do not create a file or publish to Confluence.
+
+#### 6a. Save Release Check Report
 Save a record of this review to:
 `execution/improvement_proposals/YYYY-MM-DD_ReleaseCheck_[ref].md`
 
@@ -96,7 +104,7 @@ Where `[ref]` is a phase reference if applicable (e.g., `phase-7`), otherwise to
 
 Contents: scope, all four check results with detail, overall status, required actions (if any).
 
-### 7. Publish to Confluence
+#### 6b. Publish to Confluence
 Publish the release check report to the PM OS Confluence space using the idempotency pattern:
 
 1. **CQL search**: `title = "Release Check: [phase or date ref]"` AND `space = "PM"`
