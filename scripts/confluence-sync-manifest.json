@@ -1,60 +1,85 @@
 {
-  "lastSync": "2026-02-15",
+  "lastSync": "2026-02-17T23:37:14.992Z",
   "pages": {
     ".claude/skills/prd/SKILL.md": {
       "pageId": "3145770",
       "parentId": "1114113",
-      "hash": ""
+      "hash": "cf2b9038fad8ce6d"
     },
     ".claude/skills/discovery/SKILL.md": {
       "pageId": "3571715",
       "parentId": "1114113",
-      "hash": ""
+      "hash": "476caaf3536836d4"
     },
     ".claude/skills/feature-pipeline/SKILL.md": {
       "pageId": "3211274",
       "parentId": "1114113",
-      "hash": ""
+      "hash": "3b9b2dd08a85104a"
     },
     ".claude/skills/product-architect/SKILL.md": {
       "pageId": "1179668",
       "parentId": "1114113",
-      "hash": ""
+      "hash": "b0372f4d43f35a16"
     },
     ".claude/skills/engineering-partner/SKILL.md": {
       "pageId": "1474561",
       "parentId": "1114113",
-      "hash": ""
+      "hash": "d6a75308cb98c454"
     },
     ".claude/skills/ux-strategist/SKILL.md": {
       "pageId": "1540097",
       "parentId": "1114113",
-      "hash": ""
+      "hash": "6d6cb320180bbafd"
     },
     ".claude/skills/data-analyst/SKILL.md": {
       "pageId": "1572865",
       "parentId": "1114113",
-      "hash": ""
+      "hash": "dfce3dbf316c2629"
     },
     ".claude/skills/gtm-strategist/SKILL.md": {
       "pageId": "1605633",
       "parentId": "1114113",
-      "hash": ""
+      "hash": "d1702427950b2b3a"
     },
     ".claude/skills/pm-os-quality-audit/SKILL.md": {
       "pageId": "1638401",
       "parentId": "1114113",
-      "hash": ""
+      "hash": "7b8660e494250c74"
     },
     ".claude/skills/pm-os-doc-sync/SKILL.md": {
       "pageId": "1671169",
       "parentId": "1114113",
-      "hash": ""
+      "hash": "b4990ada908af192"
     },
     ".claude/skills/release-check/SKILL.md": {
       "pageId": "3276843",
       "parentId": "1114113",
-      "hash": ""
+      "hash": "5987c754c28ecf80"
+    },
+    "execution/improvement_proposals/2026-02-14_Skills-Migration-Plan-Prompt.md": {
+      "pageId": "4227073",
+      "parentId": "1212417",
+      "hash": "e84203f7b13ef5ae"
+    },
+    "execution/improvement_proposals/2026-02-15_Confluence-Jira-Update-Reference.md": {
+      "pageId": "4292609",
+      "parentId": "1212417",
+      "hash": "05397e1c19742a72"
+    },
+    "execution/improvement_proposals/2026-02-15_Jira-Backlog-Formalization.md": {
+      "pageId": "4358145",
+      "parentId": "1212417",
+      "hash": "106643f39f841024"
+    },
+    "execution/improvement_proposals/2026-02-15_Proposals_full-system.md": {
+      "pageId": "4390913",
+      "parentId": "1212417",
+      "hash": "fd7fe52e110f4f5d"
+    },
+    "execution/improvement_proposals/2026-02-15_WIP_mode-b-confluence-autopublish.md": {
+      "pageId": "3768336",
+      "parentId": "1212417",
+      "hash": "4c8eb1a550caa03d"
     }
   },
   "directories": {
