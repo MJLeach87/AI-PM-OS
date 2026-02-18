@@ -1,0 +1,46 @@
+{
+  "_comment": "PM OS recommended Claude Code hooks. Copy the 'hooks' array into .claude/settings.json to activate.",
+  "_reference": "https://docs.anthropic.com/claude-code/hooks",
+  "_last_updated": "2026-02-17",
+
+  "hooks": [
+    {
+      "_comment": "Remind to commit after significant file writes to execution/",
+      "matcher": "PostToolUse",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "node -e \"const f=process.env.TOOL_RESULT_FILE_PATH||''; if(f.includes('execution/') && (f.endsWith('.md')||f.endsWith('.yaml'))) { console.log('PM OS: Artifact written to execution/. Consider committing: git add execution/ && git commit -m \"add artifact\"'); }\""
+        }
+      ]
+    },
+    {
+      "_comment": "Block writes to pm-os-reference/ — that directory is read-only reference material",
+      "matcher": "PreToolUse",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "node -e \"const f=process.env.TOOL_INPUT_FILE_PATH||''; if(f.includes('pm-os-reference/') && !f.includes('phase-history') && !f.includes('phase-evolution') && !f.includes('documentation/QUALITY_METRICS_DASHBOARD')) { process.exit(1); }\" 2>/dev/null || echo 'PM OS: pm-os-reference/ is read-only. Use execution/ for your work.'"
+        }
+      ]
+    },
+    {
+      "_comment": "Warn if editing identity/ files without a backup — these are critical context files",
+      "matcher": "PreToolUse",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "node -e \"const f=process.env.TOOL_INPUT_FILE_PATH||''; if(f.includes('/identity/') && (f.endsWith('STRATEGY.md')||f.endsWith('STANDARDS.md'))) { console.warn('PM OS: Modifying identity/ file. Ensure changes are intentional — agents use these files for all outputs.'); }\""
+        }
+      ]
+    }
+  ],
+
+  "_usage_notes": [
+    "Add the 'hooks' array above to .claude/settings.json (do NOT add the _comment fields)",
+    "Hooks use node.js — ensure node is in your PATH",
+    "TOOL_RESULT_FILE_PATH and TOOL_INPUT_FILE_PATH are injected by Claude Code",
+    "PreToolUse exit(1) blocks the tool call — use sparingly",
+    "PostToolUse runs after the tool completes — safe for logging/reminders"
+  ]
+}

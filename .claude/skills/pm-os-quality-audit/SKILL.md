@@ -62,25 +62,31 @@ Update `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md`:
 - Open improvement proposals count
 - Any new risks identified
 
-### 6b. Publish Phase Report to Confluence (conditional)
-**Trigger**: Only if $ARGUMENTS contains a phase reference (e.g., "Phase 7", "Phase 8").
+**Note**: Dashboard update is a required process gate at phase close (IP-001). Always run this step when auditing after a phase completion, not just for systemic issues.
 
-If triggered, publish a phase completion report to Confluence using the idempotency pattern:
+### 6b. Publish Audit Report to Confluence
+
+Publish the quality audit report to Confluence using the idempotency pattern:
 
 1. **Search** for an existing page:
-   - CQL: `title = "Phase [N] Completion Report: [phase name]"` AND `space = "PM"`
+   - CQL: `title = "Quality Audit: [scope] – YYYY-MM-DD"` AND `space = "PM"`
    - Cloud ID: `d1d9d612-3182-4d76-ad10-bce2f315b8f3`
 2. **If found** → call `updateConfluencePage` with the existing page ID
-3. **If not found** → call `createConfluencePage` under parent page ID `1179649` (PM OS - Phase Reports)
+3. **If not found** → call `createConfluencePage`:
+   - **Phase audits** (e.g., "Phase 8"): parent page ID `1179649` (PM OS - Phase Reports)
+   - **All other audits**: parent page ID `1212417` (PM OS - Operations)
 4. **Confirm**: State the published page title and URL to the user
 
-**Title convention**: `Phase [N] Completion Report: [phase name]`
+**Title convention**: `Quality Audit: [scope] – YYYY-MM-DD`
+- `[scope]` = the argument passed (e.g., "Phase 8", "agents", "PRDs", "skills")
+- No argument → use "Full System"
 
-**Content**: Phase completion summary including:
-- Phase name, number, and completion date
-- Deliverables table (artifact name, status, file path)
-- Quality audit results (Pass/Flag/Fail rates from Step 3)
-- Velocity note from `pm-os-reference/documentation/VELOCITY_TRACKING.md`
+**Content**: Audit report including:
+- Audit scope, date, and period covered
+- Overall health: 🟢 Healthy / 🟡 Needs attention / 🔴 Critical issues
+- Pass/Flag/Fail rates by agent (from Step 3)
+- Top improvement proposals (from Step 5)
+- For phase audits: deliverables table + velocity note from `pm-os-reference/documentation/VELOCITY_TRACKING.md`
 
 ### 7. Summary Report
 Present findings:

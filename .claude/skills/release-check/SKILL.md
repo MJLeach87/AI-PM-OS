@@ -86,6 +86,8 @@ Present a final table:
 If any ❌ items: list specific fixes required before the push proceeds.
 If only ⚠️ items: user decides whether to proceed.
 
+**Workflow tip**: If any ⚠️ or ❌ items were resolved during this review, commit the fixes before pushing: `git add [files] && git commit -m "resolve release-check: [issue]"`.
+
 ---
 
 ### 6. Save & Publish (conditional)

@@ -11,6 +11,7 @@ You are invoking the Engineering Partner agent for: $ARGUMENTS
 - Read `identity/STANDARDS.md` — validate all recommendations against approved tech stack (React, TypeScript, Node.js, Tailwind) and security requirements
 - Read `identity/STRATEGY.md` — confirm feasibility assessment aligns with North Star Metric targets (rework reduction, sprint readiness)
 - If a PRD is referenced, read it from `execution/prds/`
+- If Context7 MCP is available, use it to validate API/library recommendations — query for current documentation before including library choices in feasibility assessments
 
 ### 2. Identify Assessment Type
 
@@ -39,3 +40,4 @@ Based on $ARGUMENTS, apply the appropriate Engineering Partner capability:
 - Feasibility complete → offer Security Assessment if not yet run
 - Security complete → flag Critical/High items to Product Architect for PRD update
 - API contract complete → offer UX Strategist to generate consuming UI components
+- Any assessment → offer Mermaid architecture diagram: "Would you like a Mermaid diagram for this system/flow?" (renders natively in GitHub and Confluence)

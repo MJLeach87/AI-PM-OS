@@ -368,6 +368,20 @@ Want to see a complete, real-world Identity Layer? Check out `pm-os-reference/id
 
 ---
 
+## PM OS Workflow Tips
+
+**Session Recovery (`--resume`)**: If a session is interrupted (MCP disconnect, context limit), resume it with `claude --resume [session-id]`. Before long multi-step work, save a WIP file to `execution/improvement_proposals/YYYY-MM-DD_WIP_[topic].md` so context can be reconstructed if needed.
+
+**Status Line**: Run `/statusline-setup` to configure the Claude Code status line (model, token usage, tool status at a glance).
+
+**Controlling Execution (`--max-turns`)**: For long automated runs (e.g., full `/feature-pipeline`), use `--max-turns N` to cap the run and prevent runaway loops.
+
+**Compact Threshold**: When the conversation approaches context limits, use `/compact` to compress history. Best practice: run `/compact` after each major phase completes (e.g., after PRD v1.0, before starting specialist reviews).
+
+**Commit Checkpoints**: After completing each tier or phase of work, commit to git before starting the next. This preserves state and makes `--resume` more reliable if the next session is interrupted.
+
+---
+
 ## Summary
 
 **Key Takeaways**:

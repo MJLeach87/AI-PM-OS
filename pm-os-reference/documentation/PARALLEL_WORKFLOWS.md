@@ -122,7 +122,7 @@ Notify when all four complete. Product Architect will then consolidate into PRD 
 
 ## Pattern 4: Parallel Quality Audits
 
-**When to use**: System Evaluator auditing multiple agents simultaneously, or `/audit` on a large batch of artifacts.
+**When to use**: Running `/pm-os-quality-audit` on a large batch of artifacts simultaneously.
 
 **How to invoke**:
 
@@ -143,7 +143,7 @@ Produce a single consolidated audit report.
 
 **When to use**: After multiple phases of work, sync all documentation simultaneously.
 
-**How to invoke** (or use `/sync-docs`):
+**How to invoke** (or use `/pm-os-doc-sync`):
 
 ```
 Documentation Maintainer: Sync all stale documentation in parallel:
@@ -152,6 +152,27 @@ Documentation Maintainer: Sync all stale documentation in parallel:
 - .claude/CLAUDE.md (verify phase table is current)
 - identity/README.md (check customization checklist completeness)
 ```
+
+---
+
+## Pattern 6: Mermaid Architecture Diagrams
+
+**When to use**: Alongside any Engineering Partner assessment, or when you need architecture/flow visualization. Mermaid renders natively in GitHub and Confluence — no separate MCP or plugin needed.
+
+**How to invoke** (alongside a specialist):
+
+```
+Engineering Partner: Include a Mermaid architecture diagram for [feature/system] in the feasibility output.
+```
+
+**Standalone requests**:
+
+```
+Generate a Mermaid sequence diagram for [flow description].
+Generate a Mermaid flowchart for [workflow].
+```
+
+**Output**: Mermaid blocks embedded in the technical spec file — renders automatically in GitHub PR previews and Confluence pages.
 
 ---
 
@@ -166,6 +187,21 @@ Documentation Maintainer: Sync all stale documentation in parallel:
 
 ---
 
+## When to Use Plan Mode
+
+For any skill that triggers multi-agent work or cross-skill orchestration, **enter plan mode first**. This validates the sequence before agents start writing artifacts.
+
+**Use plan mode when**:
+- Running `/feature-pipeline` (5+ agents, 90 min+)
+- Combining 3+ skills in a custom cross-skill sequence
+- Running a workflow you haven't done before in this session
+
+**How to invoke**: Prepend "Plan:" to your request, or type the request and let EnterPlanMode activate automatically.
+
+**Skippable for**: Single-skill invocations (`/prd`, `/discovery`, `/engineering-partner`) where the pattern is well-established.
+
+---
+
 ## Monitoring Parallel Runs
 
 When running parallel agents:
@@ -173,6 +209,7 @@ When running parallel agents:
 1. **Request status updates**: "Let me know when Engineering Partner and UX Strategist both complete."
 2. **Check for blockers**: If one agent finishes early and finds a blocker (e.g., Engineering Partner flags an infeasibility), pause the other parallel agents if their work depends on the blocked outcome.
 3. **Consolidation prompt**: After all parallel agents complete, explicitly say: "Product Architect: all specialist reviews are complete. Consolidate into PRD v1.0."
+4. **Commit checkpoint**: After each parallel batch completes, commit progress before starting the next batch: `git add execution/ && git commit -m "Complete [batch]: [specialist 1] + [specialist 2] outputs"`. Preserves work if the session is interrupted.
 
 ---
 
@@ -219,8 +256,8 @@ Based on PM OS Phase 0-6 velocity data:
 
 ---
 
-**Guide Version**: 1.0 (Phase 7)
-**Related Skills**: `/feature` (uses Pattern 1+2), `/audit` (uses Pattern 4), `/sync-docs` (uses Pattern 5)
+**Guide Version**: 1.1 (Phase 8 prep)
+**Related Skills**: `/feature-pipeline` (uses Pattern 1+2), `/pm-os-quality-audit` (uses Pattern 4), `/pm-os-doc-sync` (uses Pattern 5), `/engineering-partner` (uses Pattern 6)
 **Related Agents**: All core agents + Orchestrator
-**Maintained By**: Documentation Maintainer Agent
-**Last Updated**: 2026-02-14
+**Maintained By**: PM OS Orchestrator
+**Last Updated**: 2026-02-17

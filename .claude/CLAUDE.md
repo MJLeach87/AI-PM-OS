@@ -97,7 +97,8 @@ PM OS inception examples (Phase 0–1): `pm-os-reference/artifacts/`
 |-------------|--------|------------|
 | Atlassian Rovo MCP | ✅ Active | Jira (issues, JQL) + Confluence (pages, search) |
 | Google Drive | ✅ Active | Legacy document retrieval |
-| Slack / Snowflake | 🟡 Planned | Phase 8 |
+| Context7 | ✅ Active | Library/API docs for Engineering Partner validation |
+| Slack / Snowflake | 🟡 Planned | Phase 8 (PMOS-107, PMOS-108) |
 
 Config: `.mcp.json` | Setup guide: `mcp/setup_guides/ROVO_MCP_SETUP.md`
 
@@ -125,12 +126,7 @@ page CRUD, search, and comments only.
 
 ## Key Principles
 
-**Self-Awareness (meta-recursive)**:
-- PM OS is building itself. Keep Mode A and Mode B clearly separated.
-- Mode A improvements (user's product): reference `identity/ROADMAP.md`
-- Mode B improvements (PM OS itself): reference `pm-os-reference/identity/ROADMAP.md`
-- New skills → `.claude/skills/[name]/SKILL.md` + update routing table above
-- Propose PM OS changes via `execution/improvement_proposals/` for human review
+**Self-Awareness**: Keep Mode A (your product → `identity/ROADMAP.md`) and Mode B (PM OS → `pm-os-reference/identity/ROADMAP.md`) clearly separated. New skills → `.claude/skills/[name]/SKILL.md` + update routing table. Propose changes via `execution/improvement_proposals/`.
 
 **Quality over speed**: Validate against `identity/STANDARDS.md`. Flag uncertainties.
 Never skip security checks.
@@ -150,4 +146,4 @@ Never skip security checks.
 
 ---
 
-**Last Updated**: 2026-02-15 | **Maintained By**: PM OS Orchestrator + Human PM
+**Last Updated**: 2026-02-17 | **Maintained By**: PM OS Orchestrator + Human PM

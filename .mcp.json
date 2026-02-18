@@ -3,6 +3,10 @@
     "atlassian": {
       "command": "cmd",
       "args": ["/c", "npx", "-y", "mcp-remote", "https://mcp.atlassian.com/v1/mcp"]
+    },
+    "context7": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@upstash/context7-mcp@latest"]
     }
   }
 }
