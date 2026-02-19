@@ -1,5 +1,5 @@
 {
-  "lastSync": "2026-02-19T01:58:30.777Z",
+  "lastSync": "2026-02-19T02:49:31.151Z",
   "pages": {
     ".claude/skills/prd/SKILL.md": {
       "pageId": "3145770",
@@ -44,17 +44,17 @@
     ".claude/skills/pm-os-quality-audit/SKILL.md": {
       "pageId": "1638401",
       "parentId": "1114113",
-      "hash": "066f2a403db79f3b"
+      "hash": "dbd3a79ee1463eb8"
     },
     ".claude/skills/pm-os-doc-sync/SKILL.md": {
       "pageId": "1671169",
       "parentId": "1114113",
-      "hash": "b4990ada908af192"
+      "hash": "6a9a26670a85f69b"
     },
     ".claude/skills/release-check/SKILL.md": {
       "pageId": "3276843",
       "parentId": "1114113",
-      "hash": "5cbae515c36b4816"
+      "hash": "e1aacd2a3f990417"
     },
     "pm-os-reference/documentation/improvement_proposals/2026-02-14_Skills-Migration-Plan-Prompt.md": {
       "pageId": "4227073",
