@@ -46,9 +46,13 @@ fi
 # false positives on placeholder values like KEY=<your-value> or KEY=[placeholder].
 # sk- requires 20+ chars to avoid matching common words like "risk-based" or "task-repo".
 # scripts/pre-push is self-excluded (it contains these pattern strings as shell variables).
+# .claude/ is excluded — Claude Code auto-managed config, never contains real secrets.
+# Uses `git grep` (native, cross-platform) instead of `git ls-files | xargs grep` to avoid
+# xargs exit-code 123 issues on Windows Git Bash when grep finds no matches.
 SECRET_PATTERNS='API_KEY=[^<\[]|SECRET=[^<\[]|PASSWORD=[^<\[]|ghp_[A-Za-z0-9]+|sk-[A-Za-z0-9]{20,}|AKIA[A-Z0-9]+'
-if git ls-files -z | xargs -0 grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -qvE '^(\.env|scripts/pre-push)$'; then
-  MATCHES=$(git ls-files -z | xargs -0 grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -vE '^(\.env|scripts/pre-push)$' || true)
+SECRET_EXCLUDE='^(\.env|scripts/pre-push|\.claude/.+)$'
+if git grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -qvE "$SECRET_EXCLUDE"; then
+  MATCHES=$(git grep -El "$SECRET_PATTERNS" 2>/dev/null | grep -vE "$SECRET_EXCLUDE" || true)
   fail "Potential secrets found in tracked files:\n$MATCHES"
 else
   ok "No secret patterns detected"
@@ -57,8 +61,8 @@ fi
 # 3. Merge conflict markers
 # Exclude this script itself (it contains the conflict pattern as a shell string literal).
 CONFLICT_PATTERN='<<<<<<<|>>>>>>>'
-if git ls-files -z | xargs -0 grep -El "$CONFLICT_PATTERN" 2>/dev/null | grep -qvE '^scripts/pre-push$'; then
-  CONFLICTS=$(git ls-files -z | xargs -0 grep -El "$CONFLICT_PATTERN" 2>/dev/null | grep -vE '^scripts/pre-push$' || true)
+if git grep -El "$CONFLICT_PATTERN" 2>/dev/null | grep -qvE '^scripts/pre-push$'; then
+  CONFLICTS=$(git grep -El "$CONFLICT_PATTERN" 2>/dev/null | grep -vE '^scripts/pre-push$' || true)
   fail "Merge conflict markers found in:\n$CONFLICTS"
 else
   ok "No merge conflict markers"
