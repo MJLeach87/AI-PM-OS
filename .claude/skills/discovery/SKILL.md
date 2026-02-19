@@ -55,6 +55,8 @@ From the synthesized insights, derive product opportunities:
 
 ### 5. Generate Opportunity Artifact (choose based on scope)
 
+> For structured discovery cataloging across multiple artifacts, see `templates/discovery_index_template.md` (optional).
+
 **For broad problem space exploration → Opportunity Solution Tree (OST)**
 - Root: The outcome aligned to a North Star Metric
 - Opportunities: Problems/needs from insight themes (cite evidence)
