@@ -142,21 +142,21 @@ While `pm-os-reference/artifacts/` shows **what PM OS produces** (OSTs, PRDs, sp
 - If it's an artifact PM OS would generate for a user → `pm-os-reference/artifacts/`
 - If it's documentation about PM OS's process → `pm-os-reference/documentation/`
 
-### pm-os-reference/documentation/ vs. execution/improvement_proposals/
+### pm-os-reference/documentation/ vs. pm-os-reference/documentation/improvement_proposals/
 
 **pm-os-reference/documentation/validation-reports/**:
 - PM OS's **own quality audits** (Phase 0-3 inception work)
 - Completed validation reports from PM OS building itself
 - Historical/archival (Phase 0-3 complete)
 
-**execution/improvement_proposals/**:
-- **Future improvement proposals** from System Evaluator
+**pm-os-reference/documentation/improvement_proposals/**:
+- **Active improvement proposals** from Mode B skills (pm-os-quality-audit, pm-os-doc-sync, release-check)
 - Ongoing self-improvement work (Phase 3+)
-- Active proposals for PM OS enhancements
+- WIP docs, ADRs, and proposals for PM OS enhancements
 
 **Rule of thumb**:
 - Completed Phase 0-3 audits → `pm-os-reference/documentation/validation-reports/`
-- Ongoing improvement proposals → `execution/improvement_proposals/`
+- Ongoing improvement proposals + ADRs → `pm-os-reference/documentation/improvement_proposals/`
 
 ---
 

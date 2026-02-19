@@ -28,9 +28,9 @@ The automated bash hook (`scripts/pre-push`) handles security scanning on every 
 | `/ux-strategist` | `execution/prototypes/`, `execution/discovery/` | None |
 | `/data-analyst` | `execution/` | None |
 | `/gtm-strategist` | `execution/gtm/` | None |
-| `/pm-os-quality-audit` | `execution/improvement_proposals/` | Confluence (conditional on phase arg) |
+| `/pm-os-quality-audit` | `pm-os-reference/documentation/improvement_proposals/` | Confluence (conditional on phase arg) |
 | `/pm-os-doc-sync` | Multiple docs | Confluence (publish) |
-| `/release-check` | `execution/improvement_proposals/` (conditional) | Confluence (conditional) |
+| `/release-check` | `pm-os-reference/documentation/improvement_proposals/` (conditional) | Confluence (conditional) |
 
 ---
 

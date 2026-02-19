@@ -343,7 +343,7 @@ Phase 3: ████████████████████ 100% (7/7 
 1. ✅ **Update Quality Dashboard** (this document) → **DONE**
 2. ✅ **Confluence auto-publish** integrated into all relevant skills → **DONE**
 3. ✅ **Skills-only architecture** complete, agent files retired → **DONE**
-4. 🟡 **Action Jira/Confluence updates**: Create agent retirement Jira ticket + update Confluence Architecture Overview (see `execution/improvement_proposals/2026-02-15_Confluence-Jira-Update-Reference.md`)
+4. 🟡 **Action Jira/Confluence updates**: Create agent retirement Jira ticket + update Confluence Architecture Overview (see `pm-os-reference/documentation/improvement_proposals/2026-02-15_Confluence-Jira-Update-Reference.md`)
 5. 🟡 **Fix ROADMAP.md**: Remove duplicate dependency chain entries; clear ⏳ markers in ROADMAP-001
 6. 🟡 **Update VELOCITY_TRACKING.md**: Add Phase 4–7 velocity data
 7. 🟡 **Plan Phase 8**: Enterprise Readiness scope definition

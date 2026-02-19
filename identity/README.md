@@ -370,7 +370,7 @@ Want to see a complete, real-world Identity Layer? Check out `pm-os-reference/id
 
 ## PM OS Workflow Tips
 
-**Session Recovery (`--resume`)**: If a session is interrupted (MCP disconnect, context limit), resume it with `claude --resume [session-id]`. Before long multi-step work, save a WIP file to `execution/improvement_proposals/YYYY-MM-DD_WIP_[topic].md` so context can be reconstructed if needed.
+**Session Recovery (`--resume`)**: If a session is interrupted (MCP disconnect, context limit), resume it with `claude --resume [session-id]`. Before long multi-step work, save a WIP file to `pm-os-reference/documentation/improvement_proposals/YYYY-MM-DD_WIP_[topic].md` so context can be reconstructed if needed.
 
 **Status Line**: Run `/statusline-setup` to configure the Claude Code status line (model, token usage, tool status at a glance).
 

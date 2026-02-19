@@ -97,7 +97,7 @@ IMPLEMENTATION_STATUS.md
 | `execution/prds/*.md` | PM OS - PRDs & Discovery (`1048577`) | Auto-create or update |
 | `execution/discovery/*.md` | PM OS - Discovery (`1146881`) | Auto-create or update |
 | `execution/technical_specs/*.md` | PM OS - Technical Specs (`1081345`) | Auto-create or update |
-| `execution/improvement_proposals/*.md` | PM OS - Operations (`1212417`) | Auto-create or update |
+| `pm-os-reference/documentation/improvement_proposals/*.md` | PM OS - Operations (`1212417`) | Auto-create or update |
 | `execution/gtm/*.md` | PM OS - PRDs & Discovery (`1048577`) | Auto-create or update |
 
 Change detection is hash-based — unchanged files are skipped, so pushes with many
@@ -157,7 +157,7 @@ with `[skip ci]` to prevent infinite loops.
 
 1. Open Claude Code in this directory
 2. Run `/pm-os-quality-audit`
-3. Review improvement proposals saved to `execution/improvement_proposals/`
+3. Review improvement proposals saved to `pm-os-reference/documentation/improvement_proposals/`
 4. Close the GitHub Issue and Jira ticket when done
 
 ---

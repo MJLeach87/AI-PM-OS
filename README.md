@@ -128,14 +128,14 @@ PM OS/
 │   ├── identity/                     # PM OS's org context (reference examples, read-only)
 │   ├── artifacts/                    # PM OS outputs during Phase 0-1
 │   └── documentation/                # Phase history, velocity data, quality metrics
+│       └── improvement_proposals/    # Mode B: self-improvement proposals + ADRs
 │
-├── execution/                        # YOUR artifact workspace
+├── execution/                        # YOUR artifact workspace (Mode A only)
 │   ├── discovery/                    # OSTs, user research, IA maps
 │   ├── prds/                         # Product requirements documents
 │   ├── technical_specs/              # BPMN, API contracts, Gherkin scenarios
 │   ├── prototypes/                   # React/Tailwind components
-│   ├── gtm/                          # Battle cards, positioning, value props
-│   └── improvement_proposals/        # PM OS self-improvement proposals
+│   └── gtm/                          # Battle cards, positioning, value props
 │
 ├── templates/                        # Standardized artifact formats
 │   ├── prd_template.md

@@ -60,7 +60,7 @@ Report:
 
 ### 6b. Save Sync Report
 Save a record of this sync run to:
-`execution/improvement_proposals/YYYY-MM-DD_DocSync_[trigger].md`
+`pm-os-reference/documentation/improvement_proposals/YYYY-MM-DD_DocSync_[trigger].md`
 
 Where `[trigger]` is a slug of the sync trigger (e.g., `full-audit`, `after-phase-7`, `new-skill-release-check`).
 

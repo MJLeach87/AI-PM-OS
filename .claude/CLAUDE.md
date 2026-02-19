@@ -31,7 +31,7 @@ PARALLEL_WORKFLOWS guide, Data Analyst v2.2.
 
 **Mode B — PM OS self-improvement** (improving the system itself):
 - Context: `pm-os-reference/identity/ROADMAP.md` (PM OS's implementation timeline)
-- Outputs: `execution/improvement_proposals/`
+- Outputs: `pm-os-reference/documentation/improvement_proposals/`
 - Skills: `/pm-os-quality-audit`, `/pm-os-doc-sync`, `/release-check`
 - **Audit cadence**: Monthly (GitHub Issue + Jira ticket auto-created by `.github/workflows/audit-reminder.yml`) + after each phase closes
 
@@ -76,7 +76,7 @@ See `identity/README.md` for customization instructions.
 
 Automated on every push: `scripts/pre-push` (security + hygiene).
 
-### Execution Layer
+### Execution Layer (Mode A)
 
 Artifacts use naming convention `YYYY-MM-DD_[artifact-type]_[brief-title].md`:
 
@@ -87,7 +87,8 @@ Artifacts use naming convention `YYYY-MM-DD_[artifact-type]_[brief-title].md`:
 | `execution/technical_specs/` | BPMN, API contracts, Gherkin |
 | `execution/prototypes/` | React/Tailwind components |
 | `execution/gtm/` | Value props, battle cards, positioning |
-| `execution/improvement_proposals/` | PM OS self-improvement proposals |
+
+Mode B outputs (improvement proposals, ADRs): `pm-os-reference/documentation/improvement_proposals/`
 
 PM OS inception examples (Phase 0–1): `pm-os-reference/artifacts/`
 
@@ -126,7 +127,7 @@ page CRUD, search, and comments only.
 
 ## Key Principles
 
-**Self-Awareness**: Keep Mode A (your product → `identity/ROADMAP.md`) and Mode B (PM OS → `pm-os-reference/identity/ROADMAP.md`) clearly separated. New skills → `.claude/skills/[name]/SKILL.md` + update routing table. Propose changes via `execution/improvement_proposals/`.
+**Self-Awareness**: Keep Mode A (your product → `identity/ROADMAP.md`) and Mode B (PM OS → `pm-os-reference/identity/ROADMAP.md`) clearly separated. New skills → `.claude/skills/[name]/SKILL.md` + update routing table. Propose changes via `pm-os-reference/documentation/improvement_proposals/`.
 
 **Quality over speed**: Validate against `identity/STANDARDS.md`. Flag uncertainties.
 Never skip security checks.

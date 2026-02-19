@@ -21,7 +21,7 @@ Based on $ARGUMENTS, determine what to audit:
 ### 2. Gather Artifacts
 - Glob `execution/` for all artifacts generated since last audit
 - Read `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md` for baseline metrics
-- Check `execution/improvement_proposals/` for open proposals not yet implemented
+- Check `pm-os-reference/documentation/improvement_proposals/` for open proposals not yet implemented
 
 ### 3. Quality Evaluation
 For each artifact in scope, evaluate against `identity/STANDARDS.md` quality gates:
@@ -53,7 +53,7 @@ For each systemic gap identified, create a structured proposal:
 **Priority**: Critical / High / Medium / Low
 ```
 
-Save proposals to `execution/improvement_proposals/YYYY-MM-DD_Proposals_[scope].md`
+Save proposals to `pm-os-reference/documentation/improvement_proposals/YYYY-MM-DD_Proposals_[scope].md`
 
 ### 6. Update Quality Dashboard
 Update `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md`:

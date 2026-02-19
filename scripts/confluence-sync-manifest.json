@@ -56,37 +56,37 @@
       "parentId": "1114113",
       "hash": "5cbae515c36b4816"
     },
-    "execution/improvement_proposals/2026-02-14_Skills-Migration-Plan-Prompt.md": {
+    "pm-os-reference/documentation/improvement_proposals/2026-02-14_Skills-Migration-Plan-Prompt.md": {
       "pageId": "4227073",
       "parentId": "1212417",
       "hash": "e84203f7b13ef5ae"
     },
-    "execution/improvement_proposals/2026-02-15_Confluence-Jira-Update-Reference.md": {
+    "pm-os-reference/documentation/improvement_proposals/2026-02-15_Confluence-Jira-Update-Reference.md": {
       "pageId": "4292609",
       "parentId": "1212417",
       "hash": "05397e1c19742a72"
     },
-    "execution/improvement_proposals/2026-02-15_Jira-Backlog-Formalization.md": {
+    "pm-os-reference/documentation/improvement_proposals/2026-02-15_Jira-Backlog-Formalization.md": {
       "pageId": "4358145",
       "parentId": "1212417",
       "hash": "106643f39f841024"
     },
-    "execution/improvement_proposals/2026-02-15_Proposals_full-system.md": {
+    "pm-os-reference/documentation/improvement_proposals/2026-02-15_Proposals_full-system.md": {
       "pageId": "4390913",
       "parentId": "1212417",
       "hash": "fd7fe52e110f4f5d"
     },
-    "execution/improvement_proposals/2026-02-15_WIP_mode-b-confluence-autopublish.md": {
+    "pm-os-reference/documentation/improvement_proposals/2026-02-15_WIP_mode-b-confluence-autopublish.md": {
       "pageId": "3768336",
       "parentId": "1212417",
       "hash": "4c8eb1a550caa03d"
     },
-    "execution/improvement_proposals/2026-02-17_ADR_Plugin-Packaging.md": {
+    "pm-os-reference/documentation/improvement_proposals/2026-02-17_ADR_Plugin-Packaging.md": {
       "pageId": "4784129",
       "parentId": "1212417",
       "hash": "c3ed7d6db4d336af"
     },
-    "execution/improvement_proposals/2026-02-17_WIP_workstream-1-resume.md": {
+    "pm-os-reference/documentation/improvement_proposals/2026-02-17_WIP_workstream-1-resume.md": {
       "pageId": "4751368",
       "parentId": "1212417",
       "hash": "6b34baa2cbff67b6"
@@ -102,7 +102,7 @@
     "execution/technical_specs": {
       "parentId": "1081345"
     },
-    "execution/improvement_proposals": {
+    "pm-os-reference/documentation/improvement_proposals": {
       "parentId": "1212417"
     },
     "execution/gtm": {

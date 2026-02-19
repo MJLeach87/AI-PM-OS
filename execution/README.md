@@ -135,23 +135,6 @@ The `execution/` directory is where PM OS transforms ideas into shippable featur
 
 ---
 
-### `improvement_proposals/` - Self-Improvement Tracking
-
-**What belongs here**:
-- **Agent improvement proposals**: Suggested enhancements to agent logic, templates, workflows
-- **Quality audit reports**: System Evaluator analyses of artifact quality
-- **Performance dashboards**: Metrics on agent output quality, acceptance rates, rework reduction
-- **Rejected proposals**: Improvement ideas that were declined (with reasoning)
-
-**Agent**: System Evaluator (Phase 3+)
-
-**Example artifacts**:
-- `2026-03-01_Improvement-Proposal_PRD-Template-Enhancement.md`
-- `2026-03-08_Quality-Audit_Week-10-Outputs.md`
-- `2026-03-15_Performance-Dashboard_Q1-2026.md`
-
-**Workflow**: Self-improvement loop (audit → pattern detection → proposals → PR → review → implement)
-
 ---
 
 ### `automation/` - Deployment & Reporting Scripts
@@ -370,7 +353,7 @@ For iterative artifacts (PRDs, prototypes):
 - YOUR company's vision → `identity/STRATEGY.md`
 - PM OS's vision (reference) → `pm-os-reference/identity/STRATEGY.md`
 - PM OS inception OST (reference) → `pm-os-reference/artifacts/discovery/`
-- Agent improvement proposal → `execution/improvement_proposals/`
+- Agent improvement proposal (Mode B) → `pm-os-reference/documentation/improvement_proposals/`
 
 ---
 
@@ -386,7 +369,7 @@ For iterative artifacts (PRDs, prototypes):
 - Feasibility assessment or API spec → `technical_specs/`
 - React component or wireframe → `prototypes/`
 - Value proposition or battle card → `gtm/`
-- Agent improvement idea → `improvement_proposals/`
+- Agent improvement idea (Mode B) → `pm-os-reference/documentation/improvement_proposals/`
 
 **Rule of thumb**: If unsure, ask Product Architect: "Where should this artifact be saved?" - it will route to correct subdirectory.
 
@@ -474,8 +457,8 @@ git log --since="2026-01-01" execution/prds/
 ## Summary
 
 **Key Takeaways**:
-1. **execution/** is YOUR workspace - agents save all outputs here
-2. **7 subdirectories** organize artifacts by type (discovery, PRDs, specs, prototypes, GTM, improvements, automation)
+1. **execution/** is YOUR workspace - agents save all Mode A outputs here
+2. **6 subdirectories** organize artifacts by type (discovery, PRDs, specs, prototypes, GTM, automation)
 3. **File naming convention**: `YYYY-MM-DD_[artifact-type]_[brief-title].md` (chronological, searchable)
 4. **Quality gates** from `identity/STANDARDS.md` ensure all artifacts meet YOUR standards
 5. **Artifact pipeline**: Discovery → PRD → Tech Spec → Prototype → GTM (with parallel processing)

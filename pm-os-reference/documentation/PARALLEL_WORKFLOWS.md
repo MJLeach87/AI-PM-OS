@@ -135,7 +135,7 @@ Run quality audit in parallel across:
 Produce a single consolidated audit report.
 ```
 
-**Output**: `execution/improvement_proposals/YYYY-MM-DD_Audit_[scope].md`
+**Output**: `pm-os-reference/documentation/improvement_proposals/YYYY-MM-DD_Audit_[scope].md`
 
 ---
 

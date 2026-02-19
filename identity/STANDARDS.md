@@ -227,7 +227,7 @@ Example:
 2. Submitted as GitHub PR with before/after examples
 3. Human PM reviews for alignment with standards
 4. If approved: Merged → agents updated → re-tested
-5. If rejected: Documented in `execution/improvement_proposals/rejected/` with reasoning
+5. If rejected: Documented in `pm-os-reference/documentation/improvement_proposals/rejected/` with reasoning
 
 ---
 

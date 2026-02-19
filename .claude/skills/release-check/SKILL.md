@@ -100,7 +100,7 @@ If all checks are âœ… with no action items, **skip steps 6a and 6b entirely** â€
 
 #### 6a. Save Release Check Report
 Save a record of this review to:
-`execution/improvement_proposals/YYYY-MM-DD_ReleaseCheck_[ref].md`
+`pm-os-reference/documentation/improvement_proposals/YYYY-MM-DD_ReleaseCheck_[ref].md`
 
 Where `[ref]` is a phase reference if applicable (e.g., `phase-7`), otherwise today's date (e.g., `2026-02-15`).
 

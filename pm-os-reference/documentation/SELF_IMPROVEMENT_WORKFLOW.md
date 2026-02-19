@@ -51,7 +51,7 @@ The Self-Improvement Workflow enables PM OS to continuously improve itself throu
 ┌─────────────────────────────────────────────────────────────────┐
 │                  Phase 4: Pull Request Creation                  │
 │  - Create feature branches for each proposal                    │
-│  - Commit proposals to execution/improvement_proposals/         │
+│  - Commit proposals to pm-os-reference/documentation/improvement_proposals/         │
 │  - Generate pull requests with detailed descriptions            │
 │  - Tag human PM for review                                      │
 └────────────────────────────┬────────────────────────────────────┘
@@ -194,7 +194,7 @@ find execution/ -name "*.md" -mtime -7 -type f
 
 ### Report Generation
 
-**Output**: `execution/improvement_proposals/YYYY-MM-DD_QualityAudit_Week-N.md`
+**Output**: `pm-os-reference/documentation/improvement_proposals/YYYY-MM-DD_QualityAudit_Week-N.md`
 
 **Structure** (using quality_audit_template.md):
 - Executive summary with overall quality score
@@ -315,7 +315,7 @@ For each high-priority pattern:
 - Document alternatives considered
 - Specify validation scenarios
 
-**Output**: `execution/improvement_proposals/YYYY-MM-DD_Proposal_[brief-title].md`
+**Output**: `pm-os-reference/documentation/improvement_proposals/YYYY-MM-DD_Proposal_[brief-title].md`
 
 ### Proposal Validation
 
@@ -340,7 +340,7 @@ Before submitting proposals:
 git checkout -b improvement/[brief-title]
 
 # Commit proposal
-git add execution/improvement_proposals/YYYY-MM-DD_Proposal_[title].md
+git add pm-os-reference/documentation/improvement_proposals/YYYY-MM-DD_Proposal_[title].md
 git commit -m "Propose: [Brief description]
 
 [Detailed commit message with problem, solution, impact]
@@ -357,7 +357,7 @@ git push -u origin improvement/[brief-title]
 # Create pull request via gh CLI
 gh pr create \
   --title "Improvement: [Brief Title]" \
-  --body "$(cat execution/improvement_proposals/YYYY-MM-DD_Proposal_[title].md)" \
+  --body "$(cat pm-os-reference/documentation/improvement_proposals/YYYY-MM-DD_Proposal_[title].md)" \
   --label "self-improvement,agent-generated,phase-3" \
   --assignee [human-pm-github-username]
 ```
@@ -473,7 +473,7 @@ Human PM evaluates proposals based on:
    [Details of changes]
 
    Resolves: #[PR number]
-   Implementation of: execution/improvement_proposals/[proposal-file].md
+   Implementation of: pm-os-reference/documentation/improvement_proposals/[proposal-file].md
    Agent-Generated: Yes (System Evaluator)
 
    Co-Authored-By: System Evaluator Agent <noreply@pm-os.ai>"
@@ -504,7 +504,7 @@ Human PM evaluates proposals based on:
 
 ### Validation Report
 
-**Output**: `execution/improvement_proposals/YYYY-MM-DD_Implementation-Validation_[title].md`
+**Output**: `pm-os-reference/documentation/improvement_proposals/YYYY-MM-DD_Implementation-Validation_[title].md`
 
 **Contents**:
 - Implementation summary
@@ -546,7 +546,7 @@ Human PM evaluates proposals based on:
 
 ### Dashboard Structure
 
-**Output**: `execution/improvement_proposals/YYYY-MM-DD_Performance-Dashboard.md`
+**Output**: `pm-os-reference/documentation/improvement_proposals/YYYY-MM-DD_Performance-Dashboard.md`
 
 **Using**: `templates/performance_dashboard_template.md`
 
@@ -635,7 +635,7 @@ Human PM evaluates proposals based on:
 ### Orchestrator Integration
 
 **Routing to System Evaluator**:
-- File path: `execution/improvement_proposals/**/*.md`
+- File path: `pm-os-reference/documentation/improvement_proposals/**/*.md`
 - Keywords: "evaluate agents", "quality audit", "self-improvement", "performance dashboard"
 - Workflow trigger: Weekly schedule, post-update, on-demand
 
@@ -744,11 +744,11 @@ jobs:
 ```
 
 **Expected Outputs**:
-1. `execution/improvement_proposals/2026-02-08_QualityAudit_Week-6.md`
-2. `execution/improvement_proposals/2026-02-08_Proposal_Accessibility-Requirements.md`
-3. `execution/improvement_proposals/2026-02-08_Proposal_Baseline-Metrics.md`
-4. `execution/improvement_proposals/2026-02-08_Proposal_Strategic-Alignment.md`
-5. `execution/improvement_proposals/2026-02-08_Performance-Dashboard.md`
+1. `pm-os-reference/documentation/improvement_proposals/2026-02-08_QualityAudit_Week-6.md`
+2. `pm-os-reference/documentation/improvement_proposals/2026-02-08_Proposal_Accessibility-Requirements.md`
+3. `pm-os-reference/documentation/improvement_proposals/2026-02-08_Proposal_Baseline-Metrics.md`
+4. `pm-os-reference/documentation/improvement_proposals/2026-02-08_Proposal_Strategic-Alignment.md`
+5. `pm-os-reference/documentation/improvement_proposals/2026-02-08_Performance-Dashboard.md`
 6. Pull requests created for each proposal
 
 ---
@@ -764,7 +764,7 @@ jobs:
 ```
 
 **Expected Outputs**:
-1. `execution/improvement_proposals/2026-02-05_Regression-Test_Engineering-Partner-v1.2.md`
+1. `pm-os-reference/documentation/improvement_proposals/2026-02-05_Regression-Test_Engineering-Partner-v1.2.md`
 2. Alert if regression detected
 3. Rollback recommendation if quality degraded >5 points
 
@@ -781,8 +781,8 @@ jobs:
 ```
 
 **Expected Outputs**:
-1. `execution/improvement_proposals/2026-02-03_Pattern-Analysis_Missing-Baselines.md`
-2. `execution/improvement_proposals/2026-02-03_Proposal_Baseline-Metrics-Enforcement.md`
+1. `pm-os-reference/documentation/improvement_proposals/2026-02-03_Pattern-Analysis_Missing-Baselines.md`
+2. `pm-os-reference/documentation/improvement_proposals/2026-02-03_Proposal_Baseline-Metrics-Enforcement.md`
 
 ---
 
@@ -797,7 +797,7 @@ jobs:
 ```
 
 **Expected Outputs**:
-1. `execution/improvement_proposals/2026-02-10_Agent-Comparison_PA-vs-EP.md`
+1. `pm-os-reference/documentation/improvement_proposals/2026-02-10_Agent-Comparison_PA-vs-EP.md`
 2. Recommendations for improving lower-performing agent
 
 ---
