@@ -2,7 +2,7 @@
 
 **Date**: YYYY-MM-DD
 **Experiment ID**: [e.g., EXP-042 or Jira: PROJ-XXX]
-**PRD Reference**: `execution/prds/YYYY-MM-DD_PRD_[feature-name].md`
+**PRD Reference**: `execution/[project-slug]/YYYY-MM-DD_PRD_[feature-name].md`
 **Data Dictionary Reference**: `identity/DATA_DICTIONARY.md`
 **Analyst**: Data Analyst Agent (v2.2)
 **Status**: In Progress / Final
@@ -242,8 +242,8 @@ GROUP BY 1
 
 ### C. References
 
-- PRD: `execution/prds/[linked PRD]`
-- Metrics Validation: `execution/data_analysis/[linked validation report]`
+- PRD: `execution/[project-slug]/[linked PRD]`
+- Metrics Validation: `execution/[project-slug]/[linked validation report]`
 - Jira: [EXP-XXX]
 
 ### D. Version History
@@ -256,7 +256,7 @@ GROUP BY 1
 ---
 
 **Template Version**: 1.0 (Phase 7 — Claude Code Advanced Workflows)
-**Storage Location**: `execution/data_analysis/YYYY-MM-DD_ABTest_[experiment-name].md`
+**Storage Location**: `execution/[project-slug]/YYYY-MM-DD_ABTest_[experiment-name].md`
 **Related Agents**: Data Analyst, Product Architect, Engineering Partner
 **Related Templates**: `templates/metrics_validation_template.md`
 **Related Identity Files**: `identity/DATA_DICTIONARY.md`

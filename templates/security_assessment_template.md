@@ -1,7 +1,7 @@
 # Information Security Assessment: [Feature Name]
 
 **Feature**: [Brief feature title]
-**Related PRD**: `execution/prds/YYYY-MM-DD_PRD_[feature-name].md`
+**Related PRD**: `execution/[project-slug]/YYYY-MM-DD_PRD_[feature-name].md`
 **Assessment Date**: YYYY-MM-DD
 **Assessed By**: Engineering Partner Agent
 **Review Status**: [Draft / In Review / Approved / Approved with Conditions / Rejected]

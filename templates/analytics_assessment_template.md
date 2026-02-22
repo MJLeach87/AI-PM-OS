@@ -226,7 +226,7 @@ Overall Conversion: 35%
 - [Links to A/B test plans, validation experiments]
 
 **Cross-Reference**:
-- See `execution/discovery/DISCOVERY_INDEX.md` for full research inventory (if maintaining index)
+- See `execution/[project-slug]/DISCOVERY_INDEX.md` for full research inventory (if maintaining index)
 
 ---
 

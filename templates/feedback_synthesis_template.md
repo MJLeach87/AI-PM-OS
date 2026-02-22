@@ -217,7 +217,7 @@ Advanced Reporting (18 requests):
 - [Links to OSTs, PRDs, bug fix backlogs that reference this feedback synthesis]
 
 **Cross-Reference**:
-- See `execution/discovery/DISCOVERY_INDEX.md` for full research inventory (if maintaining index)
+- See `execution/[project-slug]/DISCOVERY_INDEX.md` for full research inventory (if maintaining index)
 
 ---
 

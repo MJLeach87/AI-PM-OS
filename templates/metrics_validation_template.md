@@ -1,7 +1,7 @@
 # Metrics Validation Report: [Feature Name]
 
 **Date**: YYYY-MM-DD
-**PRD Reference**: `execution/prds/YYYY-MM-DD_PRD_[feature-name].md`
+**PRD Reference**: `execution/[project-slug]/YYYY-MM-DD_PRD_[feature-name].md`
 **Data Dictionary Reference**: `identity/DATA_DICTIONARY.md`
 **Analyst**: Data Analyst Agent (v2.1)
 **Status**: Draft / Final
@@ -197,6 +197,6 @@ If this feature will be launched as an experiment:
 ---
 
 **Template Version**: 1.0 (Phase 6 — Data Intelligence)
-**Storage Location**: `execution/data_analysis/YYYY-MM-DD_MetricsValidation_[feature-name].md`
+**Storage Location**: `execution/[project-slug]/YYYY-MM-DD_MetricsValidation_[feature-name].md`
 **Related Agents**: Data Analyst, Product Architect, Engineering Partner
 **Related Identity Files**: `identity/DATA_DICTIONARY.md`, `identity/STRATEGY.md`

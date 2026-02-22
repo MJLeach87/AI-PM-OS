@@ -7,7 +7,7 @@ info:
     [Brief description of what this API provides]
 
     **Feature**: [Feature name from PRD]
-    **PRD Reference**: execution/prds/[filename].md
+    **PRD Reference**: execution/[project-slug]/[filename].md
 
   contact:
     name: [Product/Engineering Team Name]

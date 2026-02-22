@@ -1,194 +1,135 @@
-# Execution Workspace - Product Artifact Pipeline Guide
+# Execution Workspace - Project-Centric Artifact Pipeline
 
 ## ⚠️ IMPORTANT: This is YOUR Workspace
 
-**This directory should be EMPTY when you start using PM OS.** It fills up with YOUR product artifacts as you use the system:
-- OSTs, PRDs, specs for YOUR features
-- Prototypes, GTM materials for YOUR products
-- Improvement proposals for YOUR PM OS instance
+**This directory should be EMPTY when you start using PM OS.** It fills up with YOUR product artifacts as you use the system — organized by project, not artifact type.
 
-**NOT PM OS inception materials** - Those are in `pm-os-reference/artifacts/` (PM OS building itself = meta-recursive work). This workspace is for YOUR actual product development work.
+**NOT PM OS inception materials** — those live in `pm-os-reference/artifacts/`. This workspace is for YOUR actual product development work.
 
 ---
 
-This directory is **YOUR workspace** for product artifacts. PM OS agents save all generated outputs here - discovery artifacts, PRDs, technical specs, prototypes, GTM materials, and improvement proposals.
+## Structure
 
-**Purpose**: Version-controlled product development pipeline with structured artifact storage and clear workflow progression.
+```
+execution/
+├── README.md                              (this file)
+├── [project-slug]/                        (one folder per initiative)
+│   ├── 2026-02-22_OST_Topic.md
+│   ├── 2026-02-22_PRD_Feature_v0.1.md
+│   ├── 2026-02-22_Feasibility_Feature.md
+│   ├── 2026-02-22_Prototype_Feature.tsx
+│   ├── 2026-02-22_ValueProp_Feature.md
+│   ├── 2026-02-22_Metrics_Feature.md
+│   └── DISCOVERY_INDEX.md                 (optional: for 10+ interconnected artifacts)
+└── shared/
+    ├── 2026-02-22_BattleCard_Competitor.md  (cross-project competitive GTM)
+    └── 2026-02-22_MarketResearch_Topic.md   (broad market research)
+```
 
----
-
-## Purpose of the Execution Workspace
-
-The `execution/` directory is where PM OS transforms ideas into shippable features:
-
-**Inputs**: User requests ("Generate OST for improving checkout flow")
-**Process**: Agent pipeline (Discovery → PRD → Tech Spec → Prototype → GTM)
-**Outputs**: Version-controlled artifacts stored in execution/ subdirectories
-
-**Philosophy**: All product work should be:
-- **Traceable**: Git history shows evolution of ideas
-- **Structured**: Standardized templates ensure consistency
-- **Quality-gated**: Artifacts validated against `identity/STANDARDS.md`
-- **Collaborative**: Outputs reviewable via PR workflow
-
----
-
-## Directory Structure
-
-### `discovery/` - Problem Exploration & User Research
-
-**What belongs here**:
-- **Opportunity Solution Trees (OSTs)**: Mermaid diagrams mapping problems → opportunities → solutions
-- **User interview notes**: Structured summaries with verbatim quotes
-- **Information architecture maps**: Sitemaps, navigation flows, content hierarchies
-- **Discovery research**: Market analysis, competitive research, user journey maps
-- **DISCOVERY_INDEX.md** (Optional): Cross-reference guide for complex discovery work
-
-**Agent**: Product Architect
-
-**Example artifacts**:
-- `2026-02-15_OST_Checkout-Flow-Improvements.md`
-- `2026-02-16_User-Interviews_Checkout-Friction-Points.md`
-- `2026-02-17_IA-Map_E-Commerce-Navigation.md`
-
-**Workflow**: Discovery artifacts feed into PRDs (establish problem space before solution design)
+**All artifact types for a single feature live flat in one project folder.** The filename prefix identifies the artifact type — no type-based subdirectories.
 
 ---
 
-### `prds/` - Product Requirements Documents
+## Project Slug Convention
 
-**What belongs here**:
-- **PRDs**: BMAD-compliant (Business, Metrics, Approach, Details) product requirements
-- **User stories**: Structured with Gherkin scenarios (Given/When/Then)
-- **Success criteria**: Quantifiable metrics and acceptance criteria
+**Format**: `[JIRA-KEY]_[brief-kebab-title]`
 
-**Agent**: Product Architect
+**Examples**:
+- `PMOS-110_one-click-checkout`
+- `PMOS-123_user-onboarding-redesign`
+- `PROJ-45_payment-gateway-v2`
 
-**Example artifacts**:
-- `2026-02-18_PRD_One-Click-Checkout_v0.1.md`
-- `2026-02-25_PRD_One-Click-Checkout_v1.0.md` (after review/refinement)
-
-**Workflow**: PRDs reference discovery/ artifacts and feed into technical_specs/ and prototypes/
-
----
-
-### `technical_specs/` - Engineering Specifications
-
-**What belongs here**:
-- **Feasibility assessments**: Technical viability, complexity estimates (XS/S/M/L/XL)
-- **Implementation analyses**: Architecture design, dependency mapping, migration plans
-- **BPMN diagrams**: Complex workflow visualizations
-- **API contracts**: OpenAPI/Swagger specifications
-- **Gherkin scenarios**: Acceptance criteria in Given/When/Then format
-- **Security reviews**: Authentication, authorization, PII handling assessments
-- **Database schemas**: Table structures, relationships, indexes
-
-**Agent**: Engineering Partner
-
-**Example artifacts**:
-- `2026-02-19_Feasibility_One-Click-Checkout.md`
-- `2026-02-20_Implementation_One-Click-Checkout.md`
-- `2026-02-21_API-Contract_Payment-Gateway-Integration.yaml`
-- `2026-02-21_Security-Review_Payment-Processing.md`
-
-**Workflow**: Technical specs validate PRD feasibility and guide implementation
+**How skills determine the slug**:
+1. Skills derive the slug from the active Jira issue key + feature name supplied in the request
+2. If a Jira key is not provided, the skill asks the PM before writing any output: *"What is the Jira key for this feature? (e.g., PMOS-110)"*
+3. Once confirmed, all artifacts for that request go into `execution/[project-slug]/`
 
 ---
 
-### `prototypes/` - UX Specifications & Code Prototypes
+## File Naming Within a Project
 
-**What belongs here**:
-- **UX specifications**: Component structure, interaction design, accessibility requirements
-- **React/Tailwind components**: Working code prototypes (.tsx files)
-- **Wireframes**: Low-fidelity layout mockups
-- **Design system documentation**: Component libraries, style guides
+All artifacts use the same naming convention regardless of type:
 
-**Agent**: UX Strategist
+```
+YYYY-MM-DD_[artifact-type]_[brief-title].[ext]
+```
 
-**Example artifacts**:
-- `2026-02-22_Prototype_One-Click-Checkout-Button.md` (UX spec)
-- `2026-02-22_Prototype_One-Click-Checkout-Button.tsx` (React component)
-- `2026-02-23_Wireframe_Checkout-Flow-Redesign.md`
+**Artifact type prefixes**:
 
-**Workflow**: Prototypes validate UX approach before engineering implementation
+| Artifact | Prefix | Extension |
+|----------|--------|-----------|
+| Opportunity Solution Tree | `OST` | `.md` |
+| Insights summary | `Insights` | `.md` |
+| User flow / IA map | `UserFlow` or `IA` | `.md` |
+| Problem statement | `ProblemStatement` | `.md` |
+| Product Requirements Document | `PRD` | `.md` |
+| Technical feasibility | `Feasibility` | `.md` |
+| Security assessment | `Security` | `.md` |
+| Implementation analysis | `Implementation` | `.md` |
+| BPMN workflow | `BPMN` | `.md` |
+| API contract | `API` | `.yaml` |
+| React/Tailwind prototype | `Prototype` | `.tsx` |
+| Accessibility audit | `A11y` | `.md` |
+| Value proposition | `ValueProp` | `.md` |
+| Competitive positioning | `Positioning` | `.md` |
+| Metrics validation | `MetricsValidation` | `.md` |
+| A/B test analysis | `ABTest` | `.md` |
+| SQL query | `Query` | `.sql` |
 
----
-
-### `gtm/` - Go-To-Market Materials
-
-**What belongs here**:
-- **Value propositions**: User-facing benefit statements
-- **Positioning documents**: Competitive differentiation, target segments
-- **Battle cards**: Competitive comparison matrices
-- **Sales enablement**: Feature overviews, demo scripts, FAQ documents
-- **Launch plans**: Phased rollout strategies, communication timelines
-- **Pricing strategies**: Tiering proposals, pricing justifications
-
-**Agent**: GTM Strategist
-
-**Example artifacts**:
-- `2026-02-24_Value-Prop_One-Click-Checkout.md`
-- `2026-02-25_Battle-Card_Checkout-vs-Competitors.md`
-- `2026-02-26_Launch-Plan_One-Click-Checkout-Rollout.md`
-
-**Workflow**: GTM materials align product capabilities with market positioning
+**Version suffixes** (for iterative artifacts):
+- `_v0.1.md` — Initial draft (for review)
+- `_v1.0.md` — Final approved version
+- `_v1.1.md` — Minor revision
+- `_v2.0.md` — Major revision (significant scope change)
 
 ---
 
----
+## Shared Artifacts
 
-### `automation/` - Deployment & Reporting Scripts
+**`execution/shared/`** holds cross-project artifacts that aren't tied to a single initiative:
+- Competitive battle cards (relevant across multiple features)
+- Broad market research (applies to multiple projects)
+- Company-wide positioning documents
+- Industry trend analyses
 
-**What belongs here** (Phase 5+):
-- **Deployment scripts**: Bash/Python scripts for automated releases
-- **Reporting cron jobs**: Scheduled metric aggregation, dashboard updates
-- **Data validation scripts**: Automated data quality checks
-- **CI/CD pipelines**: GitHub Actions, deployment workflows
-
-**Agent**: Engineering Partner (with automation focus)
-
-**Example artifacts**:
-- `2026-04-15_Deploy-Script_PRD-to-Confluence.sh`
-- `2026-04-16_Cron-Job_Weekly-Metrics-Report.py`
-
-**Workflow**: Automate repetitive tasks (publishing, reporting, validation)
+**Rule of thumb**: If an artifact would be cited by two or more different project folders, put it in `shared/`.
 
 ---
 
 ## Artifact Pipeline Flow
 
-### End-to-End Feature Development
-
 ```
-User Request
+User Request + Jira Key
     ↓
-[1] Product Architect: Discovery (OST, user research)
-    → Saved to: execution/discovery/
+[Skill determines project slug → execution/[project-slug]/]
     ↓
-[2] Product Architect: PRD v0.1 (initial spec)
-    → Saved to: execution/prds/
+[1] Discovery: OST, Insights, UserFlow
+    → execution/[project-slug]/YYYY-MM-DD_OST_[topic].md
     ↓
-[3] Engineering Partner: Technical Feasibility
-    → Saved to: execution/technical_specs/
+[2] PRD v0.1 (Product Architect / prd skill)
+    → execution/[project-slug]/YYYY-MM-DD_PRD_[feature]_v0.1.md
     ↓
-[PARALLEL PROCESSING]
-[4a] UX Strategist: Prototype            [4b] Data Analyst: Metrics Validation
-    → Saved to: execution/prototypes/        → Insights inform PRD refinement
-    ↓                                        ↓
-[4c] GTM Strategist: Value Proposition
-    → Saved to: execution/gtm/
+[PARALLEL — all write to same project folder]
+[3a] Engineering Partner: Feasibility + Security
+     → execution/[project-slug]/YYYY-MM-DD_Feasibility_[feature].md
+     → execution/[project-slug]/YYYY-MM-DD_Security_[feature].md
+
+[3b] UX Strategist: IA + Prototype
+     → execution/[project-slug]/YYYY-MM-DD_IA_[feature].md
+     → execution/[project-slug]/YYYY-MM-DD_Prototype_[feature].tsx
+
+[3c] Data Analyst: Metrics Validation
+     → execution/[project-slug]/YYYY-MM-DD_MetricsValidation_[feature].md
+
+[3d] GTM Strategist: Value Prop (feature-specific)
+     → execution/[project-slug]/YYYY-MM-DD_ValueProp_[feature].md
+     Battle cards (cross-project) → execution/shared/
     ↓
-[5] Product Architect: Consolidate into Final PRD v1.0
-    → Updated in: execution/prds/
+[4] Final PRD v1.0 (consolidated)
+    → execution/[project-slug]/YYYY-MM-DD_PRD_[feature]_v1.0.md
     ↓
 Human PM Review & Approval
 ```
-
-**Parallel Processing Opportunities**:
-- After PRD v0.1: Engineering Partner, UX Strategist, Data Analyst, GTM Strategist can work simultaneously
-- Reduces total workflow time by ~60% compared to sequential processing
-
-**Claude Code Advantage**: Use Task tool to spawn multiple agents in parallel (not available in Cursor)
 
 ---
 
@@ -196,7 +137,6 @@ Human PM Review & Approval
 
 All artifacts must pass quality gates defined in `identity/STANDARDS.md`:
 
-### Before Agent Output Approval
 - [ ] Aligns with `identity/STRATEGY.md` vision and North Star Metrics
 - [ ] Follows brand voice from `identity/STANDARDS.md`
 - [ ] Includes specific, measurable success criteria
@@ -204,276 +144,52 @@ All artifacts must pass quality gates defined in `identity/STANDARDS.md`:
 - [ ] Free of security vulnerabilities (no SQL injection, XSS, hardcoded secrets)
 - [ ] Uses approved tech stack from `identity/STANDARDS.md`
 
-### Before External Distribution
-- [ ] Human PM review completed
-- [ ] Stakeholder feedback incorporated
-- [ ] Engineering Partner validation (for technical specs)
-- [ ] Data Analyst validation (for metric claims)
-- [ ] Spell check and grammar review
-- [ ] Strategic alignment confirmed (cites vision/mission from identity/STRATEGY.md)
-
-**Reference**: See `identity/STANDARDS.md` for full quality gate definitions
-
 ---
 
-## File Naming Conventions
+## Optional: DISCOVERY_INDEX.md
 
-### Standard Format
-
-All artifacts follow this naming pattern:
-
-```
-YYYY-MM-DD_[artifact-type]_[brief-title].md
-```
-
-**Examples**:
-- `2026-02-15_OST_Checkout-Flow-Improvements.md`
-- `2026-02-18_PRD_One-Click-Checkout_v0.1.md`
-- `2026-02-19_Feasibility_One-Click-Checkout.md`
-- `2026-02-22_Prototype_One-Click-Checkout-Button.tsx`
-
-### Rationale
-
-**Why YYYY-MM-DD prefix?**
-- Chronological sorting in file browsers
-- Easy to find recent artifacts (ls -lrt)
-- Git history tracking by date
-
-**Why artifact-type in filename?**
-- Clear identification of artifact type at a glance
-- Enables grep/search by type: `grep -r "PRD_" execution/prds/`
-
-**Why brief-title?**
-- Human-readable context
-- Distinguishes multiple artifacts of same type created on same day
-
-### Version Suffixes
-
-For iterative artifacts (PRDs, prototypes):
-
-- `_v0.1.md` - Initial draft (for review/feedback)
-- `_v1.0.md` - Final approved version (ready for implementation)
-- `_v1.1.md` - Minor revision (clarifications, small updates)
-- `_v2.0.md` - Major revision (significant scope changes)
-
-**Example progression**:
-1. `2026-02-18_PRD_One-Click-Checkout_v0.1.md` (initial draft)
-2. Feedback/review cycle
-3. `2026-02-25_PRD_One-Click-Checkout_v1.0.md` (approved final version)
-
-**Git advantage**: Use `git log execution/prds/2026-02-18_PRD_One-Click-Checkout*` to see full version history
-
----
-
-## Optional Documentation
-
-### DISCOVERY_INDEX.md (Optional)
-
-**Purpose**: Cross-reference guide for complex discovery work with many interconnected artifacts.
-
-**When to use**:
+Create `execution/[project-slug]/DISCOVERY_INDEX.md` when:
 - You have 10+ discovery artifacts that reference each other
 - Multiple OSTs exploring related problem spaces
-- Long-term discovery work spanning weeks/months
-- Need to explain relationships between artifacts to stakeholders
+- Long-term discovery work spanning weeks or months
+- Need to explain artifact relationships to stakeholders
 
-**When to skip**:
-- Small, isolated discovery efforts (1-3 OSTs)
-- Git history and file naming provide sufficient context
-- File search (grep, Glob tool) is fast enough for your needs
-
-**Example**: See `execution/discovery/DISCOVERY_INDEX.md` for reference structure
-
-**Philosophy**: PM OS favors flexibility - create index files when they add value, skip when file search suffices.
-
----
-
-### Artifact Changelog Sections (Optional)
-
-**Purpose**: Track major revisions within a single artifact file.
-
-**When to use**:
-- PRD undergoes significant scope changes (v1.0 → v2.0)
-- Technical spec updated after architecture pivot
-- Prototype redesigned after user testing
-
-**When to skip**:
-- Minor clarifications (v1.0 → v1.1) - git commit messages sufficient
-- One-time artifacts (feasibility assessments, research notes)
-
-**Example structure** (top of PRD file):
-```markdown
-## Changelog
-
-### v2.0 - 2026-03-15
-- Scope expansion: Added enterprise SSO integration
-- Revised metrics based on stakeholder feedback
-
-### v1.0 - 2026-02-25
-- Final approved version, ready for implementation
-
-### v0.1 - 2026-02-18
-- Initial draft for review
-```
-
-**Philosophy**: Use when helpful, skip when git history provides enough context.
+Skip it when file search (Glob, grep) provides sufficient navigation.
 
 ---
 
 ## What Belongs Where
 
-### Distinguishing execution/ from identity/ and pm-os-reference/
-
-**execution/** (YOUR workspace) ← **YOU ARE HERE**:
-- Artifacts PM OS generates for YOUR product work
-- OSTs, PRDs, specs, prototypes, GTM materials for YOUR features
-- Currently empty - fills up as you use PM OS
-
-**identity/** (YOUR organizational context):
-- YOUR company's strategy, standards, roadmap
-- Templates with "🔧 CUSTOMIZE THIS" headers
-- Agents load these files to guide their work
-- See `identity/README.md` for customization guide
-
-**pm-os-reference/identity/** (PM OS's organizational context):
-- PM OS's own strategy, roadmap, standards (meta-recursive)
-- Reference examples showing complete Identity Layer
-- Read-only, don't edit
-
-**pm-os-reference/artifacts/** (PM OS's workspace):
-- Artifacts PM OS generated when building itself
-- Examples of output quality (OSTs, PRDs, specs, prototypes)
-- See `pm-os-reference/README.md` for details
-
-### Quick Decision Tree
-
-**Where does this go?**
-- OST for YOUR feature → `execution/discovery/`
-- PRD for YOUR feature → `execution/prds/`
-- YOUR company's vision → `identity/STRATEGY.md`
-- PM OS's vision (reference) → `pm-os-reference/identity/STRATEGY.md`
-- PM OS inception OST (reference) → `pm-os-reference/artifacts/discovery/`
-- Agent improvement proposal (Mode B) → `pm-os-reference/documentation/improvement_proposals/`
+| Artifact | Location |
+|----------|----------|
+| PRD, OST, specs for a specific feature | `execution/[project-slug]/` |
+| Cross-project battle cards, market research | `execution/shared/` |
+| YOUR company's strategy/roadmap/standards | `identity/` |
+| Mode B improvement proposals, ADRs | `pm-os-reference/documentation/improvement_proposals/` |
+| PM OS inception examples (reference only) | `pm-os-reference/artifacts/` |
 
 ---
 
-## Troubleshooting
+## Confluence Sync (Future)
 
-### "Where should I save this artifact?"
+Directory-level Confluence sync for `execution/[project-slug]/` is planned but not yet implemented. When built:
+- Each project slug → one top-level Confluence page
+- Artifacts published as child pages (flat hierarchy)
+- Sync script resolves project page IDs dynamically at publish time
 
-**Problem**: Not sure which execution/ subdirectory to use.
-
-**Solution**: Match artifact type to subdirectory:
-- Opportunity Solution Tree (OST) → `discovery/`
-- Product Requirements Document (PRD) → `prds/`
-- Feasibility assessment or API spec → `technical_specs/`
-- React component or wireframe → `prototypes/`
-- Value proposition or battle card → `gtm/`
-- Agent improvement idea (Mode B) → `pm-os-reference/documentation/improvement_proposals/`
-
-**Rule of thumb**: If unsure, ask Product Architect: "Where should this artifact be saved?" - it will route to correct subdirectory.
+Until then, individual skills (prd, feature-pipeline, etc.) publish specific artifacts to Confluence directly via the idempotency pattern.
 
 ---
 
-### "Can I organize execution/ subdirectories differently?"
+## Archiving Old Projects
 
-**Problem**: Want to organize by feature/project instead of artifact type.
-
-**Solution**: PM OS recommends artifact-type organization for:
-- Template consistency (all PRDs follow same structure)
-- Cross-feature learning (compare multiple OSTs side-by-side)
-- Agent routing simplicity (Orchestrator knows where to save)
-
-**Alternative**: Create feature-specific subdirectories within artifact types:
-```
-execution/
-  prds/
-    checkout/
-      2026-02-18_PRD_One-Click-Checkout_v0.1.md
-      2026-03-05_PRD_Guest-Checkout_v0.1.md
-    user-profile/
-      2026-02-20_PRD_Profile-Customization_v0.1.md
-```
-
-**Trade-off**: More organization overhead, but clearer feature grouping. Choose what works for your team.
+When a feature ships and the project folder is no longer active:
+- **Don't delete from git** — preserve history
+- Use `git tag` to mark the shipped state: `git tag [JIRA-KEY]-shipped`
+- Optionally move the folder to `execution/archive/[project-slug]/` for organizational clarity
 
 ---
 
-### "Should I create DISCOVERY_INDEX.md?"
-
-**Problem**: Unsure if index file is needed.
-
-**Decision criteria**:
-- **Create index if**: 10+ interconnected discovery artifacts, complex problem space, need stakeholder navigation aid
-- **Skip index if**: 1-5 isolated artifacts, file search (grep/Glob) works fine, low cross-referencing needs
-
-**Philosophy**: PM OS favors flexibility - create when valuable, skip when unnecessary overhead.
-
----
-
-### "What if I want to delete old artifacts?"
-
-**Problem**: execution/ filling up with outdated artifacts.
-
-**Solution**:
-1. **Don't delete from git** - use git to preserve history
-2. **Create archive/ subdirectory** within each artifact type:
-   ```
-   execution/prds/archive/2025-Q4/[old-prds].md
-   ```
-3. **Use .gitignore sparingly** - version control is valuable for traceability
-
-**Alternative**: Tag stable releases, then filter by date:
-```bash
-git tag v1.0-checkout-launch
-git log --since="2026-01-01" execution/prds/
-```
-
----
-
-## Links to Related Documentation
-
-**Organizational Context**:
-- [identity/](../identity/) - YOUR company's strategy, standards, roadmap (customize these templates)
-- [identity/README.md](../identity/README.md) - Detailed customization guide for Identity Layer
-- [pm-os-reference/identity/](../pm-os-reference/identity/) - PM OS's own organizational context (reference examples)
-
-**PM OS Framework**:
-- [Main README](../README.md) - Product overview and quick start
-- [QUICK_START.md](../QUICK_START.md) - Fast-start guide
-- [.claude/CLAUDE.md](../.claude/CLAUDE.md) - Project context for Claude Code
-
-**Templates**:
-- [templates/prd_template.md](../templates/prd_template.md) - BMAD PRD structure
-- [templates/agent_spec_template.md](../templates/agent_spec_template.md) - Agent definition format
-- [templates/mcp_integration_plan.md](../templates/mcp_integration_plan.md) - MCP setup guide
-
-**Examples**:
-- [pm-os-reference/README.md](../pm-os-reference/README.md) - PM OS inception materials overview
-- [pm-os-reference/artifacts/](../pm-os-reference/artifacts/) - PM OS's own outputs (quality reference)
-
----
-
-## Summary
-
-**Key Takeaways**:
-1. **execution/** is YOUR workspace - agents save all Mode A outputs here
-2. **6 subdirectories** organize artifacts by type (discovery, PRDs, specs, prototypes, GTM, automation)
-3. **File naming convention**: `YYYY-MM-DD_[artifact-type]_[brief-title].md` (chronological, searchable)
-4. **Quality gates** from `identity/STANDARDS.md` ensure all artifacts meet YOUR standards
-5. **Artifact pipeline**: Discovery → PRD → Tech Spec → Prototype → GTM (with parallel processing)
-6. **Optional documentation**: DISCOVERY_INDEX.md, changelogs (use when valuable, skip when unnecessary)
-
-**Next Steps**:
-1. ✅ Start using PM OS to generate artifacts (they'll be saved in execution/ automatically)
-2. ✅ Review agent outputs against quality gates from `identity/STANDARDS.md`
-3. ✅ Use git to track artifact evolution: `git log execution/prds/[file]`
-4. ✅ Create DISCOVERY_INDEX.md if complex discovery work warrants it
-5. ✅ Consider parallel agent processing (Claude Code Task tool) to accelerate workflow
-
----
-
-**Directory Purpose**: Version-controlled workspace for product development artifacts
-**Maintained By**: You (Product Manager) + PM OS Agents (generate outputs)
-**Update Frequency**: Continuously as features developed
-**Related Files**: See `identity/README.md` for organizational context, `pm-os-reference/README.md` for output quality examples
+**Directory Purpose**: Version-controlled, project-centric workspace for product development artifacts
+**Maintained By**: You (Product Manager) + PM OS Skills (generate outputs)
+**Related**: `identity/README.md` (org context) | `pm-os-reference/README.md` (quality examples)

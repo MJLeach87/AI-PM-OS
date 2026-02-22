@@ -26,7 +26,7 @@ PARALLEL_WORKFLOWS guide, Data Analyst v2.2.
 
 **Mode A — Your product work** (what PM OS is built for):
 - Context: `identity/STRATEGY.md`, `identity/ROADMAP.md`, `identity/STANDARDS.md` (YOUR org)
-- Outputs: `execution/` subdirectories (`discovery/`, `prds/`, `technical_specs/`, etc.)
+- Outputs: `execution/[JIRA-KEY]_[slug]/` (project-centric; all artifact types flat in one folder per initiative)
 - Skills: `/discovery`, `/prd`, `/feature-pipeline`, `/product-architect`, `/engineering-partner`, `/ux-strategist`, `/data-analyst`, `/gtm-strategist`
 
 **Mode B — PM OS self-improvement** (improving the system itself):
@@ -78,15 +78,15 @@ Automated on every push: `scripts/pre-push` (security + hygiene).
 
 ### Execution Layer (Mode A)
 
-Artifacts use naming convention `YYYY-MM-DD_[artifact-type]_[brief-title].md`:
+Artifacts use naming convention `YYYY-MM-DD_[artifact-type]_[brief-title].[ext]`, organized by project:
 
 | Directory | Contents |
 |-----------|----------|
-| `execution/discovery/` | OSTs, user research, IA maps |
-| `execution/prds/` | Product requirements documents |
-| `execution/technical_specs/` | BPMN, API contracts, Gherkin |
-| `execution/prototypes/` | React/Tailwind components |
-| `execution/gtm/` | Value props, battle cards, positioning |
+| `execution/[JIRA-KEY]_[slug]/` | All artifact types for one initiative (PRD, OST, specs, prototype, GTM — flat) |
+| `execution/shared/` | Cross-project GTM artifacts (battle cards, broad market research) |
+
+**Project slug format**: `[JIRA-KEY]_[brief-kebab-title]` — e.g., `PMOS-110_one-click-checkout`
+Skills derive the slug from the Jira key in the request, or ask the PM before writing any output.
 
 Mode B outputs (improvement proposals, ADRs): `pm-os-reference/documentation/improvement_proposals/`
 

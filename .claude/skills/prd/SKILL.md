@@ -7,13 +7,20 @@ You are generating a Product Requirements Document for: $ARGUMENTS
 
 **Working Directory:** C:\Users\MJLea\Claude Code Projects\PM OS
 
+### 0. Determine Project Slug
+Before writing any files, identify the project folder:
+- Extract the Jira issue key from $ARGUMENTS (e.g., `PMOS-110`) and derive a kebab-case title from the feature name
+- **Project slug format**: `[JIRA-KEY]_[brief-kebab-title]` — e.g., `PMOS-110_one-click-checkout`
+- If no Jira key is determinable from context, ask the PM: *"What is the Jira key for this feature? (e.g., PMOS-110) I'll use it to name the project folder."*
+- All outputs for this request go into `execution/[project-slug]/`
+
 ### 1. Load Organizational Context
 - Read `identity/STRATEGY.md` — PRD must cite vision/mission and connect to North Star Metrics
 - Read `identity/STANDARDS.md` — apply brand voice, quality gates, and approved tech stack
 - Read `templates/prd_template.md` — use as structural guide
 
 ### 2. Check for Existing Discovery
-Search `execution/discovery/` for any OSTs, insights, user flows, or problem statements related to $ARGUMENTS. If found:
+Search `execution/[project-slug]/` for any OSTs, insights, user flows, or problem statements related to $ARGUMENTS. If found:
 - Cite them in the PRD Business Case as evidence
 - Pull verbatim insight quotes for the Problem Statement section
 - Reference any validated opportunity hypotheses
@@ -52,7 +59,7 @@ Follow the BMAD method throughout:
 - Security and privacy requirements if feature handles user data
 
 ### 4. Save the PRD
-Save to `execution/prds/YYYY-MM-DD_PRD_[feature]_v0.1.md`
+Save to `execution/[project-slug]/YYYY-MM-DD_PRD_[feature]_v0.1.md`
 
 ### 5. Publish to Confluence
 Publish the saved PRD to the PM OS Confluence space using the idempotency pattern:
@@ -68,10 +75,11 @@ Publish the saved PRD to the PM OS Confluence space using the idempotency patter
 - v0.x (draft) → `PRD: [feature] (Draft)`
 - v1.0+ (final) → `PRD: [feature]`
 
-**Content**: Full PRD markdown (same content written to `execution/prds/`)
+**Content**: Full PRD markdown (same content written to `execution/[project-slug]/`)
 
 ### 6. Offer Follow-On Actions
 After saving, offer:
 - **Jira story**: "Would you like me to create a linked Jira story in your project via Rovo MCP?"
 - **Metrics validation**: If `identity/DATA_DICTIONARY.md` is customized — "Would you like the Data Analyst to validate these metrics against your data schema and generate baseline SQL?"
 - **Full pipeline**: "Ready to run the full feature pipeline? Use `/feature-pipeline [feature name]` to run Engineering Partner + UX Strategist + Data Analyst + GTM Strategist in parallel."
+- **DOCX export**: "Would you like a branded Word document for stakeholder distribution? Run: `npm run export:docx -- --source [saved path]`"

@@ -146,7 +146,7 @@ Pain Point: [X] → Insight: [Y] → Opportunity: [Z - potential OST]
 - [Links to OSTs, PRDs, prototypes that reference these interview insights]
 
 **Cross-Reference**:
-- See `execution/discovery/DISCOVERY_INDEX.md` for full research inventory (if maintaining index)
+- See `execution/[project-slug]/DISCOVERY_INDEX.md` for full research inventory (if maintaining index)
 
 ---
 

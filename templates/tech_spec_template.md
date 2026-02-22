@@ -2,7 +2,7 @@
 
 **Author**: Engineering Partner Agent
 **Date**: [YYYY-MM-DD]
-**PRD Reference**: `execution/prds/[link-to-prd].md`
+**PRD Reference**: `execution/[project-slug]/[link-to-prd].md`
 **Status**: [Draft / In Review / Approved]
 
 ---
@@ -345,11 +345,11 @@
 
 ## Related Artifacts
 
-**PRD**: `execution/prds/[filename].md`
-**OST**: `execution/discovery/[filename].md` (if applicable)
-**API Spec**: `execution/technical_specs/[filename].yaml` (to be created if needed)
-**Implementation Analysis**: `execution/technical_specs/[filename].md` (if legacy code involved)
-**BPMN**: `execution/technical_specs/[filename].md` (if complex workflow)
+**PRD**: `execution/[project-slug]/[filename].md`
+**OST**: `execution/[project-slug]/[filename].md` (if applicable)
+**API Spec**: `execution/[project-slug]/[filename].yaml` (to be created if needed)
+**Implementation Analysis**: `execution/[project-slug]/[filename].md` (if legacy code involved)
+**BPMN**: `execution/[project-slug]/[filename].md` (if complex workflow)
 
 ---
 

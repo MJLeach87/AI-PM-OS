@@ -218,7 +218,7 @@
 - [Links to roadmap adjustments based on trend analysis]
 
 **Cross-Reference**:
-- See `execution/discovery/DISCOVERY_INDEX.md` for full research inventory (if maintaining index)
+- See `execution/[project-slug]/DISCOVERY_INDEX.md` for full research inventory (if maintaining index)
 
 ---
 

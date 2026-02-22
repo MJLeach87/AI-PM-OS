@@ -10,10 +10,10 @@
 ## Document Metadata
 
 **Related Documents**:
-- Discovery OST: `execution/discovery/[link]`
-- Technical Spec: `execution/technical_specs/[link]`
-- Prototype: `execution/prototypes/[link]`
-- GTM Brief: `execution/gtm/[link]`
+- Discovery OST: `execution/[project-slug]/[link]`
+- Technical Spec: `execution/[project-slug]/[link]`
+- Prototype: `execution/[project-slug]/[link]`
+- GTM Brief: `execution/[project-slug]/[link]`
 
 **Stakeholders**:
 - **Product Owner**: [Name]

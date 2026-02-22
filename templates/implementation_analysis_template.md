@@ -2,8 +2,8 @@
 
 **Author**: Engineering Partner Agent
 **Date**: [YYYY-MM-DD]
-**PRD Reference**: `execution/prds/[link-to-prd].md`
-**Feasibility Report**: `execution/technical_specs/[link-to-feasibility].md`
+**PRD Reference**: `execution/[project-slug]/[link-to-prd].md`
+**Feasibility Report**: `execution/[project-slug]/[link-to-feasibility].md`
 
 ---
 
@@ -378,9 +378,9 @@ CREATE INDEX [index_name] ON [table]([column]);
 
 ## Related Artifacts
 
-**PRD**: `execution/prds/[filename].md`
-**Feasibility Report**: `execution/technical_specs/[filename].md`
-**API Spec** (if needed): `execution/technical_specs/[filename].yaml`
+**PRD**: `execution/[project-slug]/[filename].md`
+**Feasibility Report**: `execution/[project-slug]/[filename].md`
+**API Spec** (if needed): `execution/[project-slug]/[filename].yaml`
 **Relevant Existing Tests**: `[test-filepath]`
 
 ---

@@ -7,21 +7,28 @@ You are invoking the UX Strategist agent for: $ARGUMENTS
 
 **Working Directory:** C:\Users\MJLea\Claude Code Projects\PM OS
 
+### 0. Determine Project Slug
+Before writing any files, identify the project folder:
+- Extract the Jira issue key from $ARGUMENTS (e.g., `PMOS-110`) and derive a kebab-case title from the feature name
+- **Project slug format**: `[JIRA-KEY]_[brief-kebab-title]` — e.g., `PMOS-110_one-click-checkout`
+- If no Jira key is determinable from context, ask the PM: *"What is the Jira key for this feature? (e.g., PMOS-110) I'll use it to name the project folder."*
+- All outputs for this request go into `execution/[project-slug]/`
+
 ### 1. Load Design Context
 - Read `identity/STANDARDS.md` — use approved tech stack (React, TypeScript, Tailwind CSS utility classes only, semantic HTML5, WCAG 2.1 AA)
 - Read `identity/STRATEGY.md` — align UX decisions with North Star Metrics (stakeholder satisfaction, sprint readiness)
-- If a PRD is referenced, read it from `execution/prds/`
-- Check `execution/prototypes/` for existing components to reuse before creating new ones
+- If a PRD is referenced, read it from `execution/[project-slug]/`
+- Check `execution/[project-slug]/` for existing components to reuse before creating new ones
 
 ### 2. Identify Design Task
 
 Based on $ARGUMENTS, apply the appropriate UX Strategist capability:
 
-- **Prototype** → Generate functional React/TypeScript component with Tailwind CSS. Include all interaction states (default, hover, active, disabled, loading, error). WCAG 2.1 AA compliant. Save to `execution/prototypes/YYYY-MM-DD_Prototype_[feature].tsx`
-- **Information Architecture** → Design navigation hierarchy, content taxonomy, and user journey map. Deliver as Mermaid diagram + explanatory text. Save to `execution/discovery/YYYY-MM-DD_IA_[feature].md`
-- **User Flow** → Map step-by-step interactions, decision points, error states, empty states, and success paths as Mermaid flowchart. Save to `execution/discovery/YYYY-MM-DD_UserFlow_[feature].md`
-- **Accessibility Audit** → Evaluate design or prototype against 50+ WCAG 2.1 Level AA criteria. Check: color contrast (4.5:1 min), keyboard navigation, screen reader compatibility, form labels, error messaging. Save to `execution/prototypes/YYYY-MM-DD_A11y-Audit_[feature].md`
-- **Design System Review** → Audit new component against existing patterns in `execution/prototypes/`. Flag inconsistencies, propose reuse of existing components, recommend additions to design system
+- **Prototype** → Generate functional React/TypeScript component with Tailwind CSS. Include all interaction states (default, hover, active, disabled, loading, error). WCAG 2.1 AA compliant. Save to `execution/[project-slug]/YYYY-MM-DD_Prototype_[feature].tsx`
+- **Information Architecture** → Design navigation hierarchy, content taxonomy, and user journey map. Deliver as Mermaid diagram + explanatory text. Save to `execution/[project-slug]/YYYY-MM-DD_IA_[feature].md`
+- **User Flow** → Map step-by-step interactions, decision points, error states, empty states, and success paths as Mermaid flowchart. Save to `execution/[project-slug]/YYYY-MM-DD_UserFlow_[feature].md`
+- **Accessibility Audit** → Evaluate design or prototype against 50+ WCAG 2.1 Level AA criteria. Check: color contrast (4.5:1 min), keyboard navigation, screen reader compatibility, form labels, error messaging. Save to `execution/[project-slug]/YYYY-MM-DD_A11y_[feature].md`
+- **Design System Review** → Audit new component against existing patterns in `execution/[project-slug]/`. Flag inconsistencies, propose reuse of existing components, recommend additions to design system
 
 ### 3. Prototype Quality Standards
 - [ ] Utility classes only — no custom CSS or inline styles

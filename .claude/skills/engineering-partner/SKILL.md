@@ -7,20 +7,27 @@ You are invoking the Engineering Partner agent for: $ARGUMENTS
 
 **Working Directory:** C:\Users\MJLea\Claude Code Projects\PM OS
 
+### 0. Determine Project Slug
+Before writing any files, identify the project folder:
+- Extract the Jira issue key from $ARGUMENTS (e.g., `PMOS-110`) and derive a kebab-case title from the feature name
+- **Project slug format**: `[JIRA-KEY]_[brief-kebab-title]` — e.g., `PMOS-110_one-click-checkout`
+- If no Jira key is determinable from context, ask the PM: *"What is the Jira key for this feature? (e.g., PMOS-110) I'll use it to name the project folder."*
+- All outputs for this request go into `execution/[project-slug]/`
+
 ### 1. Load Technical Context
 - Read `identity/STANDARDS.md` — validate all recommendations against approved tech stack (React, TypeScript, Node.js, Tailwind) and security requirements
 - Read `identity/STRATEGY.md` — confirm feasibility assessment aligns with North Star Metric targets (rework reduction, sprint readiness)
-- If a PRD is referenced, read it from `execution/prds/`
+- If a PRD is referenced, read it from `execution/[project-slug]/`
 - If Context7 MCP is available, use it to validate API/library recommendations — query for current documentation before including library choices in feasibility assessments
 
 ### 2. Identify Assessment Type
 
 Based on $ARGUMENTS, apply the appropriate Engineering Partner capability:
 
-- **Technical Feasibility** → Assess complexity (Simple/Moderate/Complex/High Risk), effort (XS/S/M/L/XL), dependencies, technical debt implications, and architecture alternatives. Save to `execution/technical_specs/YYYY-MM-DD_Feasibility_[feature].md`
-- **Security Assessment** → Run STRIDE threat modeling + mandatory OWASP Top 10 (2021) review. Flag all security risks with severity and mitigation. Security is a PRIMARY factor, not an afterthought. Save to `execution/technical_specs/YYYY-MM-DD_Security_[feature].md`
-- **API Contract** → Generate OpenAPI spec or contract definition. Include authentication, error codes, rate limiting, and versioning. Use `templates/api_contract_template.yaml`. Save to `execution/technical_specs/YYYY-MM-DD_API_[feature].yaml`
-- **BPMN Workflow** → Model complex multi-step workflows using BPMN 2.0 notation in Mermaid format. Include decision points, error paths, compensation flows. Save to `execution/technical_specs/YYYY-MM-DD_BPMN_[workflow].md`
+- **Technical Feasibility** → Assess complexity (Simple/Moderate/Complex/High Risk), effort (XS/S/M/L/XL), dependencies, technical debt implications, and architecture alternatives. Save to `execution/[project-slug]/YYYY-MM-DD_Feasibility_[feature].md`
+- **Security Assessment** → Run STRIDE threat modeling + mandatory OWASP Top 10 (2021) review. Flag all security risks with severity and mitigation. Security is a PRIMARY factor, not an afterthought. Save to `execution/[project-slug]/YYYY-MM-DD_Security_[feature].md`
+- **API Contract** → Generate OpenAPI spec or contract definition. Include authentication, error codes, rate limiting, and versioning. Use `templates/api_contract_template.yaml`. Save to `execution/[project-slug]/YYYY-MM-DD_API_[feature].yaml`
+- **BPMN Workflow** → Model complex multi-step workflows using BPMN 2.0 notation in Mermaid format. Include decision points, error paths, compensation flows. Save to `execution/[project-slug]/YYYY-MM-DD_BPMN_[workflow].md`
 - **Legacy Code Analysis** → Evaluate existing codebase for reuse opportunities, technical debt, refactor risks. Read referenced files, identify patterns, assess migration complexity
 
 ### 3. Security Non-Negotiables (Apply to All Assessments)

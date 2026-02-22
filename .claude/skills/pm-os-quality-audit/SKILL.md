@@ -19,7 +19,8 @@ Based on $ARGUMENTS, determine what to audit:
 - **"[agent-name]"** → Focused audit on a single agent's recent outputs
 
 ### 2. Gather Artifacts
-- Glob `execution/` for all artifacts generated since last audit
+- Glob `execution/*/` for all project folders and their artifacts generated since last audit (project-centric structure: each folder is `[JIRA-KEY]_[slug]/`)
+- Also check `execution/shared/` for cross-project artifacts
 - Read `pm-os-reference/documentation/QUALITY_METRICS_DASHBOARD.md` for baseline metrics
 - Check `pm-os-reference/documentation/improvement_proposals/` for open proposals not yet implemented
 

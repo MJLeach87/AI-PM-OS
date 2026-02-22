@@ -175,7 +175,8 @@ Examples:
 **[Define YOUR artifact versioning approach]**
 
 Examples:
-- Store in `execution/[artifact-type]/`
+- Store in `execution/[JIRA-KEY]_[slug]/` (project-centric; all artifact types for one initiative in one folder)
+- Cross-project GTM artifacts (battle cards, market research) → `execution/shared/`
 - Tag major versions with Git tags
 - Include changelog section at top of document
 - Link to related Jira/Linear tickets

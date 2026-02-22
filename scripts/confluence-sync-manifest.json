@@ -93,23 +93,29 @@
     }
   },
   "directories": {
-    "execution/prds": {
-      "parentId": "1048577"
+    "__NOTE__": "execution/ type-based directory mappings DEPRECATED (2026-02-22). execution/ is now project-centric: execution/[JIRA-KEY]_[slug]/. Future sync: each project slug → one top-level Confluence page; artifacts as child pages. Sync script must resolve project page IDs dynamically at publish time.",
+    "__DEPRECATED__execution/prds": {
+      "parentId": "1048577",
+      "_deprecated": "2026-02-22 — use execution/[project-slug]/ instead"
     },
-    "execution/discovery": {
-      "parentId": "1146881"
+    "__DEPRECATED__execution/discovery": {
+      "parentId": "1146881",
+      "_deprecated": "2026-02-22 — use execution/[project-slug]/ instead"
     },
-    "execution/technical_specs": {
-      "parentId": "1081345"
+    "__DEPRECATED__execution/technical_specs": {
+      "parentId": "1081345",
+      "_deprecated": "2026-02-22 — use execution/[project-slug]/ instead"
     },
     "pm-os-reference/documentation/improvement_proposals": {
       "parentId": "1212417"
     },
-    "execution/gtm": {
-      "parentId": "1048577"
+    "__DEPRECATED__execution/gtm": {
+      "parentId": "1048577",
+      "_deprecated": "2026-02-22 — use execution/[project-slug]/ or execution/shared/ instead"
     },
-    "execution/data_analysis": {
-      "parentId": "1048577"
+    "__DEPRECATED__execution/data_analysis": {
+      "parentId": "1048577",
+      "_deprecated": "2026-02-22 — use execution/[project-slug]/ instead"
     }
   }
 }

@@ -7,12 +7,19 @@ You are running a PM OS discovery workflow for: $ARGUMENTS
 
 **Working Directory:** C:\Users\MJLea\Claude Code Projects\PM OS
 
+### 0. Determine Project Slug
+Before writing any files, identify the project folder:
+- Extract the Jira issue key from $ARGUMENTS (e.g., `PMOS-110`) and derive a kebab-case title from the feature name
+- **Project slug format**: `[JIRA-KEY]_[brief-kebab-title]` — e.g., `PMOS-110_one-click-checkout`
+- If no Jira key is determinable from context, ask the PM: *"What is the Jira key for this feature? (e.g., PMOS-110) I'll use it to name the project folder."*
+- All outputs for this request go into `execution/[project-slug]/`
+
 ### 1. Load Strategic Context
 - Read `identity/STRATEGY.md` — all opportunities must connect to North Star Metrics
 - Read `identity/STANDARDS.md` — apply evidence-based decision making standards
 
 ### 2. Audit Existing Research
-Check `execution/discovery/` for any existing materials related to $ARGUMENTS:
+Check `execution/[project-slug]/` for any existing materials related to $ARGUMENTS:
 - Customer interview transcripts or summaries
 - Feedback data (NPS comments, support tickets, survey responses)
 - Prior OSTs or discovery artifacts on this topic
@@ -44,7 +51,7 @@ Produce an **Insights Summary**:
 ...
 ```
 
-Save insights to `execution/discovery/YYYY-MM-DD_Insights_[topic].md` before proceeding.
+Save insights to `execution/[project-slug]/YYYY-MM-DD_Insights_[topic].md` before proceeding.
 
 ### 4. Identify Opportunities
 From the synthesized insights, derive product opportunities:
@@ -62,17 +69,17 @@ From the synthesized insights, derive product opportunities:
 - Opportunities: Problems/needs from insight themes (cite evidence)
 - Solutions: Potential approaches (do not over-specify at this stage)
 - Format: Mermaid diagram + Evidence section citing specific research
-- Save to `execution/discovery/YYYY-MM-DD_OST_[topic].md`
+- Save to `execution/[project-slug]/YYYY-MM-DD_OST_[topic].md`
 
 **For a specific user journey or workflow → User Flow + Pain Point Map**
 - Map current state with friction points annotated
 - Note where evidence was observed
-- Save to `execution/discovery/YYYY-MM-DD_UserFlow_[topic].md`
+- Save to `execution/[project-slug]/YYYY-MM-DD_UserFlow_[topic].md`
 
 **For competitive or market framing → Problem Statement + Market Context**
 - Structured problem statement: [User] struggles to [job] because [obstacle], resulting in [impact]
 - Market evidence: competitor approaches, analyst data if available
-- Save to `execution/discovery/YYYY-MM-DD_ProblemStatement_[topic].md`
+- Save to `execution/[project-slug]/YYYY-MM-DD_ProblemStatement_[topic].md`
 
 ### 6. Cite All Evidence
 Every opportunity in the output must cite at minimum one piece of evidence. Uncited opportunities must be marked as **[ASSUMPTION — validate]**.
@@ -97,4 +104,4 @@ For each artifact saved in steps 3 and 5, publish to the PM OS Confluence space 
 - User Flow → `User Flow: [topic]`
 - Problem Statement → `Problem Statement: [topic]`
 
-**Content**: Artifact markdown (same content written to `execution/discovery/`)
+**Content**: Artifact markdown (same content written to `execution/[project-slug]/`)
