@@ -1,50 +1,50 @@
 {
-  "lastSync": "2026-02-19T02:49:31.151Z",
+  "lastSync": "2026-02-22T18:21:34.678Z",
   "pages": {
     ".claude/skills/prd/SKILL.md": {
       "pageId": "3145770",
       "parentId": "1114113",
-      "hash": "cf2b9038fad8ce6d"
+      "hash": "01d98023fe0ff6ea"
     },
     ".claude/skills/discovery/SKILL.md": {
       "pageId": "3571715",
       "parentId": "1114113",
-      "hash": "476caaf3536836d4"
+      "hash": "791b589bf0aef0c8"
     },
     ".claude/skills/feature-pipeline/SKILL.md": {
       "pageId": "3211274",
       "parentId": "1114113",
-      "hash": "3b9b2dd08a85104a"
+      "hash": "6fb9d47a43acd53c"
     },
     ".claude/skills/product-architect/SKILL.md": {
       "pageId": "1179668",
       "parentId": "1114113",
-      "hash": "b0372f4d43f35a16"
+      "hash": "bf13a1f49dd3e0b8"
     },
     ".claude/skills/engineering-partner/SKILL.md": {
       "pageId": "1474561",
       "parentId": "1114113",
-      "hash": "da295f4a6bcd5185"
+      "hash": "90379fe55bd1ba61"
     },
     ".claude/skills/ux-strategist/SKILL.md": {
       "pageId": "1540097",
       "parentId": "1114113",
-      "hash": "6d6cb320180bbafd"
+      "hash": "271fc064d9d46a4b"
     },
     ".claude/skills/data-analyst/SKILL.md": {
       "pageId": "1572865",
       "parentId": "1114113",
-      "hash": "dfce3dbf316c2629"
+      "hash": "b14cc1f8544cefdc"
     },
     ".claude/skills/gtm-strategist/SKILL.md": {
       "pageId": "1605633",
       "parentId": "1114113",
-      "hash": "d1702427950b2b3a"
+      "hash": "6198871b636bfdde"
     },
     ".claude/skills/pm-os-quality-audit/SKILL.md": {
       "pageId": "1638401",
       "parentId": "1114113",
-      "hash": "dbd3a79ee1463eb8"
+      "hash": "7010efe2dd4eb136"
     },
     ".claude/skills/pm-os-doc-sync/SKILL.md": {
       "pageId": "1671169",
@@ -90,6 +90,11 @@
       "pageId": "4751368",
       "parentId": "1212417",
       "hash": "6b34baa2cbff67b6"
+    },
+    "pm-os-reference/documentation/improvement_proposals/2026-02-22_ADR_Project-Centric-Execution-Structure.md": {
+      "pageId": "5963777",
+      "parentId": "1212417",
+      "hash": "d353e28ef804dcbf"
     }
   },
   "directories": {
