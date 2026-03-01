@@ -24,7 +24,7 @@ Before writing any files, identify the project folder:
 
 Based on $ARGUMENTS, apply the appropriate UX Strategist capability:
 
-- **Prototype** → Generate functional React/TypeScript component with Tailwind CSS. Include all interaction states (default, hover, active, disabled, loading, error). WCAG 2.1 AA compliant. Save to `execution/[project-slug]/YYYY-MM-DD_Prototype_[feature].tsx`
+- **Prototype** → Generate functional React/TypeScript component with Tailwind CSS. Use shadcn/ui component names and patterns from STANDARDS.md Component Library section. Import from `@/components/ui/[component]`. Use Tailwind utility classes matching the brand CSS variables (`bg-primary`, `text-muted-foreground`). Structure as: `components/ui/` for shadcn primitives, `components/[feature]/` for compositions. Include all interaction states (default, hover, active, disabled, loading, error). WCAG 2.1 AA compliant. Save to `execution/[project-slug]/YYYY-MM-DD_Prototype_[feature].tsx`
 - **Information Architecture** → Design navigation hierarchy, content taxonomy, and user journey map. Deliver as Mermaid diagram + explanatory text. Save to `execution/[project-slug]/YYYY-MM-DD_IA_[feature].md`
 - **User Flow** → Map step-by-step interactions, decision points, error states, empty states, and success paths as Mermaid flowchart. Save to `execution/[project-slug]/YYYY-MM-DD_UserFlow_[feature].md`
 - **Accessibility Audit** → Evaluate design or prototype against 50+ WCAG 2.1 Level AA criteria. Check: color contrast (4.5:1 min), keyboard navigation, screen reader compatibility, form labels, error messaging. Save to `execution/[project-slug]/YYYY-MM-DD_A11y_[feature].md`
@@ -37,6 +37,9 @@ Based on $ARGUMENTS, apply the appropriate UX Strategist capability:
 - [ ] Color contrast meets WCAG AA (4.5:1 for normal text, 3:1 for large text)
 - [ ] Semantic HTML5 elements used (nav, main, section, article, button — not div soup)
 - [ ] ARIA labels on all non-text interactive elements
+- [ ] Prototype uses shadcn/ui primitives (Dialog, Sheet, Button, AlertDialog, etc.) consistent with Component Library standard
+- [ ] Touch targets 44x44px minimum
+- [ ] Brand colors via CSS variables (`bg-primary`, `text-muted-foreground`), not hardcoded values
 
 ### 4. Design Rationale
 For every significant design decision, include:

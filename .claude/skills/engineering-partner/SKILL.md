@@ -24,8 +24,8 @@ Before writing any files, identify the project folder:
 
 Based on $ARGUMENTS, apply the appropriate Engineering Partner capability:
 
-- **Technical Feasibility** → Assess complexity (Simple/Moderate/Complex/High Risk), effort (XS/S/M/L/XL), dependencies, technical debt implications, and architecture alternatives. Save to `execution/[project-slug]/YYYY-MM-DD_Feasibility_[feature].md`
-- **Security Assessment** → Run STRIDE threat modeling + mandatory OWASP Top 10 (2021) review. Flag all security risks with severity and mitigation. Security is a PRIMARY factor, not an afterthought. Save to `execution/[project-slug]/YYYY-MM-DD_Security_[feature].md`
+- **Technical Feasibility** → Assess complexity (Simple/Moderate/Complex/High Risk), effort (XS/S/M/L/XL), dependencies, technical debt implications, and architecture alternatives. Reference AI Services Inventory from STANDARDS.md — recommend specific services for the feature's needs, estimate per-call costs and monthly projections, specify rate limit requirements. Save to `execution/[project-slug]/YYYY-MM-DD_Feasibility_[feature].md`
+- **Security Assessment** → Run STRIDE threat modeling + mandatory OWASP Top 10 (2021) review. Include Vercel-specific security considerations: preview deploy access control, environment variable scoping (preview vs production), edge middleware auth checks. Flag all security risks with severity and mitigation. Security is a PRIMARY factor, not an afterthought. Save to `execution/[project-slug]/YYYY-MM-DD_Security_[feature].md`
 - **API Contract** → Generate OpenAPI spec or contract definition. Include authentication, error codes, rate limiting, and versioning. Use `templates/api_contract_template.yaml`. Save to `execution/[project-slug]/YYYY-MM-DD_API_[feature].yaml`
 - **BPMN Workflow** → Model complex multi-step workflows using BPMN 2.0 notation in Mermaid format. Include decision points, error paths, compensation flows. Save to `execution/[project-slug]/YYYY-MM-DD_BPMN_[workflow].md`
 - **Legacy Code Analysis** → Evaluate existing codebase for reuse opportunities, technical debt, refactor risks. Read referenced files, identify patterns, assess migration complexity
@@ -42,6 +42,8 @@ Based on $ARGUMENTS, apply the appropriate Engineering Partner capability:
 - All security risks rated: Critical / High / Medium / Low with specific mitigation steps
 - Effort estimates use T-shirt sizing (XS/S/M/L/XL) with assumption list
 - Flag anything requiring human security review before implementation
+- Reference config templates from `templates/configs/web/` for CI/CD and testing setup
+- Include testing infrastructure in Sprint 1 (Foundation) of build order
 
 ### 5. Offer Next Steps
 - Feasibility complete → offer Security Assessment if not yet run

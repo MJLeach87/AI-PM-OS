@@ -1,23 +1,24 @@
-# PM OS - Claude Code Project Context
+# Full Stack PM — Claude Code Project Context
 
-**Project Name**: Product Management Operating System (PM OS)
-**Created**: 2026-01-31 | **Updated**: 2026-02-15
-**Status**: Phase 7 Complete → Phase 8 (Enterprise Readiness) Planned
+**Project Name**: Full Stack PM (formerly PM OS)
+**Created**: 2026-01-31 | **Updated**: 2026-02-28
+**Status**: Phase 8 In Progress (Enterprise Readiness + Engineering Standards)
 
-PM OS is a self-improving product management system using Claude Code, MCP integrations, and
-a skills-based multi-agent architecture. It transforms PMs from document-authors into
-high-leverage Strategic Architects by institutionalizing strategy, discovery, and execution
-as executable code that improves itself over time.
+Full Stack PM is an end-to-end product lifecycle operating system — from initial discovery
+through production delivery and monitoring. Using Claude Code, MCP integrations, and a
+skills-based architecture, it covers the complete arc:
 
+**Discovery → Specs → Engineering Standards → `/launch` → Development → Testing → Deployment → Monitoring**
+
+`identity/STANDARDS.md` contains both product and engineering standards. All skills read it.
 See `identity/STRATEGY.md` for vision, mission, and North Star metrics.
 
 ---
 
 ## Current Status
 
-**Phase 7 Complete** (2026-02-14) — A/B test template, domain specialist framework,
-PARALLEL_WORKFLOWS guide, Data Analyst v2.2.
-**Next**: Phase 8 — Enterprise Readiness (multi-user Git, security hardening, web prototype).
+**Phase 8 In Progress** (2026-02-28) — Full Stack PM repositioning, engineering standards
+integration, `/launch` skill, platform profiles, config templates, skill updates.
 **Phase history**: `pm-os-reference/documentation/phase-history/`
 
 ---
@@ -55,9 +56,10 @@ PARALLEL_WORKFLOWS guide, Data Analyst v2.2.
 
 See `identity/README.md` for customization instructions.
 
-### Skills Layer (Routing)
+### Skills Layer (Strategy & Planning)
 
-`.claude/skills/` is the **sole canonical source** for all specialist capabilities.
+`.claude/skills/` defines PM OS's custom specialist capabilities for strategy, discovery,
+and planning. For implementation capabilities, see **Plugins** below.
 `.claude/agents/` is empty — CLAUDE.md routes, skills execute.
 
 | Trigger | Skill | Capability |
@@ -66,10 +68,11 @@ See `identity/README.md` for customization instructions.
 | PRD / requirements | `/prd` | BMAD PRD with metrics validation |
 | Full feature pipeline | `/feature-pipeline` | End-to-end parallel workflow |
 | Discovery / PRD / agent specs | `/product-architect` | Core PM outputs |
-| Technical / security / API / BPMN | `/engineering-partner` | Feasibility + security |
-| Prototypes / IA / accessibility | `/ux-strategist` | React/Tailwind + flows |
+| Technical / security / API / BPMN | `/engineering-partner` | Feasibility + security + AI services |
+| Prototypes / IA / accessibility | `/ux-strategist` | shadcn/ui React/Tailwind + flows |
 | SQL / metrics / A/B analysis | `/data-analyst` | Data queries + validation |
 | Positioning / GTM / battle cards | `/gtm-strategist` | Competitive + GTM |
+| Launch product for development | `/launch` | Validate specs + generate dev-ready repo scaffolding |
 | PM OS quality audit | `/pm-os-quality-audit` | System health (Mode B) |
 | PM OS doc sync | `/pm-os-doc-sync` | Meta-docs consistency (Mode B) |
 | Pre-push deep review | `/release-check` | Doc currency + PII scan (Mode B) |
@@ -105,6 +108,49 @@ Config: `.mcp.json` | Setup guide: `mcp/setup_guides/ROVO_MCP_SETUP.md`
 
 **Known constraint**: Confluence space creation requires Confluence UI — Rovo MCP supports
 page CRUD, search, and comments only.
+
+### Plugins (Implementation Layer)
+
+PM OS is end-to-end: strategy → planning → implementation → review → ship. Plugins from
+the Anthropic marketplace extend PM OS with structured implementation, code review, and
+security enforcement capabilities. They work alongside skills and MCPs as part of one system.
+
+**Three capability layers, one workflow**:
+
+| Layer | Source | Lifecycle Phase |
+|-------|--------|----------------|
+| **Skills** (`.claude/skills/`) | PM OS custom | Strategy, discovery, planning, specs |
+| **Plugins** (global marketplace) | Anthropic official | Implementation, code review, security |
+| **MCPs** (`.mcp.json`) | External services | Jira, Confluence, docs, data |
+
+**Active plugins**:
+
+| Plugin | Role in PM OS Workflow |
+|--------|----------------------|
+| `/feature-dev` | 7-phase structured implementation — picks up where `/feature-pipeline` leaves off |
+| `/frontend-design` | Production-grade UI — enforces quality standards from `/ux-strategist` prototypes |
+| `/code-review` | 5 parallel review agents — post-implementation counterpart to `/engineering-partner` |
+| `/security-guidance` | Real-time security hooks on every file edit — enforces OWASP/STRIDE from planning |
+| `/commit-commands` | Git commit/push/PR workflow automation |
+| `/pr-review-toolkit` | 6 specialized PR review agents — deep pre-merge quality gate |
+| `/typescript-lsp` | Type checking, go-to-definition, find-references for TypeScript codebases |
+
+**End-to-end flow** (skills + plugins + MCPs together):
+```
+/discovery → /feature-pipeline → /launch → /feature-dev → /code-review → /pr-review-toolkit → ship
+     ↑              ↑               ↑            ↑              ↑                ↑
+  identity/    Jira + Confluence  STANDARDS.md  security-guidance  typescript-lsp   Vercel
+  STRATEGY.md  (Rovo MCP)        + configs     (hooks on edits)   (type checking)  (deploy)
+```
+
+**Product repos** hold source code separately (their own Git repo, CI/CD, deployment) but
+PM OS orchestrates the full lifecycle. Product repos get a `.claude/CLAUDE.md` from
+`templates/web_project_claudemd_template.md` that references back to PM OS execution artifacts.
+
+**Standards**: `identity/STANDARDS.md` — engineering standards (platform profiles, tech stack, AI services, component library, security, testing, observability).
+**Config templates**: `templates/configs/web/` — ready-to-copy: biome, tsconfig, vitest, playwright, next.config, CI workflow.
+**Test patterns**: `templates/testing/` — server action, component, E2E, setup file examples.
+**ADR**: `pm-os-reference/documentation/improvement_proposals/2026-02-28_ADR_Full-Stack-PM-Engineering-Standards.md`
 
 ---
 
@@ -147,4 +193,4 @@ Never skip security checks.
 
 ---
 
-**Last Updated**: 2026-02-17 | **Maintained By**: PM OS Orchestrator + Human PM
+**Last Updated**: 2026-02-28 | **Maintained By**: Full Stack PM Orchestrator + Human PM
