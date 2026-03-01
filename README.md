@@ -1,19 +1,19 @@
-# PM OS - Product Management Operating System
+# Full Stack PM — Product Lifecycle Operating System
 
-**Status**: Phase 7 Complete → Phase 8 (Enterprise Readiness) Planned
-**Created**: 2026-01-31 | **Last Updated**: 2026-02-15
+**Status**: Phase 8 In Progress (Enterprise Readiness + Engineering Standards)
+**Created**: 2026-01-31 | **Last Updated**: 2026-03-01
 
-PM OS is a self-improving product management system that uses Claude Code, a full MCP
-integration suite, and a skills-based multi-agent architecture to augment product managers
-into AI-powered product leaders. It transforms PMs from document-authors into high-leverage
-Strategic Architects by institutionalizing strategy, discovery, and execution as executable
-code that improves itself over time.
+Full Stack PM (formerly PM OS) is an end-to-end product lifecycle operating system — from
+initial discovery through production delivery and monitoring. Using Claude Code, MCP
+integrations, and a skills-based architecture, it covers the complete arc:
+
+**Discovery → Specs → Engineering Standards → `/launch` → Development → Testing → Deployment → Monitoring**
 
 ---
 
 ## Current Capabilities
 
-All 11 skills are active. Invoke any skill with `/skill-name [request]` in Claude Code.
+All 12 skills are active. Invoke any skill with `/skill-name [request]` in Claude Code.
 
 ### Workflow Skills (End-to-End Pipelines)
 
@@ -22,6 +22,7 @@ All 11 skills are active. Invoke any skill with `/skill-name [request]` in Claud
 | **Discovery** | `/discovery [topic]` | Synthesizes customer research into Opportunity Solution Trees + discovery artifacts |
 | **PRD** | `/prd [feature]` | BMAD PRD with Gherkin user stories, metrics, and Data Analyst validation at step 8 |
 | **Feature Pipeline** | `/feature-pipeline [description]` | Full end-to-end pipeline — Engineering Partner, UX Strategist, Data Analyst, GTM Strategist run in parallel after the initial PRD draft |
+| **Launch** | `/launch [project-slug]` | Validate specs and generate dev-ready repo scaffolding with engineering standards baked in |
 
 ### Specialist Skills (Domain Experts)
 
@@ -104,10 +105,11 @@ handles page CRUD, search, and comments only.
 PM OS/
 ├── .claude/
 │   ├── CLAUDE.md                     # Ambient orchestration layer (routing + context)
-│   └── skills/                       # 11 skills — sole canonical source for all capabilities
+│   └── skills/                       # 12 skills — sole canonical source for all capabilities
 │       ├── discovery/SKILL.md        # /discovery
 │       ├── prd/SKILL.md              # /prd
 │       ├── feature-pipeline/SKILL.md # /feature-pipeline
+│       ├── launch/SKILL.md           # /launch — specs → dev-ready scaffolding
 │       ├── product-architect/SKILL.md
 │       ├── engineering-partner/SKILL.md
 │       ├── ux-strategist/SKILL.md
@@ -131,16 +133,16 @@ PM OS/
 │       └── improvement_proposals/    # Mode B: self-improvement proposals + ADRs
 │
 ├── execution/                        # YOUR artifact workspace (Mode A only)
-│   ├── discovery/                    # OSTs, user research, IA maps
-│   ├── prds/                         # Product requirements documents
-│   ├── technical_specs/              # BPMN, API contracts, Gherkin scenarios
-│   ├── prototypes/                   # React/Tailwind components
-│   └── gtm/                          # Battle cards, positioning, value props
+│   ├── [JIRA-KEY]_[slug]/           # All artifacts for one initiative (flat)
+│   └── shared/                       # Cross-project GTM artifacts
 │
-├── templates/                        # Standardized artifact formats
+├── templates/                        # Standardized artifact formats + config templates
+│   ├── configs/web/                  # Ready-to-copy: biome, tsconfig, vitest, playwright, next.config, CI
+│   ├── testing/                      # Test patterns: server action, component, E2E, setup
+│   ├── project_readme_template.md    # 14-section product repo README template
+│   ├── web_project_claudemd_template.md # v2 CLAUDE.md for product repos
 │   ├── prd_template.md
 │   ├── agent_spec_template.md
-│   ├── mcp_integration_plan.md
 │   ├── metrics_validation_template.md
 │   ├── ab_test_analysis_template.md
 │   └── domain_specialist_template.md
@@ -206,6 +208,6 @@ For detailed phase tracking:
 
 ---
 
-**PM OS Status**: Phase 7 Complete → Phase 8 (Enterprise Readiness) Planned
-**Last Updated**: 2026-02-15
-**Maintained By**: PM OS Orchestrator + Human PM
+**Full Stack PM Status**: Phase 8 In Progress (Enterprise Readiness + Engineering Standards)
+**Last Updated**: 2026-03-01
+**Maintained By**: Full Stack PM Orchestrator + Human PM

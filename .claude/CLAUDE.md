@@ -28,7 +28,7 @@ integration, `/launch` skill, platform profiles, config templates, skill updates
 **Mode A — Your product work** (what PM OS is built for):
 - Context: `identity/STRATEGY.md`, `identity/ROADMAP.md`, `identity/STANDARDS.md` (YOUR org)
 - Outputs: `execution/[JIRA-KEY]_[slug]/` (project-centric; all artifact types flat in one folder per initiative)
-- Skills: `/discovery`, `/prd`, `/feature-pipeline`, `/product-architect`, `/engineering-partner`, `/ux-strategist`, `/data-analyst`, `/gtm-strategist`
+- Skills: `/discovery`, `/prd`, `/feature-pipeline`, `/launch`, `/product-architect`, `/engineering-partner`, `/ux-strategist`, `/data-analyst`, `/gtm-strategist`
 
 **Mode B — PM OS self-improvement** (improving the system itself):
 - Context: `pm-os-reference/identity/ROADMAP.md` (PM OS's implementation timeline)

@@ -2,14 +2,14 @@
 
 **For**: Product Managers new to PM OS
 **Time to First Artifact**: 5 minutes
-**Current Phase**: 8 (Enterprise Readiness) - Planning
+**Current Phase**: 8 (Enterprise Readiness + Engineering Standards) - In Progress
 **Phase 7 Completed**: 2026-02-14 ✅
 
 ---
 
 ## What is PM OS?
 
-PM OS is your AI-powered product management assistant that helps you:
+Full Stack PM (formerly PM OS) is your AI-powered product lifecycle assistant that helps you:
 - Generate Opportunity Solution Trees (OSTs) in minutes
 - Draft comprehensive PRDs following BMAD methodology
 - Create consistent, high-quality product artifacts
@@ -27,13 +27,14 @@ You should see this directory structure:
 PM OS/
 ├── .claude/
 │   ├── CLAUDE.md           # Project context (auto-loaded by Claude Code)
-│   └── skills/             # Canonical specialist source (10 skills — invoked as /skill-name)
+│   └── skills/             # Canonical specialist source (12 skills — invoked as /skill-name)
 │       ├── discovery/      # /discovery — OST + discovery artifacts
 │       ├── prd/            # /prd — BMAD PRD generation
 │       ├── feature-pipeline/ # /feature-pipeline — Full pipeline (parallel workflows)
+│       ├── launch/         # /launch — Validate specs + generate dev-ready scaffolding
 │       ├── product-architect/    # /product-architect — Discovery, PRD, agent specs
-│       ├── engineering-partner/  # /engineering-partner — Feasibility, security, API
-│       ├── ux-strategist/        # /ux-strategist — Prototypes, IA, accessibility
+│       ├── engineering-partner/  # /engineering-partner — Feasibility, security, AI services
+│       ├── ux-strategist/        # /ux-strategist — shadcn/ui prototypes, IA, accessibility
 │       ├── data-analyst/         # /data-analyst — SQL, metrics, A/B analysis
 │       ├── gtm-strategist/       # /gtm-strategist — Positioning, battle cards, GTM
 │       ├── pm-os-quality-audit/  # /pm-os-quality-audit — PM OS quality audit
@@ -435,6 +436,7 @@ These invoke the `.claude/skills/` canonical source — self-contained specialis
 - `/discovery [topic]`: Generate an Opportunity Solution Tree + discovery artifacts
 - `/prd [feature]`: Draft a PRD using BMAD structure (with Data Analyst metrics validation)
 - `/feature-pipeline [description]`: End-to-end feature development workflow (supports parallel agent notation)
+- `/launch [project-slug]`: Validate specs and generate dev-ready repo scaffolding with engineering standards
 
 **Specialist Skills** (invoke a specific domain expert directly):
 - `/product-architect [request]`: Discovery, PRD drafting, OST generation, agent spec creation
@@ -522,23 +524,24 @@ Address agents directly in any Claude Code message:
 
 ---
 
-## Current Capabilities (Phase 7 Complete)
+## Current Capabilities (Phase 8 In Progress)
 
-### All 10 Skills Active ✅
+### All 12 Skills Active ✅
 - ✅ **Discovery & PRD** → `/discovery`, `/prd`, `/product-architect`
-- ✅ **Technical review & security** → `/engineering-partner`
-- ✅ **UI/UX prototyping** → `/ux-strategist`
+- ✅ **Technical review & security** → `/engineering-partner` (now with AI services inventory + Vercel awareness)
+- ✅ **UI/UX prototyping** → `/ux-strategist` (now with shadcn/ui component library awareness)
 - ✅ **Data analysis & SQL** → `/data-analyst`
 - ✅ **GTM and positioning** → `/gtm-strategist`
 - ✅ **Full pipeline** → `/feature-pipeline` (parallel workflow notation supported)
+- ✅ **Launch to dev** → `/launch` (validate specs → generate dev-ready scaffolding)
 - ✅ **MCP integrations** → Atlassian Rovo MCP (Jira + Confluence), Google Drive MCP
 - ✅ **Self-improvement loop** → `/pm-os-quality-audit`, `/pm-os-doc-sync`, `/release-check`
 
-### Phase 8 (Enterprise) — Coming Next
+### Phase 8 — Remaining Items
 - 🟡 Multi-user Git workflow (CODEOWNERS, branch protection)
 - 🟡 Security hardening (SOC 2 readiness checklist)
 - 🟡 Web application prototype (optional)
-- 🟡 Deployment automation
+- 🟡 Mealiflo retrofit execution
 
 ---
 
@@ -639,11 +642,11 @@ Address agents directly in any Claude Code message:
 | **Templates** | `templates/` |
 | **YOUR Org Context** | `identity/` (customize these!) |
 | **PM OS Org Context (reference)** | `pm-os-reference/identity/` (read-only) |
-| **Skills (all capabilities)** | `.claude/skills/[name]/SKILL.md` — 10 skills |
+| **Skills (all capabilities)** | `.claude/skills/[name]/SKILL.md` — 12 skills |
 
 ---
 
-**Quick Start Version**: 2.0 (Phase 7)
-**Last Updated**: 2026-02-14
+**Quick Start Version**: 2.1 (Phase 8 — Full Stack PM)
+**Last Updated**: 2026-03-01
 **For More**: See `README.md` for comprehensive guide
 **Next**: Run your first OST generation command!
