@@ -1,5 +1,5 @@
 {
-  "lastSync": "2026-03-01T18:01:33.955Z",
+  "lastSync": "2026-03-01T20:12:07.548Z",
   "pages": {
     ".claude/skills/prd/SKILL.md": {
       "pageId": "3145770",
@@ -100,6 +100,11 @@
       "pageId": "7405569",
       "parentId": "1212417",
       "hash": "d17a9557c4ae3ed3"
+    },
+    "pm-os-reference/documentation/improvement_proposals/2026-03-01_DocSync_full-stack-pm-launch.md": {
+      "pageId": "7471105",
+      "parentId": "1212417",
+      "hash": "d7d0e4d58b95bc84"
     }
   },
   "directories": {
