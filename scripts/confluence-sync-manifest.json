@@ -1,5 +1,5 @@
 {
-  "lastSync": "2026-03-01T20:12:07.548Z",
+  "lastSync": "2026-03-02T01:46:20.131Z",
   "pages": {
     ".claude/skills/prd/SKILL.md": {
       "pageId": "3145770",
@@ -34,12 +34,12 @@
     ".claude/skills/data-analyst/SKILL.md": {
       "pageId": "1572865",
       "parentId": "1114113",
-      "hash": "b14cc1f8544cefdc"
+      "hash": "7dfdd3d09b96b660"
     },
     ".claude/skills/gtm-strategist/SKILL.md": {
       "pageId": "1605633",
       "parentId": "1114113",
-      "hash": "6198871b636bfdde"
+      "hash": "ffe657dd604d990c"
     },
     ".claude/skills/pm-os-quality-audit/SKILL.md": {
       "pageId": "1638401",
@@ -84,12 +84,12 @@
     "pm-os-reference/documentation/improvement_proposals/2026-02-17_ADR_Plugin-Packaging.md": {
       "pageId": "4784129",
       "parentId": "1212417",
-      "hash": "c3ed7d6db4d336af"
+      "hash": "1791a0ecb7ae8864"
     },
     "pm-os-reference/documentation/improvement_proposals/2026-02-17_WIP_workstream-1-resume.md": {
       "pageId": "4751368",
       "parentId": "1212417",
-      "hash": "6b34baa2cbff67b6"
+      "hash": "3e9928f39fb7f636"
     },
     "pm-os-reference/documentation/improvement_proposals/2026-02-22_ADR_Project-Centric-Execution-Structure.md": {
       "pageId": "5963777",
@@ -105,6 +105,11 @@
       "pageId": "7471105",
       "parentId": "1212417",
       "hash": "d7d0e4d58b95bc84"
+    },
+    "pm-os-reference/documentation/improvement_proposals/2026-02-22_ADR_Web-Development-Standards.md": {
+      "pageId": "7536649",
+      "parentId": "1212417",
+      "hash": "2cfe3dd457bf56b7"
     }
   },
   "directories": {
