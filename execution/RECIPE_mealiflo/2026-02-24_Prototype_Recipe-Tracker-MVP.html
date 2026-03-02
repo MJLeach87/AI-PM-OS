@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipe Tracker MVP</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;}
+#app{max-width:430px;margin:0 auto;background:#fff;min-height:100vh;position:relative;}
+.screen{display:none;flex-direction:column;min-height:100vh;padding-bottom:80px;}.screen.active{display:flex;}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:1px solid #e5e7eb;display:flex;align-items:center;z-index:50;height:64px;}
+.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;padding:8px 4px;color:#9ca3af;font-size:11px;font-weight:500;}
+.nav-tab.active{color:#111827;}.nav-tab svg{width:22px;height:22px;}
+.nav-fab{flex:1;display:flex;align-items:center;justify-content:center;}
+.nav-fab-btn{width:52px;height:52px;background:#111827;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.3);margin-top:-16px;}
+.screen-header{display:flex;align-items:center;padding:14px 16px;border-bottom:1px solid #f3f4f6;background:#fff;position:sticky;top:0;z-index:40;}
+.header-title{font-size:18px;font-weight:700;flex:1;}
+.header-back{margin-right:8px;cursor:pointer;padding:4px;color:#6b7280;}
+.header-avatar{width:34px;height:34px;background:#1e293b;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;}
+.recipe-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;}
+.recipe-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08);cursor:pointer;border:1px solid #f3f4f6;}
+.recipe-card-img{width:100%;height:110px;object-fit:cover;background:#f3f4f6;display:block;}
+.recipe-card-img-ph{width:100%;height:110px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:32px;}
+.recipe-card-body{padding:9px 10px;}
+.recipe-card-title{font-size:13px;font-weight:600;line-height:1.35;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.recipe-card-source{font-size:11px;color:#9ca3af;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.recipe-card-tags{display:flex;gap:3px;flex-wrap:wrap;}
+.tag-chip{font-size:10px;padding:2px 7px;border-radius:999px;background:#f3f4f6;color:#6b7280;}
+.filter-row{display:flex;gap:8px;padding:10px 12px;overflow-x:auto;}
+.filter-row::-webkit-scrollbar{display:none;}
+.filter-chip{font-size:12px;padding:5px 13px;border-radius:999px;border:1px solid #e5e7eb;background:#fff;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.filter-chip.active{background:#111827;color:#fff;border-color:#111827;}
+.bottom-sheet-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:flex-end;justify-content:center;}
+.bottom-sheet-backdrop.open{display:flex;}
+.bottom-sheet{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:430px;padding:0 20px 28px;max-height:85vh;overflow-y:auto;animation:slideUp .25s ease-out;}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.sheet-handle{width:36px;height:4px;background:#e5e7eb;border-radius:2px;margin:12px auto 16px;}
+.shimmer{background:linear-gradient(90deg,#f3f4f6 25%,#e5e7eb 50%,#f3f4f6 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.grocery-checked{text-decoration:line-through;color:#9ca3af;}
+.grocery-item-row{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid #f9fafb;}
+.grocery-item-row .del-btn{opacity:0;background:none;border:none;cursor:pointer;color:#ef4444;font-size:16px;padding:2px 6px;border-radius:4px;transition:opacity .15s;}
+.grocery-item-row:hover .del-btn{opacity:1;}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;text-align:center;flex:1;}
+.empty-icon{width:64px;height:64px;background:#f3f4f6;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+input[type=text],input[type=number],select,textarea{border:1px solid #e5e7eb;border-radius:8px;padding:8px 10px;width:100%;box-sizing:border-box;font-size:14px;outline:none;transition:border-color .15s;font-family:inherit;background:#fff;}
+input:focus,textarea:focus,select:focus{border-color:#111827;}
+.tag-warn{border-color:#f59e0b!important;}
+.tag-error{border-color:#ef4444!important;background:#fff5f5!important;}
+.btn-primary{background:#111827;color:#fff;border:none;border-radius:10px;padding:13px;font-size:15px;font-weight:600;cursor:pointer;width:100%;transition:background .15s;}
+.btn-primary:disabled{background:#d1d5db;cursor:not-allowed;}
+.btn-secondary{background:#f3f4f6;color:#374151;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:500;cursor:pointer;width:100%;}
+.btn-danger{background:#ef4444;color:#fff;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:600;cursor:pointer;width:100%;}
+.source-opt{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid #e5e7eb;border-radius:12px;cursor:pointer;transition:all .15s;margin-bottom:10px;}
+.source-opt:hover,.source-opt.selected{border-color:#111827;background:#f9fafb;}
+.list-row{display:flex;align-items:center;padding:13px 16px;border-bottom:1px solid #f3f4f6;cursor:pointer;}
+.list-row:hover{background:#f9fafb;}
+.card{background:#fff;border-radius:12px;border:1px solid #f3f4f6;padding:14px;margin-bottom:10px;}
+.day-slot{display:flex;align-items:center;padding:12px 16px;border-radius:10px;border:1px solid #f3f4f6;background:#fff;margin-bottom:8px;cursor:pointer;gap:12px;}
+.day-slot-empty{border:1px dashed #e5e7eb;background:#fafafa;}
+.day-slot-empty:hover{background:#f3f4f6;}
+.onboarding-card{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px;margin:12px 12px 4px;}
+/* ===== DESKTOP SIDEBAR ===== */
+#sidebar{display:none;}
+@media(min-width:768px){
+  body{background:#f1f5f9;}
+  #sidebar{display:flex;flex-direction:column;width:220px;min-height:100vh;background:#fff;border-right:1px solid #e5e7eb;position:fixed;top:0;left:0;bottom:0;z-index:50;}
+  .sidebar-logo{padding:18px 16px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f3f4f6;margin-bottom:4px;}
+  .sidebar-logo-icon{width:34px;height:34px;background:#f0fdf4;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .sidebar-logo-name{font-size:15px;font-weight:800;color:#111827;}
+  .sidebar-nav{flex:1;padding:8px;display:flex;flex-direction:column;gap:2px;}
+  .sidebar-tab{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;color:#6b7280;font-size:14px;font-weight:500;transition:background .15s;}
+  .sidebar-tab:hover{background:#f9fafb;}
+  .sidebar-tab.active{background:#f3f4f6;color:#111827;font-weight:600;}
+  .sidebar-tab svg{width:20px;height:20px;flex-shrink:0;}
+  .sidebar-add-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;margin:4px 0;border-radius:8px;cursor:pointer;background:#111827;color:#fff;font-size:14px;font-weight:600;border:none;width:100%;text-align:left;}
+  .sidebar-add-btn svg{width:20px;height:20px;flex-shrink:0;}
+  .sidebar-bottom{padding:8px;border-top:1px solid #f3f4f6;margin-top:auto;}
+  .sidebar-account{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;}
+  .sidebar-account:hover{background:#f9fafb;}
+  #app{max-width:none;margin-left:220px;background:#f8fafc;}
+  .screen{max-width:720px;margin:0 auto;background:#fff;box-shadow:0 0 0 1px #e5e7eb;}
+  .screen{padding-bottom:32px!important;}
+  .bottom-nav{display:none!important;}
+  .recipe-grid{grid-template-columns:1fr 1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- DESKTOP SIDEBAR (hidden on mobile via CSS) -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-icon"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#16a34a" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.966 8.966 0 00-6 2.292m0-14.25v14.25"/></svg></div>
+    <span class="sidebar-logo-name" id="sidebar-app-name">Recipe Tracker</span>
+  </div>
+  <div class="sidebar-nav">
+    <div class="sidebar-tab active" id="sidebar-tab-recipes" onclick="showScreen('recipes')">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.966 8.966 0 00-6 2.292m0-14.25v14.25"/></svg>
+      Recipes
+    </div>
+    <div class="sidebar-tab" id="sidebar-tab-cookbooks" onclick="showScreen('cookbooks')">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l-3-3m3 3l3-3M8 4h8"/></svg>
+      Cookbooks
+    </div>
+    <button class="sidebar-add-btn" onclick="showScreen('import-input')">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+      Add Recipe
+    </button>
+    <div class="sidebar-tab" id="sidebar-tab-meal-plans" onclick="showScreen('meal-plans')">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+      Meals
+    </div>
+    <div class="sidebar-tab" id="sidebar-tab-grocery" onclick="showScreen('grocery')">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+      Grocery
+    </div>
+  </div>
+  <div class="sidebar-bottom">
+    <div class="sidebar-account" onclick="showScreen('account')">
+      <div class="header-avatar" style="flex-shrink:0;">MJ</div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:#111827;">MJ Lea</div>
+        <div style="font-size:11px;color:#9ca3af;">Account &amp; Settings</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div id="app">
+
+<!-- LANDING -->
+<div id="screen-landing" class="screen active">
+  <div class="empty-state" style="justify-content:center;padding:40px 24px;">
+    <div style="width:80px;height:80px;background:#f0fdf4;border-radius:24px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+      <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="#16a34a" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.966 8.966 0 00-6 2.292m0-14.25v14.25"/></svg>
+    </div>
+    <h1 id="landing-name" style="font-size:28px;font-weight:800;margin:0 0 8px;color:#111827;">Recipe Tracker</h1>
+    <p style="color:#6b7280;margin:0 0 20px;font-size:15px;line-height:1.5;text-align:center;">Every recipe you find, from anywhere,<br>organized and shoppable in seconds.</p>
+    <div style="width:100%;max-width:300px;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:8px;"><span style="font-size:20px;">⚡</span><div><div style="font-size:13px;font-weight:600;">AI-Powered Import</div><div style="font-size:12px;color:#9ca3af;">Paste any text. AI extracts the recipe.</div></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:8px;"><span style="font-size:20px;">🔍</span><div><div style="font-size:13px;font-weight:600;">Search by Ingredient</div><div style="font-size:12px;color:#9ca3af;">Find recipes by what's in them.</div></div></div>
+      <div style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #e5e7eb;border-radius:10px;margin-bottom:24px;"><span style="font-size:20px;">🛒</span><div><div style="font-size:13px;font-weight:600;">Auto Grocery Lists</div><div style="font-size:12px;color:#9ca3af;">Select meals. Get a shopping list.</div></div></div>
+    </div>
+    <button class="btn-primary" style="max-width:280px;" onclick="enterApp()">Sign in with Google</button>
+    <p style="font-size:12px;color:#9ca3af;margin-top:12px;">Free. No credit card required.</p>
+  </div>
+</div>
+
+<!-- ADD — SOURCE SELECTION -->
+<div id="screen-import-input" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div><div class="header-title">Add Recipe</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div style="padding:16px;">
+    <p style="font-size:14px;color:#6b7280;margin:0 0 16px;">Where is this recipe coming from?</p>
+    <div class="source-opt" onclick="showAddFlow('instagram')"><div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);display:flex;align-items:center;justify-content:center;flex-shrink:0;">📸</div><div><div style="font-size:14px;font-weight:600;">Instagram / Social Media</div><div style="font-size:12px;color:#9ca3af;">Paste a caption or post text</div></div></div>
+    <div class="source-opt" onclick="showAddFlow('website')"><div style="width:44px;height:44px;border-radius:10px;background:#eff6ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;">🌐</div><div><div style="font-size:14px;font-weight:600;">Website / Blog</div><div style="font-size:12px;color:#9ca3af;">Paste recipe text from a food blog</div></div></div>
+    <div class="source-opt" onclick="showAddFlow('cookbook')"><div style="width:44px;height:44px;border-radius:10px;background:#fffbeb;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;">📖</div><div><div style="font-size:14px;font-weight:600;">Cookbook / Book</div><div style="font-size:12px;color:#9ca3af;">Type or photograph a recipe page</div></div></div>
+    <div class="source-opt" onclick="showAddFlow('family')"><div style="width:44px;height:44px;border-radius:10px;background:#fff1f2;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;">❤️</div><div><div style="font-size:14px;font-weight:600;">Family / Personal</div><div style="font-size:12px;color:#9ca3af;">A recipe from memory or family tradition</div></div></div>
+    <div class="source-opt" onclick="showAddFlow('idea')"><div style="width:44px;height:44px;border-radius:10px;background:#f0fdf4;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;">💡</div><div><div style="font-size:14px;font-weight:600;">Quick Idea</div><div style="font-size:12px;color:#9ca3af;">Just save a name to try later</div></div></div>
+  </div>
+</div>
+
+<!-- ADD — TEXT INPUT -->
+<div id="screen-add-text" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div><div id="add-text-title" class="header-title">Add Recipe</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div style="padding:16px;display:flex;flex-direction:column;gap:12px;">
+    <p id="add-text-subtitle" style="font-size:14px;color:#6b7280;margin:0;">Paste the recipe text below.</p>
+    <div id="add-source-fields" style="background:#f9fafb;border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;"></div>
+    <div>
+      <textarea id="import-textarea" rows="8" placeholder="Paste the recipe text here..." oninput="onImportInput()" style="resize:vertical;min-height:140px;"></textarea>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+        <span id="char-warning" style="font-size:12px;color:#f59e0b;display:none;">⚠ Approaching limit</span>
+        <span id="char-error-msg" style="font-size:12px;color:#ef4444;display:none;">Text too long — shorten to parse</span>
+        <span style="font-size:12px;color:#9ca3af;margin-left:auto;"><span id="char-count">0</span> / 5,000</span>
+      </div>
+    </div>
+    <button id="parse-btn" class="btn-primary" onclick="startParsing()">Parse Recipe →</button>
+    <div id="add-flow-tips" style="font-size:13px;color:#6b7280;padding:10px 12px;background:#f9fafb;border-radius:8px;line-height:1.6;"></div>
+  </div>
+</div>
+
+<!-- PARSING LOADING -->
+<div id="screen-import-parsing" class="screen">
+  <div class="screen-header"><div class="header-title">Parsing your recipe...</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div style="padding:16px;">
+    <p id="parse-progress-msg" style="font-size:14px;color:#6b7280;margin:0 0 16px;">Reading text...</p>
+    <div style="background:#fff;border:1px solid #f3f4f6;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;">
+      <div class="shimmer" style="height:14px;width:60px;"></div>
+      <div class="shimmer" style="height:24px;width:75%;"></div>
+      <div class="shimmer" style="height:20px;width:110px;border-radius:999px;"></div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div class="shimmer" style="height:13px;width:80px;"></div>
+        <div class="shimmer" style="height:32px;"></div>
+        <div class="shimmer" style="height:32px;"></div>
+        <div class="shimmer" style="height:32px;"></div>
+        <div class="shimmer" style="height:32px;width:80%;"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <div class="shimmer" style="height:13px;width:50px;"></div>
+        <div class="shimmer" style="height:40px;"></div>
+        <div class="shimmer" style="height:40px;"></div>
+        <div class="shimmer" style="height:40px;width:85%;"></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:16px;"><button style="background:none;border:none;color:#9ca3af;font-size:14px;cursor:pointer;" onclick="showScreen('add-text')">Cancel</button></div>
+  </div>
+</div>
+
+<!-- IMPORT ERROR -->
+<div id="screen-import-error" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div><div class="header-title">Import Error</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div class="empty-state">
+    <div class="empty-icon" style="background:#fee2e2;"><span style="font-size:28px;">⚠️</span></div>
+    <h2 id="import-error-title" style="font-size:20px;font-weight:700;margin:0 0 8px;">No recipe found</h2>
+    <p id="import-error-msg" style="font-size:14px;color:#6b7280;margin:0 0 28px;max-width:280px;">We couldn't find a recipe in that text. Try pasting more detail, or enter it manually.</p>
+    <div style="width:100%;max-width:300px;display:flex;flex-direction:column;gap:10px;">
+      <button class="btn-primary" onclick="showScreen('add-text')">Try Again</button>
+      <button class="btn-secondary" onclick="showScreen('import-review')">Enter Manually</button>
+    </div>
+  </div>
+</div>
+
+<!-- BULK IMPORT -->
+<div id="screen-import-bulk" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div><div class="header-title">Multiple Recipes</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div style="padding:16px;display:flex;flex-direction:column;gap:12px;">
+    <p style="font-size:14px;color:#6b7280;margin:0;">We found several recipe ideas. Select which ones to save.</p>
+    <div id="bulk-recipe-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <button class="btn-primary" onclick="saveBulkRecipes()">Import Selected as Ideas</button>
+    <button class="btn-secondary" onclick="showScreen('add-text')">Back</button>
+  </div>
+</div>
+
+<!-- IMPORT REVIEW -->
+<div id="screen-import-review" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div><div class="header-title">Review Recipe</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div style="padding:16px;display:flex;flex-direction:column;gap:12px;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="display:inline-flex;align-items:center;gap:4px;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600;">✓ High Confidence</span>
+      <span style="font-size:12px;color:#9ca3af;">All fields parsed successfully</span>
+    </div>
+    <!-- Title & Description -->
+    <div style="background:#fff;border:1px solid #f3f4f6;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;">
+      <div><label style="font-size:13px;font-weight:600;color:#374151;display:block;margin-bottom:5px;">Title</label><input type="text" value="Creamy Garlic Sun-Dried Tomato Pasta"></div>
+      <div><label style="font-size:13px;font-weight:600;color:#374151;display:block;margin-bottom:5px;">Description</label><textarea rows="2" style="resize:none;">A rich and creamy pasta with sun-dried tomatoes, garlic, and parmesan. Ready in 25 minutes.</textarea></div>
+    </div>
+    <!-- Details -->
+    <div style="background:#fff;border:1px solid #f3f4f6;border-radius:12px;padding:14px;">
+      <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:10px;">Details</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <div><label style="font-size:12px;color:#9ca3af;display:block;margin-bottom:4px;">Servings</label><input type="text" value="4" style="text-align:center;"></div>
+        <div><label style="font-size:12px;color:#9ca3af;display:block;margin-bottom:4px;">Prep (min)</label><input type="text" value="10" style="text-align:center;"></div>
+        <div><label style="font-size:12px;color:#9ca3af;display:block;margin-bottom:4px;">Cook (min)</label><input type="text" value="15" style="text-align:center;"></div>
+      </div>
+    </div>
+    <!-- Ingredients (editable) -->
+    <div style="background:#fff;border:1px solid #f3f4f6;border-radius:12px;padding:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div style="font-size:13px;font-weight:600;color:#374151;">Ingredients</div><button style="font-size:12px;color:#6b7280;background:none;border:none;cursor:pointer;">+ Add</button></div>
+      <div id="review-ingredients" style="display:flex;flex-direction:column;gap:6px;">
+        <div style="display:flex;gap:6px;"><input type="text" value="1" style="width:40px;text-align:center;flex-shrink:0;"><input type="text" value="lb" style="width:54px;flex-shrink:0;"><input type="text" value="penne pasta" style="flex:1;"></div>
+        <div style="display:flex;gap:6px;"><input type="text" value="3" style="width:40px;text-align:center;flex-shrink:0;"><input type="text" value="tbsp" style="width:54px;flex-shrink:0;"><input type="text" value="butter" style="flex:1;"></div>
+        <div style="display:flex;gap:6px;"><input type="text" value="4" style="width:40px;text-align:center;flex-shrink:0;"><input type="text" value="cloves" style="width:54px;flex-shrink:0;"><input type="text" value="garlic, minced" style="flex:1;"></div>
+        <div style="display:flex;gap:6px;"><input type="text" value="1/2" style="width:40px;text-align:center;flex-shrink:0;"><input type="text" value="cup" style="width:54px;flex-shrink:0;"><input type="text" value="sun-dried tomatoes" style="flex:1;"></div>
+        <div style="display:flex;gap:6px;"><input type="text" value="1" style="width:40px;text-align:center;flex-shrink:0;"><input type="text" value="cup" style="width:54px;flex-shrink:0;"><input type="text" value="heavy cream" style="flex:1;"></div>
+        <div style="display:flex;gap:6px;"><input type="text" value="1/2" style="width:40px;text-align:center;flex-shrink:0;"><input type="text" value="cup" style="width:54px;flex-shrink:0;"><input type="text" value="parmesan, grated" style="flex:1;"></div>
+      </div>
+    </div>
+    <!-- Steps (editable) -->
+    <div style="background:#fff;border:1px solid #f3f4f6;border-radius:12px;padding:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div style="font-size:13px;font-weight:600;color:#374151;">Steps</div><button style="font-size:12px;color:#6b7280;background:none;border:none;cursor:pointer;">+ Add</button></div>
+      <div id="review-steps" style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="width:22px;height:22px;background:#f3f4f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:9px;">1</span><textarea rows="2" style="flex:1;resize:vertical;">Cook pasta. Reserve 1/2 cup pasta water before draining.</textarea></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="width:22px;height:22px;background:#f3f4f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:9px;">2</span><textarea rows="2" style="flex:1;resize:vertical;">Melt butter over medium heat. Add garlic and cook until fragrant, about 1 minute.</textarea></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="width:22px;height:22px;background:#f3f4f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:9px;">3</span><textarea rows="2" style="flex:1;resize:vertical;">Add sun-dried tomatoes, then heavy cream. Simmer gently and stir in parmesan.</textarea></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;"><span style="width:22px;height:22px;background:#f3f4f6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:9px;">4</span><textarea rows="2" style="flex:1;resize:vertical;">Toss in cooked pasta and fresh basil. Season with salt and pepper. Serve immediately.</textarea></div>
+      </div>
+    </div>
+    <!-- Dish Photo -->
+    <div style="background:#fff;border:1px solid #f3f4f6;border-radius:12px;padding:14px;">
+      <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;">Dish Photo <span style="color:#9ca3af;font-weight:400;">(optional)</span></div>
+      <label style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100px;border:2px dashed #e5e7eb;border-radius:10px;cursor:pointer;background:#fafafa;gap:6px;">
+        <input type="file" accept="image/*" style="display:none;">
+        <span style="font-size:24px;">📷</span>
+        <span style="font-size:12px;color:#9ca3af;">Photo of the finished dish</span>
+      </label>
+    </div>
+    <!-- Recipe Image (cookbook source) -->
+    <div id="review-recipe-img" style="background:#fff;border:1px solid #f3f4f6;border-radius:12px;padding:14px;display:none;">
+      <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;">Recipe Page Photo</div>
+      <label style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100px;border:2px dashed #e5e7eb;border-radius:10px;cursor:pointer;background:#fafafa;gap:6px;">
+        <input type="file" accept="image/*" style="display:none;">
+        <span style="font-size:24px;">📸</span>
+        <span style="font-size:12px;color:#9ca3af;">Photograph the cookbook page</span>
+      </label>
+    </div>
+    <!-- Source -->
+    <div style="background:#fff;border:1px solid #f3f4f6;border-radius:12px;padding:14px;">
+      <div style="font-size:13px;font-weight:600;color:#374151;margin-bottom:8px;">Source</div>
+      <div style="font-size:14px;color:#6b7280;margin-bottom:8px;">From <span style="font-weight:600;color:#111827;" id="review-source-name">Comfortable Kitchen</span></div>
+      <input type="text" placeholder="Page number (optional)" style="max-width:160px;">
+    </div>
+    <button class="btn-primary" onclick="openAssignTagsSheet()">Save Recipe</button>
+    <button class="btn-secondary" onclick="goBack()">Back to Edit</button>
+  </div>
+</div>
+
+<!-- IMPORT SUCCESS -->
+<div id="screen-import-success" class="screen">
+  <div class="screen-header"><div class="header-title">Saved!</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div style="padding:16px;">
+    <div style="text-align:center;padding:24px 0 16px;">
+      <div style="width:60px;height:60px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:28px;">✅</div>
+      <h2 style="font-size:22px;font-weight:700;margin:0 0 8px;">Recipe Saved!</h2>
+      <p id="success-recipe-name" style="font-size:14px;color:#6b7280;margin:0;">Your recipe has been added to your library.</p>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div style="font-size:16px;font-weight:700;margin-bottom:4px;">Creamy Garlic Sun-Dried Tomato Pasta</div>
+      <div style="font-size:13px;color:#9ca3af;margin-bottom:8px;">From Comfortable Kitchen</div>
+      <div style="display:flex;gap:12px;font-size:13px;color:#6b7280;margin-bottom:10px;"><span>Serves <strong>4</strong></span><span>Prep <strong>10m</strong></span><span>Cook <strong>15m</strong></span></div>
+      <div style="display:flex;gap:4px;"><span class="tag-chip">Pasta</span><span class="tag-chip">Weeknight</span></div>
+    </div>
+    <button class="btn-primary" style="margin-bottom:10px;" onclick="resetImportFlow()">Add Another Recipe</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <button class="btn-secondary" onclick="navigateToRecipeDetail(0)">View Recipe</button>
+      <button class="btn-secondary" onclick="openAddToGrocerySheet(0)">Add to Grocery</button>
+    </div>
+  </div>
+</div>
+
+<!-- RECIPES -->
+<div id="screen-recipes" class="screen">
+  <div class="screen-header"><div class="header-title" id="recipes-title">Recipes</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <!-- Onboarding card -->
+  <div id="onboarding-tags-card" class="onboarding-card" style="display:none;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+      <div style="font-size:14px;font-weight:700;color:#16a34a;">Set up your categories</div>
+      <button onclick="dismissOnboarding()" style="background:none;border:none;cursor:pointer;color:#9ca3af;font-size:18px;line-height:1;">×</button>
+    </div>
+    <p style="font-size:13px;color:#374151;margin:0 0 10px;">These become your filter chips. You can add more anytime.</p>
+    <div id="onboarding-tag-checks" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;"></div>
+    <button class="btn-primary" style="font-size:13px;padding:9px;" onclick="saveOnboardingTags()">Save Categories</button>
+  </div>
+  <!-- Search -->
+  <div style="padding:10px 12px 0;">
+    <input type="text" id="recipe-search" placeholder="Search recipes or ingredients..." oninput="filterRecipes()" style="background:#f9fafb;border-color:#f3f4f6;">
+  </div>
+  <!-- Filter chips -->
+  <div class="filter-row" id="filter-chips"></div>
+  <!-- Grid/List toggle -->
+  <div style="display:flex;justify-content:flex-end;padding:0 12px 8px;gap:6px;">
+    <button id="view-grid-btn" onclick="setView('grid')" style="width:32px;height:32px;border-radius:7px;border:1px solid #e5e7eb;background:#111827;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;">⊞</button>
+    <button id="view-list-btn" onclick="setView('list')" style="width:32px;height:32px;border-radius:7px;border:1px solid #e5e7eb;background:#fff;color:#6b7280;cursor:pointer;display:flex;align-items:center;justify-content:center;">≡</button>
+  </div>
+  <!-- Recipe grid -->
+  <div id="recipe-grid" class="recipe-grid"></div>
+  <!-- Recipe list -->
+  <div id="recipe-list" style="display:none;"></div>
+  <!-- Empty state -->
+  <div id="recipes-empty" class="empty-state" style="display:none;">
+    <div class="empty-icon"><span style="font-size:28px;">📚</span></div>
+    <h3 style="font-size:18px;font-weight:700;margin:0 0 8px;">No recipes yet</h3>
+    <p style="font-size:14px;color:#9ca3af;margin:0 0 20px;">Add your first recipe to get started.</p>
+    <button class="btn-primary" style="max-width:200px;" onclick="showScreen('import-input')">Add Your First Recipe</button>
+  </div>
+</div>
+
+<!-- RECIPE DETAIL -->
+<div id="screen-recipe-detail" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div><div id="recipe-detail-title" class="header-title">Recipe</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div id="recipe-detail-content"></div>
+</div>
+
+<!-- RECIPE EDIT -->
+<div id="screen-recipe-edit" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div><div class="header-title">Edit Recipe</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div id="recipe-edit-content"></div>
+</div>
+
+<!-- COOKBOOKS -->
+<div id="screen-cookbooks" class="screen">
+  <div class="screen-header"><div class="header-title">Cookbooks</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div style="padding:12px;">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:12px;"><button class="btn-primary" style="width:auto;padding:8px 16px;font-size:13px;" onclick="openNewCookbookSheet()">+ New</button></div>
+    <div id="cookbook-list"></div>
+  </div>
+</div>
+
+<!-- COOKBOOK DETAIL -->
+<div id="screen-cookbook-detail" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div><div id="cookbook-detail-title" class="header-title">Cookbook</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div id="cookbook-detail-content"></div>
+</div>
+
+<!-- MEAL PLANS -->
+<div id="screen-meal-plans" class="screen">
+  <div class="screen-header"><div class="header-title">Meal Plans</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div style="padding:16px;">
+    <button class="btn-primary" style="margin-bottom:16px;" onclick="createNewMealPlan()">+ New Week</button>
+    <!-- Active plan -->
+    <div class="card card-active" style="cursor:pointer;" onclick="showScreen('meal-plan-detail')">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <div style="font-size:15px;font-weight:700;">This Week</div>
+        <span style="font-size:11px;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;border-radius:999px;padding:2px 8px;font-weight:600;">Active</span>
+      </div>
+      <div style="font-size:13px;color:#9ca3af;margin-bottom:12px;">Feb 23 – Mar 1, 2026</div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px;">
+        <div style="text-align:center;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">Mon</div><div style="height:28px;background:#f0fdf4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;">🍝</div></div>
+        <div style="text-align:center;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">Tue</div><div style="height:28px;background:#f0fdf4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;">🍗</div></div>
+        <div style="text-align:center;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">Wed</div><div style="height:28px;background:#f3f4f6;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#d1d5db;">—</div></div>
+        <div style="text-align:center;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">Thu</div><div style="height:28px;background:#f0fdf4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;">🍲</div></div>
+        <div style="text-align:center;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">Fri</div><div style="height:28px;background:#f3f4f6;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#d1d5db;">—</div></div>
+        <div style="text-align:center;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">Sat</div><div style="height:28px;background:#f0fdf4;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;">🍝</div></div>
+        <div style="text-align:center;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">Sun</div><div style="height:28px;background:#f3f4f6;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#d1d5db;">—</div></div>
+      </div>
+      <div style="font-size:12px;color:#9ca3af;">4 meals planned · Grocery list generated</div>
+    </div>
+    <!-- Past plan -->
+    <div class="card" style="opacity:0.6;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <div style="font-size:15px;font-weight:700;">Last Week</div>
+        <span style="font-size:11px;background:#f3f4f6;color:#9ca3af;border-radius:999px;padding:2px 8px;">Completed</span>
+      </div>
+      <div style="font-size:13px;color:#9ca3af;">Feb 16 – Feb 22, 2026</div>
+      <div style="font-size:12px;color:#9ca3af;margin-top:4px;">5 meals planned</div>
+    </div>
+    <!-- Empty state (hidden) -->
+    <div id="meal-plans-empty" class="empty-state" style="display:none;">
+      <div class="empty-icon"><span style="font-size:28px;">📅</span></div>
+      <h3 style="font-size:18px;font-weight:700;margin:0 0 8px;">Plan your first week</h3>
+      <p style="font-size:14px;color:#9ca3af;margin:0 0 20px;">Assign recipes to each day and generate your grocery list automatically.</p>
+      <button class="btn-primary" style="max-width:200px;" onclick="createNewMealPlan()">Create Meal Plan</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEAL PLAN DETAIL -->
+<div id="screen-meal-plan-detail" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div><div class="header-title">This Week's Meals</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div style="padding:16px;">
+    <div style="font-size:13px;color:#9ca3af;margin-bottom:14px;">Feb 23 – Mar 1, 2026</div>
+    <!-- Day slots -->
+    <div class="day-slot" onclick="showMealPlanDayOptions(0,'Creamy Garlic Sun-Dried Tomato Pasta')">
+      <div style="width:48px;text-align:center;flex-shrink:0;"><div style="font-size:11px;font-weight:700;color:#9ca3af;">MON</div><div style="font-size:20px;font-weight:800;color:#111827;">23</div></div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Creamy Garlic Sun-Dried Tomato Pasta</div><div style="font-size:12px;color:#9ca3af;">Comfortable Kitchen · 25m</div></div>
+    </div>
+    <div class="day-slot" onclick="showMealPlanDayOptions(1,'Skillet Roasted Chicken and Potatoes')">
+      <div style="width:48px;text-align:center;flex-shrink:0;"><div style="font-size:11px;font-weight:700;color:#9ca3af;">TUE</div><div style="font-size:20px;font-weight:800;color:#111827;">24</div></div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Skillet Roasted Chicken and Potatoes</div><div style="font-size:12px;color:#9ca3af;">Ina Garten · 60m</div></div>
+    </div>
+    <div id="wed-slot" class="day-slot day-slot-empty" onclick="openRecipePicker('wed')">
+      <div style="width:48px;text-align:center;flex-shrink:0;"><div style="font-size:11px;font-weight:700;color:#9ca3af;">WED</div><div style="font-size:20px;font-weight:800;color:#d1d5db;">25</div></div>
+      <div style="flex:1;text-align:center;font-size:13px;color:#9ca3af;">+ Assign a meal</div>
+    </div>
+    <div class="day-slot" onclick="showMealPlanDayOptions(3,'White Chicken Chili')">
+      <div style="width:48px;text-align:center;flex-shrink:0;"><div style="font-size:11px;font-weight:700;color:#9ca3af;">THU</div><div style="font-size:20px;font-weight:800;color:#111827;">26</div></div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:600;">White Chicken Chili</div><div style="font-size:12px;color:#9ca3af;">Dinner Tonight · 40m</div></div>
+    </div>
+    <div id="fri-slot" class="day-slot day-slot-empty" onclick="openRecipePicker('fri')">
+      <div style="width:48px;text-align:center;flex-shrink:0;"><div style="font-size:11px;font-weight:700;color:#9ca3af;">FRI</div><div style="font-size:20px;font-weight:800;color:#d1d5db;">27</div></div>
+      <div style="flex:1;text-align:center;font-size:13px;color:#9ca3af;">+ Assign a meal</div>
+    </div>
+    <div class="day-slot" onclick="showMealPlanDayOptions(5,'Hot Maple Bacon Carbonara')">
+      <div style="width:48px;text-align:center;flex-shrink:0;"><div style="font-size:11px;font-weight:700;color:#9ca3af;">SAT</div><div style="font-size:20px;font-weight:800;color:#111827;">28</div></div>
+      <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Hot Maple Bacon Carbonara with Sweet Potatoes</div><div style="font-size:12px;color:#9ca3af;">Ambitious Kitchen · 40m</div></div>
+    </div>
+    <div id="sun-slot" class="day-slot day-slot-empty" onclick="openRecipePicker('sun')">
+      <div style="width:48px;text-align:center;flex-shrink:0;"><div style="font-size:11px;font-weight:700;color:#9ca3af;">SUN</div><div style="font-size:20px;font-weight:800;color:#d1d5db;">1</div></div>
+      <div style="flex:1;text-align:center;font-size:13px;color:#9ca3af;">+ Assign a meal</div>
+    </div>
+    <div style="margin-top:16px;">
+      <button class="btn-primary" onclick="showScreen('grocery-generate')">🛒 Generate Grocery List</button>
+    </div>
+  </div>
+</div>
+
+<!-- GROCERY LISTS -->
+<div id="screen-grocery" class="screen">
+  <div class="screen-header"><div class="header-title">Grocery Lists</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div style="padding:16px;">
+    <button class="btn-primary" style="margin-bottom:16px;" onclick="showScreen('grocery-generate')">+ New List</button>
+    <!-- Active list -->
+    <div class="card card-active" style="cursor:pointer;" onclick="showScreen('grocery-detail')">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <div style="font-size:15px;font-weight:700;">Week of Feb 23</div>
+        <span style="font-size:11px;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;border-radius:999px;padding:2px 8px;font-weight:600;">Active</span>
+      </div>
+      <div style="font-size:13px;color:#9ca3af;margin-bottom:4px;">From meal plan · 18 recipe items + 4 extras</div>
+      <div style="font-size:12px;color:#9ca3af;">Generated from This Week's Meals</div>
+    </div>
+    <!-- Past list -->
+    <div class="card" style="opacity:0.6;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <div style="font-size:15px;font-weight:700;">Week of Feb 16</div>
+        <span style="font-size:11px;background:#f3f4f6;color:#9ca3af;border-radius:999px;padding:2px 8px;">Completed</span>
+      </div>
+      <div style="font-size:13px;color:#9ca3af;">12 recipe items + 6 extras</div>
+    </div>
+    <!-- Empty state -->
+    <div id="grocery-empty" class="empty-state" style="display:none;">
+      <div class="empty-icon"><span style="font-size:28px;">🛒</span></div>
+      <h3 style="font-size:18px;font-weight:700;margin:0 0 8px;">No grocery lists yet</h3>
+      <p style="font-size:14px;color:#9ca3af;margin:0 0 20px;">Generate a list from your meal plan or add recipes manually.</p>
+      <button class="btn-primary" style="max-width:220px;" onclick="showScreen('grocery-generate')">Create First List</button>
+    </div>
+  </div>
+</div>
+
+<!-- GROCERY DETAIL -->
+<div id="screen-grocery-detail" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div>
+    <div style="flex:1;cursor:pointer;" onclick="renameGroceryList(this)"><div class="header-title" id="grocery-list-name">Week of Feb 23</div></div>
+    <div class="header-avatar" onclick="showScreen('account')">MJ</div>
+  </div>
+  <div style="padding:0 0 16px;">
+    <div style="font-size:13px;color:#9ca3af;padding:10px 16px 6px;"><span id="grocery-remaining">18</span> items remaining</div>
+    <!-- Produce -->
+    <div style="padding:8px 16px 4px;font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;">Produce</div>
+    <div id="grocery-produce">
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Garlic</span> <span style="font-size:12px;color:#9ca3af;">8 cloves</span></div><span style="font-size:11px;color:#9ca3af;">2 recipes</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Fresh basil</span> <span style="font-size:12px;color:#9ca3af;">1/2 cup</span></div><span style="font-size:11px;color:#9ca3af;">2 recipes</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Yellow onion</span> <span style="font-size:12px;color:#9ca3af;">2 large</span></div><span style="font-size:11px;color:#9ca3af;">2 recipes</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Butternut squash</span> <span style="font-size:12px;color:#9ca3af;">1 medium</span></div><span style="font-size:11px;color:#9ca3af;">1 recipe</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+    </div>
+    <!-- Dairy -->
+    <div style="padding:8px 16px 4px;font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;">Dairy</div>
+    <div id="grocery-dairy">
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Heavy cream</span> <span style="font-size:12px;color:#9ca3af;">2 cups</span></div><span style="font-size:11px;color:#9ca3af;">2 recipes</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Parmesan cheese</span> <span style="font-size:12px;color:#9ca3af;">1 cup</span></div><span style="font-size:11px;color:#9ca3af;">2 recipes</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Butter</span> <span style="font-size:12px;color:#9ca3af;">5 tbsp</span></div><span style="font-size:11px;color:#9ca3af;">2 recipes</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+    </div>
+    <!-- Meat -->
+    <div style="padding:8px 16px 4px;font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;">Meat</div>
+    <div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Chicken thighs</span> <span style="font-size:12px;color:#9ca3af;">2 lbs</span></div><span style="font-size:11px;color:#9ca3af;">1 recipe</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Chicken breast</span> <span style="font-size:12px;color:#9ca3af;">1.5 lbs</span></div><span style="font-size:11px;color:#9ca3af;">1 recipe</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Thick-cut bacon</span> <span style="font-size:12px;color:#9ca3af;">6 slices</span></div><span style="font-size:11px;color:#9ca3af;">1 recipe</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+    </div>
+    <!-- Pantry -->
+    <div style="padding:8px 16px 4px;font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;">Pantry</div>
+    <div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Penne pasta</span> <span style="font-size:12px;color:#9ca3af;">1 lb</span></div><span style="font-size:11px;color:#9ca3af;">1 recipe</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Sun-dried tomatoes</span> <span style="font-size:12px;color:#9ca3af;">1/2 cup</span></div><span style="font-size:11px;color:#9ca3af;">1 recipe</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Chicken broth</span> <span style="font-size:12px;color:#9ca3af;">4 cups</span></div><span style="font-size:11px;color:#9ca3af;">1 recipe</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">White beans</span> <span style="font-size:12px;color:#9ca3af;">2 cans</span></div><span style="font-size:11px;color:#9ca3af;">1 recipe</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Spaghetti</span> <span style="font-size:12px;color:#9ca3af;">1 lb</span></div><span style="font-size:11px;color:#9ca3af;">1 recipe</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+    </div>
+    <!-- Purchased section -->
+    <div id="purchased-section" style="display:none;padding:8px 16px 4px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;">Purchased <span id="purchased-count" style="background:#9ca3af;color:#fff;border-radius:999px;padding:1px 7px;font-size:10px;margin-left:4px;"></span></div>
+        <button onclick="clearPurchased()" style="font-size:12px;color:#9ca3af;background:none;border:none;cursor:pointer;">Clear</button>
+      </div>
+      <div id="purchased-items" style="border:1px solid #f3f4f6;border-radius:8px;margin-top:6px;overflow:hidden;"></div>
+    </div>
+    <!-- Extras -->
+    <div style="padding:8px 16px 4px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;">Extras</div>
+        <button onclick="showAddGroceryItem()" style="font-size:12px;color:#111827;font-weight:600;background:none;border:none;cursor:pointer;">+ Add Item</button>
+      </div>
+    </div>
+    <div id="grocery-extras">
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Milk</span> <span style="font-size:12px;color:#9ca3af;">1 gallon</span></div><span style="font-size:10px;background:#eff6ff;color:#3b82f6;border-radius:999px;padding:1px 6px;">manual</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+      <div class="grocery-item-row"><input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">Eggs</span> <span style="font-size:12px;color:#9ca3af;">1 dozen</span></div><span style="font-size:10px;background:#eff6ff;color:#3b82f6;border-radius:999px;padding:1px 6px;">manual</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button></div>
+    </div>
+    <!-- Add item form -->
+    <div id="add-item-form" style="display:none;padding:12px 16px;background:#f9fafb;border-top:1px solid #f3f4f6;">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Add Item</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+        <input type="text" id="new-item-name" placeholder="Item name" style="">
+        <input type="text" id="new-item-qty" placeholder="Qty (optional)" style="">
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-primary" style="flex:1;font-size:13px;padding:9px;" onclick="addGroceryItem()">Add</button>
+        <button class="btn-secondary" style="flex:1;font-size:13px;padding:9px;" onclick="hideAddGroceryItem()">Cancel</button>
+      </div>
+    </div>
+    <!-- Kroger placeholder -->
+    <div style="margin:16px;padding:16px;border:2px dashed #e5e7eb;border-radius:12px;text-align:center;">
+      <div style="font-size:24px;margin-bottom:8px;">🛒</div>
+      <div style="font-size:14px;font-weight:600;color:#374151;margin-bottom:4px;">Send to Kroger</div>
+      <div style="font-size:12px;color:#9ca3af;">Coming in v2 — Auto-add items to your Kroger cart</div>
+    </div>
+  </div>
+</div>
+
+<!-- GROCERY GENERATE -->
+<div id="screen-grocery-generate" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div><div class="header-title">New Grocery List</div><div class="header-avatar" onclick="showScreen('account')">MJ</div></div>
+  <div style="padding:16px;display:flex;flex-direction:column;gap:10px;">
+    <p style="font-size:14px;color:#6b7280;margin:0;">Select recipes for this week's grocery list.</p>
+    <div id="grocery-recipe-select" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <button class="btn-primary" onclick="generateGroceryList()">Generate Grocery List</button>
+  </div>
+</div>
+
+<!-- ACCOUNT -->
+<div id="screen-account" class="screen">
+  <div class="screen-header"><div class="header-back" onclick="goBack()"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></div><div class="header-title">Account</div></div>
+  <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
+    <div style="text-align:center;padding:16px 0 8px;">
+      <div style="width:64px;height:64px;background:#1e293b;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;color:#fff;font-size:22px;font-weight:700;">MJ</div>
+      <div style="font-size:18px;font-weight:700;">MJ Lea</div>
+      <div style="font-size:14px;color:#9ca3af;">mj@example.com</div>
+    </div>
+    <!-- Stats -->
+    <div style="background:#f9fafb;border-radius:12px;overflow:hidden;">
+      <div style="display:flex;padding:14px 16px;border-bottom:1px solid #f3f4f6;justify-content:space-between;"><span style="font-size:14px;color:#374151;">Recipes</span><span style="font-size:14px;font-weight:700;">9</span></div>
+      <div style="display:flex;padding:14px 16px;border-bottom:1px solid #f3f4f6;justify-content:space-between;"><span style="font-size:14px;color:#374151;">Cookbooks</span><span style="font-size:14px;font-weight:700;">5</span></div>
+      <div style="display:flex;padding:14px 16px;border-bottom:1px solid #f3f4f6;justify-content:space-between;"><span style="font-size:14px;color:#374151;">Tags</span><span style="font-size:14px;font-weight:700;">11</span></div>
+      <div style="display:flex;padding:14px 16px;border-bottom:1px solid #f3f4f6;justify-content:space-between;"><span style="font-size:14px;color:#374151;">Meal Plans</span><span style="font-size:14px;font-weight:700;">2</span></div>
+      <div style="display:flex;padding:14px 16px;justify-content:space-between;"><span style="font-size:14px;color:#374151;">Grocery Lists</span><span style="font-size:14px;font-weight:700;">2</span></div>
+    </div>
+    <!-- Settings -->
+    <div style="background:#f9fafb;border-radius:12px;overflow:hidden;">
+      <button onclick="showScreen('cookbooks')" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border:none;background:none;cursor:pointer;font-size:14px;color:#374151;border-bottom:1px solid #f3f4f6;">Manage Cookbooks <span>›</span></button>
+      <button onclick="openManageTagsSheet()" style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border:none;background:none;cursor:pointer;font-size:14px;color:#374151;border-bottom:1px solid #f3f4f6;">Manage Tags <span>›</span></button>
+      <button style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border:none;background:none;cursor:pointer;font-size:14px;color:#374151;border-bottom:1px solid #f3f4f6;">Export Data <span>›</span></button>
+      <button style="width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border:none;background:none;cursor:pointer;font-size:14px;color:#374151;">Help &amp; Feedback <span>›</span></button>
+    </div>
+    <button class="btn-danger" onclick="showScreen('landing')">Sign Out</button>
+    <p style="text-align:center;font-size:12px;color:#d1d5db;" id="account-version">Recipe Tracker MVP · v0.2.0</p>
+  </div>
+</div>
+
+<!-- ===== BOTTOM SHEETS ===== -->
+
+<!-- Delete Confirm -->
+<div id="delete-confirm-sheet" class="bottom-sheet-backdrop" onclick="closeSheet('delete-confirm-sheet',event)">
+  <div class="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:8px;" id="delete-confirm-title">Delete Recipe?</div>
+    <p id="delete-confirm-msg" style="font-size:14px;color:#6b7280;margin:0 0 20px;">This can't be undone.</p>
+    <button class="btn-danger" style="margin-bottom:10px;" onclick="confirmDelete()">Delete</button>
+    <button class="btn-secondary" onclick="closeSheet('delete-confirm-sheet')">Cancel</button>
+  </div>
+</div>
+
+<!-- Assign Tags -->
+<div id="assign-tags-sheet" class="bottom-sheet-backdrop" onclick="closeSheet('assign-tags-sheet',event)">
+  <div class="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:4px;">Assign Tags</div>
+    <p style="font-size:13px;color:#6b7280;margin:0 0 16px;">Choose categories and attributes for this recipe.</p>
+    <div style="font-size:12px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Category</div>
+    <div id="assign-category-tags" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"></div>
+    <div style="font-size:12px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Attributes</div>
+    <div id="assign-attr-tags" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;"></div>
+    <button class="btn-primary" onclick="saveWithTags()">Save Recipe</button>
+  </div>
+</div>
+
+<!-- Cookbook Assignment -->
+<div id="cookbook-sheet" class="bottom-sheet-backdrop" onclick="closeSheet('cookbook-sheet',event)">
+  <div class="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:4px;">Add to Cookbook</div>
+    <p style="font-size:13px;color:#6b7280;margin:0 0 16px;">Organize this recipe by source, or skip.</p>
+    <div id="cookbook-sheet-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;"></div>
+    <button style="width:100%;padding:12px;border:2px dashed #e5e7eb;border-radius:10px;background:none;cursor:pointer;font-size:13px;color:#9ca3af;margin-bottom:16px;" onclick="openNewCookbookSheet()">+ Create new cookbook</button>
+    <div style="display:flex;gap:8px;">
+      <button class="btn-secondary" style="flex:1;" onclick="skipCookbook()">Skip</button>
+      <button id="save-cookbook-btn" class="btn-primary" style="flex:1;" onclick="saveToCookbook()" disabled>Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- New Cookbook -->
+<div id="new-cookbook-sheet" class="bottom-sheet-backdrop" onclick="closeSheet('new-cookbook-sheet',event)">
+  <div class="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:16px;">New Cookbook</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+      <input type="text" id="new-cb-name" placeholder="Name (e.g., Defined Dish, Instagram Saves)">
+      <input type="text" id="new-cb-desc" placeholder="Description (optional)">
+    </div>
+    <button class="btn-primary" onclick="createCookbook()">Create Cookbook</button>
+  </div>
+</div>
+
+<!-- Recipe Picker (Meal Plan) -->
+<div id="recipe-picker-sheet" class="bottom-sheet-backdrop" onclick="closeSheet('recipe-picker-sheet',event)">
+  <div class="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:12px;">Assign a Recipe</div>
+    <input type="text" id="recipe-picker-search" placeholder="Search recipes..." oninput="filterRecipePicker()" style="margin-bottom:12px;">
+    <div id="recipe-picker-list" style="display:flex;flex-direction:column;gap:6px;max-height:50vh;overflow-y:auto;"></div>
+  </div>
+</div>
+
+<!-- Add to Grocery Sheet -->
+<div id="add-to-grocery-sheet" class="bottom-sheet-backdrop" onclick="closeSheet('add-to-grocery-sheet',event)">
+  <div class="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:4px;">Add to Grocery List</div>
+    <p style="font-size:13px;color:#6b7280;margin:0 0 16px;">Choose an existing list or create a new one.</p>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+      <div class="list-row" style="border:1px solid #f3f4f6;border-radius:10px;padding:12px;" onclick="addToExistingGroceryList()">
+        <div style="flex:1;"><div style="font-size:14px;font-weight:600;">Week of Feb 23</div><div style="font-size:12px;color:#9ca3af;">Active list · 18 items</div></div>
+        <span style="font-size:11px;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;border-radius:999px;padding:2px 8px;">Active</span>
+      </div>
+    </div>
+    <button class="btn-secondary" onclick="createNewGroceryFromRecipe()">+ Create New List</button>
+  </div>
+</div>
+
+<!-- Manage Tags Sheet -->
+<div id="manage-tags-sheet" class="bottom-sheet-backdrop" onclick="closeSheet('manage-tags-sheet',event)">
+  <div class="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div style="font-size:17px;font-weight:700;margin-bottom:4px;">Manage Tags</div>
+    <p style="font-size:13px;color:#6b7280;margin:0 0 16px;">These tags appear as filter chips on your Recipes page.</p>
+    <div id="manage-tags-list" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"></div>
+    <button style="width:100%;padding:10px;border:2px dashed #e5e7eb;border-radius:10px;background:none;cursor:pointer;font-size:13px;color:#9ca3af;margin-bottom:16px;">+ Add Custom Tag</button>
+    <button class="btn-primary" onclick="closeSheet('manage-tags-sheet')">Done</button>
+  </div>
+</div>
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="bottom-nav">
+  <div class="nav-tab active" id="tab-recipes" onclick="showScreen('recipes')">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.966 8.966 0 00-6 2.292m0-14.25v14.25"/></svg>
+    Recipes
+  </div>
+  <div class="nav-tab" id="tab-cookbooks" onclick="showScreen('cookbooks')">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l-3-3m3 3l3-3M8 4h8"/></svg>
+    Cookbooks
+  </div>
+  <div class="nav-fab" onclick="showScreen('import-input')">
+    <div class="nav-fab-btn">
+      <svg width="26" height="26" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+    </div>
+  </div>
+  <div class="nav-tab" id="tab-meal-plans" onclick="showScreen('meal-plans')">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+    Meals
+  </div>
+  <div class="nav-tab" id="tab-grocery" onclick="showScreen('grocery')">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/></svg>
+    Grocery
+  </div>
+</nav>
+<script>
+const APP_NAME = 'Recipe Tracker';
+
+// ===== DATA =====
+const RECIPES = [
+  {id:0,title:'Creamy Garlic Sun-Dried Tomato Pasta',source:'Comfortable Kitchen',page:null,description:'A rich and creamy pasta with sun-dried tomatoes, garlic, and parmesan. Ready in 25 minutes.',servings:4,prepMins:10,cookMins:15,tags:['Pasta','Weeknight','Quick'],image:null,recipeImage:null,ingredients:[{qty:'1',unit:'lb',name:'penne pasta'},{qty:'3',unit:'tbsp',name:'butter'},{qty:'4',unit:'cloves',name:'garlic, minced'},{qty:'1/2',unit:'cup',name:'sun-dried tomatoes'},{qty:'1',unit:'cup',name:'heavy cream'},{qty:'1/2',unit:'cup',name:'parmesan, grated'},{qty:'1/4',unit:'cup',name:'fresh basil'}],steps:['Cook pasta. Reserve 1/2 cup pasta water before draining.','Melt butter over medium heat. Add garlic and cook until fragrant, about 1 minute.','Add sun-dried tomatoes, then heavy cream. Simmer gently and stir in parmesan.','Toss in cooked pasta and fresh basil. Season with salt and pepper.']},
+  {id:1,title:'Skillet Roasted Chicken and Potatoes',source:'Barefoot Contessa',page:'142',description:'Crispy-skinned chicken thighs roasted with garlic, herbs, and potatoes in one pan.',servings:4,prepMins:15,cookMins:45,tags:['Chicken','One-Pan','Weeknight'],image:null,recipeImage:null,ingredients:[{qty:'4',unit:'pieces',name:'bone-in chicken thighs'},{qty:'1.5',unit:'lbs',name:'baby potatoes, halved'},{qty:'1',unit:'head',name:'garlic, cloves separated'},{qty:'2',unit:'sprigs',name:'fresh rosemary'},{qty:'2',unit:'tbsp',name:'olive oil'}],steps:['Preheat oven to 425°F. Pat chicken dry and season generously.','Heat oil in oven-safe skillet. Sear chicken skin-down until golden, about 6 min.','Add potatoes, garlic, and rosemary. Transfer to oven for 35–40 min.','Rest for 5 minutes before serving.']},
+  {id:2,title:'White Chicken Chili',source:'Dinner Tonight',page:null,description:'Hearty white bean and chicken chili with green chiles, cumin, and a squeeze of lime.',servings:6,prepMins:10,cookMins:30,tags:['Chicken','Soups & Stews','Freezer-Friendly'],image:null,recipeImage:null,ingredients:[{qty:'1.5',unit:'lbs',name:'chicken breast, shredded'},{qty:'2',unit:'cans',name:'white beans, drained'},{qty:'4',unit:'cups',name:'chicken broth'},{qty:'2',unit:'cans',name:'green chiles'},{qty:'1',unit:'large',name:'yellow onion, diced'},{qty:'3',unit:'cloves',name:'garlic, minced'},{qty:'1',unit:'tsp',name:'cumin'}],steps:['Sauté onion and garlic until soft, about 5 min.','Add chicken, broth, beans, chiles, and spices. Bring to a simmer.','Simmer 20 minutes. Shred chicken if not pre-shredded.','Serve with sour cream, cilantro, and lime.']},
+  {id:3,title:'Hot Maple Bacon Carbonara with Sweet Potatoes',source:'Ambitious Kitchen',page:null,description:'A bold twist on carbonara with crispy bacon, roasted sweet potatoes, and a maple-hot sauce glaze.',servings:4,prepMins:15,cookMins:25,tags:['Pasta','Special Occasion'],image:null,recipeImage:null,ingredients:[{qty:'1',unit:'lb',name:'spaghetti'},{qty:'6',unit:'slices',name:'thick-cut bacon'},{qty:'1',unit:'medium',name:'sweet potato, roasted'},{qty:'3',unit:'large',name:'eggs'},{qty:'1',unit:'cup',name:'parmesan, grated'},{qty:'2',unit:'tbsp',name:'maple syrup'},{qty:'1',unit:'tbsp',name:'hot sauce'}],steps:['Roast diced sweet potato at 400°F until caramelized.','Cook bacon until crispy. Reserve 2 tbsp fat.','Cook pasta. While hot, toss with eggs, parmesan, and bacon fat.','Add sweet potato, bacon, maple syrup, and hot sauce. Toss and serve.']},
+  {id:4,title:'Shakshuka',source:'Jerusalem Cookbook',page:'56',description:'Eggs poached in a spiced tomato and pepper sauce. A perfect one-pan breakfast or brunch.',servings:4,prepMins:10,cookMins:25,tags:['Vegetarian','One-Pan','Quick'],image:null,recipeImage:null,ingredients:[{qty:'6',unit:'large',name:'eggs'},{qty:'1',unit:'can',name:'crushed tomatoes'},{qty:'2',unit:'medium',name:'bell peppers, diced'},{qty:'1',unit:'large',name:'yellow onion, diced'},{qty:'3',unit:'cloves',name:'garlic, minced'},{qty:'1',unit:'tsp',name:'smoked paprika'},{qty:'1/2',unit:'tsp',name:'cumin'}],steps:['Sauté onion and peppers until soft. Add garlic and spices, cook 1 min.','Add tomatoes and simmer 10 minutes, season well.','Make wells in sauce. Crack in eggs, cover and cook to desired doneness.','Serve with crusty bread.']},
+  {id:5,title:'Harvest Kale and Farro Salad',source:'The Defined Dish',page:'88',description:'A hearty fall salad with massaged kale, farro, roasted butternut squash, pomegranate, and tahini dressing.',servings:4,prepMins:20,cookMins:30,tags:['Salads','Vegetarian'],image:null,recipeImage:null,ingredients:[{qty:'1',unit:'bunch',name:'lacinato kale, stems removed'},{qty:'1',unit:'cup',name:'farro, cooked'},{qty:'1',unit:'medium',name:'butternut squash, cubed'},{qty:'1/2',unit:'cup',name:'pomegranate seeds'},{qty:'1/4',unit:'cup',name:'tahini'},{qty:'1',unit:'lemon',name:'juice of'}],steps:['Roast squash at 400°F with olive oil and salt until caramelized.','Massage kale with olive oil and salt for 2 minutes.','Whisk tahini, lemon juice, garlic, and water for dressing.','Toss kale, farro, squash, and pomegranate with dressing.']},
+  {id:6,title:'Crispy Smashed Potatoes',source:'Half Baked Harvest',page:null,description:'Perfectly crispy smashed potatoes finished with garlic butter and fresh herbs.',servings:4,prepMins:10,cookMins:50,tags:['Sides','Vegetarian'],image:null,recipeImage:null,ingredients:[{qty:'2',unit:'lbs',name:'small Yukon gold potatoes'},{qty:'4',unit:'tbsp',name:'butter, melted'},{qty:'3',unit:'cloves',name:'garlic, minced'},{qty:'2',unit:'tbsp',name:'fresh herbs (chives, parsley)'}],steps:['Boil potatoes until fork-tender, about 20 min. Drain and cool slightly.','Arrange on baking sheet. Smash each with a glass.','Brush generously with garlic butter. Roast at 450°F for 25–30 min.','Top with fresh herbs and flaky salt.']},
+  {id:7,title:'Double Chocolate Tahini Brownies',source:'Ambitious Kitchen',page:null,description:'Fudgy, rich brownies swirled with tahini. Dark chocolate throughout.',servings:16,prepMins:15,cookMins:30,tags:['Desserts'],image:null,recipeImage:null,ingredients:[{qty:'1',unit:'cup',name:'dark chocolate chips'},{qty:'1/2',unit:'cup',name:'butter'},{qty:'3/4',unit:'cup',name:'sugar'},{qty:'2',unit:'large',name:'eggs'},{qty:'1/2',unit:'cup',name:'cocoa powder'},{qty:'1/3',unit:'cup',name:'tahini'}],steps:['Melt chocolate and butter together. Cool slightly.','Whisk in sugar and eggs. Fold in cocoa and a pinch of salt.','Pour into lined 8×8 pan. Dollop tahini on top and swirl.','Bake at 350°F for 28–32 minutes. Cool completely before cutting.']},
+  {id:8,title:'Korean Beef Bulgogi',source:'Instagram · @koreanfoodie',page:null,description:'Tender, sweet-savory marinated beef served over rice. 30-minute weeknight winner.',servings:4,prepMins:15,cookMins:15,tags:['Beef','Weeknight','Quick'],image:null,recipeImage:null,ingredients:[{qty:'1.5',unit:'lbs',name:'ribeye or sirloin, thinly sliced'},{qty:'1/4',unit:'cup',name:'soy sauce'},{qty:'2',unit:'tbsp',name:'sesame oil'},{qty:'2',unit:'tbsp',name:'sugar'},{qty:'1',unit:'Asian pear',name:'grated (or apple)'},{qty:'4',unit:'cloves',name:'garlic, minced'},{qty:'1',unit:'tsp',name:'ginger, grated'}],steps:['Mix all marinade ingredients. Add beef and marinate 15+ min.','Heat skillet over high heat until very hot.','Cook beef in batches for 2–3 min per batch.','Serve over rice with kimchi.']},
+];
+
+const COOKBOOKS = [
+  {name:'The Defined Dish',desc:'Alex Snodgrass – paleo and healthy weeknight meals',count:1,emoji:'📗'},
+  {name:'Barefoot Contessa',desc:'Ina Garten classics',count:1,emoji:'📘'},
+  {name:'Ambitious Kitchen',desc:'Monique\'s healthy-ish recipes',count:2,emoji:'📙'},
+  {name:'Jerusalem Cookbook',desc:'Yotam Ottolenghi & Sami Tamimi',count:1,emoji:'📕'},
+  {name:'Instagram Saves',desc:'Recipes saved from Instagram accounts',count:1,emoji:'📱'},
+];
+
+const CATEGORY_TAGS = ['Pasta','Chicken','Beef','Pork','Seafood','Soups & Stews','Salads','Sides','Desserts','Vegetarian'];
+const ATTR_TAGS = ['Weeknight','Quick','One-Pan','Freezer-Friendly','Special Occasion'];
+const TAG_EMOJI = {Pasta:'🍝',Chicken:'🍗',Beef:'🥩',Pork:'🥓',Seafood:'🐟','Soups & Stews':'🍲',Salads:'🥗',Sides:'🥔',Desserts:'🍫',Vegetarian:'🥦'};
+
+// ===== STATE =====
+let currentScreen = 'landing';
+let screenHistory = [];
+let activeFilter = 'All';
+let recipeView = 'grid';
+let currentAddSource = 'website';
+let selectedCookbookName = null;
+let onboardingDismissed = false;
+let currentPickerSlot = null;
+let pendingDeleteId = null;
+let parseProgressInterval = null;
+
+// ===== INIT =====
+function init() {
+  document.title = APP_NAME + ' MVP';
+  document.getElementById('landing-name').textContent = APP_NAME;
+  document.getElementById('account-version').textContent = APP_NAME + ' MVP · v0.2.0';
+  const sn = document.getElementById('sidebar-app-name'); if(sn) sn.textContent = APP_NAME;
+  renderFilterChips();
+  renderRecipeGrid(RECIPES);
+  renderCookbookList();
+  renderGroceryRecipeSelect();
+  renderOnboardingTags();
+  renderManageTagsList();
+}
+
+// ===== NAVIGATION =====
+const ALL_SCREENS = ['landing','import-input','add-text','import-parsing','import-error','import-bulk','import-review','import-success','recipes','recipe-detail','recipe-edit','cookbooks','cookbook-detail','meal-plans','meal-plan-detail','grocery','grocery-detail','grocery-generate','account'];
+const TAB_MAP = {'recipes':'tab-recipes','recipe-detail':'tab-recipes','recipe-edit':'tab-recipes','cookbooks':'tab-cookbooks','cookbook-detail':'tab-cookbooks','meal-plans':'tab-meal-plans','meal-plan-detail':'tab-meal-plans','grocery':'tab-grocery','grocery-detail':'tab-grocery','grocery-generate':'tab-grocery'};
+
+function showScreen(id) {
+  if (currentScreen !== id) screenHistory.push(currentScreen);
+  ALL_SCREENS.forEach(s => { const el = document.getElementById('screen-'+s); if(el) el.classList.remove('active'); });
+  const target = document.getElementById('screen-'+id);
+  if (target) target.classList.add('active');
+  currentScreen = id;
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+  const activeTab = TAB_MAP[id];
+  if (activeTab) {
+    const t = document.getElementById(activeTab); if(t) t.classList.add('active');
+    const st = document.getElementById('sidebar-'+activeTab); if(st) st.classList.add('active');
+  }
+  window.scrollTo(0,0);
+}
+
+function goBack() {
+  if (!screenHistory.length) return;
+  const prev = screenHistory.pop();
+  const saved = [...screenHistory];
+  showScreen(prev);
+  screenHistory = saved;
+}
+
+function enterApp() {
+  onboardingDismissed = false;
+  showScreen('recipes');
+  if (!onboardingDismissed) document.getElementById('onboarding-tags-card').style.display = 'block';
+}
+
+// ===== FILTER CHIPS =====
+function renderFilterChips() {
+  const container = document.getElementById('filter-chips');
+  const allTags = [...CATEGORY_TAGS, ...ATTR_TAGS];
+  const counts = {};
+  allTags.forEach(t => counts[t] = 0);
+  RECIPES.forEach(r => r.tags.forEach(t => { if (counts[t] !== undefined) counts[t]++; }));
+  const chips = [{label:'All',count:RECIPES.length}, ...allTags.filter(t => counts[t] > 0).map(t => ({label:t,count:counts[t]}))];
+  container.innerHTML = chips.map(c => `<div class="filter-chip${c.label===activeFilter?' active':''}" onclick="setFilter(this,'${c.label.replace(/'/g,"\\'")}')"> ${c.label} (${c.count})</div>`).join('');
+}
+
+function setFilter(el, tag) {
+  activeFilter = tag;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  filterRecipes();
+}
+
+function setView(mode) {
+  recipeView = mode;
+  const gBtn = document.getElementById('view-grid-btn');
+  const lBtn = document.getElementById('view-list-btn');
+  gBtn.style.background = mode==='grid'?'#111827':'#fff'; gBtn.style.color = mode==='grid'?'#fff':'#6b7280';
+  lBtn.style.background = mode==='list'?'#111827':'#fff'; lBtn.style.color = mode==='list'?'#fff':'#6b7280';
+  filterRecipes();
+}
+
+function filterRecipes() {
+  const q = document.getElementById('recipe-search').value.toLowerCase();
+  let filtered = RECIPES;
+  if (activeFilter !== 'All') filtered = filtered.filter(r => r.tags.includes(activeFilter));
+  if (q) filtered = filtered.filter(r => r.title.toLowerCase().includes(q) || r.source.toLowerCase().includes(q) || r.ingredients.some(i => i.name.toLowerCase().includes(q)));
+  const grid = document.getElementById('recipe-grid');
+  const list = document.getElementById('recipe-list');
+  const empty = document.getElementById('recipes-empty');
+  grid.style.display = recipeView==='grid' ? 'grid' : 'none';
+  list.style.display = recipeView==='list' ? 'block' : 'none';
+  empty.style.display = filtered.length===0 ? 'flex' : 'none';
+  if (recipeView==='grid') renderRecipeGrid(filtered); else renderRecipeList(filtered);
+}
+
+// ===== RECIPE CARD HELPERS =====
+function cardEmoji(r) { return r.tags.map(t => TAG_EMOJI[t]).find(Boolean) || '📖'; }
+
+function cardImgHtml(r, wClass) {
+  if (r.image) return `<img class="${wClass}" src="${r.image}" alt="">`;
+  if (r.recipeImage) return `<img class="${wClass}" src="${r.recipeImage}" alt="">`;
+  return `<div class="${wClass}-ph">${cardEmoji(r)}</div>`;
+}
+
+function renderRecipeGrid(recipes) {
+  const c = document.getElementById('recipe-grid');
+  c.innerHTML = recipes.map(r => `
+    <div class="recipe-card" onclick="navigateToRecipeDetail(${r.id})">
+      ${cardImgHtml(r,'recipe-card-img')}
+      <div class="recipe-card-body">
+        <div class="recipe-card-title">${r.title}</div>
+        <div class="recipe-card-source">${r.source}</div>
+        <div class="recipe-card-tags">${r.tags.slice(0,2).map(t=>`<span class="tag-chip">${t}</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderRecipeList(recipes) {
+  const c = document.getElementById('recipe-list');
+  c.innerHTML = recipes.map(r => `
+    <div class="list-row" onclick="navigateToRecipeDetail(${r.id})">
+      <div style="width:48px;height:48px;border-radius:8px;overflow:hidden;flex-shrink:0;margin-right:12px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:22px;">
+        ${r.image?`<img src="${r.image}" style="width:100%;height:100%;object-fit:cover;">`:(r.recipeImage?`<img src="${r.recipeImage}" style="width:100%;height:100%;object-fit:cover;">`:cardEmoji(r))}
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:14px;font-weight:600;margin-bottom:2px;">${r.title}</div>
+        <div style="font-size:12px;color:#9ca3af;margin-bottom:4px;">${r.source} · ${r.prepMins+r.cookMins}m</div>
+        <div style="display:flex;gap:4px;">${r.tags.slice(0,2).map(t=>`<span class="tag-chip">${t}</span>`).join('')}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ===== RECIPE DETAIL =====
+function navigateToRecipeDetail(id) {
+  const r = RECIPES.find(x => x.id===id); if(!r) return;
+  document.getElementById('recipe-detail-title').textContent = r.title;
+  const heroHtml = r.image
+    ? `<img src="${r.image}" style="width:100%;height:220px;object-fit:cover;display:block;">`
+    : `<div style="width:100%;height:160px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:72px;">${cardEmoji(r)}</div>`;
+  document.getElementById('recipe-detail-content').innerHTML = `
+    ${heroHtml}
+    <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <h1 style="font-size:22px;font-weight:800;margin:0 0 6px;">${r.title}</h1>
+        <div style="font-size:13px;color:#9ca3af;margin-bottom:8px;">From <strong style="color:#374151;">${r.source}</strong>${r.page?' · p. '+r.page:''}</div>
+        <p style="font-size:14px;color:#6b7280;margin:0 0 10px;line-height:1.5;">${r.description}</p>
+        <div style="display:flex;gap:16px;font-size:13px;color:#6b7280;">
+          <span>Serves <strong>${r.servings}</strong></span>
+          <span>Prep <strong>${r.prepMins}m</strong></span>
+          <span>Cook <strong>${r.cookMins}m</strong></span>
+          <span>Total <strong>${r.prepMins+r.cookMins}m</strong></span>
+        </div>
+      </div>
+      ${r.recipeImage?`<div style="background:#fff;border:1px solid #f3f4f6;border-radius:12px;overflow:hidden;"><div style="font-size:13px;font-weight:600;color:#374151;padding:12px 14px 8px;">Recipe Source</div><img src="${r.recipeImage}" style="width:100%;display:block;cursor:pointer;" onclick="window.open('${r.recipeImage}','_blank')"></div>`:''}
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Tags</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">${r.tags.map(t=>`<span class="tag-chip" style="font-size:12px;padding:4px 10px;">${t}</span>`).join('')}</div>
+      </div>
+      <div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:10px;">Ingredients</div>
+        <div style="display:flex;flex-direction:column;gap:0;">
+          ${r.ingredients.map(i=>`<div style="display:flex;gap:8px;font-size:14px;padding:7px 0;border-bottom:1px solid #f9fafb;"><span style="color:#9ca3af;min-width:36px;text-align:right;">${i.qty}</span><span style="color:#6b7280;min-width:44px;">${i.unit}</span><span>${i.name}</span></div>`).join('')}
+        </div>
+      </div>
+      <div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:10px;">Instructions</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          ${r.steps.map((s,i)=>`<div style="display:flex;gap:12px;"><div style="width:26px;height:26px;background:#111827;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px;">${i+1}</div><p style="margin:0;font-size:14px;line-height:1.6;color:#374151;">${s}</p></div>`).join('')}
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <button class="btn-secondary" onclick="navigateToRecipeEdit(${r.id})">✏️ Edit</button>
+        <button class="btn-secondary" onclick="openAddToGrocerySheet(${r.id})">🛒 Grocery</button>
+      </div>
+      <button class="btn-secondary" onclick="showScreen('meal-plans')">📅 Add to Meal Plan</button>
+      <button onclick="openDeleteConfirm(${r.id})" style="background:none;border:none;color:#ef4444;font-size:14px;cursor:pointer;padding:8px;text-align:center;">Delete Recipe</button>
+    </div>`;
+  showScreen('recipe-detail');
+}
+
+// ===== RECIPE EDIT =====
+function navigateToRecipeEdit(id) {
+  const r = RECIPES.find(x => x.id===id); if(!r) return;
+  const allTags = [...CATEGORY_TAGS,...ATTR_TAGS];
+  document.getElementById('recipe-edit-content').innerHTML = `
+    <div style="padding:16px;display:flex;flex-direction:column;gap:12px;">
+      <div><label style="font-size:13px;font-weight:600;display:block;margin-bottom:5px;">Title</label><input type="text" id="edit-title" value="${r.title.replace(/"/g,'&quot;')}"></div>
+      <div><label style="font-size:13px;font-weight:600;display:block;margin-bottom:5px;">Description</label><textarea rows="2" id="edit-desc" style="resize:none;">${r.description}</textarea></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <div><label style="font-size:12px;color:#9ca3af;display:block;margin-bottom:4px;">Servings</label><input type="text" id="edit-servings" value="${r.servings}" style="text-align:center;"></div>
+        <div><label style="font-size:12px;color:#9ca3af;display:block;margin-bottom:4px;">Prep (min)</label><input type="text" id="edit-prep" value="${r.prepMins}" style="text-align:center;"></div>
+        <div><label style="font-size:12px;color:#9ca3af;display:block;margin-bottom:4px;">Cook (min)</label><input type="text" id="edit-cook" value="${r.cookMins}" style="text-align:center;"></div>
+      </div>
+      <div>
+        <label style="font-size:13px;font-weight:600;display:block;margin-bottom:8px;">Tags</label>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;" id="edit-tags-wrap">
+          ${allTags.map(t=>{const on=r.tags.includes(t);return `<label style="display:flex;align-items:center;gap:4px;font-size:13px;cursor:pointer;padding:5px 12px;border:1px solid ${on?'#111827':'#e5e7eb'};border-radius:999px;background:${on?'#111827':'#fff'};color:${on?'#fff':'#374151'};transition:all .15s;" data-tag="${t}"><input type="checkbox" ${on?'checked':''} style="display:none;" onchange="var p=this.parentElement;var c=this.checked;p.style.background=c?'#111827':'#fff';p.style.color=c?'#fff':'#374151';p.style.borderColor=c?'#111827':'#e5e7eb';">${t}</label>`;}).join('')}
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <button class="btn-primary" onclick="saveRecipeEdit(${r.id})">Save Changes</button>
+        <button class="btn-secondary" onclick="goBack()">Cancel</button>
+      </div>
+    </div>`;
+  showScreen('recipe-edit');
+}
+
+function saveRecipeEdit(id) {
+  const r = RECIPES.find(x => x.id===id); if(!r) return;
+  r.title = document.getElementById('edit-title').value;
+  r.description = document.getElementById('edit-desc').value;
+  r.servings = document.getElementById('edit-servings').value;
+  r.prepMins = parseInt(document.getElementById('edit-prep').value)||r.prepMins;
+  r.cookMins = parseInt(document.getElementById('edit-cook').value)||r.cookMins;
+  const allTags = [...CATEGORY_TAGS,...ATTR_TAGS];
+  r.tags = [...document.querySelectorAll('#edit-tags-wrap label')].filter(l=>l.querySelector('input').checked).map(l=>l.dataset.tag);
+  renderFilterChips();
+  filterRecipes();
+  navigateToRecipeDetail(id);
+}
+
+// ===== COOKBOOKS =====
+function renderCookbookList() {
+  const c = document.getElementById('cookbook-list'); if(!c) return;
+  c.innerHTML = COOKBOOKS.map(cb => `
+    <div class="list-row" onclick="navigateToCookbookDetail('${cb.name.replace(/'/g,"\\'")}')">
+      <div style="width:44px;height:44px;background:#f3f4f6;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;margin-right:12px;">${cb.emoji}</div>
+      <div style="flex:1;"><div style="font-size:15px;font-weight:600;">${cb.name}</div><div style="font-size:12px;color:#9ca3af;">${cb.desc}</div></div>
+      <div style="font-size:13px;color:#9ca3af;">${cb.count} recipe${cb.count!==1?'s':''}</div>
+    </div>`).join('');
+}
+
+function navigateToCookbookDetail(name) {
+  const cb = COOKBOOKS.find(c => c.name===name); if(!cb) return;
+  document.getElementById('cookbook-detail-title').textContent = cb.name;
+  const recipes = RECIPES.filter(r => r.source===name || r.source.includes(name.split(' ')[0]));
+  document.getElementById('cookbook-detail-content').innerHTML = `
+    <div style="padding:12px 16px;border-bottom:1px solid #f3f4f6;font-size:13px;color:#9ca3af;">${cb.desc}</div>
+    ${recipes.length ? recipes.map(r=>`
+      <div class="list-row" onclick="navigateToRecipeDetail(${r.id})">
+        <div style="width:48px;height:48px;border-radius:8px;overflow:hidden;flex-shrink:0;margin-right:12px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:22px;">${cardEmoji(r)}</div>
+        <div style="flex:1;"><div style="font-size:14px;font-weight:600;margin-bottom:2px;">${r.title}</div><div style="font-size:12px;color:#9ca3af;">${r.page?'p.'+r.page+' · ':''}${r.prepMins+r.cookMins}m</div></div>
+      </div>`).join('') :
+      `<div class="empty-state"><div class="empty-icon">📖</div><h3 style="font-size:17px;font-weight:700;margin:0 0 8px;">No recipes yet</h3><p style="font-size:14px;color:#9ca3af;margin:0 0 16px;">Add recipes from ${cb.name}</p><button class="btn-primary" style="max-width:200px;" onclick="showScreen('import-input')">Add Recipe</button></div>`}`;
+  showScreen('cookbook-detail');
+}
+
+// ===== IMPORT FLOW =====
+const ADD_FLOW_CFG = {
+  instagram:{title:'Add from Instagram',subtitle:'Paste the caption or post text from the Instagram recipe.',tips:'Include the full caption for best results.'},
+  website:{title:'Add from Website',subtitle:'Paste the recipe text from the blog or website.',tips:'Copy everything from ingredients to instructions. The more detail, the better.'},
+  cookbook:{title:'Add from Cookbook',subtitle:'Type the recipe, or photograph the page.',tips:'Type or photograph the recipe page. Include ingredient list and instructions.'},
+  family:{title:'Add Family Recipe',subtitle:'Type the recipe from memory or a handwritten card.',tips:'Include as much detail as you have. You can always edit later.'},
+  idea:{title:'Save Recipe Idea',subtitle:'Enter a recipe name or description to save for later.',tips:'Just a name and note. Add full details later.'},
+};
+
+function showAddFlow(source) {
+  currentAddSource = source;
+  const cfg = ADD_FLOW_CFG[source];
+  document.getElementById('add-text-title').textContent = cfg.title;
+  document.getElementById('add-text-subtitle').textContent = cfg.subtitle;
+  document.getElementById('add-flow-tips').textContent = '💡 '+cfg.tips;
+  const sf = document.getElementById('add-source-fields');
+  if (source==='cookbook') {
+    sf.innerHTML = `<select id="cookbook-source-select" style="background:#fff;"><option value="">Select cookbook...</option>${COOKBOOKS.map(c=>`<option value="${c.name}">${c.emoji} ${c.name}</option>`).join('')}</select>`;
+    document.getElementById('review-recipe-img').style.display = 'block';
+  } else {
+    sf.innerHTML = '';
+    document.getElementById('review-recipe-img').style.display = 'none';
+  }
+  const srcNames = {instagram:'Instagram',website:'Food Blog',cookbook:'Cookbook',family:'Family Recipe',idea:'My Ideas'};
+  const sn = document.getElementById('review-source-name'); if(sn) sn.textContent = srcNames[source]||source;
+  const ta = document.getElementById('import-textarea');
+  ta.value = ''; ta.className = ''; ta.style.borderColor = '';
+  document.getElementById('char-count').textContent = '0';
+  document.getElementById('char-warning').style.display = 'none';
+  document.getElementById('char-error-msg').style.display = 'none';
+  document.getElementById('parse-btn').disabled = false;
+  showScreen('add-text');
+}
+
+const PARSE_MSGS = ['Reading text...','Identifying recipe structure...','Extracting ingredients...','Parsing instructions...','Almost done...'];
+
+function onImportInput() {
+  const ta = document.getElementById('import-textarea');
+  const len = ta.value.length;
+  document.getElementById('char-count').textContent = len.toLocaleString();
+  const warn = document.getElementById('char-warning');
+  const errMsg = document.getElementById('char-error-msg');
+  const btn = document.getElementById('parse-btn');
+  const lines = ta.value.split('\n').filter(l=>l.trim());
+  // Bulk hint: 3+ short lines
+  ta.style.borderColor = (lines.length>=3 && lines.filter(l=>l.trim().length<50).length>=3) ? '#3b82f6' : '';
+  if (len>5000) { ta.classList.add('tag-error'); errMsg.style.display='inline'; warn.style.display='none'; btn.disabled=true; }
+  else if (len>4500) { ta.classList.remove('tag-error'); ta.classList.add('tag-warn'); warn.style.display='inline'; errMsg.style.display='none'; btn.disabled=false; }
+  else { ta.classList.remove('tag-error','tag-warn'); warn.style.display='none'; errMsg.style.display='none'; btn.disabled=false; }
+}
+
+function startParsing() {
+  const text = document.getElementById('import-textarea').value.trim(); if(!text) return;
+  const lines = text.split('\n').filter(l=>l.trim());
+  if (lines.length>=3 && lines.filter(l=>l.trim().length<50).length>=3) { showBulkImport(lines); return; }
+  let step = 0;
+  document.getElementById('parse-progress-msg').textContent = PARSE_MSGS[0];
+  showScreen('import-parsing');
+  parseProgressInterval = setInterval(()=>{ step++; if(step<PARSE_MSGS.length) document.getElementById('parse-progress-msg').textContent=PARSE_MSGS[step]; else clearInterval(parseProgressInterval); }, 800);
+  const willError = Math.random()<0.05;
+  setTimeout(()=>{ clearInterval(parseProgressInterval); showScreen(willError?'import-error':'import-review'); }, 4200);
+}
+
+function showBulkImport(lines) {
+  const names = lines.slice(0,8);
+  document.getElementById('bulk-recipe-list').innerHTML = names.map(n=>`
+    <label style="display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #e5e7eb;border-radius:8px;cursor:pointer;">
+      <input type="checkbox" checked style="width:18px;height:18px;"><span style="font-size:14px;">${n}</span>
+    </label>`).join('');
+  showScreen('import-bulk');
+}
+
+function saveBulkRecipes() {
+  const rows = document.querySelectorAll('#bulk-recipe-list label');
+  let count = 0;
+  rows.forEach(row => {
+    if (row.querySelector('input').checked) {
+      RECIPES.push({id:RECIPES.length,title:row.querySelector('span').textContent,source:'Bulk Import',page:null,description:'',servings:4,prepMins:0,cookMins:0,tags:[],image:null,recipeImage:null,ingredients:[],steps:[]});
+      count++;
+    }
+  });
+  renderFilterChips(); filterRecipes();
+  showToast(`✅ ${count} recipe${count!==1?'s':''} saved as ideas`);
+  showScreen('recipes');
+}
+
+// ===== ASSIGN TAGS SHEET =====
+function openAssignTagsSheet() {
+  const render = (tags, containerId) => {
+    document.getElementById(containerId).innerHTML = tags.map(t=>`
+      <label style="display:flex;align-items:center;gap:4px;font-size:13px;cursor:pointer;padding:5px 12px;border:1px solid #e5e7eb;border-radius:999px;transition:all .15s;" data-v="${t}">
+        <input type="checkbox" style="display:none;" onchange="var p=this.parentElement;p.style.background=this.checked?'#111827':'';p.style.color=this.checked?'#fff':'';p.style.borderColor=this.checked?'#111827':'#e5e7eb';">${t}
+      </label>`).join('');
+  };
+  render(CATEGORY_TAGS,'assign-category-tags');
+  render(ATTR_TAGS,'assign-attr-tags');
+  document.getElementById('assign-tags-sheet').classList.add('open');
+}
+
+function saveWithTags() {
+  closeSheet('assign-tags-sheet');
+  renderCookbookSheetList();
+  document.getElementById('cookbook-sheet').classList.add('open');
+}
+
+// ===== COOKBOOK SHEET =====
+function renderCookbookSheetList() {
+  selectedCookbookName = null;
+  document.getElementById('save-cookbook-btn').disabled = true;
+  document.getElementById('cookbook-sheet-list').innerHTML = COOKBOOKS.map(c=>`
+    <div class="source-opt" onclick="selectCookbookInSheet('${c.name.replace(/'/g,"\\'")}',this)">
+      <div style="font-size:22px;">${c.emoji}</div>
+      <div style="flex:1;"><div style="font-size:14px;font-weight:600;">${c.name}</div><div style="font-size:12px;color:#9ca3af;">${c.desc}</div></div>
+    </div>`).join('');
+}
+
+function selectCookbookInSheet(name,el) {
+  document.querySelectorAll('#cookbook-sheet-list .source-opt').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected'); selectedCookbookName = name;
+  document.getElementById('save-cookbook-btn').disabled = false;
+}
+function saveToCookbook() { closeSheet('cookbook-sheet'); showScreen('import-success'); }
+function skipCookbook() { closeSheet('cookbook-sheet'); showScreen('import-success'); }
+function openNewCookbookSheet() { closeSheet('cookbook-sheet'); document.getElementById('new-cookbook-sheet').classList.add('open'); }
+function createCookbook() {
+  const name = document.getElementById('new-cb-name').value.trim(); if(!name) return;
+  const desc = document.getElementById('new-cb-desc').value.trim();
+  COOKBOOKS.push({name,desc:desc||'Custom cookbook',count:0,emoji:'📚'});
+  renderCookbookList(); closeSheet('new-cookbook-sheet');
+  document.getElementById('new-cb-name').value=''; document.getElementById('new-cb-desc').value='';
+}
+function resetImportFlow() { showScreen('import-input'); }
+
+// ===== DELETE CONFIRM =====
+function openDeleteConfirm(id) {
+  pendingDeleteId = id;
+  const r = RECIPES.find(x=>x.id===id);
+  document.getElementById('delete-confirm-title').textContent = `Delete "${r?r.title:'Recipe'}"?`;
+  document.getElementById('delete-confirm-sheet').classList.add('open');
+}
+function confirmDelete() {
+  if (pendingDeleteId!==null) { const i=RECIPES.findIndex(x=>x.id===pendingDeleteId); if(i>-1) RECIPES.splice(i,1); pendingDeleteId=null; }
+  closeSheet('delete-confirm-sheet'); renderFilterChips(); filterRecipes(); showScreen('recipes');
+}
+
+// ===== GROCERY =====
+function toggleGroceryItem(cb) {
+  const row = cb.closest('.grocery-item-row');
+  const label = row.querySelector('.grocery-label');
+  if (cb.checked) {
+    label.classList.add('grocery-checked');
+    const purchasedItems = document.getElementById('purchased-items');
+    document.getElementById('purchased-section').style.display = 'block';
+    const clone = row.cloneNode(true);
+    clone.querySelector('input').addEventListener('change', function(){ if(!this.checked){ clone.remove(); updatePurchasedCount(); } });
+    purchasedItems.appendChild(clone);
+    row.remove();
+    updatePurchasedCount();
+  }
+}
+function updatePurchasedCount() {
+  const items = document.querySelectorAll('#purchased-items .grocery-item-row');
+  const badge = document.getElementById('purchased-count'); if(badge) badge.textContent = items.length;
+  if (items.length===0) { const s=document.getElementById('purchased-section'); if(s) s.style.display='none'; }
+}
+function deleteGroceryItem(btn) { btn.closest('.grocery-item-row').remove(); updatePurchasedCount(); }
+function clearPurchased() { document.getElementById('purchased-items').innerHTML=''; document.getElementById('purchased-section').style.display='none'; }
+function showAddGroceryItem() { document.getElementById('add-item-form').style.display='block'; document.getElementById('new-item-name').focus(); }
+function hideAddGroceryItem() { document.getElementById('add-item-form').style.display='none'; document.getElementById('new-item-name').value=''; document.getElementById('new-item-qty').value=''; }
+function addGroceryItem() {
+  const name = document.getElementById('new-item-name').value.trim(); if(!name) return;
+  const qty = document.getElementById('new-item-qty').value.trim();
+  const row = document.createElement('div'); row.className='grocery-item-row';
+  row.innerHTML = `<input type="checkbox" onchange="toggleGroceryItem(this)" style="width:18px;height:18px;flex-shrink:0;cursor:pointer;"><div style="flex:1;"><span class="grocery-label">${name}</span>${qty?` <span style="font-size:12px;color:#9ca3af;">${qty}</span>`:''}</div><span style="font-size:10px;background:#eff6ff;color:#3b82f6;border-radius:999px;padding:1px 6px;">manual</span><button class="del-btn" onclick="deleteGroceryItem(this)">×</button>`;
+  document.getElementById('grocery-extras').appendChild(row);
+  hideAddGroceryItem();
+}
+function renameGroceryList() {
+  const title = document.getElementById('grocery-list-name');
+  const current = title.textContent;
+  const input = document.createElement('input');
+  input.type='text'; input.value=current;
+  Object.assign(input.style,{fontSize:'18px',fontWeight:'700',border:'none',outline:'1px solid #111827',borderRadius:'4px',padding:'2px 6px',width:'170px'});
+  title.replaceWith(input); input.focus(); input.select();
+  function save(){ const v=input.value.trim()||current; const d=document.createElement('div'); d.id='grocery-list-name'; d.className='header-title'; d.textContent=v; input.replaceWith(d); }
+  input.onblur=save; input.onkeydown=e=>{ if(e.key==='Enter') save(); };
+}
+function renderGroceryRecipeSelect() {
+  const c = document.getElementById('grocery-recipe-select'); if(!c) return;
+  c.innerHTML = RECIPES.map(r=>`
+    <label style="display:flex;align-items:center;gap:10px;padding:12px;border:1px solid #e5e7eb;border-radius:10px;cursor:pointer;">
+      <input type="checkbox" style="width:18px;height:18px;">
+      <div style="flex:1;"><div style="font-size:14px;font-weight:600;">${r.title}</div><div style="font-size:12px;color:#9ca3af;">${r.source} · ${r.ingredients.length} ingredients</div></div>
+    </label>`).join('');
+}
+function generateGroceryList() { showScreen('grocery-detail'); }
+
+// ===== MEAL PLAN =====
+function createNewMealPlan() { showToast('📅 New meal plan created!'); showScreen('meal-plan-detail'); }
+function showMealPlanDayOptions(dayIndex, recipeName) {
+  const sheet = document.createElement('div'); sheet.className='bottom-sheet-backdrop open';
+  sheet.innerHTML = `<div class="bottom-sheet"><div class="sheet-handle"></div><div style="font-size:15px;font-weight:700;margin-bottom:12px;">${recipeName}</div><button class="btn-secondary" style="margin-bottom:8px;" onclick="this.closest('.bottom-sheet-backdrop').remove()">Remove from Plan</button><button class="btn-secondary" style="margin-bottom:8px;" onclick="this.closest('.bottom-sheet-backdrop').remove()">Swap Recipe</button><button onclick="this.closest('.bottom-sheet-backdrop').remove()" style="background:none;border:none;color:#9ca3af;font-size:14px;cursor:pointer;width:100%;padding:8px;">Cancel</button></div>`;
+  sheet.onclick = e=>{ if(e.target===sheet) sheet.remove(); };
+  document.body.appendChild(sheet);
+}
+function openRecipePicker(slot) {
+  currentPickerSlot = slot;
+  document.getElementById('recipe-picker-search').value='';
+  renderRecipePickerList(RECIPES);
+  document.getElementById('recipe-picker-sheet').classList.add('open');
+}
+function filterRecipePicker() {
+  const q = document.getElementById('recipe-picker-search').value.toLowerCase();
+  renderRecipePickerList(q ? RECIPES.filter(r=>r.title.toLowerCase().includes(q)) : RECIPES);
+}
+function renderRecipePickerList(recipes) {
+  document.getElementById('recipe-picker-list').innerHTML = recipes.map(r=>`
+    <div class="list-row" style="border:1px solid #f3f4f6;border-radius:8px;margin-bottom:4px;" onclick="assignRecipeToSlot('${currentPickerSlot}',${r.id})">
+      <div style="flex:1;"><div style="font-size:14px;font-weight:600;">${r.title}</div><div style="font-size:12px;color:#9ca3af;">${r.source} · ${r.prepMins+r.cookMins}m</div></div>
+    </div>`).join('');
+}
+function assignRecipeToSlot(slot,recipeId) {
+  const r = RECIPES.find(x=>x.id===recipeId); if(!r) return;
+  const slotEl = document.getElementById(slot+'-slot');
+  if (slotEl) {
+    slotEl.classList.remove('day-slot-empty');
+    const labels = {wed:{day:'WED',num:'25'},fri:{day:'FRI',num:'27'},sun:{day:'SUN',num:'1'}};
+    const d = labels[slot]||{day:slot.toUpperCase(),num:''};
+    slotEl.innerHTML = `<div style="width:48px;text-align:center;flex-shrink:0;"><div style="font-size:11px;font-weight:700;color:#9ca3af;">${d.day}</div><div style="font-size:20px;font-weight:800;color:#111827;">${d.num}</div></div><div style="flex:1;"><div style="font-size:13px;font-weight:600;">${r.title}</div><div style="font-size:12px;color:#9ca3af;">${r.source} · ${r.prepMins+r.cookMins}m</div></div>`;
+    slotEl.onclick = ()=>showMealPlanDayOptions(slot,r.title);
+  }
+  closeSheet('recipe-picker-sheet');
+}
+
+// ===== ADD TO GROCERY SHEET =====
+function openAddToGrocerySheet(recipeId) { document.getElementById('add-to-grocery-sheet').classList.add('open'); }
+function addToExistingGroceryList() { closeSheet('add-to-grocery-sheet'); showScreen('grocery-detail'); }
+function createNewGroceryFromRecipe() { closeSheet('add-to-grocery-sheet'); showScreen('grocery-generate'); }
+
+// ===== ONBOARDING =====
+function renderOnboardingTags() {
+  const c = document.getElementById('onboarding-tag-checks'); if(!c) return;
+  c.innerHTML = CATEGORY_TAGS.map(t=>`
+    <label style="display:flex;align-items:center;gap:4px;font-size:13px;cursor:pointer;padding:5px 12px;border:1px solid #bbf7d0;border-radius:999px;background:#16a34a;color:#fff;transition:all .15s;">
+      <input type="checkbox" checked style="display:none;" onchange="var p=this.parentElement;p.style.background=this.checked?'#16a34a':'#fff';p.style.color=this.checked?'#fff':'#374151';p.style.borderColor=this.checked?'#16a34a':'#bbf7d0';">${t}
+    </label>`).join('');
+}
+function dismissOnboarding() { onboardingDismissed=true; document.getElementById('onboarding-tags-card').style.display='none'; }
+function saveOnboardingTags() {
+  onboardingDismissed=true; document.getElementById('onboarding-tags-card').style.display='none';
+  renderFilterChips(); showToast('✅ Categories saved!','#16a34a');
+}
+
+// ===== MANAGE TAGS =====
+function renderManageTagsList() {
+  const c = document.getElementById('manage-tags-list'); if(!c) return;
+  c.innerHTML = [...CATEGORY_TAGS,...ATTR_TAGS].map(t=>`
+    <div style="display:flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid #e5e7eb;border-radius:999px;">
+      <span style="font-size:13px;">${t}</span>
+      <button onclick="this.parentElement.remove()" style="background:none;border:none;color:#9ca3af;font-size:14px;cursor:pointer;line-height:1;padding:0 2px;">×</button>
+    </div>`).join('');
+}
+function openManageTagsSheet() { renderManageTagsList(); document.getElementById('manage-tags-sheet').classList.add('open'); }
+
+// ===== SHEET / TOAST HELPERS =====
+function closeSheet(id, event) {
+  if (event) { const el=document.getElementById(id); if(event.target!==el) return; }
+  const el = document.getElementById(id); if(el) el.classList.remove('open');
+}
+function showToast(msg, bg) {
+  const t = document.createElement('div'); t.textContent=msg;
+  Object.assign(t.style,{position:'fixed',top:'20px',left:'50%',transform:'translateX(-50%)',background:bg||'#111827',color:'#fff',padding:'10px 20px',borderRadius:'8px',fontSize:'14px',fontWeight:'600',zIndex:'9999',whiteSpace:'nowrap'});
+  document.body.appendChild(t); setTimeout(()=>t.remove(),2500);
+}
+
+// ===== START =====
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</div>
+</body>
+</html>

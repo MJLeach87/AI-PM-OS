@@ -7,7 +7,10 @@
     "auth:google-drive": "node scripts/google_drive_auth.js",
     "test:google-drive": "node scripts/test_google_drive.js",
     "search": "node scripts/search.js",
-    "sync:confluence": "node scripts/confluence-sync.js"
+    "sync:confluence": "node scripts/confluence-sync.js",
+    "export:docx": "python scripts/office-export/index.py --format docx",
+    "export:xlsx": "python scripts/office-export/index.py --format xlsx",
+    "export:pptx": "python scripts/office-export/index.py --format pptx"
   },
   "keywords": [
     "product-management",

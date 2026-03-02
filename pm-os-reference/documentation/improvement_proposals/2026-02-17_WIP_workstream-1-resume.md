@@ -239,7 +239,7 @@ Add Mermaid as a "diagramming pattern" (no separate MCP needed — Mermaid rende
 
 This is M-effort — do after all other tiers complete.
 See full plan in `execution/improvement_proposals/2026-02-16_work-plan.md` (Plugin Packaging section).
-**Deliverables**: ADR + pm-os-plugin/ prototype + 3 subagent .md files + hooks.json
+**Deliverables**: ADR + pm-os-template/ prototype + 3 subagent .md files + hooks.json
 
 ---
 

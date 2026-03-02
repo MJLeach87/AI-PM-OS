@@ -105,4 +105,4 @@ The GitHub Actions workflow (`.github/workflows/audit-reminder.yml`) auto-create
 
 ---
 
-**Related**: `pm-os-plugin/UPGRADE_GUIDE.md`, `mcp/setup_guides/PERMISSIONS_GUIDE.md`
+**Related**: `pm-os-template/UPGRADE_GUIDE.md`, `mcp/setup_guides/PERMISSIONS_GUIDE.md`

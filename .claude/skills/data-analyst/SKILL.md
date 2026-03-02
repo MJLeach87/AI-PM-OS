@@ -48,3 +48,4 @@ Based on $ARGUMENTS, apply the appropriate Data Analyst capability:
 - Metrics validation complete → hand instrumentation gap list to Engineering Partner
 - A/B analysis complete → ship recommendation → notify Product Architect to update PRD outcome section
 - SQL complete → offer to explain query to Engineering Partner for implementation review
+- **XLSX export**: "Would you like a branded Excel workbook with one sheet per section? Run: `npm run export:xlsx -- --source [saved path]`"

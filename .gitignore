@@ -124,8 +124,12 @@ dist
 execution/**/*.pdf
 execution/**/*.zip
 execution/**/*.tar.gz
+execution/**/*.docx
+execution/**/*.xlsx
+execution/**/*.pptx
 execution/**/private_*
 
 # User-specific notes (not team-shared)
 NOTES_PERSONAL.md
 scratch/
+__pycache__/

@@ -108,7 +108,7 @@ This combination gives PM OS a clean install path AND better in-session behavior
 | Create `TEMPLATE_SETUP.md` (post-clone checklist) | S | PM OS |
 | Add `templates/hooks_template.json` | XS | PM OS (done) |
 | Add hooks guidance to `identity/README.md` | XS | PM OS |
-| Create `pm-os-plugin/` prototype directory | S | PM OS (done) |
+| Create `pm-os-template/` prototype directory | S | PM OS (done) |
 
 ### Not Doing (Deferred)
 
@@ -133,4 +133,4 @@ This combination gives PM OS a clean install path AND better in-session behavior
 
 **ADR Author**: PM OS Orchestrator
 **Related Tickets**: PMOS-59 (Phase 8 epic)
-**Related Files**: `pm-os-plugin/README.md`, `templates/hooks_template.json`
+**Related Files**: `pm-os-template/README.md`, `templates/hooks_template.json`

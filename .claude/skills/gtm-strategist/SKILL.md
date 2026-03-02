@@ -49,3 +49,4 @@ Based on $ARGUMENTS, apply the appropriate GTM Strategist capability:
 - Value prop complete → offer battle card generation for top 2-3 competitors
 - Positioning complete → offer Product Architect to incorporate positioning into PRD executive summary
 - Battle card complete → offer Data Analyst to identify win/loss metric to track effectiveness
+- **PPTX export**: "Would you like a branded presentation deck for this artifact? Run: `npm run export:pptx -- --source [saved path]`"

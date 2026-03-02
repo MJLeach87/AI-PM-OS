@@ -95,5 +95,5 @@ When you customize PM OS for your team, document your changes in `execution/impr
 
 ---
 
-**Related**: `pm-os-plugin/README.md`, `pm-os-plugin/MULTI_USER_GUIDE.md`
+**Related**: `pm-os-template/README.md`, `pm-os-template/MULTI_USER_GUIDE.md`
 **Questions?**: Run `/pm-os-quality-audit` to verify your PM OS is healthy after any upgrade.
