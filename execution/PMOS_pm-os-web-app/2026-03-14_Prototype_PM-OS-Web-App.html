@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PM OS Web App — Prototype v0.1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    .screen { display: none; }
+    .screen.active { display: flex; }
+    .badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 500; line-height: 1.5; border-width: 1px; }
+    .type-insights { background: rgba(168,85,247,0.15); color: #c084fc; border-color: rgba(168,85,247,0.3); }
+    .type-ost { background: rgba(59,130,246,0.15); color: #60a5fa; border-color: rgba(59,130,246,0.3); }
+    .type-prd { background: rgba(34,197,94,0.15); color: #4ade80; border-color: rgba(34,197,94,0.3); }
+    .type-ia { background: rgba(249,115,22,0.15); color: #fb923c; border-color: rgba(249,115,22,0.3); }
+    .type-prototype { background: rgba(236,72,153,0.15); color: #f472b6; border-color: rgba(236,72,153,0.3); }
+    .type-sprint-log { background: rgba(234,179,8,0.15); color: #facc15; border-color: rgba(234,179,8,0.3); }
+    .type-launch { background: rgba(6,182,212,0.15); color: #22d3ee; border-color: rgba(6,182,212,0.3); }
+    .type-gtm { background: rgba(239,68,68,0.15); color: #f87171; border-color: rgba(239,68,68,0.3); }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; display: flex; align-items: center; justify-content: center; }
+    .modal-box { background: #18181b; border: 1px solid #3f3f46; border-radius: 12px; padding: 24px; width: 420px; max-width: 90vw; }
+    .filter-tab { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: 1px solid transparent; }
+    .filter-tab.active { background: #3f3f46; color: #f4f4f5; border-color: #52525b; }
+    .filter-tab:not(.active) { color: #71717a; }
+    .filter-tab:not(.active):hover { color: #a1a1aa; background: #27272a; }
+    .artifact-row { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 8px; border: 1px solid #27272a; background: #18181b; transition: border-color 0.15s; cursor: pointer; }
+    .artifact-row:hover { border-color: #3f3f46; }
+    .btn-primary { background: #f4f4f5; color: #18181b; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.15s; border: none; }
+    .btn-primary:hover { background: #e4e4e7; }
+    .btn-ghost { background: transparent; color: #71717a; padding: 6px 14px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; border: 1px solid #3f3f46; }
+    .btn-ghost:hover { background: #27272a; color: #f4f4f5; }
+    .sidebar-link { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px; font-size: 13px; transition: all 0.15s; cursor: pointer; color: #a1a1aa; }
+    .sidebar-link:hover { background: #27272a; color: #f4f4f5; }
+    .sidebar-link.active { background: #27272a; color: #f4f4f5; }
+    .prose-content h2 { font-size: 16px; font-weight: 600; color: #f4f4f5; margin: 20px 0 8px; }
+    .prose-content h3 { font-size: 14px; font-weight: 600; color: #e4e4e7; margin: 16px 0 6px; }
+    .prose-content p { font-size: 13px; color: #a1a1aa; line-height: 1.7; margin-bottom: 12px; }
+    .prose-content ul { font-size: 13px; color: #a1a1aa; line-height: 1.7; margin-bottom: 12px; padding-left: 20px; }
+    .prose-content li { margin-bottom: 4px; }
+    .prose-content blockquote { border-left: 3px solid #3f3f46; padding-left: 12px; color: #71717a; font-size: 13px; margin: 12px 0; }
+    .prose-content strong { color: #e4e4e7; font-weight: 600; }
+    .prose-content code { background: #27272a; padding: 1px 6px; border-radius: 4px; font-size: 12px; font-family: monospace; color: #d4d4d8; }
+    .toc-item { display: block; font-size: 12px; color: #71717a; padding: 3px 0; border-left: 2px solid transparent; padding-left: 10px; transition: all 0.15s; cursor: pointer; }
+    .toc-item:hover { color: #a1a1aa; border-left-color: #52525b; }
+    .toc-item.active { color: #f4f4f5; border-left-color: #f4f4f5; }
+    .skill-card { background: #18181b; border: 1px solid #27272a; border-radius: 10px; padding: 18px; transition: border-color 0.15s; cursor: pointer; }
+    .skill-card:hover { border-color: #3f3f46; }
+    .link-copied { background: rgba(34,197,94,0.2); color: #4ade80; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans antialiased" style="font-family: Inter, system-ui, sans-serif;">
+
+<!-- ─── PROTOTYPE SWITCHER ──────────────────────────────────────────────────── -->
+<div style="position:fixed;top:0;left:0;right:0;z-index:200;background:#09090b;border-bottom:1px solid #27272a;padding:8px 16px;display:flex;align-items:center;gap:8px;">
+  <span style="font-size:10px;color:#52525b;font-family:monospace;letter-spacing:0.1em;margin-right:4px;">PROTOTYPE v0.1</span>
+  <div style="width:1px;height:16px;background:#27272a;margin-right:4px;"></div>
+  <button class="filter-tab active" id="pnav-projects" onclick="showScreen('projects',this)">1 · Projects</button>
+  <button class="filter-tab" id="pnav-detail" onclick="showScreen('project-detail',this)">2 · Project Detail</button>
+  <button class="filter-tab" id="pnav-viewer" onclick="showScreen('artifact-viewer',this)">3 · Artifact Viewer</button>
+  <button class="filter-tab" id="pnav-skills" onclick="showScreen('skill-catalog',this)">4 · Skill Catalog</button>
+  <div style="margin-left:auto;font-size:11px;color:#52525b;">Phase 1 — Read Layer</div>
+</div>
+
+<div style="padding-top:40px;min-height:100vh;">
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SCREEN 1 · PROJECTS BROWSER                                                -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<div id="screen-projects" class="screen active" style="flex-direction:column;min-height:calc(100vh - 40px);">
+  <div style="display:flex;flex:1;">
+
+    <!-- Sidebar -->
+    <aside style="width:220px;background:#0f0f10;border-right:1px solid #1f1f23;display:flex;flex-direction:column;min-height:calc(100vh - 40px);padding:16px 0;flex-shrink:0;">
+      <div style="padding:0 12px 16px;border-bottom:1px solid #1f1f23;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">PM</div>
+          <span style="font-size:14px;font-weight:600;color:#f4f4f5;">PM OS</span>
+        </div>
+      </div>
+      <nav style="flex:1;padding:0 8px;">
+        <div style="font-size:10px;color:#52525b;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;padding:0 8px 6px;">Workspace</div>
+        <div class="sidebar-link active" onclick="showScreen('projects', document.getElementById('pnav-projects'))">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+          Projects
+        </div>
+        <div class="sidebar-link" onclick="showScreen('skill-catalog', document.getElementById('pnav-skills'))">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Skills
+        </div>
+      </nav>
+      <div style="padding:12px;border-top:1px solid #1f1f23;margin-top:auto;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:#4f46e5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">MJ</div>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:#e4e4e7;">M. Lea</div>
+            <div style="font-size:11px;color:#52525b;">Power PM</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main style="flex:1;background:#09090b;padding:32px;overflow-y:auto;">
+      <div style="max-width:800px;margin:0 auto;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;">
+          <div>
+            <h1 style="font-size:20px;font-weight:600;color:#f4f4f5;margin-bottom:4px;">Projects</h1>
+            <p style="font-size:13px;color:#71717a;">3 active initiatives · execution/</p>
+          </div>
+          <div style="position:relative;">
+            <svg style="position:absolute;left:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:#52525b;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" placeholder="Search projects…" style="background:#18181b;border:1px solid #27272a;border-radius:8px;padding:7px 14px 7px 32px;font-size:13px;color:#d4d4d8;width:220px;outline:none;" onfocus="this.style.borderColor='#52525b'" onblur="this.style.borderColor='#27272a'" />
+          </div>
+        </div>
+
+        <!-- Project Cards -->
+        <div style="display:flex;flex-direction:column;gap:10px;">
+
+          <!-- Card 1: PMOS_pm-os-web-app -->
+          <div style="background:#18181b;border:1px solid #27272a;border-radius:10px;padding:20px;cursor:pointer;transition:border-color 0.15s;" onmouseenter="this.style.borderColor='#3f3f46'" onmouseleave="this.style.borderColor='#27272a'" onclick="showScreen('project-detail', document.getElementById('pnav-detail'))">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+              <div style="flex:1;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+                  <span style="background:#27272a;border:1px solid #3f3f46;border-radius:4px;padding:1px 7px;font-size:11px;font-family:monospace;color:#a1a1aa;">PMOS</span>
+                  <span style="font-size:15px;font-weight:500;color:#f4f4f5;">PM OS Companion Web App</span>
+                  <span class="badge" style="background:rgba(34,197,94,0.1);color:#4ade80;border-color:rgba(34,197,94,0.25);">● Discovery</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;font-size:12px;color:#52525b;margin-bottom:12px;">
+                  <span>2 artifacts</span><span>·</span><span>Last updated Mar 14, 2026</span>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <span class="badge type-insights">Insights</span>
+                  <span class="badge type-ost">OST</span>
+                </div>
+              </div>
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="color:#3f3f46;flex-shrink:0;margin-left:12px;margin-top:2px;"><path d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+
+          <!-- Card 2: RECIPE_mealiflo -->
+          <div style="background:#18181b;border:1px solid #27272a;border-radius:10px;padding:20px;cursor:pointer;transition:border-color 0.15s;" onmouseenter="this.style.borderColor='#3f3f46'" onmouseleave="this.style.borderColor='#27272a'">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+              <div style="flex:1;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+                  <span style="background:#27272a;border:1px solid #3f3f46;border-radius:4px;padding:1px 7px;font-size:11px;font-family:monospace;color:#a1a1aa;">RECIPE</span>
+                  <span style="font-size:15px;font-weight:500;color:#f4f4f5;">Mealiflo</span>
+                  <span class="badge" style="background:rgba(59,130,246,0.1);color:#60a5fa;border-color:rgba(59,130,246,0.25);">● Sprint 1</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;font-size:12px;color:#52525b;margin-bottom:12px;">
+                  <span>4 artifacts</span><span>·</span><span>Last updated Mar 1, 2026</span>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <span class="badge type-prd">PRD</span>
+                  <span class="badge type-sprint-log">Sprint Log</span>
+                  <span class="badge type-launch">Launch</span>
+                </div>
+              </div>
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="color:#3f3f46;flex-shrink:0;margin-left:12px;margin-top:2px;"><path d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+
+          <!-- Card 3: RECIPE_recipe-tracker -->
+          <div style="background:#18181b;border:1px solid #27272a;border-radius:10px;padding:20px;cursor:pointer;transition:border-color 0.15s;" onmouseenter="this.style.borderColor='#3f3f46'" onmouseleave="this.style.borderColor='#27272a'">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+              <div style="flex:1;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+                  <span style="background:#27272a;border:1px solid #3f3f46;border-radius:4px;padding:1px 7px;font-size:11px;font-family:monospace;color:#a1a1aa;">RECIPE</span>
+                  <span style="font-size:15px;font-weight:500;color:#f4f4f5;">Recipe Tracker</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;font-size:12px;color:#52525b;margin-bottom:12px;">
+                  <span>2 artifacts</span><span>·</span><span>Last updated Feb 22, 2026</span>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                  <span class="badge type-insights">Insights</span>
+                  <span class="badge type-ost">OST</span>
+                </div>
+              </div>
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="color:#3f3f46;flex-shrink:0;margin-left:12px;margin-top:2px;"><path d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SCREEN 2 · PROJECT DETAIL                                                  -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<div id="screen-project-detail" class="screen" style="flex-direction:column;min-height:calc(100vh - 40px);">
+  <div style="display:flex;flex:1;">
+
+    <!-- Sidebar (same structure) -->
+    <aside style="width:220px;background:#0f0f10;border-right:1px solid #1f1f23;display:flex;flex-direction:column;min-height:calc(100vh - 40px);padding:16px 0;flex-shrink:0;">
+      <div style="padding:0 12px 16px;border-bottom:1px solid #1f1f23;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">PM</div>
+          <span style="font-size:14px;font-weight:600;color:#f4f4f5;">PM OS</span>
+        </div>
+      </div>
+      <nav style="flex:1;padding:0 8px;">
+        <div style="font-size:10px;color:#52525b;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;padding:0 8px 6px;">Workspace</div>
+        <div class="sidebar-link active" onclick="showScreen('projects', document.getElementById('pnav-projects'))">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+          Projects
+        </div>
+        <div class="sidebar-link" onclick="showScreen('skill-catalog', document.getElementById('pnav-skills'))">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Skills
+        </div>
+      </nav>
+      <div style="padding:12px;border-top:1px solid #1f1f23;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:#4f46e5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">MJ</div>
+          <div><div style="font-size:12px;font-weight:500;color:#e4e4e7;">M. Lea</div><div style="font-size:11px;color:#52525b;">Power PM</div></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main style="flex:1;background:#09090b;padding:32px;overflow-y:auto;">
+      <div style="max-width:800px;margin:0 auto;">
+
+        <!-- Breadcrumb -->
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#71717a;margin-bottom:20px;">
+          <span style="cursor:pointer;color:#52525b;" onclick="showScreen('projects', document.getElementById('pnav-projects'))">
+            <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="display:inline;margin-right:4px;"><path d="M9 5l7 7-7 7"/></svg>
+          </span>
+          <span style="cursor:pointer;" onmouseenter="this.style.color='#f4f4f5'" onmouseleave="this.style.color='#71717a'" onclick="showScreen('projects', document.getElementById('pnav-projects'))">Projects</span>
+          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="color:#3f3f46;"><path d="M9 5l7 7-7 7"/></svg>
+          <span style="color:#a1a1aa;">PMOS_pm-os-web-app</span>
+        </div>
+
+        <!-- Header -->
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+              <h1 style="font-size:20px;font-weight:600;color:#f4f4f5;">PM OS Companion Web App</h1>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span class="badge" style="background:#27272a;border-color:#3f3f46;color:#a1a1aa;font-family:monospace;">PMOS</span>
+              <span class="badge" style="background:rgba(34,197,94,0.1);color:#4ade80;border-color:rgba(34,197,94,0.25);">● Discovery</span>
+              <a href="#" style="font-size:12px;color:#52525b;text-decoration:none;display:flex;align-items:center;gap:3px;" onmouseenter="this.style.color='#a1a1aa'" onmouseleave="this.style.color='#52525b'">
+                <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Jira
+              </a>
+              <a href="#" style="font-size:12px;color:#52525b;text-decoration:none;display:flex;align-items:center;gap:3px;" onmouseenter="this.style.color='#a1a1aa'" onmouseleave="this.style.color='#52525b'">
+                <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Confluence
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter tabs -->
+        <div style="display:flex;gap:4px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #1f1f23;flex-wrap:wrap;">
+          <button class="filter-tab active" onclick="filterArtifacts('all', this)">All <span style="background:#3f3f46;border-radius:9999px;padding:1px 6px;font-size:10px;margin-left:4px;">2</span></button>
+          <button class="filter-tab" onclick="filterArtifacts('insights', this)">Insights <span style="background:#27272a;border-radius:9999px;padding:1px 6px;font-size:10px;margin-left:4px;">1</span></button>
+          <button class="filter-tab" onclick="filterArtifacts('ost', this)">OST <span style="background:#27272a;border-radius:9999px;padding:1px 6px;font-size:10px;margin-left:4px;">1</span></button>
+          <button class="filter-tab" onclick="filterArtifacts('prd', this)">PRD <span style="background:#27272a;border-radius:9999px;padding:1px 6px;font-size:10px;margin-left:4px;">0</span></button>
+          <button class="filter-tab" onclick="filterArtifacts('ia', this)">IA</button>
+          <button class="filter-tab" onclick="filterArtifacts('sprint-log', this)">Sprint Log</button>
+        </div>
+
+        <!-- Artifact list -->
+        <div style="display:flex;flex-direction:column;gap:8px;" id="artifact-list">
+
+          <div class="artifact-row" data-type="insights">
+            <span class="badge type-insights" style="flex-shrink:0;">Insights</span>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:13px;font-weight:500;color:#f4f4f5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Insights: PM OS Companion Web Application</div>
+              <div style="font-size:11px;color:#52525b;margin-top:2px;">Mar 14, 2026 · 2026-03-14_Insights_PM-OS-Web-App.md</div>
+            </div>
+            <div style="display:flex;gap:6px;flex-shrink:0;">
+              <a href="#" style="background:#18181b;border:1px solid #27272a;border-radius:6px;padding:4px 10px;font-size:12px;color:#71717a;text-decoration:none;display:flex;align-items:center;gap:4px;" onmouseenter="this.style.borderColor='#3f3f46';this.style.color='#a1a1aa'" onmouseleave="this.style.borderColor='#27272a';this.style.color='#71717a'">
+                <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Confluence
+              </a>
+              <button class="btn-ghost" style="padding:4px 10px;font-size:12px;" onclick="showScreen('artifact-viewer', document.getElementById('pnav-viewer'))">View</button>
+              <button class="btn-ghost" style="padding:4px 10px;font-size:12px;" onclick="openShareModal()">Share</button>
+            </div>
+          </div>
+
+          <div class="artifact-row" data-type="ost">
+            <span class="badge type-ost" style="flex-shrink:0;">OST</span>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:13px;font-weight:500;color:#f4f4f5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">OST: PM OS Companion Web Application</div>
+              <div style="font-size:11px;color:#52525b;margin-top:2px;">Mar 14, 2026 · 2026-03-14_OST_PM-OS-Web-App.md</div>
+            </div>
+            <div style="display:flex;gap:6px;flex-shrink:0;">
+              <a href="#" style="background:#18181b;border:1px solid #27272a;border-radius:6px;padding:4px 10px;font-size:12px;color:#71717a;text-decoration:none;display:flex;align-items:center;gap:4px;" onmouseenter="this.style.borderColor='#3f3f46';this.style.color='#a1a1aa'" onmouseleave="this.style.borderColor='#27272a';this.style.color='#71717a'">
+                <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Confluence
+              </a>
+              <button class="btn-ghost" style="padding:4px 10px;font-size:12px;">View</button>
+              <button class="btn-ghost" style="padding:4px 10px;font-size:12px;" onclick="openShareModal()">Share</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Empty state placeholder -->
+        <div id="empty-state" style="display:none;text-align:center;padding:48px 0;color:#52525b;">
+          <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" style="margin:0 auto 12px;"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <p style="font-size:13px;">No artifacts of this type yet</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SCREEN 3 · ARTIFACT VIEWER                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<div id="screen-artifact-viewer" class="screen" style="flex-direction:column;min-height:calc(100vh - 40px);">
+  <div style="display:flex;flex:1;">
+
+    <!-- Sidebar -->
+    <aside style="width:220px;background:#0f0f10;border-right:1px solid #1f1f23;display:flex;flex-direction:column;min-height:calc(100vh - 40px);padding:16px 0;flex-shrink:0;">
+      <div style="padding:0 12px 16px;border-bottom:1px solid #1f1f23;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">PM</div>
+          <span style="font-size:14px;font-weight:600;color:#f4f4f5;">PM OS</span>
+        </div>
+      </div>
+      <nav style="flex:1;padding:0 8px;">
+        <div style="font-size:10px;color:#52525b;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;padding:0 8px 6px;">Workspace</div>
+        <div class="sidebar-link active" onclick="showScreen('projects', document.getElementById('pnav-projects'))">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+          Projects
+        </div>
+        <div class="sidebar-link" onclick="showScreen('skill-catalog', document.getElementById('pnav-skills'))">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Skills
+        </div>
+      </nav>
+      <div style="padding:12px;border-top:1px solid #1f1f23;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:#4f46e5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">MJ</div>
+          <div><div style="font-size:12px;font-weight:500;color:#e4e4e7;">M. Lea</div><div style="font-size:11px;color:#52525b;">Power PM</div></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main: two-column layout -->
+    <main style="flex:1;background:#09090b;display:flex;overflow:hidden;">
+
+      <!-- Article -->
+      <div style="flex:1;padding:32px;overflow-y:auto;max-width:720px;">
+        <!-- Breadcrumb -->
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#71717a;margin-bottom:20px;">
+          <span style="cursor:pointer;" onmouseenter="this.style.color='#f4f4f5'" onmouseleave="this.style.color='#71717a'" onclick="showScreen('projects', document.getElementById('pnav-projects'))">Projects</span>
+          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="color:#3f3f46;"><path d="M9 5l7 7-7 7"/></svg>
+          <span style="cursor:pointer;" onmouseenter="this.style.color='#f4f4f5'" onmouseleave="this.style.color='#71717a'" onclick="showScreen('project-detail', document.getElementById('pnav-detail'))">PM OS Web App</span>
+          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="color:#3f3f46;"><path d="M9 5l7 7-7 7"/></svg>
+          <span style="color:#a1a1aa;">Insights</span>
+        </div>
+
+        <!-- Article header -->
+        <div style="margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #1f1f23;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+            <span class="badge type-insights">Insights</span>
+            <span style="font-size:11px;color:#52525b;">Mar 14, 2026</span>
+            <a href="#" style="font-size:11px;color:#52525b;text-decoration:none;display:flex;align-items:center;gap:3px;border:1px solid #27272a;border-radius:4px;padding:1px 7px;" onmouseenter="this.style.color='#a1a1aa';this.style.borderColor='#3f3f46'" onmouseleave="this.style.color='#52525b';this.style.borderColor='#27272a'">
+              <svg width="10" height="10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              Confluence
+            </a>
+            <span style="margin-left:auto;display:flex;gap:6px;">
+              <button class="btn-ghost" style="padding:5px 12px;font-size:12px;display:flex;align-items:center;gap:4px;" onclick="openShareModal()">
+                <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                Share
+              </button>
+            </span>
+          </div>
+          <h1 style="font-size:22px;font-weight:700;color:#f4f4f5;line-height:1.3;">Insights: PM OS Companion Web Application</h1>
+          <p style="font-size:13px;color:#71717a;margin-top:6px;">Draft — Awaiting PM Review</p>
+        </div>
+
+        <!-- Article body -->
+        <div class="prose-content">
+          <h2>Research Sources</h2>
+          <p>This synthesis draws from:</p>
+          <ul>
+            <li><strong>PM OS CLAUDE.md</strong> — Phase 8 goals, current architecture, user personas</li>
+            <li><strong>pm-os-reference/identity/STRATEGY.md</strong> — Vision, mission, North Star metrics</li>
+            <li><strong>identity/STANDARDS.md</strong> — Engineering standards, platform profiles</li>
+            <li><strong>Session context</strong> — Direct PM input on problem space and target users</li>
+            <li><strong>PM OS architecture observation</strong> — Derived from actual system design</li>
+          </ul>
+          <blockquote>This is a first-party product discovery. No external customer interviews exist yet. Opportunities marked <strong>[ASSUMPTION — validate]</strong> require validation with 2+ additional non-power-user PMs before committing to feature set.</blockquote>
+
+          <h2>Insights Summary</h2>
+
+          <h3>Theme 1: CLI Gatekeeping Blocks Team Adoption</h3>
+          <ul>
+            <li><strong>Frequency</strong>: 3/5 sources · <strong>Severity</strong>: High</li>
+            <li><strong>Evidence</strong>: "PM OS Phase 8 goal: 5+ PMs using concurrently, onboarding &lt; 2 hours" — CLAUDE.md</li>
+            <li><strong>Evidence</strong>: "Current users: primarily 1 PM (power user, Claude Code native)" — direct PM context</li>
+            <li><strong>Implication</strong>: The gap from 1 → 5+ users is a UX problem, not a capability problem. PM OS already does everything needed; it's inaccessible without CLI fluency.</li>
+          </ul>
+
+          <h3>Theme 2: Artifacts Are Invisible Without Repo Access</h3>
+          <ul>
+            <li><strong>Frequency</strong>: 3/5 sources · <strong>Severity</strong>: High</li>
+            <li><strong>Evidence</strong>: "PM OS artifacts live in execution/ folders" — direct PM context</li>
+            <li><strong>Evidence</strong>: Confluence auto-publish covers only 6 skills, requires manual trigger</li>
+            <li><strong>Implication</strong>: PM OS produces high-quality artifacts that few people can consume. A web browse layer eliminates this distribution bottleneck.</li>
+          </ul>
+
+          <h3>Theme 3: Onboarding Is Unguided and PM-Dependent</h3>
+          <ul>
+            <li><strong>Frequency</strong>: 2/5 sources · <strong>Severity</strong>: High</li>
+            <li><strong>Evidence</strong>: "Onboarding &lt; 2 hours" Phase 8 target implies current state is worse</li>
+            <li><strong>Implication [ASSUMPTION — validate]</strong>: Each new PM relies on the power user to onboard them. This doesn't scale to 5+ users.</li>
+          </ul>
+
+          <h2>Prioritized Opportunities</h2>
+          <ul>
+            <li>🥇 Enable non-CLI PMs to access and use PM OS (score: 9)</li>
+            <li>🥇 Make artifacts browsable + shareable without repo access (score: 9)</li>
+            <li>🥈 Guided onboarding that doesn't require PM hand-holding (score: 7)</li>
+            <li>🥉 Role-aware views for engineers, designers, execs (score: 5)</li>
+          </ul>
+
+          <p style="color:#52525b;font-size:12px;margin-top:24px;padding-top:16px;border-top:1px solid #1f1f23;">Generated by PM OS Discovery Skill · 2026-03-14 · Evidence standard: ≥2 independent sources required to elevate a theme.</p>
+        </div>
+      </div>
+
+      <!-- ToC sidebar -->
+      <div style="width:200px;flex-shrink:0;padding:32px 20px;border-left:1px solid #1f1f23;overflow-y:auto;">
+        <div style="font-size:11px;font-weight:600;color:#52525b;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">On this page</div>
+        <nav style="display:flex;flex-direction:column;gap:4px;">
+          <span class="toc-item active">Research Sources</span>
+          <span class="toc-item">Insights Summary</span>
+          <span class="toc-item" style="padding-left:18px;font-size:11px;">Theme 1: CLI Gatekeeping</span>
+          <span class="toc-item" style="padding-left:18px;font-size:11px;">Theme 2: Invisible Artifacts</span>
+          <span class="toc-item" style="padding-left:18px;font-size:11px;">Theme 3: Onboarding</span>
+          <span class="toc-item" style="padding-left:18px;font-size:11px;">Theme 4: Cross-Role View</span>
+          <span class="toc-item" style="padding-left:18px;font-size:11px;">Theme 5: ROI Visibility</span>
+          <span class="toc-item">Key Tensions</span>
+          <span class="toc-item">Prioritized Opportunities</span>
+          <span class="toc-item">Research Gaps</span>
+        </nav>
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SCREEN 4 · SKILL CATALOG                                                   -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<div id="screen-skill-catalog" class="screen" style="flex-direction:column;min-height:calc(100vh - 40px);">
+  <div style="display:flex;flex:1;">
+
+    <!-- Sidebar -->
+    <aside style="width:220px;background:#0f0f10;border-right:1px solid #1f1f23;display:flex;flex-direction:column;min-height:calc(100vh - 40px);padding:16px 0;flex-shrink:0;">
+      <div style="padding:0 12px 16px;border-bottom:1px solid #1f1f23;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">PM</div>
+          <span style="font-size:14px;font-weight:600;color:#f4f4f5;">PM OS</span>
+        </div>
+      </div>
+      <nav style="flex:1;padding:0 8px;">
+        <div style="font-size:10px;color:#52525b;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;padding:0 8px 6px;">Workspace</div>
+        <div class="sidebar-link" onclick="showScreen('projects', document.getElementById('pnav-projects'))">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>
+          Projects
+        </div>
+        <div class="sidebar-link active" onclick="showScreen('skill-catalog', document.getElementById('pnav-skills'))">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Skills
+        </div>
+      </nav>
+      <div style="padding:12px;border-top:1px solid #1f1f23;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:#4f46e5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">MJ</div>
+          <div><div style="font-size:12px;font-weight:500;color:#e4e4e7;">M. Lea</div><div style="font-size:11px;color:#52525b;">Power PM</div></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main style="flex:1;background:#09090b;padding:32px;overflow-y:auto;">
+      <div style="max-width:900px;margin:0 auto;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;">
+          <div>
+            <h1 style="font-size:20px;font-weight:600;color:#f4f4f5;margin-bottom:4px;">Skill Catalog</h1>
+            <p style="font-size:13px;color:#71717a;">9 PM OS skills · run in Claude Code</p>
+          </div>
+          <div style="position:relative;">
+            <svg style="position:absolute;left:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:#52525b;" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" placeholder="Search skills…" style="background:#18181b;border:1px solid #27272a;border-radius:8px;padding:7px 14px 7px 32px;font-size:13px;color:#d4d4d8;width:220px;outline:none;" />
+          </div>
+        </div>
+
+        <!-- Skill grid -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;">
+
+          <div class="skill-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="background:#27272a;border:1px solid #3f3f46;border-radius:5px;padding:2px 9px;font-size:12px;font-family:monospace;color:#c084fc;font-weight:600;">/discovery</span>
+              <div style="display:flex;gap:4px;">
+                <span style="font-size:10px;color:#52525b;background:#1f1f23;border-radius:4px;padding:1px 6px;">Jira</span>
+                <span style="font-size:10px;color:#52525b;background:#1f1f23;border-radius:4px;padding:1px 6px;">Confluence</span>
+              </div>
+            </div>
+            <div style="font-size:14px;font-weight:500;color:#f4f4f5;margin-bottom:6px;">Discovery</div>
+            <p style="font-size:12px;color:#71717a;line-height:1.5;margin-bottom:10px;">Synthesizes research into insights + generates an Opportunity Solution Tree anchored to North Star metrics.</p>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <span class="badge type-insights">Insights</span>
+              <span class="badge type-ost">OST</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="background:#27272a;border:1px solid #3f3f46;border-radius:5px;padding:2px 9px;font-size:12px;font-family:monospace;color:#4ade80;font-weight:600;">/prd</span>
+              <div style="display:flex;gap:4px;">
+                <span style="font-size:10px;color:#52525b;background:#1f1f23;border-radius:4px;padding:1px 6px;">Confluence</span>
+              </div>
+            </div>
+            <div style="font-size:14px;font-weight:500;color:#f4f4f5;margin-bottom:6px;">PRD</div>
+            <p style="font-size:12px;color:#71717a;line-height:1.5;margin-bottom:10px;">Generates a BMAD-compliant PRD with Gherkin user stories, measurable success metrics, and acceptance criteria.</p>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <span class="badge type-prd">PRD</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="background:#27272a;border:1px solid #3f3f46;border-radius:5px;padding:2px 9px;font-size:12px;font-family:monospace;color:#fb923c;font-weight:600;">/ux-strategist</span>
+            </div>
+            <div style="font-size:14px;font-weight:500;color:#f4f4f5;margin-bottom:6px;">UX Strategist</div>
+            <p style="font-size:12px;color:#71717a;line-height:1.5;margin-bottom:10px;">Designs Information Architecture, user flows, and React/Tailwind/shadcn/ui prototypes for key screens.</p>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <span class="badge type-ia">IA</span>
+              <span class="badge type-prototype">Prototype</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="background:#27272a;border:1px solid #3f3f46;border-radius:5px;padding:2px 9px;font-size:12px;font-family:monospace;color:#60a5fa;font-weight:600;">/engineering-partner</span>
+            </div>
+            <div style="font-size:14px;font-weight:500;color:#f4f4f5;margin-bottom:6px;">Engineering Partner</div>
+            <p style="font-size:12px;color:#71717a;line-height:1.5;margin-bottom:10px;">Technical feasibility review, STRIDE/OWASP security assessment, API contract design, BPMN modeling.</p>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <span class="badge" style="background:rgba(99,102,241,0.15);color:#818cf8;border-color:rgba(99,102,241,0.3);">Feasibility</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="background:#27272a;border:1px solid #3f3f46;border-radius:5px;padding:2px 9px;font-size:12px;font-family:monospace;color:#22d3ee;font-weight:600;">/launch</span>
+            </div>
+            <div style="font-size:14px;font-weight:500;color:#f4f4f5;margin-bottom:6px;">Launch</div>
+            <p style="font-size:12px;color:#71717a;line-height:1.5;margin-bottom:10px;">Validates specs and generates dev-ready repo scaffolding: CLAUDE.md, biome, tsconfig, CI workflow.</p>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <span class="badge type-launch">Launch Config</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="background:#27272a;border:1px solid #3f3f46;border-radius:5px;padding:2px 9px;font-size:12px;font-family:monospace;color:#f472b6;font-weight:600;">/feature-pipeline</span>
+            </div>
+            <div style="font-size:14px;font-weight:500;color:#f4f4f5;margin-bottom:6px;">Feature Pipeline</div>
+            <p style="font-size:12px;color:#71717a;line-height:1.5;margin-bottom:10px;">Runs the full end-to-end pipeline: Engineering Partner, UX Strategist, Data Analyst, and GTM in parallel.</p>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <span class="badge type-prd">PRD</span>
+              <span class="badge type-ia">IA</span>
+              <span class="badge type-gtm">GTM</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="background:#27272a;border:1px solid #3f3f46;border-radius:5px;padding:2px 9px;font-size:12px;font-family:monospace;color:#facc15;font-weight:600;">/data-analyst</span>
+            </div>
+            <div style="font-size:14px;font-weight:500;color:#f4f4f5;margin-bottom:6px;">Data Analyst</div>
+            <p style="font-size:12px;color:#71717a;line-height:1.5;margin-bottom:10px;">SQL query generation, PRD metrics validation, A/B test design, baseline data gathering, data quality assessment.</p>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <span class="badge" style="background:rgba(234,179,8,0.15);color:#fbbf24;border-color:rgba(234,179,8,0.3);">Analysis</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="background:#27272a;border:1px solid #3f3f46;border-radius:5px;padding:2px 9px;font-size:12px;font-family:monospace;color:#f87171;font-weight:600;">/gtm-strategist</span>
+            </div>
+            <div style="font-size:14px;font-weight:500;color:#f4f4f5;margin-bottom:6px;">GTM Strategist</div>
+            <p style="font-size:12px;color:#71717a;line-height:1.5;margin-bottom:10px;">Value proposition development, competitive positioning, sales battle cards, pricing strategy, market segmentation.</p>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <span class="badge type-gtm">GTM</span>
+            </div>
+          </div>
+
+          <div class="skill-card" style="border-color:#27272a;opacity:0.6;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="background:#27272a;border:1px solid #3f3f46;border-radius:5px;padding:2px 9px;font-size:12px;font-family:monospace;color:#71717a;font-weight:600;">/product-architect</span>
+              <span class="badge" style="background:#27272a;border-color:#3f3f46;color:#71717a;font-size:10px;">Advanced</span>
+            </div>
+            <div style="font-size:14px;font-weight:500;color:#71717a;margin-bottom:6px;">Product Architect</div>
+            <p style="font-size:12px;color:#52525b;line-height:1.5;margin-bottom:10px;">Core PM outputs: discovery, PRD drafting, OST generation, stakeholder artifacts, agent spec creation.</p>
+            <div style="display:flex;gap:4px;flex-wrap:wrap;">
+              <span class="badge" style="background:#27272a;border-color:#3f3f46;color:#71717a;">PRD</span>
+              <span class="badge" style="background:#27272a;border-color:#3f3f46;color:#71717a;">OST</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CLI callout -->
+        <div style="margin-top:24px;background:#18181b;border:1px solid #27272a;border-radius:8px;padding:16px;display:flex;align-items:center;gap:12px;">
+          <div style="width:32px;height:32px;background:#27272a;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" style="color:#71717a;"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:13px;font-weight:500;color:#e4e4e7;margin-bottom:2px;">Run skills in Claude Code</div>
+            <p style="font-size:12px;color:#71717a;margin:0;">Skills execute in Claude Code CLI. Copy a trigger (e.g., <code style="background:#27272a;padding:1px 5px;border-radius:3px;font-size:11px;">/discovery</code>) and paste it into your Claude Code session.</p>
+          </div>
+          <button class="btn-ghost" style="font-size:12px;white-space:nowrap;flex-shrink:0;">Open Docs</button>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- SHARE MODAL                                                                 -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<div id="share-modal" class="modal-backdrop" style="display:none;" onclick="if(event.target===this)closeShareModal()">
+  <div class="modal-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <h2 style="font-size:15px;font-weight:600;color:#f4f4f5;">Share Artifact</h2>
+      <button onclick="closeShareModal()" style="background:none;border:none;color:#71717a;cursor:pointer;padding:4px;border-radius:4px;" onmouseenter="this.style.color='#f4f4f5'" onmouseleave="this.style.color='#71717a'">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <div style="font-size:12px;color:#71717a;margin-bottom:8px;">Insights: PM OS Companion Web Application</div>
+      <div style="background:#0f0f10;border:1px solid #27272a;border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:8px;">
+        <span style="flex:1;font-size:12px;color:#a1a1aa;font-family:monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">https://pmos.app/share/k9x2m4n8p1</span>
+        <button id="copy-btn" onclick="copyLink()" style="background:#27272a;border:none;border-radius:5px;padding:5px 10px;font-size:11px;font-weight:500;color:#d4d4d8;cursor:pointer;white-space:nowrap;transition:all 0.15s;" onmouseenter="this.style.background='#3f3f46'" onmouseleave="this.style.background='#27272a'">Copy</button>
+      </div>
+    </div>
+
+    <div style="background:#0f0f10;border:1px solid #27272a;border-radius:8px;padding:12px;margin-bottom:16px;">
+      <div style="font-size:12px;color:#71717a;margin-bottom:8px;">Link settings</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <span style="font-size:13px;color:#a1a1aa;">Anyone with the link</span>
+        <div style="display:flex;gap:4px;">
+          <button style="background:#27272a;border:1px solid #52525b;border-radius:4px;padding:3px 10px;font-size:11px;color:#a1a1aa;cursor:pointer;">Can view</button>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:13px;color:#a1a1aa;">Expires</span>
+        <select style="background:#27272a;border:1px solid #3f3f46;border-radius:4px;padding:3px 8px;font-size:11px;color:#a1a1aa;cursor:pointer;outline:none;">
+          <option>Never</option>
+          <option>7 days</option>
+          <option>30 days</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:6px;padding:10px 12px;background:#0f1f0f;border:1px solid rgba(34,197,94,0.2);border-radius:6px;">
+      <svg width="12" height="12" fill="currentColor" viewBox="0 0 20 20" style="color:#4ade80;flex-shrink:0;"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+      <span style="font-size:12px;color:#4ade80;">Also published to Confluence — <a href="#" style="color:#86efac;text-decoration:underline;">open page</a></span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ─── SCRIPTS ─────────────────────────────────────────────────────────────── -->
+<script>
+  function showScreen(name, btn) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + name).classList.add('active');
+    if (btn) {
+      document.querySelectorAll('.filter-tab[id^="pnav-"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  }
+
+  function filterArtifacts(type, btn) {
+    document.querySelectorAll('#screen-project-detail .filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const rows = document.querySelectorAll('.artifact-row');
+    let visible = 0;
+    rows.forEach(row => {
+      const show = type === 'all' || row.dataset.type === type;
+      row.style.display = show ? 'flex' : 'none';
+      if (show) visible++;
+    });
+    document.getElementById('empty-state').style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  function openShareModal() {
+    document.getElementById('share-modal').style.display = 'flex';
+  }
+
+  function closeShareModal() {
+    document.getElementById('share-modal').style.display = 'none';
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = 'Copy';
+    btn.style.background = '#27272a';
+    btn.style.color = '#d4d4d8';
+  }
+
+  function copyLink() {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = 'Copied!';
+    btn.style.background = 'rgba(34,197,94,0.2)';
+    btn.style.color = '#4ade80';
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.style.background = '#27272a';
+      btn.style.color = '#d4d4d8';
+    }, 2000);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeShareModal();
+  });
+</script>
+
+</body>
+</html>

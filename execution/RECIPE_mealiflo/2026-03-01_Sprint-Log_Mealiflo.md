@@ -85,9 +85,9 @@
 
 ---
 
-## Sprint 4 — Grocery + Polish (In Progress)
+## Sprint 4 — Grocery + Polish (Complete)
 
-**Dates**: 2026-03-01 to TBD
+**Dates**: 2026-03-01
 **Scope**: F7 Full Grocery Lists, Polish, Production Ship
 
 ### Delivered
@@ -124,6 +124,56 @@
 - [ ] Ingredient search (search recipes by ingredient name)
 - [ ] Onboarding category setup card
 - [ ] Account stats (recipe count, cookbook count, etc.)
+
+---
+
+## Sprint 5 — Engineering Standards (Complete)
+
+**Dates**: 2026-03-01
+**Scope**: P0 items from Retrofit Checklist (`2026-02-28_Retrofit_Mealiflo-Engineering-Standards.md`)
+
+### Delivered
+- [x] **Zod Input Validation** — `src/lib/validators.ts` with schemas for all Server Action inputs across 6 action files (recipes, cookbooks, tags, meal-plans, grocery, imagen). Every action wrapped with `safeParse()` at the boundary.
+- [x] **Security Headers** — `next.config.ts` updated with X-Frame-Options (DENY), X-Content-Type-Options (nosniff), Referrer-Policy, Permissions-Policy, Content-Security-Policy (CSP configured for Turso, Anthropic, Vertex AI, Google Books, Vercel Blob)
+- [x] **Vitest + RTL** — Installed vitest, @vitejs/plugin-react, vite-tsconfig-paths, @testing-library/react, @testing-library/user-event, jsdom, @vitest/coverage-v8. Created `vitest.config.ts` and `src/test/setup.ts`.
+- [x] **Unit Tests** — 15 tests across 2 test files (`grocery-categories.test.ts`, `validators.test.ts`), all passing
+- [x] **Playwright** — Installed @playwright/test, created `playwright.config.ts` (chromium + mobile-chrome), `e2e/` directory with smoke test
+- [x] **GitHub CI** — `.github/workflows/ci.yml` with 4 jobs: quality (tsc + biome), unit-tests (vitest + coverage), e2e-tests (disabled), security audit
+- [x] **Project README** — Full README.md with features, tech stack, architecture, project structure, env vars, scripts, testing guide, data model, AI integration, deployment, contributing
+- [x] **CLAUDE.md v2** — Updated `.claude/CLAUDE.md` with component library quick-ref, AI services section, development workflow, coding conventions, quality gates, security, Vercel deployment
+
+### Sprint 5 Files Created
+| File | Type | Purpose |
+|------|------|---------|
+| `src/lib/validators.ts` | Validation | Zod schemas for all Server Action inputs |
+| `vitest.config.ts` | Config | Vitest test runner configuration |
+| `src/test/setup.ts` | Test Setup | RTL cleanup, Next.js mocks |
+| `src/lib/__tests__/grocery-categories.test.ts` | Test | Grocery categorization unit tests |
+| `src/lib/__tests__/validators.test.ts` | Test | Zod schema validation tests |
+| `playwright.config.ts` | Config | Playwright E2E configuration |
+| `e2e/smoke.spec.ts` | E2E Test | Basic smoke test |
+| `.github/workflows/ci.yml` | CI | GitHub Actions workflow |
+
+### Sprint 5 Files Modified
+| File | Change |
+|------|--------|
+| `next.config.ts` | Security headers (CSP, X-Frame-Options, etc.) |
+| `package.json` | Added zod, test deps, test/test:watch/test:e2e scripts |
+| `src/actions/recipes.ts` | Zod validation on all 6 actions |
+| `src/actions/cookbooks.ts` | Zod validation on all 5 actions |
+| `src/actions/tags.ts` | Zod validation on assignTagsToRecipe |
+| `src/actions/meal-plans.ts` | Zod validation on 4 actions |
+| `src/actions/grocery.ts` | Zod validation on all 7 actions |
+| `src/actions/imagen.ts` | Zod validation on all 4 actions |
+| `.claude/CLAUDE.md` | Full v2 rewrite |
+| `README.md` | Full rewrite from template |
+
+### Verification
+- [x] `pnpm tsc --noEmit` passes
+- [x] `pnpm biome check ./src/actions ./src/lib/validators.ts` clean
+- [x] 15 unit tests pass (2 test files)
+- [x] Security headers configured in next.config.ts
+- [x] CI workflow ready for push
 
 ---
 
