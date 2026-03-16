@@ -194,7 +194,7 @@ pnpm dlx shadcn@latest add badge button card input separator sheet skeleton
 
 Create `.env.local`:
 ```
-GITHUB_TOKEN=ghp_your_personal_access_token_here
+GITHUB_TOKEN=your_pat_here
 GITHUB_OWNER=MJLeach87
 GITHUB_REPO=AI-PM-OS
 ```
